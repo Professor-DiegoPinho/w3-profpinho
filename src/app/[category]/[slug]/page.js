@@ -6,7 +6,7 @@ import { getPost, getSidebarData, getPostNavigation, getAllPosts } from '@/lib/m
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  
+
   return posts.map((post) => ({
     category: post.category,
     slug: post.slug,
@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 export default async function PostPage({ params }) {
   const { category, slug } = await params;
   const post = getPost(category, slug);
-  
+
   if (!post) {
     notFound();
   }
@@ -25,8 +25,8 @@ export default async function PostPage({ params }) {
   const navigation = getPostNavigation(category, slug);
 
   return (
-    <Layout 
-      sidebarData={sidebarData} 
+    <Layout
+      sidebarData={sidebarData}
       currentCategory={category}
       currentSlug={slug}
     >
@@ -49,7 +49,7 @@ export default async function PostPage({ params }) {
           <MarkdownContent content={post.content} />
         </div>
 
-        <PostNavigation 
+        <PostNavigation
           previous={navigation.previous}
           next={navigation.next}
           category={category}
@@ -62,7 +62,7 @@ export default async function PostPage({ params }) {
 export async function generateMetadata({ params }) {
   const { category, slug } = await params;
   const post = getPost(category, slug);
-  
+
   if (!post) {
     return {
       title: 'Page Not Found',

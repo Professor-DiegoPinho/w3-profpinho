@@ -25,11 +25,11 @@ export default function Sidebar({ sidebarData, currentCategory, currentSlug }) {
           <h1>Learning Hub</h1>
         </Link>
       </div>
-      
+
       <nav className="sidebar-nav">
         {sidebarData.map((category) => (
           <div key={category.category} className="category-section">
-            <button 
+            <button
               className="category-header"
               onClick={() => toggleCategory(category.category)}
             >
@@ -38,18 +38,17 @@ export default function Sidebar({ sidebarData, currentCategory, currentSlug }) {
                 ▼
               </span>
             </button>
-            
+
             {expandedCategories[category.category] && (
               <ul className="posts-list">
                 {category.posts.map((post) => (
                   <li key={post.slug} className="post-item">
-                    <Link 
+                    <Link
                       href={`/${post.category}/${post.slug}`}
-                      className={`post-link ${
-                        currentCategory === post.category && currentSlug === post.slug 
-                          ? 'active' 
+                      className={`post-link ${currentCategory === post.category && currentSlug === post.slug
+                          ? 'active'
                           : ''
-                      }`}
+                        }`}
                     >
                       {post.title}
                     </Link>

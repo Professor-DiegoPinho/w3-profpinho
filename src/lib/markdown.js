@@ -11,14 +11,14 @@ export function getCategories() {
       const itemPath = path.join(contentDirectory, item);
       return fs.statSync(itemPath).isDirectory();
     });
-  
+
   return categories;
 }
 
 // Get all markdown files in a category
 export function getPostsInCategory(category) {
   const categoryPath = path.join(contentDirectory, category);
-  
+
   if (!fs.existsSync(categoryPath)) {
     return [];
   }
@@ -30,9 +30,9 @@ export function getPostsInCategory(category) {
     const filePath = path.join(categoryPath, file);
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data } = matter(fileContents);
-    
+
     const slug = file.replace(/\.md$/, '');
-    
+
     return {
       slug,
       title: data.title || slug,
@@ -50,7 +50,7 @@ export function getPostsInCategory(category) {
 // Get a specific post by category and slug
 export function getPost(category, slug) {
   const filePath = path.join(contentDirectory, category, `${slug}.md`);
-  
+
   if (!fs.existsSync(filePath)) {
     return null;
   }
@@ -85,10 +85,10 @@ export function getAllPosts() {
 // Generate sidebar structure
 export function getSidebarData() {
   const categories = getCategories();
-  
+
   const sidebarData = categories.map(category => {
     const posts = getPostsInCategory(category);
-    
+
     return {
       category,
       title: category.charAt(0).toUpperCase() + category.slice(1),
@@ -103,9 +103,9 @@ export function getSidebarData() {
 export function getPostNavigation(category, currentSlug) {
   const posts = getPostsInCategory(category);
   const currentIndex = posts.findIndex(post => post.slug === currentSlug);
-  
+
   const previous = currentIndex > 0 ? posts[currentIndex - 1] : null;
   const next = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
-  
+
   return { previous, next };
 }

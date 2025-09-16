@@ -9,18 +9,18 @@ export default function PostNavigation({ previous, next, category }) {
     <div className="post-navigation">
       <div className="nav-buttons">
         {previous && (
-          <Link 
-            href={`/${category}/${previous.slug}`} 
+          <Link
+            href={`/${category}/${previous.slug}`}
             className="nav-button nav-previous"
           >
             <span className="nav-direction">← Previous</span>
             <span className="nav-title">{previous.title}</span>
           </Link>
         )}
-        
+
         {next && (
-          <Link 
-            href={`/${category}/${next.slug}`} 
+          <Link
+            href={`/${category}/${next.slug}`}
             className="nav-button nav-next"
           >
             <span className="nav-direction">Next →</span>

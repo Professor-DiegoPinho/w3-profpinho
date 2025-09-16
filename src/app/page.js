@@ -18,7 +18,7 @@ export default function Home() {
           {categories.map((category) => {
             const categoryData = sidebarData.find(cat => cat.category === category);
             const firstPost = categoryData?.posts[0];
-            
+
             return (
               <div key={category} className="category-card">
                 <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
@@ -27,7 +27,7 @@ export default function Home() {
                   <span>{categoryData?.posts.length || 0} lessons</span>
                 </div>
                 {firstPost && (
-                  <Link 
+                  <Link
                     href={`/${category}/${firstPost.slug}`}
                     className="start-learning-btn"
                   >
