@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Learning Hub - Blog de Aprendizado Estilo W3Schools
 
-## Getting Started
+Um blog de aprendizado interativo inspirado no W3Schools, construído com Next.js e React. O site é gerado dinamicamente a partir de arquivos Markdown organizados por categorias.
 
-First, run the development server:
+## 🚀 Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **📚 Conteúdo Dinâmico**: Gerado automaticamente a partir de arquivos Markdown
+- **🎯 Navegação Intuitiva**: Sidebar organizada por categorias e tópicos
+- **💻 Syntax Highlighting**: Destaque de código para melhor legibilidade
+- **📱 Design Responsivo**: Interface adaptável para todos os dispositivos
+- **🎨 Visual Profissional**: Design inspirado no W3Schools
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Next.js 15** - Framework React para aplicações web
+- **React** - Biblioteca JavaScript para interfaces
+- **react-markdown** - Renderização de Markdown
+- **react-syntax-highlighter** - Destaque de sintaxe para código
+- **gray-matter** - Processamento de metadados YAML
+- **remark-gfm** - Suporte ao GitHub Flavored Markdown
+
+## 📁 Estrutura do Projeto
+
+```
+w3pinho/
+├── content/                    # Arquivos de conteúdo em Markdown
+│   ├── javascript/            # Tutoriais de JavaScript
+│   ├── python/               # Tutoriais de Python
+│   └── html/                 # Tutoriais de HTML
+├── src/
+│   ├── app/                  # Páginas da aplicação
+│   │   ├── [category]/       # Rotas dinâmicas por categoria
+│   │   │   └── [slug]/       # Páginas individuais de posts
+│   │   ├── globals.css       # Estilos globais
+│   │   └── page.js          # Página inicial
+│   ├── components/           # Componentes React
+│   │   ├── Layout.js        # Layout principal
+│   │   ├── Sidebar.js       # Sidebar de navegação
+│   │   ├── MarkdownContent.js # Renderizador de Markdown
+│   │   └── PostNavigation.js # Navegação entre posts
+│   └── lib/
+│       └── markdown.js      # Utilitários para Markdown
+└── public/                  # Arquivos estáticos
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Como Executar
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. **Clone o repositório**:
+   ```bash
+   git clone <repository-url>
+   cd w3pinho
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Instale as dependências**:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Execute o projeto**:
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. **Acesse no navegador**:
+   ```
+   http://localhost:3000
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📝 Adicionando Conteúdo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Estrutura dos Arquivos Markdown
 
-## Deploy on Vercel
+Cada arquivo Markdown deve conter metadados no formato YAML Front Matter:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```markdown
+---
+title: "Título do Artigo"
+description: "Descrição breve do conteúdo"
+order: 1
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Conteúdo do Artigo
+
+Seu conteúdo em Markdown aqui...
+
+## Exemplo de Código
+
+```javascript
+console.log("Hello, World!");
+```
+```
+
+### Criando Nova Categoria
+
+1. Crie uma nova pasta em `content/`:
+   ```bash
+   mkdir content/nova-categoria
+   ```
+
+2. Adicione arquivos Markdown numerados:
+   ```
+   content/nova-categoria/
+   ├── 01-introducao.md
+   ├── 02-conceitos-basicos.md
+   └── 03-exemplos-praticos.md
+   ```
+
+3. A categoria aparecerá automaticamente na sidebar e página inicial.
+
+### Metadados Suportados
+
+- `title`: Título do artigo
+- `description`: Descrição breve
+- `order`: Ordem de exibição (numérico)
+
+## 🎨 Personalização de Estilos
+
+Os estilos estão organizados no arquivo `src/app/globals.css` com seções bem definidas:
+
+- **Layout**: Estrutura geral da aplicação
+- **Sidebar**: Navegação lateral
+- **Conteúdo**: Área principal de conteúdo
+- **Markdown**: Estilos para elementos Markdown
+- **Responsivo**: Adaptações para mobile
+
+## 🔧 Scripts Disponíveis
+
+- `npm run dev` - Inicia o servidor de desenvolvimento
+- `npm run build` - Gera a versão de produção
+- `npm run start` - Executa a versão de produção
+- `npm run lint` - Executa o linter
+
+## 📦 Dependências Principais
+
+```json
+{
+  "react-markdown": "^9.x",
+  "react-syntax-highlighter": "^15.x", 
+  "gray-matter": "^4.x",
+  "remark-gfm": "^4.x"
+}
+```
+
+## 🌟 Funcionalidades
+
+### Página Inicial
+- Cards de categorias com estatísticas
+- Seção de recursos destacados
+- Design atrativo e profissional
+
+### Páginas de Conteúdo
+- Breadcrumb de navegação
+- Navegação anterior/próximo
+- Syntax highlighting automático
+- Sidebar sempre visível
+
+### Sidebar Dinâmica
+- Gerada automaticamente da estrutura de pastas
+- Categorias expansíveis/recolhíveis
+- Destaque do artigo atual
+
+## 🎯 Próximos Passos
+
+- [ ] Implementar busca no conteúdo
+- [ ] Adicionar modo escuro
+- [ ] Sistema de favoritos
+- [ ] Comentários nos artigos
+- [ ] Menu mobile hamburger
+- [ ] Breadcrumb melhorado
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+---
+
+**Desenvolvido com ❤️ usando Next.js e React**
