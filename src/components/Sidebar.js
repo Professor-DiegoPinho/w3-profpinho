@@ -33,12 +33,6 @@ export default function Sidebar({
 
   return (
     <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''} ${isMobile ? 'sidebar-mobile' : ''}`}>
-      <div className="sidebar-header">
-        <Link href="/" className="logo" onClick={handleLinkClick}>
-          <img src={"/diegopinho-learninghub-logo.svg"} alt="Learning Hub Logo" className="logo-image" />
-        </Link>
-      </div>
-
       <nav className="sidebar-nav">
         {sidebarData.map((category) => (
           <div key={category.category} className="category-section">

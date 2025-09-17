@@ -71,12 +71,11 @@ a {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
   transition: all 0.3s ease;
 }
 
 .hamburger-button:hover {
-  background: var(--color-red);
   transform: scale(1.05);
 }
 
@@ -139,16 +138,6 @@ a {
 
 .sidebar-mobile.sidebar-open {
   transform: translateX(0);
-}
-
-.sidebar-header {
-  padding: 20px;
-  border-bottom: 1px solid #e0e0e0;
-  background-color: var(--color-white);
-}
-
-.sidebar-header .logo img {
-  width: 100%;
 }
 
 .sidebar-nav {
@@ -697,24 +686,39 @@ a {
   z-index: 1000;
   background: var(--color-white);
   border-bottom: 1px solid var(--color-light-gray);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   height: 70px;
 }
 
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 50px;
   height: 100%;
-  padding: 0 2rem;
+  padding: 2rem;
   max-width: 100%;
 }
 
-.header-brand h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-dark-blue);
-  margin: 0;
+.header-brand {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.header-logo:hover {
+  transform: scale(1.05);
+}
+
+.header-logo-image {
+  width: auto;
+  max-width: 200px;
 }
 
 .header-search {
@@ -948,8 +952,8 @@ a {
     gap: 1rem;
   }
 
-  .header-brand h1 {
-    font-size: 1.2rem;
+  .header-logo-image {
+    height: 32px;
   }
 
   .header-search {
@@ -988,7 +992,7 @@ a {
   .hamburger-line {
     width: 20px;
     height: 2px;
-    background: var(--color-dark-blue);
+    background: var(--color-black);
     transition: all 0.3s ease;
     border-radius: 1px;
   }

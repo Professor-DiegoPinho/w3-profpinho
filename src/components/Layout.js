@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Sidebar from './Sidebar';
 import SearchBox from './SearchBox';
 
@@ -54,7 +55,13 @@ export default function Layout({ children, sidebarData, currentCategory, current
           )}
 
           <div className="header-brand">
-            <h1>Learning Hub</h1>
+            <Link href="/" className="header-logo">
+              <img
+                src="/diegopinho-learninghub-logo.svg"
+                alt="Learning Hub Logo"
+                className="header-logo-image"
+              />
+            </Link>
           </div>
 
           <SearchBox className="header-search" />
