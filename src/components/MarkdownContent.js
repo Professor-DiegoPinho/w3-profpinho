@@ -1,5 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
@@ -71,6 +72,7 @@ export default function MarkdownContent({ content }) {
       <ReactMarkdown
         components={components}
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
       >
         {content}
       </ReactMarkdown>

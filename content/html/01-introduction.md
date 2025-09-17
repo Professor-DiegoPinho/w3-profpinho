@@ -101,3 +101,11 @@ HTML is essential for web development because:
 3. It works with CSS and JavaScript
 4. It's supported by all browsers
 5. It's the first step in web development
+
+## Video Tutorial
+
+Assista a este vídeo introdutório sobre HTML:
+
+{% embed https://youtu.be/G4RHpXSa7dw %}
+
+Este vídeo oferece uma visão geral completa dos conceitos básicos de HTML que você acabou de aprender.

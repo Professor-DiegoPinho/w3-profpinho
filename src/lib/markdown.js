@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { processAllLiquidTags } from './liquidTags.js';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
@@ -58,10 +59,13 @@ export function getPost(category, slug) {
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const { data, content } = matter(fileContents);
 
+  // Processa as liquid tags no conteúdo markdown
+  const processedContent = processAllLiquidTags(content);
+
   return {
     slug,
     category,
-    content,
+    content: processedContent,
     title: data.title || slug,
     description: data.description || '',
     order: data.order || 999,
