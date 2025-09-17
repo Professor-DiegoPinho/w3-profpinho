@@ -228,7 +228,7 @@ a {
 .main-content {
   flex: 1;
   margin-left: 280px;
-  background-color: #fff;
+  background-color: var(--color-white-ghost-white);
 }
 
 .content-wrapper {

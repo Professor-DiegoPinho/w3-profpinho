@@ -13,7 +13,7 @@ export default function PostNavigation({ previous, next, category }) {
             href={`/${category}/${previous.slug}`}
             className="nav-button nav-previous"
           >
-            <span className="nav-direction">← Previous</span>
+            <span className="nav-direction">← Anterior</span>
             <span className="nav-title">{previous.title}</span>
           </Link>
         )}
@@ -23,7 +23,7 @@ export default function PostNavigation({ previous, next, category }) {
             href={`/${category}/${next.slug}`}
             className="nav-button nav-next"
           >
-            <span className="nav-direction">Next →</span>
+            <span className="nav-direction">Próximo →</span>
             <span className="nav-title">{next.title}</span>
           </Link>
         )}
