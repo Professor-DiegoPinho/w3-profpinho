@@ -3,7 +3,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-export default function Sidebar({ sidebarData, currentCategory, currentSlug }) {
+export default function Sidebar({
+  sidebarData,
+  currentCategory,
+  currentSlug,
+  isOpen = true,
+  isMobile = false,
+  onLinkClick
+}) {
   const [expandedCategories, setExpandedCategories] = useState(
     sidebarData.reduce((acc, category) => {
       acc[category.category] = true; // Start with all categories expanded
@@ -18,10 +25,16 @@ export default function Sidebar({ sidebarData, currentCategory, currentSlug }) {
     }));
   };
 
+  const handleLinkClick = () => {
+    if (isMobile && onLinkClick) {
+      onLinkClick();
+    }
+  };
+
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''} ${isMobile ? 'sidebar-mobile' : ''}`}>
       <div className="sidebar-header">
-        <Link href="/" className="logo">
+        <Link href="/" className="logo" onClick={handleLinkClick}>
           <h1>Learning Hub</h1>
         </Link>
       </div>
@@ -46,9 +59,10 @@ export default function Sidebar({ sidebarData, currentCategory, currentSlug }) {
                     <Link
                       href={`/${post.category}/${post.slug}`}
                       className={`post-link ${currentCategory === post.category && currentSlug === post.slug
-                          ? 'active'
-                          : ''
+                        ? 'active'
+                        : ''
                         }`}
+                      onClick={handleLinkClick}
                     >
                       {post.title}
                     </Link>
