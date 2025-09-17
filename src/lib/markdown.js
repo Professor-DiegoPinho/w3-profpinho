@@ -73,13 +73,39 @@ export function getPost(category, slug) {
   };
 }
 
-// Get all posts from all categories
+// Get all posts from all categories (with full content for search)
 export function getAllPosts() {
   const categories = getCategories();
   const allPosts = [];
 
   categories.forEach(category => {
-    const posts = getPostsInCategory(category);
+    const categoryPath = path.join(contentDirectory, category);
+
+    if (!fs.existsSync(categoryPath)) {
+      return;
+    }
+
+    const files = fs.readdirSync(categoryPath)
+      .filter(file => file.endsWith('.md'));
+
+    const posts = files.map(file => {
+      const filePath = path.join(categoryPath, file);
+      const fileContents = fs.readFileSync(filePath, 'utf8');
+      const { data, content } = matter(fileContents);
+
+      const slug = file.replace(/\.md$/, '');
+
+      return {
+        slug,
+        title: data.title || slug,
+        description: data.description || '',
+        order: data.order || 999,
+        category,
+        content: content, // Include full content for search
+        ...data
+      };
+    });
+
     allPosts.push(...posts);
   });
 

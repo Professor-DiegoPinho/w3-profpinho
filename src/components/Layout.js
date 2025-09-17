@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
+import SearchBox from './SearchBox';
 
 export default function Layout({ children, sidebarData, currentCategory, currentSlug }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -36,18 +37,29 @@ export default function Layout({ children, sidebarData, currentCategory, current
 
   return (
     <div className="app-layout">
-      {/* Botão hambúrguer - apenas visível no mobile */}
-      {isMobile && (
-        <button
-          className="hamburger-button"
-          onClick={toggleSidebar}
-          aria-label="Abrir menu"
-        >
-          <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-          <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-          <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-        </button>
-      )}
+      {/* Header com busca */}
+      <header className="app-header">
+        <div className="header-content">
+          {/* Botão hambúrguer - apenas visível no mobile */}
+          {isMobile && (
+            <button
+              className="hamburger-button"
+              onClick={toggleSidebar}
+              aria-label="Abrir menu"
+            >
+              <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
+              <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
+              <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
+            </button>
+          )}
+
+          <div className="header-brand">
+            <h1>Learning Hub</h1>
+          </div>
+
+          <SearchBox className="header-search" />
+        </div>
+      </header>
 
       {/* Overlay para fechar sidebar no mobile */}
       {isMobile && isSidebarOpen && (
