@@ -164,8 +164,6 @@ Os estilos estão organizados no arquivo `src/app/globals.css` com seções bem 
 - [ ] Implementar busca no conteúdo
 - [ ] Adicionar modo escuro
 - [ ] Sistema de favoritos
-- [ ] Comentários nos artigos
-- [ ] Menu mobile hamburger
 - [ ] Breadcrumb melhorado
 
 ## 📄 Licença

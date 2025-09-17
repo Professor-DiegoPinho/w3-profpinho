@@ -144,15 +144,11 @@ a {
 .sidebar-header {
   padding: 20px;
   border-bottom: 1px solid #e0e0e0;
-  background-color: var(--color-black);
+  background-color: var(--color-white);
 }
 
-.sidebar-header .logo h1 {
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0;
-  text-align: center;
+.sidebar-header .logo img {
+  width: 100%;
 }
 
 .sidebar-nav {

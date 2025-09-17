@@ -35,7 +35,7 @@ export default function Sidebar({
     <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''} ${isMobile ? 'sidebar-mobile' : ''}`}>
       <div className="sidebar-header">
         <Link href="/" className="logo" onClick={handleLinkClick}>
-          <h1>Learning Hub</h1>
+          <img src={"/diegopinho-learninghub-logo.svg"} alt="Learning Hub Logo" className="logo-image" />
         </Link>
       </div>
 
