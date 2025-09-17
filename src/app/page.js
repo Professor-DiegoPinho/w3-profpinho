@@ -22,16 +22,16 @@ export default function Home() {
             return (
               <div key={category} className="category-card">
                 <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
-                <p>Learn {category} programming from basics to advanced concepts</p>
+                <p>Aprenda {category} do básico até conceitos avançados.</p>
                 <div className="category-stats">
-                  <span>{categoryData?.posts.length || 0} lessons</span>
+                  <span>{categoryData?.posts.length || 0} lições</span>
                 </div>
                 {firstPost && (
                   <Link
                     href={`/${category}/${firstPost.slug}`}
                     className="start-learning-btn"
                   >
-                    Start Learning
+                    Comece a aprender
                   </Link>
                 )}
               </div>

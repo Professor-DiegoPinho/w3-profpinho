@@ -542,9 +542,9 @@ a {
 }
 
 .nav-button:hover {
-  background-color: #04AA6D;
-  color: white;
-  border-color: #04AA6D;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  border-color: var(--color-red);
 }
 
 .nav-previous {
