@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
+import { ReadingTimeCompact } from '@/components/ReadingTime';
 import { getSidebarData } from '@/lib/markdown';
 
 export default function SearchPage() {
@@ -189,9 +190,14 @@ export default function SearchPage() {
                       )}
 
                       <div className="search-result-card-footer">
-                        <span className="search-result-score">
-                          Relevância: {Math.round((result.score / 100) * 100)}%
-                        </span>
+                        <div className="search-result-meta">
+                          {result.readingTime && (
+                            <ReadingTimeCompact readingTime={result.readingTime} />
+                          )}
+                          <span className="search-result-score">
+                            Relevância: {Math.round((result.score / 100) * 100)}%
+                          </span>
+                        </div>
                       </div>
                     </Link>
                   </div>

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { processAllLiquidTags } from './liquidTags.js';
+import { calculateReadingTime } from './readingTime.js';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
@@ -30,9 +31,12 @@ export function getPostsInCategory(category) {
   const posts = files.map(file => {
     const filePath = path.join(categoryPath, file);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
+    const { data, content } = matter(fileContents);
 
     const slug = file.replace(/\.md$/, '');
+
+    // Calcula o tempo de leitura
+    const readingTime = calculateReadingTime(content);
 
     return {
       slug,
@@ -40,6 +44,7 @@ export function getPostsInCategory(category) {
       description: data.description || '',
       order: data.order || 999,
       category,
+      readingTime,
       ...data
     };
   });
@@ -62,6 +67,9 @@ export function getPost(category, slug) {
   // Processa as liquid tags no conteúdo markdown
   const processedContent = processAllLiquidTags(content);
 
+  // Calcula o tempo de leitura
+  const readingTime = calculateReadingTime(content);
+
   return {
     slug,
     category,
@@ -69,6 +77,7 @@ export function getPost(category, slug) {
     title: data.title || slug,
     description: data.description || '',
     order: data.order || 999,
+    readingTime,
     ...data
   };
 }
@@ -95,6 +104,9 @@ export function getAllPosts() {
 
       const slug = file.replace(/\.md$/, '');
 
+      // Calcula o tempo de leitura
+      const readingTime = calculateReadingTime(content);
+
       return {
         slug,
         title: data.title || slug,
@@ -102,6 +114,7 @@ export function getAllPosts() {
         order: data.order || 999,
         category,
         content: content, // Include full content for search
+        readingTime,
         ...data
       };
     });

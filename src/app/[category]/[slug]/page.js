@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Layout from '@/components/Layout';
 import MarkdownContent from '@/components/MarkdownContent';
 import PostNavigation from '@/components/PostNavigation';
+import ReadingTime from '@/components/ReadingTime';
 import { getPost, getSidebarData, getPostNavigation, getAllPosts } from '@/lib/markdown';
 
 export async function generateStaticParams() {
@@ -42,6 +43,11 @@ export default async function PostPage({ params }) {
           <h1>{post.title}</h1>
           {post.description && (
             <p className="post-description">{post.description}</p>
+          )}
+          {post.readingTime && (
+            <div className="post-meta">
+              <ReadingTime readingTime={post.readingTime} showFullText={true} />
+            </div>
           )}
         </header>
 
