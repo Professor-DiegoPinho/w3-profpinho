@@ -198,14 +198,14 @@ export default function SearchBox({ className = '' }) {
                     onClick={handleViewAllResults}
                     className="view-all-button"
                   >
-                    Ver todos os resultados para "{query}"
+                    Ver todos os resultados para &quot;{query}&quot;
                   </button>
                 </div>
               )}
             </>
           ) : query.trim().length >= 2 && !isLoading ? (
             <div className="search-no-results">
-              <p>Nenhum resultado encontrado para "{query}"</p>
+              <p>Nenhum resultado encontrado para &quot;{query}&quot;</p>
               <p className="search-suggestion">Tente usar palavras-chave diferentes</p>
             </div>
           ) : null}

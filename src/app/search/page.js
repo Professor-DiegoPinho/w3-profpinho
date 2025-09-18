@@ -1,13 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { ReadingTimeCompact } from '@/components/ReadingTime';
-import { getSidebarData } from '@/lib/markdown';
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
   const initialCategory = searchParams.get('category') || '';
@@ -23,8 +22,11 @@ export default function SearchPage() {
   const resultsPerPage = 12;
 
   useEffect(() => {
-    // Load sidebar data
-    setSidebarData(getSidebarData());
+    // Load sidebar data from API
+    fetch('/api/sidebar')
+      .then(res => res.json())
+      .then(data => setSidebarData(data))
+      .catch(err => console.error('Error loading sidebar data:', err));
   }, []);
 
   useEffect(() => {
@@ -141,13 +143,13 @@ export default function SearchPage() {
                   'Buscando...'
                 ) : total > 0 ? (
                   <>
-                    <strong>{total}</strong> resultado{total !== 1 ? 's' : ''} encontrado{total !== 1 ? 's' : ''} para <strong>"{query}"</strong>
+                    <strong>{total}</strong> resultado{total !== 1 ? 's' : ''} encontrado{total !== 1 ? 's' : ''} para <strong>&quot;{query}&quot;</strong>
                     {category && (
                       <> em <strong>{category.charAt(0).toUpperCase() + category.slice(1)}</strong></>
                     )}
                   </>
                 ) : (
-                  <>Nenhum resultado encontrado para <strong>"{query}"</strong></>
+                  <>Nenhum resultado encontrado para <strong>&quot;{query}&quot;</strong></>
                 )}
               </p>
             </div>
@@ -255,7 +257,7 @@ export default function SearchPage() {
             <div className="search-no-results-state">
               <div className="no-results-icon">🔍</div>
               <h3>Nenhum resultado encontrado</h3>
-              <p>Não encontramos nada para "{query}"{category && ` em ${category}`}.</p>
+              <p>Não encontramos nada para &quot;{query}&quot;{category && ` em ${category}`}.</p>
               <div className="search-suggestions">
                 <h4>Tente:</h4>
                 <ul>
@@ -276,5 +278,13 @@ export default function SearchPage() {
         </div>
       </div>
     </Layout>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }

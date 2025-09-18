@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { getSidebarData, getCategories } from '@/lib/markdown';
 
-export default function Home() {
+export default async function Home() {
   const sidebarData = getSidebarData();
   const categories = getCategories();
 
