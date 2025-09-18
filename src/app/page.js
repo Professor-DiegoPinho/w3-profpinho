@@ -10,8 +10,8 @@ export default function Home() {
     <Layout sidebarData={sidebarData}>
       <div className="home-page">
         <header className="home-header">
-          <h1>Welcome to Learning Hub</h1>
-          <p>Your ultimate destination for programming tutorials and guides</p>
+          <h1>Bem-vindo(a) ao Learning Hub!</h1>
+          <p>Seu local de referência e confiança para aprender tecnologia.</p>
         </header>
 
         <div className="categories-grid">
@@ -39,7 +39,7 @@ export default function Home() {
           })}
         </div>
 
-        <section className="features">
+        {/* <section className="features">
           <h2>Why Choose Learning Hub?</h2>
           <div className="features-grid">
             <div className="feature">
@@ -59,7 +59,7 @@ export default function Home() {
               <p>Learn the latest programming languages and frameworks</p>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </Layout>
   );
