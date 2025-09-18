@@ -45,6 +45,8 @@ w3pinho/
 
 ## 🚀 Como Executar
 
+### Execução Local
+
 1. **Clone o repositório**:
    ```bash
    git clone <repository-url>
@@ -65,6 +67,99 @@ w3pinho/
    ```
    http://localhost:3000
    ```
+
+### 🐳 Execução com Docker
+
+#### Usando Docker Compose (Recomendado)
+
+1. **Build e execute o container**:
+   ```bash
+   docker-compose up --build
+   ```
+
+2. **Acesse no navegador**:
+   ```
+   http://localhost:3000
+   ```
+
+3. **Para parar os containers**:
+   ```bash
+   docker-compose down
+   ```
+
+#### Usando Docker Compose com Nginx (Produção)
+
+Para executar com Nginx como proxy reverso:
+
+```bash
+docker-compose --profile with-nginx up --build
+```
+
+O site estará disponível em:
+- **HTTP**: http://localhost:80
+- **HTTPS**: https://localhost:443 (configure os certificados SSL)
+
+#### Usando Docker Diretamente
+
+1. **Build da imagem**:
+   ```bash
+   docker build -t w3pinho .
+   ```
+
+2. **Execute o container**:
+   ```bash
+   docker run -p 3000:3000 w3pinho
+   ```
+
+#### Comandos Docker Úteis
+
+```bash
+# Ver logs do container
+docker-compose logs -f app
+
+# Executar shell no container
+docker-compose exec app sh
+
+# Rebuild sem cache
+docker-compose build --no-cache
+
+# Executar em background
+docker-compose up -d
+
+# Ver status dos containers
+docker-compose ps
+```
+
+### 🔧 Configurações de Produção
+
+O projeto inclui otimizações para produção:
+
+- **Multi-stage build**: Reduz o tamanho da imagem final
+- **Output standalone**: Apenas arquivos necessários para execução
+- **Compressão gzip**: Configurada no Nginx
+- **Security headers**: Headers de segurança configurados
+- **Health checks**: Endpoint `/api/health` para monitoramento
+- **Rate limiting**: Proteção contra spam (via Nginx)
+
+### 📊 Monitoramento
+
+#### Health Check
+
+O endpoint de health check está disponível em:
+```
+GET /api/health
+```
+
+Retorna informações sobre o status da aplicação:
+```json
+{
+  "status": "healthy",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "uptime": 123.456,
+  "environment": "production",
+  "version": "1.0.0"
+}
+```
 
 ## 📝 Adicionando Conteúdo
 
