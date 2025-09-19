@@ -569,12 +569,13 @@ a {
 
   /* Main content adjustments */
   .main-content {
+    width: 100%;
     margin-left: 0;
   }
 
   .content-wrapper {
     padding: 15px;
-    padding-top: 80px;
+    padding-top: 20px;
     /* Space for hamburger button */
     max-width: 100%;
     overflow-x: hidden;
