@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Sidebar from './Sidebar';
 import SearchBox from './SearchBox';
+import Footer from './Footer';
 
 export default function Layout({ children, sidebarData, currentCategory, currentSlug }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -68,25 +69,30 @@ export default function Layout({ children, sidebarData, currentCategory, current
         </div>
       </header>
 
-      {/* Overlay para fechar sidebar no mobile */}
-      {isMobile && isSidebarOpen && (
-        <div className="sidebar-overlay" onClick={closeSidebar}></div>
-      )}
+      {/* Container principal para sidebar e conteúdo */}
+      <div className="layout-body">
+        {/* Overlay para fechar sidebar no mobile */}
+        {isMobile && isSidebarOpen && (
+          <div className="sidebar-overlay" onClick={closeSidebar}></div>
+        )}
 
-      <Sidebar
-        sidebarData={sidebarData}
-        currentCategory={currentCategory}
-        currentSlug={currentSlug}
-        isOpen={isSidebarOpen}
-        isMobile={isMobile}
-        onLinkClick={closeSidebar}
-      />
+        <Sidebar
+          sidebarData={sidebarData}
+          currentCategory={currentCategory}
+          currentSlug={currentSlug}
+          isOpen={isSidebarOpen}
+          isMobile={isMobile}
+          onLinkClick={closeSidebar}
+        />
 
-      <main className="main-content">
-        <div className="content-wrapper">
-          {children}
-        </div>
-      </main>
+        <main className="main-content">
+          <div className="content-wrapper">
+            {children}
+          </div>
+        </main>
+      </div>
+
+      <Footer />
     </div>
   );
 }
