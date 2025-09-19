@@ -11,9 +11,9 @@ export default function Footer() {
         <div className="footer-section footer-institutional">
           <h3>Institucional</h3>
           <ul className="footer-links">
-            <li><Link href="/area-do-aluno">Área do Aluno</Link></li>
-            <li><Link href="/orcamento">Solicite um orçamento</Link></li>
-            <li><Link href="/trabalhe-conosco">Trabalhe Conosco</Link></li>
+            <li><Link href="https://alunos.diegopinho.com.br/" target="_blank">Área do Aluno</Link></li>
+            <li><Link href="https://forms.gle/TRCvg1Cm1LSK2xiy8" target='_blank'>Solicite um orçamento</Link></li>
+            <li><Link href="https://diegopinho.notion.site/Guia-para-a-inscri-o-de-novos-as-instrutores-as-26a5b3c6f6d5809188c2eb2a63574d1c" target='_blank'>Trabalhe Conosco</Link></li>
           </ul>
         </div>
 
@@ -32,7 +32,7 @@ export default function Footer() {
         <div className="footer-section footer-links-section">
           <h3>Links</h3>
           <ul className="footer-links">
-            <li><Link href="/blog">Nosso Blog</Link></li>
+            <li><Link href="https://blog.diegopinho.com.br">Nosso Blog</Link></li>
             <li><Link href="/">Learning Hub</Link></li>
             <li><a href="https://www.udemy.com/user/diegomartinsdepinho/" target="_blank" rel="noopener noreferrer">Cursos Online</a></li>
             <li><a href="https://www.casadocodigo.com.br/search?type=product&q=diego+pinho" target="_blank" rel="noopener noreferrer">Livros Publicados</a></li>
@@ -43,7 +43,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="footer-bottom">
         <p>Professor Diego Pinho</p>
-        <p>Educação,Tecnologia e IA © {new Date().getFullYear()}</p>
+        <p>Educação, Tecnologia e IA © {new Date().getFullYear()}</p>
       </div>
     </footer>
   );
