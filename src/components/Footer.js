@@ -7,12 +7,30 @@ export default function Footer() {
     <footer className="app-footer">
       <div className="footer-content">
 
+        {/* Seção Sobre Diego Pinho */}
+        <div className="footer-section footer-about">
+          <h3>Sobre Diego Pinho</h3>
+          <p className="footer-description">
+            Professor especialista em tecnologia com mais de 10 anos de experiência.
+            Autor de livros técnicos e criador de cursos que já impactaram milhares de estudantes.
+          </p>
+          <a
+            href="https://diegopinho.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-main-site-btn"
+          >
+            Visite meu site principal →
+          </a>
+        </div>
+
         {/* Seção institucional */}
         <div className="footer-section footer-institutional">
-          <h3>Institucional</h3>
+          <h3>Serviços</h3>
           <ul className="footer-links">
             <li><Link href="https://alunos.diegopinho.com.br/" target="_blank">Área do Aluno</Link></li>
-            <li><Link href="https://forms.gle/TRCvg1Cm1LSK2xiy8" target='_blank'>Solicite um orçamento</Link></li>
+            <li><Link href="https://forms.gle/TRCvg1Cm1LSK2xiy8" target='_blank'>Consultoria Personalizada</Link></li>
+            <li><Link href="https://www.udemy.com/user/diegomartinsdepinho/" target="_blank">Cursos Completos</Link></li>
             <li><Link href="https://diegopinho.notion.site/Guia-para-a-inscri-o-de-novos-as-instrutores-as-26a5b3c6f6d5809188c2eb2a63574d1c" target='_blank'>Trabalhe Conosco</Link></li>
           </ul>
         </div>
