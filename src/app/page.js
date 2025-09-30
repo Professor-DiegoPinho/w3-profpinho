@@ -10,7 +10,7 @@ export default async function Home() {
     <Layout sidebarData={sidebarData}>
       <div className="home-page">
         <header className="home-header">
-          <h1>Bem-vindo(a) ao Learning Hub!</h1>
+          <h1>Aprenda Programação com o Prof. Diego Pinho</h1>
           <p>Seu local de referência e confiança para aprender tecnologia.</p>
         </header>
 

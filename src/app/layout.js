@@ -13,8 +13,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "Prof. Diego Pinho - Learning Hub",
-  description: "Uma coleção de tutoriais e artigos sobre desenvolvimento web, programação e tecnologia.",
+  title: "Aprenda Programação Online com Prof. Diego Pinho | Learning Hub",
+  description: "Learning Hub do Prof. Diego Pinho: cursos gratuitos de Python, JavaScript e HTML. Aprenda programação do zero com um professor especialista em tecnologia.",
 };
 
 export default function RootLayout({ children }) {
