@@ -49,7 +49,7 @@ export default function ReadingTime({
   return (
     <div
       className={`reading-time ${getVariantClass()} ${className}`}
-      style={{ '--reading-time-color': formatted.color }}
+      style={{ '--reading-time-color': formatted.color, 'backgroundColor': formatted.background }}
       title={`${words} palavras • ${formatted.fullText}`}
     >
       {showIcon && (
