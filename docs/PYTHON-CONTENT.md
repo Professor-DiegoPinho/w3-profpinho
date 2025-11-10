@@ -6,3 +6,4 @@
 5. [Variáveis - Versão longa](../content/python/variaveis-versao-longa.md)
 6. [Variáveis](../content/python/variaveis.md)
 7. [Boas práticas com variáveis](../content/python/boas_praticas_com_variaveis.md)
+8. [Strings](../content/python/strings.md)

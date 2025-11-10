@@ -4,8 +4,6 @@ description: "O interpretador interativo do Python e a impressão de suas primei
 order: 3
 ---
 
-# Primeiras impressões
-
 Se você já instalou o Python, agora é hora de vê-lo em ação! Nada melhor do que colocar a mão no teclado e usar seu primeiro comando.
 
 ## Acessando o interpretador do Python
@@ -18,7 +16,7 @@ No **Windows**, abra o **Prompt de Comando** e digite:
 python
 ```
 
-Se esse comando não funcionar, tente:
+Se esse comando não funcionar, tente com este:
 
 ```bash
 py
@@ -30,7 +28,7 @@ No **macOS** ou **Linux**, o comando padrão geralmente é:
 python3
 ```
 
-Assim que o interpretador abrir, você verá algo parecido com isto:
+Assim que o interpretador do Python abrir no seu terminal, você verá algo parecido com isto:
 
 ```bash
 Python 3.13.8 (main, Oct  8 2025, 08:53:24) [GCC 11.4.0] on linux
@@ -45,7 +43,9 @@ Esses três sinais de `>>>` indicam que o Python está pronto para receber seus 
 
 A função `print()` serve para **exibir informações na tela**, seja um texto, número ou até o resultado de uma conta. Tudo que estiver dentro dos parênteses será mostrado no terminal.
 
-Tradicionalmente, o primeiro programa que escrevemos em qualquer linguagem costuma ser o **Hello, World!**. Ele é uma forma simples (e simbólica) de testar se tudo está funcionando corretamente. É como se fosse o primeiro "olá" entre você e a linguagem, marcando o início da sua jornada como programador(a) nela.
+Tradicionalmente, o primeiro programa que escrevemos em qualquer linguagem costuma ser o **Hello, World!**.
+
+Ele é uma forma simples (e simbólica) de testar se tudo está funcionando corretamente. É como se fosse o primeiro "olá" entre você e a linguagem, marcando o início da sua jornada como programador(a) nela.
 
 Digite no terminal:
 
