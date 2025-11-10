@@ -3,3 +3,6 @@
 3. [Primeiras impressões](../content/python/primeiras-impressoes.md)
 4. [Sintaxe Básica](../content/python/sintaxe-basica.md)
 5. [Tipos de dados](../content/python/tipos-de-dados.md)
+5. [Variáveis - Versão longa](../content/python/variaveis-versao-longa.md)
+6. [Variáveis](../content/python/variaveis.md)
+7. [Boas práticas com variáveis](../content/python/boas_praticas_com_variaveis.md)
