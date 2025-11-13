@@ -73,6 +73,6 @@ print(x, y, z)
 
 ---
 
-Agora você já entende o que são variáveis, como criá-las, alterar seus valores e identificar seus tipos!
+Agora você já entende o que são variáveis, como criá-las e alterar seus valores.
 
-Esses conceitos são a base de quase tudo que você vai fazer em Python, então experimente mudar valores, testar conversões e brincar com diferentes tipos — é assim que o aprendizado realmente acontece!
+Esses conceitos são a base de quase tudo que você vai fazer em Python, então experimente mudar valores, testar conversões e brincar com diferentes tipos. É assim que o aprendizado realmente acontece!

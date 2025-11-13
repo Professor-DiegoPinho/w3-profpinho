@@ -6,7 +6,7 @@ order: 8
 
 # Números
 
-Os números estão por trás de quase tudo que o computador faz, mesmo quando não percebemos. Pense em qualquer programa: jogos, planilhas, apps de tempo… todos têm algo em comum — usam números para funcionar.
+Os números estão por trás de quase tudo que o computador faz, mesmo quando não percebemos. Pense em qualquer programa: jogos, planilhas, apps de tempo… todos têm algo em comum: usam números para funcionar.
 
 No artigo sobre **Tipos de dados**, vimos que o Python possui três tipos numéricos principais: inteiros (`int`), de ponto flutuante (`float`) e complexos (`complex`).
 
@@ -54,7 +54,7 @@ print(type(z))
 
 > Atenção: em português usamos a vírgula para separar as casas decimais da parte inteira do número. Já em Python (e em praticamente todas as linguagens de programação), esse separador é o **ponto**.
 
-### Formato científico com float
+### Formato científico com `float`
 
 Em Python, a letra (`e`) ou (`E`) representa **números em notação científica**, um formato usado para escrever números muito grandes ou muito pequenos. O número que aparece antes do `e` é elevado à quantidade de potências de 10 que aparece logo depois dele.
 

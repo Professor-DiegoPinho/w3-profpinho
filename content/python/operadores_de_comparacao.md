@@ -97,7 +97,7 @@ print(limite <= 99)   # 100 é menor ou igual a 100? não!
 
 ### Comparando valores booleanos (`True` e `False`)
 
-Os valores booleanos se comportam como números inteiros: True equivale a 1 e False equivale a 0. Isso significa que eles também podem ser usados em comparações numéricas.
+Os valores booleanos se comportam como números inteiros: `True` equivale a 1 e `False` equivale a 0. Isso significa que eles também podem ser usados em comparações numéricas.
 
 ```python
 print(True > False)   # 1 é maior que 0? não!
@@ -132,7 +132,7 @@ print('Zebra' < 'abelha')
 # True
 ```
 
-Isso ocorre porque Z (maiúsculo) tem valor Unicode menor que a (minúsculo).
+Isso ocorre porque `Z` (maiúsculo) tem valor Unicode menor que `a` (minúsculo).
 
 ### Comparando tipos diferentes
 
@@ -142,6 +142,10 @@ Nem todos os tipos podem ser comparados entre si. A partir da versão 3 do Pytho
 print(10 < '10')
 
 # Saída:
+# Traceback (most recent call last):
+#   File "<python-input-2>", line 1, in <module>
+#     print(10 < '10')
+#           ^^^^^^^^^
 # TypeError: '<' not supported between instances of 'int' and 'str'
 ```
 

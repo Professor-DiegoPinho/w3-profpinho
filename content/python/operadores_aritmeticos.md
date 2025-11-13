@@ -1,5 +1,5 @@
 ---
-title: "Operadores Aritméticos"
+title: "Operadores aritméticos"
 description: "Os operadores aritméticos em Python"
 order: 13
 ---
@@ -105,7 +105,7 @@ Os operadores que vamos ver abaixo estão relacionados a esses conceitos.
 
 ### Divisão (`/`)
 
-A divisão normal (`/`) divide um número pelo outro e retorna sempre um número do tipo **float**, mesmo quando o resultado é inteiro. Isso significa que, se houver casas decimais, elas aparecem depois do ponto. Se não houver, um zero é acrescentado depois do ponto.
+A divisão normal (`/`) divide um número pelo outro e retorna sempre um número do tipo `float`, mesmo quando o resultado é inteiro. Isso significa que, se houver casas decimais, elas aparecem depois do ponto. Se não houver, um zero é acrescentado depois do ponto.
 
 ```python
 uma_divisao = 8 / 4

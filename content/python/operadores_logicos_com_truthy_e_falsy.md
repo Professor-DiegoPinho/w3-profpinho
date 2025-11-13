@@ -54,11 +54,11 @@ print(bool(x))
 
 ## Operadores lógicos com _truthy_ e _falsy_
 
-Agora que você já sabe que vários valores podem se comportar como True ou False, é importante entender como os operadores lógicos lidam com eles. O Python não converte automaticamente tudo para booleano — na verdade, ele usa os valores truthy e _falsy_ diretamente.
+Agora que você já sabe que vários valores podem se comportar como `True` ou `False`, é importante entender como os operadores lógicos lidam com eles. O Python não converte automaticamente tudo para booleano. Na verdade, ele usa os valores _truthy_ e _falsy_ diretamente.
 
 ### `and` com valores _truthy_ e _falsy_
 
-O operador and retorna o primeiro valor _falsy_ encontrado. Se todos forem truthy, retorna o último valor.
+O operador and retorna o primeiro valor _falsy_ encontrado. Se todos forem _truthy_, retorna o último valor.
 
 ```python
 print(0 and 5)       # 0 é falsy
@@ -83,11 +83,11 @@ print(resultado)
 # Dados do relatório
 ```
 
-Se qualquer dos valores for _falsy_ (nome vazio e/ou conteúdo vazio), o `and` devolve esse valor, indicando que falta algo. Se ambos forem truthy, o `and` devolve o último valor: o conteúdo.
+Se qualquer dos valores for _falsy_ (nome vazio e/ou conteúdo vazio), o `and` devolve esse valor, indicando que falta algo. Se ambos forem _truthy_, o `and` devolve o último valor: o conteúdo.
 
-### `or` com valores truthy e falsy
+### `or` com valores _truthy_ e _falsy_
 
-O operador or retorna o primeiro valor truthy encontrado. Se todos forem falsy, retorna o último.
+O operador or retorna o primeiro valor _truthy_ encontrado. Se todos forem _falsy_, retorna o último.
 
 ```python
 print("" or "Python")   # string vazia é falsy
@@ -105,11 +105,11 @@ nome = input("Digite seu nome: ") or "Visitante"
 print(nome)
 ```
 
-Aqui, se o usuário não digitar nada, `input` retorna uma string vazia (falsy). O operador `or` então devolve "Visitante". Se o usuário digitar algo, esse valor (truthy) é retornado.
+Aqui, se o usuário não digitar nada, `input` retorna uma string vazia (_falsy_). O operador `or` então devolve "Visitante". Se o usuário digitar algo, esse valor (_truthy_) é retornado.
 
-### `not` com valores truthy e falsy
+### `not` com valores _truthy_ e _falsy_
 
-Já o `not` continua invertendo o valor booleano do que vem depois dele. Se um valor é truthy, ele vira `False`. Se ele é _falsy_, vira `True`:
+Já o `not` continua invertendo o valor booleano do que vem depois dele. Se um valor é _truthy_, ele vira `False`. Se ele é _falsy_, vira `True`:
 
 ```python
 texto = ""

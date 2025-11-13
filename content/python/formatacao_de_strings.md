@@ -12,7 +12,7 @@ Você já aprendeu o que são as strings e como usá-las para representar textos
 
 No artigo anterior, você viu que se quiser usar o mesmo tipo de aspas tanto em volta quanto dentro da sua string, você vai receber uma mensagem de erro. Mas existe uma alternativa para isso!
 
-O problema de usar o mesmo tipo de aspas era que o Python não conseguia entender que uma estava dentro da outra — ele interpretava que o primeiro par de aspas se fechava e o segundo se abria bem depois, deixando uma ou mais palavras soltas fora das _strings_, no espaço entre os dois pares de aspas.
+O problema de usar o mesmo tipo de aspas era que o Python não conseguia entender que uma estava dentro da outra. Ele interpretava que o primeiro par de aspas se fechava e o segundo se abria bem depois, deixando uma ou mais palavras soltas fora das _strings_, no espaço entre os dois pares de aspas.
 
 Mas olha só: existe uma forma simples de avisar o interpretador que ele não deve ler dessa forma. Isso pode ser feito com o que chamamos de caractere de escape (`\`).
 
@@ -136,7 +136,7 @@ print(x + y)  # concatenamos as strings '7' e 'Belo'
 Resumindo, o `print()` permite exibir múltiplas variáveis de uma só vez, e podemos fazer isso de duas formas:
 
 - Com vírgulas (`,`): une os valores automaticamente com um espaço entre eles e imprime várias de tipos diferentes juntas.
-- Com o operador de concatenação (`+`): une as strings exatamente como estão — se quiser espaços, eles precisam ser incluídos manualmente dentro das strings. Não funciona para unir strings com outros tipos de dados.
+- Com o operador de concatenação (`+`): une as strings exatamente como estão. Se quiser espaços, eles precisam ser incluídos manualmente dentro das strings. Não funciona para unir strings com outros tipos de dados.
 
 ## Repetindo _strings_
 

@@ -56,7 +56,7 @@ print('Hello, world!')
 # Hello, world!
 ```
 
-Parabéns 🎉 — você acabou de rodar seu primeiro código Python!
+Parabéns! 🎉 Você acabou de rodar seu primeiro código Python!
 
 
 ## Imprimindo em uma ou múltiplas linhas
@@ -88,7 +88,7 @@ O espaço dentro de `end=' '` garante que as palavras não fiquem grudadas.
 
 ## Aspas simples ou duplas?
 
-Em Python, textos precisam estar entre aspas — simples `' '` ou duplas `" "`. Ambas funcionam:
+Em Python, textos precisam estar entre aspas simples `' '` ou duplas `" "`. Ambas funcionam:
 
 ```python
 print("Assim funciona!")
@@ -108,7 +108,7 @@ print('Acabei de dar meu primeiro "Hello, world!" em Python!')
 # Acabei de dar meu primeiro "Hello, world!" em Python!
 ```
 
-Usar aspas simples para começar e finalizar o texto que você vai imprimir permite que esse texto contenha aspas duplas dentro dele — e vice-versa.
+Usar aspas simples para começar e finalizar o texto que você vai imprimir permite que esse texto contenha aspas duplas dentro dele, e vice-versa.
 
 Se você colocar as aspas duplas por fora, pode usar as aspas simples dentro dele.
 
@@ -134,7 +134,7 @@ Nesse caso, o Python não consegue detectar que você quer imprimir um texto. El
 
 ## Trabalhando com números
 
-Você também pode imprimir números diretamente — sem aspas:
+Você também pode imprimir números diretamente:
 
 ```python
 print(11)
