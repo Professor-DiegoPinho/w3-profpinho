@@ -1,7 +1,7 @@
 ---
 title: "Strings"
 description: "O que são as strings e como o Python as utiliza"
-order: 8
+order: 9
 ---
 
 # Strings
@@ -83,43 +83,6 @@ Isso acontece porque para o Python, as aspas do mesmo tipo indicam onde uma _str
 Como vimos nos artigos "Primeiras impressões" e "Boas práticas com variáveis", o Python só entende o que uma palavra fora das aspas dentro do comando print quer dizer se essa palavra for o nome de uma variável.
 
 Ele considera que `Python é incrível!` não é uma _string_ por não estar dentro das aspas no exemplo acima, então ele não entende o que esse texto significa e retorna a mensagem de erro para você.
-
-## Caracteres de escape _em strings_
-
-Se você quiser usar o mesmo tipo de aspas tanto em volta quanto dentro da sua string, apesar de termos visto que isso normalmente causa erros, existe uma alternativa!
-
-Vimos que o problema de usar o mesmo tipo de aspas é que o Python não consegue entender que uma está dentro da outra — ele interpreta que o primeiro par de aspas se fecha e o segundo se abre depois, deixando uma ou mais palavras soltas fora das _strings_, no espaço entre os dois pares de aspas.
-
-Mas olha só: existe uma forma simples de avisar o interpretador que ele não deve ler dessa forma. Isso pode ser feito com o que chamamos de caractere de escape (`\`).
-
-Funciona assim:
-
-```python
-print("Ele disse: \"Python é incrível!\"")
-
-# Saída:
-# Ele disse: "Python é incrível!"
-```
-
-Ele indica pro interpretador que o caractere que vem depois dele não deve ser interpretado como um comando da linguagem, mas sim exibido literalmente como escrevemos.
-
-Com isso, no exemplo acima, as aspas, que normalmente indicariam para o Python que uma _string_ começou e terminou, passam a ser lidas só como aspas dentro do texto da string.
-
-Para além do uso com as aspas, seja como (`\"`) ou (`\'`), há outros casos em que o caractere de escape pode ser muito útil em nossas strings. Ele pode servir para quebrar linhas dentro do texto (`\n`), acrescentar um espaço de tabulação (`\t`) como quando usamos o Tab do nosso teclado e para termos a própria barra invertida, também chamada de contrabarra (`\\`), dentro da nossa string.
-
-Veja alguns exemplos:
-
-```python
-print('Primeira linha\nSegunda linha')
-print('Texto com\ttabulação')
-print('Caminho: C:\\Users\\Diego')
-
-# Saída:
-# Primeira linha
-# Segunda linha
-# Texto com    tabulação
-# Caminho: C:\Users\Diego
-```
 
 ## _Strings_ em várias linhas
 
