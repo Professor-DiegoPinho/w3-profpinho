@@ -4,7 +4,7 @@ description: "O tipo Booleano em Python"
 order: 11
 ---
 
-# Booleanos
+# O que são os booleanos
 
 O tipo booleano (`bool`) representa apenas dois valores possíveis: **verdadeiro** ou **falso**. Em Python, eles são escritos como `True` e `False` (com a primeira letra maiúscula):
 
@@ -13,7 +13,7 @@ is_estudante = True
 is_empregado = False
 ```
 
-Esses valores podem parecer simples, mas são fundamentais para o funcionamento de praticamente todos os programas. Eles são muito usados para tomar decisões e controlar fluxos. 
+Esses valores podem parecer simples, mas são fundamentais para o funcionamento de praticamente todos os programas. Eles são muito usados para tomar decisões e controlar fluxos.
 
 A partir deles, podemos decidir o que fazer se algo é verdadeiro e o que fazer se algo é falso. Mas, por enquanto, vamos apenas entender o que faz um valor ser considerado **verdadeiro** ou **falso** em Python.
 
@@ -30,7 +30,7 @@ print(bool(0))
 # False
 ```
 
-### A função bool()
+### A função `bool()`
 
 Para podermos consultar qualquer valor ou variável, existe a função `bool()`. Ela testa o que passamos entre seus parênteses e verifica se o conteúdo é interpretado como verdadeiro (`True`) ou falso (`False`).
 
@@ -50,22 +50,14 @@ print(bool(["maçã", "banana", "cereja"]))
 Existem poucos valores que são considerados falsos em Python. Os principais são:
 
 ```python
-print(bool(False))     # o próprio False
-print(bool(None))      # o tipo de dado None
-print(bool(0))         # o número zero
-print(bool(""))        # string vazia
-print(bool([]))        # lista vazia
-print(bool({}))        # dicionário vazio
-print(bool(()))        # tupla vazia
-print(bool(set()))     # conjunto vazio
-
-# Saída:
-# False
-# False
-# False
-# False
-# False
-# False
-# False
-# False
+bool(False)     # o próprio False
+bool(None)      # o tipo de dado None
+bool(0)         # o número zero
+bool("")        # string vazia
+bool([])        # lista vazia
+bool({})        # dicionário vazio
+bool(())        # tupla vazia
+bool(set())     # conjunto vazio
 ```
+
+Todos os valores acima retornam `False` ao serem avaliados com a função `bool()`.

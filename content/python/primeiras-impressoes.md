@@ -50,7 +50,7 @@ Ele é uma forma simples (e simbólica) de testar se tudo está funcionando corr
 Digite no terminal:
 
 ```python
-print('Hello, world!')
+print("Hello, world!")
 
 # Saída:
 # Hello, world!
@@ -66,8 +66,8 @@ Você pode usar a função `print()` quantas vezes quiser para imprimir várias 
 Por exemplo:
 
 ```python
-print('Acabei de dar meu primeiro "Hello, world!" em Python!')
-print('Estou muito feliz!')
+print("Acabei de dar meu primeiro "Hello, world!" em Python!")
+print("Estou muito feliz!")
 
 # Saída:
 # Acabei de dar meu primeiro "Hello, world!" em Python!
@@ -77,14 +77,14 @@ print('Estou muito feliz!')
 Se você quiser mudar esse comportamento padrão do `print()`, você pode usar o parâmetro `end` para manter as impressões na mesma linha. Veja só:
 
 ```python
-print('Olá,', end=' ')
-print('mundo!')
+print("Olá,", end=" ")
+print("mundo!")
 
 # Saída:
 # Olá, mundo!
 ```
 
-O espaço dentro de `end=' '` garante que as palavras não fiquem grudadas.
+O espaço dentro de `end=" "` garante que as palavras não fiquem grudadas.
 
 ## Aspas simples ou duplas?
 

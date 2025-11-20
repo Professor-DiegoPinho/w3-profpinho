@@ -4,7 +4,7 @@ description: "Os operadores de comparação em Python"
 order: 15
 ---
 
-# Operadores de comparação
+# O que são os operadores de comparação
 
 Nas aulas de matemática da escola, você deve ter visto símbolos como `=`, `≠`, `<`, `>`, `≤` e `≥` para comparar números.
 
@@ -36,7 +36,7 @@ print(5 == 7)    # 5 é igual a 7? não!
 # False
 ```
 
-> Dica rápida: na matemática usamos `=` para dizer que duas coisas são iguais. Já **em Python, a igualdade é escrita com `==`**. O `=` é o operador de **atribuição**, que guarda um valor numa variável.
+> Dica rápida: na matemática usamos `=` para dizer que duas coisas são iguais. Já **em Python, a igualdade é escrita com dois sinais de igual (`==`)**. O `=` é o operador de **atribuição**, que vimos na lição anterior e que guarda um valor numa variável.
 
 ### Diferença (`!=`)
 
@@ -85,8 +85,8 @@ Retorna `True` se o primeiro valor for **menor** ou **igual** ao segundo valor c
 
 ```python
 limite = 100
-print(limite <= 100)  # 100 é menor ou igual a 100? é igual!
-print(limite <= 99)   # 100 é menor ou igual a 100? não!
+print(limite <= 100)  # 100 é menor ou igual a 100? sim, é igual!
+print(limite <= 99)   # 100 é menor ou igual a 99? não!
 
 # Saída:
 # True
@@ -117,16 +117,16 @@ As strings também podem ser comparadas, mas não da forma mais intuitiva. Essa 
 Em outras palavras, o Python compara caractere por caractere usando o código interno de cada símbolo.
 
 ```python
-print('Ana' < 'Bruno')
+print("Ana" < "Bruno")
 
 # Saída:
 # True
 ```
 
-Isso acontece porque a letra A vem antes de B na tabela Unicode, mas é importante saber que as letras maiúsculas e minúsculas têm valores diferentes. Todas as maiúsculas vêm antes das minúsculas no Unicode. Assim:
+Isso acontece porque a letra `A` vem antes da `B` na tabela Unicode, mas é importante saber que as letras maiúsculas e minúsculas têm valores diferentes. Todas as maiúsculas vêm antes das minúsculas no Unicode. Assim:
 
 ```python
-print('Zebra' < 'abelha')
+print("Zebra" < "abelha")
 
 # Saída:
 # True
@@ -139,7 +139,7 @@ Isso ocorre porque `Z` (maiúsculo) tem valor Unicode menor que `a` (minúsculo)
 Nem todos os tipos podem ser comparados entre si. A partir da versão 3 do Python, comparar tipos incompatíveis, como números com strings, gera erro.
 
 ```python
-print(10 < '10')
+print(10 < "10")
 
 # Saída:
 # Traceback (most recent call last):
@@ -170,10 +170,10 @@ Também vale com igualdade no meio do caminho:
 ```python
 x = 7
 y = 7
-print(3 <= x == y < 10)  # True é igual a True? sim!
+print(3 <= x == y < 10)  # 3 <= x é True. y < 10 é True.
 
 # Saída:
-# True
+# True                   # True é igual a True? Sim!
 ```
 
 ---

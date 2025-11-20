@@ -6,11 +6,11 @@ order: 8
 
 # Números
 
-Os números estão por trás de quase tudo que o computador faz, mesmo quando não percebemos. Pense em qualquer programa: jogos, planilhas, apps de tempo… todos têm algo em comum: usam números para funcionar.
+Os números estão por trás de quase tudo que o computador faz, mesmo quando não percebemos. Pense em qualquer programa: jogos, planilhas, apps de previsão do tempo… Todos têm algo em comum: usam números para funcionar.
 
-No artigo sobre **Tipos de dados**, vimos que o Python possui três tipos numéricos principais: inteiros (`int`), de ponto flutuante (`float`) e complexos (`complex`).
+Na lição sobre "Tipos de dados", vimos que o Python possui três tipos numéricos: inteiros (`int`), de ponto flutuante (`float`) e complexos (`complex`).
 
-Agora, vamos entender melhor cada um deles, mas antes de seguir, vale um aviso rápido. Aqui aparecem alguns conceitos da matemática. Eles podem parecer difíceis, mas vai por mim, não precisa se preocupar! O Python lida com números de forma bem intuitiva e com os exemplos você vai perceber que é muito mais simples do que parece.
+Agora, vamos entender melhor cada um deles, mas antes de seguir, vale um aviso rápido. Aqui aparecem alguns conceitos da matemática. Eles podem parecer difíceis, mas não precisa se preocupar! O Python lida com números de forma bem intuitiva e com os exemplos você vai perceber que é muito mais simples do que parece.
 
 ## Inteiros (`int`)
 
@@ -110,7 +110,7 @@ De novo, não se preocupe em entender tudo agora. Saber que o tipo `complex` exi
 
 Em Python, a maioria das conversões entre tipos é feita de forma automática, mas às vezes precisamos converter manualmente.
 
-As principais funções são:
+As funções para converter valores para cada tipo numérico são:
 
 - `int()` → converte para número inteiro
 - `float()` → converte para número com ponto flutuante
@@ -183,7 +183,7 @@ print(numero_float)
 # 42.0
 ```
 
-Se o texto contiver algo que não é um número (como letras ou símbolos), não será possível converter de _string_ para o formato numérico e você vai receber uma mensagem de erro.
+Se o texto contiver algo que não é um número (como letras ou símbolos), não será possível converter de _string_ para o formato numérico e você vai receber uma mensagem de erro. Lembrando que as letras `e` e `j` aparecem como parte de números `float` e `complex`, respectivamente, então podem ser convertidas de _string_ para esses formatos também.
 
 ## Gerando números aleatórios
 

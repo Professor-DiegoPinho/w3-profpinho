@@ -6,7 +6,7 @@ order: 17
 
 ## Valores _truthy_ e _falsy_
 
-No artigo anterior, aprendemos sobre os operadores lógicos. Mas você se lembra que no artigo sobre Booleanos, vimos que alguns valores são considerados como verdadeiros ou falsos para o Python, mesmo sem serem do tipo `bool`?
+Na lição anterior, aprendemos sobre os operadores lógicos. Mas você se lembra que quando falamos sobre Booleanos, vimos que alguns valores são considerados como verdadeiros ou falsos para o Python, mesmo sem serem do tipo `bool`?
 
 Agora vamos retomar essa ideia com mais clareza:
 
@@ -28,7 +28,7 @@ Já os valores que são considerados como `False` são chamados de _falsy_. Reve
 
 #### None
 
-Existe um valor especial que ainda não vimos, o `None`. Ele representa a falta de um valor e é do tipo `NoneType`. Da mesma forma que podemos criar variáveis com _strings_ vazias, também podemos criar variáveis sem valor nenhum atribuído com o `None`:
+Existe um valor especial que ainda não vimos, o `None`. Ele representa a falta de um valor e é do tipo `NoneType`. Da mesma forma que podemos criar variáveis com _strings_ vazias, também podemos criar variáveis sem valor nenhum atribuído usando o `None`:
 
 ```python
 x = None
@@ -45,7 +45,6 @@ Não precisa se preocupar com ele agora, basta saber que ele também é consider
 
 ```python
 x = None
-
 print(bool(x))
 
 # Saída:
@@ -56,9 +55,9 @@ print(bool(x))
 
 Agora que você já sabe que vários valores podem se comportar como `True` ou `False`, é importante entender como os operadores lógicos lidam com eles. O Python não converte automaticamente tudo para booleano. Na verdade, ele usa os valores _truthy_ e _falsy_ diretamente.
 
-### `and` com valores _truthy_ e _falsy_
+### O `and` com valores _truthy_ e _falsy_
 
-O operador and retorna o primeiro valor _falsy_ encontrado. Se todos forem _truthy_, retorna o último valor.
+O operador `and` retorna o primeiro valor _falsy_ encontrado. Se todos forem _truthy_, retorna o último valor.
 
 ```python
 print(0 and 5)       # 0 é falsy
@@ -85,9 +84,9 @@ print(resultado)
 
 Se qualquer dos valores for _falsy_ (nome vazio e/ou conteúdo vazio), o `and` devolve esse valor, indicando que falta algo. Se ambos forem _truthy_, o `and` devolve o último valor: o conteúdo.
 
-### `or` com valores _truthy_ e _falsy_
+### O `or` com valores _truthy_ e _falsy_
 
-O operador or retorna o primeiro valor _truthy_ encontrado. Se todos forem _falsy_, retorna o último.
+O operador `or` retorna o primeiro valor _truthy_ encontrado. Se todos forem _falsy_, retorna o último.
 
 ```python
 print("" or "Python")   # string vazia é falsy
@@ -102,12 +101,12 @@ Esses comportamentos tornam expressões como esta muito naturais em Python:
 
 ```python
 nome = input("Digite seu nome: ") or "Visitante"
-print(nome)
+print(f"Olá, {nome}!")
 ```
 
 Aqui, se o usuário não digitar nada, `input` retorna uma string vazia (_falsy_). O operador `or` então devolve "Visitante". Se o usuário digitar algo, esse valor (_truthy_) é retornado.
 
-### `not` com valores _truthy_ e _falsy_
+### O `not` com valores _truthy_ e _falsy_
 
 Já o `not` continua invertendo o valor booleano do que vem depois dele. Se um valor é _truthy_, ele vira `False`. Se ele é _falsy_, vira `True`:
 

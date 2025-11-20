@@ -4,11 +4,11 @@ description: "O que são as strings e como o Python as utiliza"
 order: 9
 ---
 
-# Strings
+# O que já vimos sobre as _strings_
 
 Depois de conhecer a sintaxe básica, os principais tipos de dados e o funcionamento das variáveis, chegou a hora de entender melhor como lidar com textos no Python.
 
-Vimos que as strings são um dos tipos de dados mais comuns da linguagem e que são usadas para representar textos, ou seja, qualquer sequência de caracteres entre aspas simples (`'`) ou duplas (`"`):
+Já vimos que as strings são um dos tipos de dados mais comuns da linguagem e que são usadas para representar textos, ou seja, qualquer sequência de caracteres entre aspas simples (`'`) ou duplas (`"`):
 
 ```python
 print('Olá, mundo!')
@@ -21,7 +21,7 @@ print("Olá, mundo!")
 
 ## Atribuindo _strings_ a variáveis
 
-Assim como acontece com outros tipos de dados, você já sabe que podemos guardar uma _string_ em uma variável:
+Assim como acontece com outros tipos de dados, você sabe que podemos guardar uma _string_ em uma variável:
 
 ```python
 nome = "Diego"
@@ -36,19 +36,19 @@ Também é possível criar _strings_ vazias, que são representadas por `''` ou 
 Observe:
 
 ```python
-nome_e_sobrenome = ''
+nome_e_sobrenome = ""
 print(type(nome_e_sobrenome))
 
-nome = input('Qual é seu nome?')   # o usuário digita "Diego" e aperta Enter
-sobrenome = input('Qual é seu sobrenome?')    # o usuário digita "Pinho" e aperta Enter
+nome = input("Qual é seu nome?")   # o usuário digita "Diego"
+sobrenome = input("Qual é seu sobrenome?")    # o usuário digita "Pinho"
 
-nome_e_sobrenome = nome + ' ' + sobrenome
+nome_e_sobrenome = nome + " " + sobrenome
 
-print('Olá,', nome_e_sobrenome)
+print("Olá,", nome_e_sobrenome)
 
 # Saída:
 # <class 'str'>
-# 'Olá, Diego Pinho'
+# Olá, Diego Pinho
 ```
 
 ## Aspas dentro de aspas
@@ -78,17 +78,15 @@ print("Ele disse: "Python é incrível!"")
 # SyntaxError: invalid syntax. Perhaps you forgot a comma?
 ```
 
-Isso acontece porque para o Python, as aspas do mesmo tipo indicam onde uma _string_ começa e termina. Ele entende que existe a _string_ `Ele disse: `, um texto solto sem significado (`Python é incrível!`) e uma _string_ vazia (`""`).
+Isso acontece porque para o Python, as aspas do mesmo tipo indicam onde uma _string_ começa e termina. Ele entende que existe a _string_ `"Ele disse: "`, um texto solto sem significado (`Python é incrível!`) e uma _string_ vazia (`""`).
 
-Como vimos nos artigos "Primeiras impressões" e "Boas práticas com variáveis", o Python só entende o que uma palavra fora das aspas dentro do comando print quer dizer se essa palavra for o nome de uma variável.
+Como vimos nas lições "Primeiras impressões" e "Boas práticas com variáveis", o Python só entende o que uma palavra fora das aspas dentro do comando `print()` quer dizer se essa palavra for o nome de uma variável, o que não é o caso aqui.
 
 Ele considera que `Python é incrível!` não é uma _string_ por não estar dentro das aspas no exemplo acima, então ele não entende o que esse texto significa e retorna a mensagem de erro para você.
 
 ## _Strings_ em várias linhas
 
-Além do uso do caractere de escape para quebrar linhas dentro de sua string através do (`\n`), há outro recurso que podemos usar quando precisamos armazenar um texto longo que ocupa várias linhas.
-
-Basta usar um par de três aspas simples (`'''`) ou duplas (`"""`) em volta do seu texto. Dentro do par de três aspas, você pode pular linhas normalmente que o Python vai entender que seu texto continua na linha de baixo.
+Quando precisamos armazenar um texto longo que ocupa várias linhas,basta usar um par de três aspas simples (`'''`) ou duplas (`"""`) em volta do seu texto. Dentro do par de três aspas, você pode pular linhas normalmente que o Python vai entender que seu texto continua na linha de baixo.
 
 ```python
 mensagem = """Olá!
@@ -120,6 +118,7 @@ print("Java" in texto)
 E o contrário com `not in`:
 
 ```python
+texto = "Python é divertido!"
 print("C++" not in texto)
 
 # Saída:
@@ -128,6 +127,6 @@ print("C++" not in texto)
 
 ---
 
-As _strings_ são essenciais para nos comunicarmos com o usuário dos nossos programas, seja através do interpretador no terminal, com as funções print() e input(), seja no futuro, quando criarmos aplicações mais complexas com outras funções e ferramentas.
+As _strings_ são essenciais para nos comunicarmos com o usuário dos nossos programas, seja através do interpretador no terminal, com as funções `print()` e `input()`, seja no futuro, quando criarmos aplicações mais complexas com outras funções e ferramentas.
 
-Até aqui, você viu as bases fundamentais para continuar explorando tudo que dá pra fazer com textos no Python. Nos próximos artigos, você vai ir mais a fundo e aprender formas mais avançadas de trabalhar com elas.
+Até aqui, você viu as bases fundamentais para continuar explorando tudo que dá pra fazer com textos no Python. Na próxima lição, você vai ir mais a fundo e aprender formas mais avançadas de trabalhar com eles.

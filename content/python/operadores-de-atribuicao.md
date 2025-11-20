@@ -4,13 +4,13 @@ description: "Os operadores de atribuição em Python"
 order: 14
 ---
 
-# Operadores de atribuição
+# O que são os operadores de atribuição
 
 Os **operadores de atribuição** são usados para armazenar valores em variáveis, ou seja, para **atribuir** algo a elas. Eles aparecem em praticamente todo código Python, desde um simples `x = 5` até expressões mais complexas.
 
 ## O operador básico `=`
 
-O operador de atribuição mais simples é o `=`, que já vimos em todos os exemplos em que armazenamos um valor em uma variável. Aqui, `x` recebe o valor `5`, e `y` recebe a string `"Python"`:
+O operador de atribuição mais simples é o `=`, que já vimos em todos os exemplos em que armazenamos um valor em uma variável. Aqui, `x` recebe o número `5`, e `y` recebe a string `"Python"`:
 
 ```python
 x = 5
@@ -84,7 +84,7 @@ print(x)  # Saída: 2.0
 
 ### Divisão inteira (`//=`) e módulo (`%=`)
 
-Esses dois operadores lidam com divisões de forma mais específica. O operador `//=` atribui apenas a parte inteira da divisão à variável, enquanto `%=` atribui o **resto** dela ao `x`.
+Esses dois operadores lidam com divisões de forma mais específica. O operador `//=` atribui apenas a parte inteira da divisão à variável, enquanto `%=` atribui o **resto** dela.
 
 ```python
 x = 17
@@ -107,35 +107,26 @@ print(x)    # Saída: 8
 
 ## Operadores bit a bit
 
-Além dos operadores numéricos, também é possível combinar operadores de atribuição com operações **bit a bit**, que trabalham com os valores binários dos números. Esses operadores aparecem com menos frequência no dia a dia, então não vamos nos aprofundar neles por enquanto.
+Além dos operadores numéricos, também é possível combinar operadores de atribuição com operações **bit a bit**, que trabalham com os valores binários. Esses operadores aparecem com menos frequência no dia a dia, então não vamos nos aprofundar neles por enquanto.
 
 ## O operador walrus (`:=`)
 
 A partir do **Python 3.8**, surgiu um novo operador de atribuição chamado **operador walrus** (`:=`), que permite **atribuir e usar um valor ao mesmo tempo** dentro de uma expressão.
 
-Sem o operador `:=`:
+Veja os exemplos sem e com o operador `:=`:
 
 ```python
+# sem o operador
+
 frase = "Python é divertido!"
 print(frase)
 
 # Saída:
 # Python é divertido!
-```
 
-```python
-y = 10
-x = y + 5
 
-print(x, y)
+# com o operador
 
-# Saída:
-# 15 10
-```
-
-Com o operador `:=`:
-
-```python
 print(frase := "Python é divertido!")
 
 # Saída:
@@ -143,6 +134,19 @@ print(frase := "Python é divertido!")
 ```
 
 ```python
+# sem o operador
+
+y = 10
+x = y + 5
+
+print(x, y)
+
+# Saída:
+# 15 10
+
+
+# com o operador
+
 x = (y := 10) + 5
 print(x, y)
 
@@ -150,6 +154,6 @@ print(x, y)
 # 15 10
 ```
 
-Perceba que `frase` e `y` são criadas e usadas na mesma linha. Nesse caso, pode não parecer tão diferente, mas conforme você for fazendo operações mais complexas, você vai perceber como ele deixa o código bem mais conciso.
+Perceba que `frase` e `y` são criadas e usadas na mesma linha quando usamos o operador. Nesse caso, pode não parecer tão diferente, mas conforme você for fazendo operações mais complexas, você vai perceber como ele deixa o código bem mais conciso.
 
-🦭 Curiosidade: O nome walrus" (morsa, em inglês) vem do formato do símbolo `:=`, que lembra os **dentes de uma morsa**.
+Curiosidade: O nome walrus" (morsa, em inglês) vem do formato do símbolo `:=`, que lembra os **dentes de uma morsa**. 🦭

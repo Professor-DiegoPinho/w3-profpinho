@@ -4,7 +4,7 @@ description: "O que são as variáveis e como o Python as utiliza"
 order: 6
 ---
 
-No artigo anterior, você já viu variáveis sendo usadas rapidamente, mas ainda de forma superficial. Agora vamos entender o que elas são, por que existem e como o Python as utiliza.
+Na lição anterior, você já viu variáveis sendo usadas rapidamente, mas ainda de forma superficial. Agora vamos entender o que elas são, por que existem e como o Python as utiliza.
 
 ## O que são variáveis
 
@@ -17,9 +17,9 @@ Essas variáveis funcionam como rótulos que damos a informações para poder us
 E claro, não precisamos nos limitar a `x`, `y` ou `z`. Podemos usar nomes mais significativos, como `idade`, `nome` ou `profissao`, para deixar o código mais fácil de entender.
 
 ```python
-nome = 'Diego'
+nome = "Diego"
 idade = 30
-profissao = 'professor'
+profissao = "professor"
 
 print(nome)
 print(idade)
@@ -37,7 +37,7 @@ Os valores das variáveis também podem ser alterados e até mudar de tipo, já 
 
 ```python
 x = 30         # o tipo da variável x é int
-x = 'Diego'    # agora mudamos o valor guardado em x e o tipo passa a ser str
+x = "Diego"    # agora mudamos o valor guardado em x e o tipo passa a ser str
 
 print(x)
 
@@ -54,7 +54,7 @@ Isso acontece porque o Python tem **tipagem dinâmica**, o que significa que o t
 Você pode criar várias variáveis ao mesmo tempo:
 
 ```python
-x, y, z = 'Gato', 'Cachorro', 'Coelho'
+x, y, z = "Gato", "Cachorro", "Coelho"
 print(x, y, z)
 
 # Saída:
@@ -64,7 +64,7 @@ print(x, y, z)
 Ou atribuir o mesmo valor a várias delas:
 
 ```python
-x = y = z = 'Gato'
+x = y = z = "Gato"
 print(x, y, z)
 
 # Saída:

@@ -4,19 +4,15 @@ description: "O que são e como funcionam as tuplas em Python"
 order: 24
 ---
 
-# Tuplas
+# O que é uma tupla?
 
 Depois de trabalhar com listas e aprender como elas funcionam, é hora de conhecer outra coleção importante do Python: a **tupla**.
 
-À primeira vista, ela lembra bastante uma lista, já que ambas são sequências ordenadas acessadas por índices. Mas existe uma diferença fundamental que muda completamente a forma como você usa esse tipo de dado.
-
-## O que é uma tupla?
-
-Uma tupla é uma coleção **ordenada** de valores, muito parecida com uma lista, mas com uma característica essencial: tuplas são **imutáveis**.
+À primeira vista, ela lembra bastante uma lista, já que ambas são sequências **ordenadas acessadas por índices**. Mas existe uma diferença fundamental que muda completamente a forma como você usa esse tipo de dado: tuplas são **imutáveis**.
 
 Isso significa que, depois de criada, a tupla fica "congelada": você **não pode alterar**, **adicionar** ou **remover** itens de dentro dela. Essa imutabilidade torna as tuplas úteis quando você precisa garantir que uma sequência de valores não será modificada ao longo do programa.
 
-Tuplas são criadas usando **parênteses**:
+Elas são criadas usando **parênteses**, dessa forma:
 
 ```python
 tons = ("amarelo", "azul", "verde")
@@ -65,7 +61,7 @@ print(dados)
 
 ## Tuplas com um único item
 
-Se você quiser criar uma tupla com apenas **um único elemento**, precisa colocar uma vírgula ao final. Caso contrário, o Python interpreta como uma string normal, um número normal etc.
+Se você quiser criar uma tupla com apenas **um único elemento**, precisa colocar uma vírgula ao final. Caso contrário, o Python interpreta como uma string normal, um número normal, etc.
 
 ```python
 item = ("Python",)
@@ -83,7 +79,7 @@ print(type(nao_eh_tupla))
 
 ## Tipos diferentes dentro da tupla
 
-Assim como as listas, tuplas podem guardar qualquer tipo de dado e até misturar tipos diferentes:
+Assim como as listas, tuplas podem guardar vários tipo de dado e até misturar tipos diferentes:
 
 ```python
 t1 = ("texto", 42, True)
@@ -116,7 +112,7 @@ print(cores[-1])
 # azul
 ```
 
-### Intervalos (slicing)
+### Intervalos (_slicing_)
 
 Assim como nas listas, podemos fatiar uma tupla:
 

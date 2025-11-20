@@ -4,8 +4,7 @@ description: "O que são e por que são diferentes de outros tipos de dados."
 order: 21
 ---
 
-# Coleções
-Antes de avançar para novos conteúdos, vamos dar um pequeno passo para trás e entender melhor algo que apareceu várias vezes ao longo dos artigos, mas que ainda não exploramos de verdade: as coleções.
+Antes de avançar para novos conteúdos, vamos dar um pequeno passo para trás e entender melhor algo que apareceu várias vezes ao longo das lições, mas que ainda não exploramos de verdade: as coleções.
 
 Você já viu que elas existem, conhece o nome delas e aprendeu alguns conceitos básicos, como que elas são _truthy_ quando possuem algum valor e _falsy_ quando estão vazias.
 
@@ -19,7 +18,7 @@ Até agora, trabalhamos principalmente com tipos de dados que representam **um �
 * strings (`str`)
 * booleanos (`bool`)
 
-Esses tipos funcionam muito bem quando queremos guardar algo isolado, mas na maior parte dos programas, também precisamos lidar com **vários valores ao mesmo tempo**:
+Esses tipos funcionam muito bem quando queremos guardar algo isolado, mas na maior parte dos programas, também precisamos lidar com **múltiplos valores ao mesmo tempo**:
 
 * notas de um aluno
 * produtos de um carrinho de compras
@@ -58,8 +57,6 @@ print(notas)
 # [8.5, 6.0, 9.0, 7.5]
 ```
 
-Esse agrupamento muda completamente a forma como trabalhamos com os dados: ele deixa tudo mais organizado e permite manipular informações relacionadas com mais facilidade. Isso abre espaço para operações muito poderosas que vamos aprender neste e nos próximos artigos.
-
 ## Como coleções ajudam no código?
 
 Coleções tornam o código mais limpo e permitem resolver problemas que seriam difíceis e nada práticos se usássemos apenas valores isolados. Com elas, podemos:
@@ -85,14 +82,14 @@ Cada uma delas responde a perguntas importantes:
 
 É por isso que o Python oferece **quatro tipos principais de coleções**:
 
-* listas (`list`)
-* tuplas (`tuple`)
-* conjuntos (`set`)
-* dicionários (`dict`)
+* lista (`list`)
+* tupla (`tuple`)
+* conjunto (`set`)
+* dicionário (`dict`)
 
 Cada uma resolve um tipo específico de problema e serve a um propósito diferente. Com o tempo, essas escolhas passam a ser naturais no dia a dia do código.
 
 ---
-Este primeiro artigo é apenas uma visão geral para entender que **coleções são formas de agrupar vários valores de maneira organizada**.
+Esta primeira lição é apenas uma visão geral para entender que **coleções são formas de agrupar vários valores de maneira organizada**.
 
-Nos próximos, vamos conhecer cada tipo com calma e aprender quais são suas características, como criar, como acessar valores e como escolher a melhor coleção para cada situação.
+Nas próximas, vamos conhecer cada tipo com calma e aprender quais são suas características, como criar, como acessar valores e como escolher a melhor coleção para cada situação.
