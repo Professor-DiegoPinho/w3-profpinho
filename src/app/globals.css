@@ -1684,7 +1684,6 @@ a {
 /* Reading Time Variants */
 .reading-time-default {
   padding: 4px 8px;
-  background: rgba(4, 170, 109, 0.1);
   border-radius: 12px;
   color: var(--reading-time-color, var(--color-green));
 }

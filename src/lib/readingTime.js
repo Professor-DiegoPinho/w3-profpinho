@@ -74,19 +74,23 @@ export function formatReadingTime(minutes) {
 
   let icon;
   let color;
+  let background;
 
   switch (category) {
     case 'quick':
       icon = '⚡'; // Lightning bolt for quick reads
       color = '#04AA6D'; // Green
+      background = '#04AA6D1A';
       break;
     case 'medium':
       icon = '📖'; // Book for medium reads
       color = '#FFA500'; // Orange
+      background = '#fdc04f4f'
       break;
     case 'long':
       icon = '📚'; // Books for long reads
       color = '#FF6B6B'; // Red
+      background = '#FF6B6B1A)';
       break;
     default:
       icon = '📄';
@@ -100,6 +104,7 @@ export function formatReadingTime(minutes) {
   return {
     icon,
     color,
+    background,
     text,
     category,
     fullText: `${text} de leitura`
