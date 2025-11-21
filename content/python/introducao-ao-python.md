@@ -20,8 +20,8 @@ Literalmente para um montão de coisas. Eu vou te dar alguns exemplos:
 
 1. Desenvolvimento de software: Aplicações de back-end (inclusive APIs) com frameworks como Django, Flask e FastAPI;
 2. Automação de tarefas (scripts): Excelente para automatizar processos repetitivos como web scraping, relatórios, planilhas, etc;
-3. Inteligência artificial e Machine Learning: O ecossistema Python tornam ele o favorito nessa modalidade, principalmente por conta de bibliotecas poderosas como o TensorFlor e o PyTorch; 
-4. Ciência e pesquisa: Utilizado em pesquisa científica, bioinformática  e modelagem matemática. Ferramentas como o Jupyter Notebooks são muito usadas em empresas e universidades;
+3. Inteligência artificial e Machine Learning: O ecossistema Python tornam ele o favorito nessa modalidade, principalmente por conta de bibliotecas poderosas como o TensorFlor e o PyTorch;
+4. Ciência e pesquisa: Utilizado em pesquisa científica, bioinformática e modelagem matemática. Ferramentas como o Jupyter Notebooks são muito usadas em empresas e universidades;
 5. Mercado financeiro: O Python é um dos favoritos para lidar com finanças quantitativas, sendo usado, por exemplo, para modelagem de risco, algoritmos de trading, simulações estatísticas e mais.
 6. E claro, muito muito mais!
 

@@ -10,6 +10,7 @@ Apesar de ser uma linguagem de tipagem dinâmica, ou seja, você não precisa de
 Estão alguns dos tipos de dados mais comuns (que inclusive também estão presentes em outras linguagens de programação):
 
 ## Números
+
 O Python suporta vários tipos numéricos, incluindo inteiros (`int`), números de ponto flutuante (`float`) e números complexos (`complex`).
 
 Por exemplo:
@@ -21,6 +22,7 @@ numero_complexo = 2 + 3j  # Tipo complex
 ```
 
 ## Strings
+
 As strings são sequências de caracteres (ou seja, textos) e podem ser definidas usando aspas simples (`'`) ou duplas (`"`). O Python oferece vários métodos para manipulação de strings, como concatenação, fatiamento e formatação.
 
 Por exemplo:
@@ -32,6 +34,7 @@ print(f"Olá, {nome}!")  # Usando f-strings
 ```
 
 ## Booleanos
+
 O tipo booleano (`bool`) representa valores verdadeiros ou falsos. Em Python, os valores booleanos são `True` e `False` (repare na letra maiúscula).
 
 ```python
