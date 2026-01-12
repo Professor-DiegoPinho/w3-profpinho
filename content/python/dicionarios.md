@@ -45,32 +45,29 @@ Para além do seu formato, dicionários são coleções:
 
 ### Tipos de chaves e valores permitidos
 
+#### Chaves
+
 Quando dizemos acima que um dicionário é mutável, queremos dizer que você pode adicionar, mudar ou remover os pares chave-valor que ele guarda.
 
 Porém, suas **chaves** precisam ser **imutáveis**. Isso garante que elas permaneçam constantes e possam ser usadas para identificar valores de forma confiável.
 
 Se elas pudessem mudar depois de criadas, seria como trocar o rótulo de uma caixa sem avisar as pessoas que a utilizam: elas tentariam buscar um valor usando o nome antigo e não encontrariam nada. Na prática, isso deixaria o acesso aos dados imprevisível e faria você "perder" informações que ainda estão lá, mas não podem mais ser encontradas pela chave ter mudado.
 
-Para que isso não aconteçam, podem ser usados como chaves:
+Para que isso não aconteça:
 
-- _strings_
-- números (`int`, `float` e até `complex`)
-- booleanos
-- `None`
-- conjuntos imutáveis (`frozenset`)
-- tuplas, contanto que todos os seus elementos também sejam imutáveis
-- intervalos (`range`)
+| Podem ser usados como chaves            | Não podem ser usados como chaves    |
+| :-------------------------------------- | :---------------------------------- |
+| _strings_ (`str`)                       | listas (`list`)                     |
+| números (`int`, `float` e `complex`)    | tuplas (`tuple`) com itens mutáveis |
+| booleanos (`bool`)                      | dicionários (`dict`)                |
+| conjuntos imutáveis (`frozenset`)       | conjuntos mutáveis (`set`)          |
+| tuplas (`tuple`) só com itens imutáveis |                                     |
 
-Não podem ser usados como chaves:
+Apesar de ser possível, na prática é raro utilizarmos a maioria dos tipos acima como chaves dos nossos dicionários. Na maioria dos casos, você verá apenas `str` e `int` sendo utilizados.
 
-- listas
-- tuplas que contenham elementos mutáveis
-- conjuntos mutáveis (`set`)
-- dicionários
+#### Valores
 
 Já os **valores** que cada chave guarda podem ser de qualquer tipo, não há restrição.
-
-> Apesar de ser possível, na prática é raro utilizarmos booleanos, `None`, tuplas e conjuntos imutáveis (`frozenset`) como chaves dos nossos dicionários. Na maioria dos casos, vamos utilizar apenas `str` e `int` mesmo.
 
 ### Chaves duplicadas sobrescrevem valores
 
@@ -93,7 +90,54 @@ print(professor)
 
 Como só pode existir uma chave chamada `anos de experiência` dentro do dicionário `professor`, o valor `4` foi descartado e `2`, a informação mais recente, ficou guardada nela.
 
+## Criando dicionários
+
+### `dict()`
+
+Você já viu que pode criar dicionários com as chaves (`{}`):
+
+```python
+professor = {
+  "nome": "Carolina",
+  "ensina": "Python",
+  "formação": "Ciência da Computação"
+}
+
+print(professor)
+
+# Saída:
+# {'nome': 'Carolina', 'ensina': 'Python', 'formação': 'Ciência da Computação'}
+```
+
+Outra forma de criá-los é usando a função `dict()`. Veja como ela funciona:
+
+```python
+professor = dict(nome="Carolina", ensina="Python", formação="Ciência da Computação")
+print(professor)
+
+# Saída:
+# {'nome': 'Carolina', 'ensina': 'Python', 'formação': 'Ciência da Computação'}
+```
+
+Aqui, o que vem antes do símbolo de igual (`nome`, `ensina` e `formação`) vira uma **chave** no dicionário. O que vem depois dele, se torna o valor da chave que ele vai criar.
+
+Um ponto de atenção é que, nesse formato do `dict()`, as chaves precisam ser escritas como identificadores válidos, parecidos com nomes de variáveis. Por isso, não dá para usar espaços, hifens, ponto, operadores e símbolos especiais (`@`, `!`, `+`, etc.), palavras reservadas (`class`, `if`, etc.) ou começar com números.
+
+Se em algum momento bater dúvida sobre qual é o tipo de dado e você quiser confirmar, pode usar a função `type()`:
+
+```python
+professor = dict(nome="Carolina", ensina="Python", formação="Ciência da Computação")
+print(type(professor))
+
+# Saída:
+# <class 'dict'>
+```
+
+Ela vai retornar `<class 'dict'>` sempre que o valor for um dicionário.
+
 ## Como acessar valores
+
+### Acessando pela chave
 
 A grande vantagem do dicionário é acessar valores de forma direta, **usando a chave em vez do índice** da informação:
 
