@@ -128,6 +128,18 @@ print(list(intervalo))
 
 Repare que, com o passo negativo, o início guarda o número maior e fim guarda o número menor.
 
+Outra opção é deixar o usuário escolher qual será o início, fim e passo:
+
+```python
+inicio = int(input("Qual é o primeiro número da sequência?"))
+fim = int(input("Qual é o último número da sequência?"))
+passo = int(input("De quanto em quanto ela deve pular?"))
+
+intervalo = range(inicio, fim, passo)
+```
+
+Não esqueça que o tipo de dado recebido pelo `input()` sempre é `str`. Como o `range()` só aceita valores do tipo `int`, precisamos converter a _string_ para o tipo numérico inteiro com a função `int()`.
+
 ## Relação entre `range` e `list`
 
 Você deve ter percebido nos exemplos acima que, para visualizar todos os itens de cada `range`, nós o **convertemos para o tipo `list`**, dessa forma:
