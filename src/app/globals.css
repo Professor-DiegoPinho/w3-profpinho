@@ -989,6 +989,28 @@ a {
   max-width: 400px;
 }
 
+.header-auth {
+  display: flex;
+  align-items: center;
+}
+
+.google-signin-button {
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 1px solid var(--color-black);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.google-signin-button:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
 /* Ajustar layout principal para acomodar header */
 .app-layout {
   padding-top: 70px;
@@ -1222,6 +1244,10 @@ a {
   .header-search {
     flex: 1;
     max-width: none;
+  }
+
+  .header-auth {
+    display: none;
   }
 
   .search-input {

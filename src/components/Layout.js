@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Sidebar from './Sidebar';
-import SearchBox from './SearchBox';
+import { useEffect, useState } from 'react';
 import Footer from './Footer';
+import GoogleSignInButton from './GoogleSignInButton';
+import SearchBox from './SearchBox';
+import Sidebar from './Sidebar';
 
 export default function Layout({ children, sidebarData, currentCategory, currentSlug }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -66,6 +67,10 @@ export default function Layout({ children, sidebarData, currentCategory, current
           </div>
 
           <SearchBox className="header-search" />
+
+          <div className="header-auth">
+            <GoogleSignInButton />
+          </div>
         </div>
       </header>
 
