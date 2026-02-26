@@ -1,10 +1,18 @@
+import { auth } from '@/auth';
 import Layout from '@/components/Layout';
+import { getEnrolledCourseIds, mapSidebarWithLocks } from '@/lib/enrollment';
 import { getCategories, getSidebarData } from '@/lib/markdown';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
-  const sidebarData = getSidebarData();
+  const session = await auth();
+  const userId = session?.user?.id;
   const categories = getCategories();
+  const enrolledCourseIds = await getEnrolledCourseIds(userId);
+
+  const sidebarData = mapSidebarWithLocks(getSidebarData(), enrolledCourseIds);
 
   return (
     <Layout sidebarData={sidebarData}>

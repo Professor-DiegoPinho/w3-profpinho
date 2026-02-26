@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 export default function GoogleSignInButton() {
   const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [avatarLoadError, setAvatarLoadError] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -31,6 +32,10 @@ export default function GoogleSignInButton() {
     };
   }, []);
 
+  useEffect(() => {
+    setAvatarLoadError(false);
+  }, [session?.user?.image]);
+
   const handleGoogleSignIn = () => {
     signIn("google", { callbackUrl: "/" });
   };
@@ -43,6 +48,7 @@ export default function GoogleSignInButton() {
   if (status === "authenticated") {
     const userImage = session?.user?.image;
     const userName = session?.user?.name || "Usuário";
+    const avatarSrc = !userImage || avatarLoadError ? "/default-avatar.svg" : userImage;
 
     return (
       <div className="user-menu" ref={menuRef}>
@@ -54,19 +60,14 @@ export default function GoogleSignInButton() {
           aria-haspopup="menu"
           aria-expanded={isMenuOpen}
         >
-          {userImage ? (
-            <Image
-              src={userImage}
-              alt={`Foto de ${userName}`}
-              width={42}
-              height={42}
-              className="user-avatar-image"
-            />
-          ) : (
-            <span className="user-avatar-fallback">
-              {userName.charAt(0).toUpperCase()}
-            </span>
-          )}
+          <Image
+            src={avatarSrc}
+            alt={`Foto de ${userName}`}
+            width={42}
+            height={42}
+            className="user-avatar-image"
+            onError={() => setAvatarLoadError(true)}
+          />
         </button>
 
         {isMenuOpen && (

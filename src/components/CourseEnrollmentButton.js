@@ -1,5 +1,6 @@
 "use client";
 
+import AuthEnrollmentModal from "@/components/AuthEnrollmentModal";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,6 +10,7 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const handleEnrollment = async () => {
     if (isSubmitting) {
@@ -18,7 +20,7 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
     setErrorMessage("");
 
     if (status !== "authenticated") {
-      signIn("google", { callbackUrl: `/${category}` });
+      setIsAuthModalOpen(true);
       return;
     }
 
@@ -56,10 +58,17 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
         onClick={handleEnrollment}
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Processando..." : "Comece a aprender"}
+        {isSubmitting ? "Acessando conteúdo..." : "Comece a aprender"}
       </button>
 
       {errorMessage && <p className="course-enroll-error">{errorMessage}</p>}
+
+      <AuthEnrollmentModal
+        isOpen={isAuthModalOpen}
+        category={category}
+        onClose={() => setIsAuthModalOpen(false)}
+        onConfirm={() => signIn("google", { callbackUrl: `/${category}` })}
+      />
     </div>
   );
 }

@@ -1,7 +1,11 @@
+import { auth } from '@/auth';
 import CourseEnrollmentButton from '@/components/CourseEnrollmentButton';
 import Layout from '@/components/Layout';
+import { getEnrolledCourseIds, mapSidebarWithLocks } from '@/lib/enrollment';
 import { getCategories, getPostsInCategory, getSidebarData } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
+
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const categories = getCategories();
@@ -19,7 +23,11 @@ export default async function CategoryPage({ params }) {
     notFound();
   }
 
-  const sidebarData = getSidebarData();
+  const session = await auth();
+  const userId = session?.user?.id;
+  const enrolledCourseIds = await getEnrolledCourseIds(userId);
+
+  const sidebarData = mapSidebarWithLocks(getSidebarData(), enrolledCourseIds);
   const firstPost = posts[0];
   const totalLessons = posts.length;
   const totalReadingMinutes = posts.reduce((acc, post) => acc + (post.readingTime?.minutes || 0), 0);

@@ -9,7 +9,8 @@ export default function Sidebar({
   currentSlug,
   isOpen = true,
   isMobile = false,
-  onLinkClick
+  onLinkClick,
+  onNavigateStart
 }) {
   const [expandedCategories, setExpandedCategories] = useState(
     sidebarData.reduce((acc, category) => {
@@ -29,6 +30,18 @@ export default function Sidebar({
     if (isMobile && onLinkClick) {
       onLinkClick();
     }
+  };
+
+  const handlePostLinkClick = (event, post) => {
+    const isCurrentPost = currentCategory === post.category && currentSlug === post.slug;
+    const targetPath = post.isLocked ? `/${post.category}` : `/${post.category}/${post.slug}`;
+    const isModifiedClick = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0;
+
+    if (!isCurrentPost && !isModifiedClick && !event.defaultPrevented && onNavigateStart) {
+      onNavigateStart(targetPath);
+    }
+
+    handleLinkClick();
   };
 
   return (
@@ -51,14 +64,15 @@ export default function Sidebar({
                 {category.posts.map((post) => (
                   <li key={post.slug} className="post-item">
                     <Link
-                      href={`/${post.category}/${post.slug}`}
+                      href={post.isLocked ? `/${post.category}` : `/${post.category}/${post.slug}`}
                       className={`post-link ${currentCategory === post.category && currentSlug === post.slug
                         ? 'active'
                         : ''
-                        }`}
-                      onClick={handleLinkClick}
+                        } ${post.isLocked ? 'locked' : ''}`}
+                      onClick={(event) => handlePostLinkClick(event, post)}
                     >
-                      {post.title}
+                      <span className="post-link-text">{post.title}</span>
+                      {post.isLocked && <span className="post-lock-icon" aria-hidden="true">🔒</span>}
                     </Link>
                   </li>
                 ))}

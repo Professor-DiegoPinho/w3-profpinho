@@ -4,12 +4,15 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Footer from './Footer';
 import GoogleSignInButton from './GoogleSignInButton';
+import LessonContentSkeleton from './LessonContentSkeleton';
 import SearchBox from './SearchBox';
 import Sidebar from './Sidebar';
 
 export default function Layout({ children, sidebarData, currentCategory, currentSlug }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isRouteLoading, setIsRouteLoading] = useState(false);
+  const [pendingPath, setPendingPath] = useState(null);
 
   // Detectar se é mobile
   useEffect(() => {
@@ -29,6 +32,25 @@ export default function Layout({ children, sidebarData, currentCategory, current
       setIsSidebarOpen(false);
     }
   }, [currentCategory, currentSlug, isMobile]);
+
+  useEffect(() => {
+    if (!pendingPath) {
+      return;
+    }
+
+    let currentPath = '/';
+
+    if (currentCategory && currentSlug) {
+      currentPath = `/${currentCategory}/${currentSlug}`;
+    } else if (currentCategory) {
+      currentPath = `/${currentCategory}`;
+    }
+
+    if (currentPath === pendingPath) {
+      setIsRouteLoading(false);
+      setPendingPath(null);
+    }
+  }, [currentCategory, currentSlug, pendingPath]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -88,11 +110,19 @@ export default function Layout({ children, sidebarData, currentCategory, current
           isOpen={isSidebarOpen}
           isMobile={isMobile}
           onLinkClick={closeSidebar}
+          onNavigateStart={(targetPath) => {
+            setPendingPath(targetPath);
+            setIsRouteLoading(true);
+          }}
         />
 
         <main className="main-content">
-          <div className="content-wrapper">
-            {children}
+          <div className={`content-wrapper ${isRouteLoading ? 'content-wrapper-loading' : ''}`}>
+            {isRouteLoading ? (
+              <LessonContentSkeleton />
+            ) : (
+              children
+            )}
           </div>
         </main>
       </div>
