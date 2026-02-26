@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import Layout from '@/components/Layout';
-import { getSidebarData, getCategories } from '@/lib/markdown';
+import { getCategories, getSidebarData } from '@/lib/markdown';
+import Link from 'next/link';
 
 export default async function Home() {
   const sidebarData = getSidebarData();
@@ -28,10 +28,10 @@ export default async function Home() {
                 </div>
                 {firstPost && (
                   <Link
-                    href={`/${category}/${firstPost.slug}`}
+                    href={`/${category}`}
                     className="start-learning-btn"
                   >
-                    Comece a aprender
+                    Saiba mais
                   </Link>
                 )}
               </div>

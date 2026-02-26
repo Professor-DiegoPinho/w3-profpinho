@@ -311,6 +311,102 @@ a {
   background-color: var(--color-red-second);
 }
 
+/* Course Enrollment Page */
+.course-enrollment-page {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.course-enrollment-header {
+  margin-bottom: 30px;
+}
+
+.course-enrollment-badge {
+  display: inline-block;
+  background-color: var(--color-gray);
+  color: var(--color-text-black);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.course-enrollment-header h1 {
+  font-size: 2rem;
+  color: var(--color-text-black);
+  margin-bottom: 10px;
+}
+
+.course-enrollment-header p {
+  color: #666;
+  font-size: 1.05rem;
+}
+
+.course-enrollment-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.course-summary-item {
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fafafa;
+  min-width: 150px;
+}
+
+.course-summary-item strong {
+  display: block;
+  color: var(--color-text-black);
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+
+.course-summary-item span {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.course-enrollment-actions {
+  display: flex;
+}
+
+@media (max-width: 950px) {
+  .course-enrollment-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+.course-enroll-button {
+  display: inline-block;
+  background-color: var(--color-red);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.course-enroll-button:hover {
+  background-color: var(--color-red-second);
+}
+
+.course-enroll-button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.course-enroll-error {
+  margin-top: 10px;
+  color: var(--color-red-second);
+  font-size: 0.9rem;
+}
+
 /* About Professor Section */
 .about-professor {
   padding: 80px 0;

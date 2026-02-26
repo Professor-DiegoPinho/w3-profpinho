@@ -6,6 +6,24 @@ import Google from "next-auth/providers/google";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
+    async jwt({ token, account }) {
+      if (account?.providerAccountId) {
+        token.userId = account.providerAccountId;
+      }
+
+      if (!token.userId && token.sub) {
+        token.userId = token.sub;
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (session?.user) {
+        session.user.id = token.userId || token.sub || null;
+      }
+
+      return session;
+    },
     async signIn({ user, account }) {
       if (account?.provider !== "google") return true;
       if (!account?.providerAccountId) return true;
