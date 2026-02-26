@@ -1,3 +1,4 @@
+import { getEnrolledCourseIds } from "@/lib/enrollment";
 import { db } from "@/lib/firebase";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import NextAuth from "next-auth";
@@ -6,7 +7,7 @@ import Google from "next-auth/providers/google";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, trigger, session }) {
       if (account?.providerAccountId) {
         token.userId = account.providerAccountId;
       }
@@ -15,11 +16,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.userId = token.sub;
       }
 
+      if (trigger === "update" && Array.isArray(session?.enrolledCourseIds)) {
+        token.enrolledCourseIds = session.enrolledCourseIds;
+      }
+
+      if (!Array.isArray(token.enrolledCourseIds)) {
+        token.enrolledCourseIds = await getEnrolledCourseIds(token.userId);
+      }
+
       return token;
     },
     async session({ session, token }) {
       if (session?.user) {
         session.user.id = token.userId || token.sub || null;
+        session.user.enrolledCourseIds = Array.isArray(token.enrolledCourseIds)
+          ? token.enrolledCourseIds
+          : [];
       }
 
       return session;

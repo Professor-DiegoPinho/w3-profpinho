@@ -10,7 +10,9 @@ export default async function Home() {
   const session = await auth();
   const userId = session?.user?.id;
   const categories = getCategories();
-  const enrolledCourseIds = await getEnrolledCourseIds(userId);
+  const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
+    ? session.user.enrolledCourseIds
+    : await getEnrolledCourseIds(userId);
 
   const sidebarData = mapSidebarWithLocks(getSidebarData(), enrolledCourseIds);
 

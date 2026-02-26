@@ -7,7 +7,9 @@ export async function GET() {
     const session = await auth();
     const userId = session?.user?.id;
     const rawSidebarData = getSidebarData();
-    const enrolledCourseIds = await getEnrolledCourseIds(userId);
+    const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
+      ? session.user.enrolledCourseIds
+      : await getEnrolledCourseIds(userId);
 
     const sidebarData = mapSidebarWithLocks(rawSidebarData, enrolledCourseIds);
 

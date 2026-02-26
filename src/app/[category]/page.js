@@ -25,7 +25,9 @@ export default async function CategoryPage({ params }) {
 
   const session = await auth();
   const userId = session?.user?.id;
-  const enrolledCourseIds = await getEnrolledCourseIds(userId);
+  const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
+    ? session.user.enrolledCourseIds
+    : await getEnrolledCourseIds(userId);
 
   const sidebarData = mapSidebarWithLocks(getSidebarData(), enrolledCourseIds);
   const firstPost = posts[0];

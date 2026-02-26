@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CourseEnrollmentButton({ category, firstPostSlug }) {
-  const { status } = useSession();
+  const { data: session, status, update } = useSession();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -39,6 +39,16 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
 
       if (!response.ok) {
         throw new Error("Falha ao salvar enrollment");
+      }
+
+      const currentEnrolled = Array.isArray(session?.user?.enrolledCourseIds)
+        ? session.user.enrolledCourseIds
+        : [];
+
+      if (!currentEnrolled.includes(category)) {
+        await update({
+          enrolledCourseIds: [...currentEnrolled, category],
+        });
       }
 
       router.push(`/${category}/${firstPostSlug}`);

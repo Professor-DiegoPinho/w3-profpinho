@@ -27,7 +27,13 @@ export default async function PostPage({ params }) {
 
   const session = await auth();
   const userId = session?.user?.id;
-  const isEnrolled = await hasCourseEnrollment(userId, category);
+  const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
+    ? session.user.enrolledCourseIds
+    : null;
+
+  const isEnrolled = Array.isArray(enrolledCourseIds)
+    ? enrolledCourseIds.includes(category)
+    : await hasCourseEnrollment(userId, category);
 
   if (!isEnrolled) {
     redirect(`/${category}`);
