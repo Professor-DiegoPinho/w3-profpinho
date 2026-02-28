@@ -207,12 +207,12 @@ a {
 }
 
 .category-toggle-btn {
-  width: 44px;
+  width: 80px;
   border: none;
   border-left: 1px solid #f0f0f0;
   background: transparent;
   cursor: pointer;
-  color: #666;
+  color: var(--color-text-black);
 }
 
 .category-toggle-btn:hover {
