@@ -30,6 +30,33 @@ export async function getEnrolledCourseIds(userId) {
     .filter((courseId) => typeof courseId === "string" && courseId.length > 0);
 }
 
+export async function getCourseEnrollmentDate(userId, courseId) {
+  if (!userId || !courseId) {
+    return null;
+  }
+
+  const enrollmentId = `${userId}_${courseId}`;
+  const enrollmentRef = doc(db, "enrollments", enrollmentId);
+  const enrollmentDoc = await getDoc(enrollmentRef);
+
+  if (!enrollmentDoc.exists()) {
+    return null;
+  }
+
+  const enrolledAt = enrollmentDoc.data()?.enrolledAt;
+
+  if (!enrolledAt) {
+    return null;
+  }
+
+  if (typeof enrolledAt?.toDate === "function") {
+    return enrolledAt.toDate();
+  }
+
+  const parsedDate = new Date(enrolledAt);
+  return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
+}
+
 export function mapSidebarWithLocks(sidebarData, enrolledCourseIds = []) {
   const enrolledSet = new Set(enrolledCourseIds);
 

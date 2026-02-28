@@ -132,7 +132,7 @@ a {
   border-right: 1px solid #e0e0e0;
   position: fixed;
   height: 100vh;
-  overflow-y: auto;
+  overflow: hidden;
   z-index: 1000;
   transition: transform 0.3s ease;
 }
@@ -148,20 +148,57 @@ a {
 
 .sidebar-nav {
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-group {
+  margin-bottom: 0;
+}
+
+.sidebar-group-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-text-black);
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-group-toggle {
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-group-toggle.open {
+  transform: rotate(180deg);
 }
 
 .category-section {
   border-bottom: 1px solid #f0f0f0;
 }
 
-.category-header {
+.category-link-row {
+  display: flex;
+  align-items: stretch;
+}
+
+.category-link {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background: none;
-  border: none;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
@@ -169,29 +206,75 @@ a {
   transition: background-color 0.2s;
 }
 
-.category-header:hover {
+.category-toggle-btn {
+  width: 44px;
+  border: none;
+  border-left: 1px solid #f0f0f0;
+  background: transparent;
+  cursor: pointer;
+  color: #666;
+}
+
+.category-toggle-btn:hover {
   background-color: #f8f9fa;
+}
+
+.category-toggle-icon {
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.category-toggle-icon.open {
+  transform: rotate(180deg);
+}
+
+.category-link:hover {
+  background-color: #f8f9fa;
+}
+
+.category-link.active {
+  background-color: transparent;
+  border-bottom: 2px solid var(--color-red);
+}
+
+.category-link.active .category-title {
+  color: var(--color-text-black);
+  font-weight: 700;
 }
 
 .category-title {
   color: var(--color-text-black);
-  font-weight: bold;
-}
-
-.expand-icon {
-  font-size: 12px;
-  transition: transform 0.2s;
-  color: #666;
-}
-
-.expand-icon.expanded {
-  transform: rotate(180deg);
+  font-weight: 500;
 }
 
 .posts-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 500px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-red) var(--color-gray);
+}
+
+.posts-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.posts-list::-webkit-scrollbar-track {
+  background: var(--color-gray);
+  border-radius: 999px;
+}
+
+.posts-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-red), var(--color-red-second));
+  border-radius: 999px;
+}
+
+.posts-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-red-second);
 }
 
 .post-item {
@@ -347,18 +430,48 @@ a {
 }
 
 .course-enrollment-header {
+  position: relative;
   margin-bottom: 30px;
+  padding-right: 120px;
+}
+
+.course-enrollment-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 96px;
+  height: 96px;
+  padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-enrollment-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.course-enrollment-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .course-enrollment-badge {
-  display: inline-block;
-  background-color: var(--color-gray);
-  color: var(--color-text-black);
-  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  padding: 7px 14px;
   border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .course-enrollment-header h1 {
@@ -401,11 +514,70 @@ a {
 
 .course-enrollment-actions {
   display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.course-enrollment-date {
+  margin: 0;
+  color: #666;
+  font-size: 0.92rem;
+}
+
+.course-meta-block {
+  margin-bottom: 24px;
+}
+
+.course-meta-block h2 {
+  font-size: 1.1rem;
+  color: var(--color-text-black);
+  margin-bottom: 10px;
+}
+
+.course-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.course-tag-chip {
+  background-color: var(--color-gray);
+  color: var(--color-text-black);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.course-prerequisites-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #666;
+}
+
+.course-empty-meta {
+  color: #666;
+  font-size: 0.95rem;
 }
 
 @media (max-width: 950px) {
+  .course-enrollment-header {
+    padding-right: 0;
+  }
+
+  .course-enrollment-logo {
+    position: static;
+    margin-bottom: 14px;
+  }
+
   .course-enrollment-summary {
     grid-template-columns: 1fr;
+  }
+
+  .course-enrollment-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }
 

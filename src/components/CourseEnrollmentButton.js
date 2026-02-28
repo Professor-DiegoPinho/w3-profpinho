@@ -11,6 +11,9 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const isEnrolled = Array.isArray(session?.user?.enrolledCourseIds)
+    ? session.user.enrolledCourseIds.includes(category)
+    : false;
 
   const handleEnrollment = async () => {
     if (isSubmitting) {
@@ -21,6 +24,11 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
 
     if (status !== "authenticated") {
       setIsAuthModalOpen(true);
+      return;
+    }
+
+    if (isEnrolled) {
+      router.push(`/${category}/${firstPostSlug}`);
       return;
     }
 
@@ -68,7 +76,11 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
         onClick={handleEnrollment}
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Acessando conteúdo..." : "Comece a aprender"}
+        {isSubmitting
+          ? "Acessando conteúdo..."
+          : isEnrolled
+            ? "Acessar"
+            : "Inscreva-se gratuitamente"}
       </button>
 
       {errorMessage && <p className="course-enroll-error">{errorMessage}</p>}
