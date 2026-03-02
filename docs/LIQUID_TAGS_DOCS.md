@@ -2,7 +2,33 @@
 
 ## Visão Geral
 
-As liquid tags permitem incluir conteúdo dinâmico nos arquivos markdown. Atualmente, o sistema suporta incorporação de vídeos do YouTube através da tag `{% embed %}`.
+As liquid tags permitem incluir conteúdo dinâmico nos arquivos markdown. Atualmente, o sistema suporta incorporação de vídeos do YouTube através da tag `{% embed %}` e blocos expansíveis com a tag `{% toggle %}`.
+
+## Tag: {% toggle %} ... {% endtoggle %}
+
+### Sintaxe
+
+```
+{% toggle "TÍTULO DO TOGGLE" %}
+CONTEÚDO_EM_MARKDOWN
+{% endtoggle %}
+```
+
+### Exemplo de Uso
+
+```markdown
+{% toggle "Ver solução" %}
+```python
+print("Olá, mundo!")
+```
+{% endtoggle %}
+```
+
+### Recursos
+
+- **Acessível**: usa elementos semânticos `details/summary`
+- **Compatível com markdown**: permite código, listas e texto dentro do corpo do toggle
+- **Visual consistente**: estilos integrados ao tema do site
 
 ## Tag: {% embed %}
 
@@ -68,7 +94,7 @@ Quando uma URL inválida é fornecida, o sistema exibe uma mensagem de erro:
 2. **`src/lib/markdown.js`**: Integração com o pipeline de markdown
 3. **`src/components/MarkdownContent.js`**: Renderização do conteúdo processado
 4. **`src/components/YouTubeEmbed.js`**: Componente React para vídeos (opcional)
-5. **`src/app/globals.css`**: Estilos para os embeds
+5. **`src/app/globals.css`**: Estilos para os embeds e toggles
 
 ### Fluxo de Processamento
 

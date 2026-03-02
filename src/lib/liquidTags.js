@@ -48,6 +48,45 @@ function processEmbedTag(url) {
 }
 
 /**
+ * Escapa caracteres especiais para uso seguro em HTML
+ * @param {string} value - Texto para escapar
+ * @returns {string} - Texto escapado
+ */
+function escapeHtml(value) {
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * Processa as tags de bloco {% toggle "Título" %}...{% endtoggle %}
+ * @param {string} content - Conteúdo markdown
+ * @returns {string} - Conteúdo com toggles convertidos
+ */
+function processToggleTags(content) {
+  const toggleRegex = /\{\%\s*toggle\s+"([^"]+)"\s*\%\}([\s\S]*?)\{\%\s*endtoggle\s*\%\}/g;
+
+  return content.replace(toggleRegex, (match, title, body) => {
+    const safeTitle = escapeHtml(title.trim());
+    const toggleBody = body.trim();
+
+    return `<details class="content-toggle">
+  <summary class="content-toggle-summary">${safeTitle}</summary>
+
+${toggleBody}
+
+</details>`;
+  });
+}
+
+/**
  * Processa todas as liquid tags em um texto markdown
  * @param {string} content - Conteúdo markdown
  * @returns {string} - Conteúdo com liquid tags processadas
@@ -75,6 +114,9 @@ export function processAllLiquidTags(content) {
 
   // Processa embeds
   processedContent = processLiquidTags(processedContent);
+
+  // Processa toggles
+  processedContent = processToggleTags(processedContent);
 
   // Aqui podem ser adicionadas outras liquid tags no futuro
   // processedContent = processOtherTags(processedContent);

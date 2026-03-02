@@ -1,8 +1,8 @@
 import { auth } from '@/auth';
+import CategoriesSection from '@/components/CategoriesSection';
 import Layout from '@/components/Layout';
 import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
 import { getCategories, getSidebarData } from '@/lib/markdown';
-import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,30 +24,7 @@ export default async function Home() {
           <p>Seu local de referência e confiança para aprender tecnologia.</p>
         </header>
 
-        <div className="categories-grid">
-          {categories.map((category) => {
-            const categoryData = sidebarData.find(cat => cat.category === category);
-            const firstPost = categoryData?.posts[0];
-
-            return (
-              <div key={category} className="category-card">
-                <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
-                <p>Aprenda {category} do básico até conceitos avançados.</p>
-                <div className="category-stats">
-                  <span>{categoryData?.posts.length || 0} lições</span>
-                </div>
-                {firstPost && (
-                  <Link
-                    href={`/${category}`}
-                    className="start-learning-btn"
-                  >
-                    Saiba mais
-                  </Link>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <CategoriesSection categories={categories} sidebarData={sidebarData} />
 
         {/* Seção Sobre o Professor */}
         <section className="about-professor">
