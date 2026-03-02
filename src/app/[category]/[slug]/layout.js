@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import Layout from '@/components/Layout';
-import { getEnrolledCourseIds, mapSidebarWithLocks } from '@/lib/enrollment';
+import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
 import { getSidebarData } from '@/lib/markdown';
 
 export const dynamic = 'force-dynamic';
@@ -12,7 +12,7 @@ export default async function LessonRouteLayout({ children, params }) {
   const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
-  const sidebarData = mapSidebarWithLocks(getSidebarData(), enrolledCourseIds);
+  const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
 
   return (
     <Layout

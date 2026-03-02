@@ -94,7 +94,7 @@ export default function Sidebar({
   };
 
   const enrolledCourses = sidebarData.filter((category) =>
-    Array.isArray(category.posts) && category.posts.some((post) => !post.isLocked)
+    Array.isArray(category.posts) && category.posts.some((post) => !post.isRestricted)
   );
 
   const availableCourses = sidebarData.filter((category) =>

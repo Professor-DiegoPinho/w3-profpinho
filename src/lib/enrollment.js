@@ -57,17 +57,17 @@ export async function getCourseEnrollmentDate(userId, courseId) {
   return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
 }
 
-export function mapSidebarWithLocks(sidebarData, enrolledCourseIds = []) {
+export function mapSidebarWithAccess(sidebarData, enrolledCourseIds = []) {
   const enrolledSet = new Set(enrolledCourseIds);
 
   return sidebarData.map((categoryData) => {
-    const isCategoryUnlocked = enrolledSet.has(categoryData.category);
+    const hasCategoryAccess = enrolledSet.has(categoryData.category);
 
     return {
       ...categoryData,
       posts: categoryData.posts.map((post) => ({
         ...post,
-        isLocked: !isCategoryUnlocked,
+        isRestricted: !hasCategoryAccess,
       })),
     };
   });

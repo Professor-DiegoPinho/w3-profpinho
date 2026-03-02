@@ -5,7 +5,7 @@ import { courses } from "@/data/courses";
 import {
   getCourseEnrollmentDate,
   getEnrolledCourseIds,
-  mapSidebarWithLocks,
+  mapSidebarWithAccess,
 } from "@/lib/enrollment";
 import {
   getCategories,
@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }) {
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
 
-  const sidebarData = mapSidebarWithLocks(getSidebarData(), enrolledCourseIds);
+  const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
   const firstPost = posts[0];
   const totalLessons = posts.length;
   const totalReadingMinutes = posts.reduce(

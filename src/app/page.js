@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import Layout from '@/components/Layout';
-import { getEnrolledCourseIds, mapSidebarWithLocks } from '@/lib/enrollment';
+import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
 import { getCategories, getSidebarData } from '@/lib/markdown';
 import Link from 'next/link';
 
@@ -14,7 +14,7 @@ export default async function Home() {
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
 
-  const sidebarData = mapSidebarWithLocks(getSidebarData(), enrolledCourseIds);
+  const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
 
   return (
     <Layout sidebarData={sidebarData}>

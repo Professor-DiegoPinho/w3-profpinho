@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { getEnrolledCourseIds, mapSidebarWithLocks } from '@/lib/enrollment';
+import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
 import { getSidebarData } from '@/lib/markdown';
 
 export async function GET() {
@@ -11,7 +11,7 @@ export async function GET() {
       ? session.user.enrolledCourseIds
       : await getEnrolledCourseIds(userId);
 
-    const sidebarData = mapSidebarWithLocks(rawSidebarData, enrolledCourseIds);
+    const sidebarData = mapSidebarWithAccess(rawSidebarData, enrolledCourseIds);
 
     return Response.json(sidebarData);
   } catch (error) {
