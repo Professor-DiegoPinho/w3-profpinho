@@ -1,6 +1,6 @@
 ---
 title: "As 4 etapas e Hello World"
-description: "Entenda as 4 etapas de execução de um programa e escreva seu primeiro Hello World em Python."
+description: "Conheça as quatro etapas de um algoritmo (entrada, armazenamento, processamento e saída) e crie seu primeiro Hello World em Python."
 order: 1
 ---
 
@@ -129,3 +129,8 @@ print(" |____| ")
 ```
 
 {% endtoggle %}
+
+{% links "Links da aula" %}
+- [**Programiz - Online Python Compiler**](https://www.programiz.com/python-programming/online-compiler/)
+- [**Learning Hub Prof Diego: Python - Primeiras Impressões**](https://hub.diegopinho.com.br/python/primeiras-impressoes)
+{% endlinks %}

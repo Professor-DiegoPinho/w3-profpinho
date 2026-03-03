@@ -2,7 +2,34 @@
 
 ## Visão Geral
 
-As liquid tags permitem incluir conteúdo dinâmico nos arquivos markdown. Atualmente, o sistema suporta incorporação de vídeos do YouTube através da tag `{% embed %}` e blocos expansíveis com a tag `{% toggle %}`.
+As liquid tags permitem incluir conteúdo dinâmico nos arquivos markdown. Atualmente, o sistema suporta incorporação de vídeos do YouTube através da tag `{% embed %}`, blocos expansíveis com a tag `{% toggle %}` e seção de links em cards com a tag `{% links %}`.
+
+## Tag: {% links %} ... {% endlinks %}
+
+### Sintaxe
+
+```markdown
+{% links "Links da aula" %}
+- [Nome do recurso](https://exemplo.com)
+- [Outro recurso](https://exemplo.com)
+{% endlinks %}
+```
+
+### Exemplo de Uso
+
+```markdown
+{% links "Links da aula" %}
+- [**Programiz - Online Python Compiler**](https://www.programiz.com/python-programming/online-compiler/)
+- [**Learning Hub - Python - Variáveis**](https://hub.diegopinho.com.br/python/variaveis)
+{% endlinks %}
+```
+
+### Recursos
+
+- **Visual em cards**: transforma lista simples em blocos clicáveis mais destacáveis
+- **Compatível com markdown**: recebe lista padrão de links no corpo da tag
+- **Consistente com o tema**: usa tokens e estilos globais do projeto
+- **Acessível**: inclui foco visível e abertura em nova aba com `rel="noopener noreferrer"`
 
 ## Tag: {% toggle %} ... {% endtoggle %}
 
@@ -94,7 +121,7 @@ Quando uma URL inválida é fornecida, o sistema exibe uma mensagem de erro:
 2. **`src/lib/markdown.js`**: Integração com o pipeline de markdown
 3. **`src/components/MarkdownContent.js`**: Renderização do conteúdo processado
 4. **`src/components/YouTubeEmbed.js`**: Componente React para vídeos (opcional)
-5. **`src/app/globals.css`**: Estilos para os embeds e toggles
+5. **`src/app/globals.css`**: Estilos para embeds, toggles e cards de links
 
 ### Fluxo de Processamento
 
