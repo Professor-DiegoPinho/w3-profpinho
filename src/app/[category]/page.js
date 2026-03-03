@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import CourseEnrollmentButton from "@/components/CourseEnrollmentButton";
 import Layout from "@/components/Layout";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { courses } from "@/data/courses";
 import {
   getCourseEnrollmentDate,
@@ -16,6 +17,19 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
+
+function getShortLink(url) {
+  try {
+    const parsedUrl = new URL(url);
+    const domain = parsedUrl.hostname.replace(/^www\./, "");
+    const path = parsedUrl.pathname === "/" ? "" : parsedUrl.pathname;
+    const shortPath = path.length > 18 ? `${path.slice(0, 18)}...` : path;
+
+    return `${domain}${shortPath}`;
+  } catch {
+    return url;
+  }
+}
 
 export async function generateStaticParams() {
   const categories = getCategories();
@@ -60,6 +74,35 @@ export default async function CategoryPage({ params }) {
     : [];
   const courseAccessLabel = course?.isFree ? "Gratuito" : "Premium";
   const courseImage = course?.image;
+  const coursePresentationVideoId =
+    typeof course?.youtubeId === "string" && course.youtubeId.trim()
+      ? course.youtubeId.trim()
+      : null;
+  const courseEbook = course?.ebook || {};
+  const hasCourseEbook = Object.keys(courseEbook).length > 0;
+  const courseEbookLink = courseEbook.url;
+  const courseUsefulLinks = Array.isArray(course?.usefulLinks)
+    ? course.usefulLinks
+        .map((link) => {
+          if (typeof link === "string") {
+            return {
+              label: link,
+              url: link,
+            };
+          }
+
+          if (link?.url) {
+            return {
+              label: link.label || link.url,
+              url: link.url,
+            };
+          }
+
+          return null;
+        })
+        .filter(Boolean)
+    : [];
+  const hasCourseResources = courseUsefulLinks.length > 0;
   const isUserEnrolled = enrolledCourseIds.includes(category);
   const enrollmentDate = isUserEnrolled
     ? await getCourseEnrollmentDate(userId, category)
@@ -108,6 +151,64 @@ export default async function CategoryPage({ params }) {
             <span>primeira lição</span>
           </div>
         </div>
+
+        {coursePresentationVideoId && (
+          <div className="course-meta-block">
+            <h2>Saiba mais sobre o curso</h2>
+            <YouTubeEmbed videoId={coursePresentationVideoId} />
+          </div>
+        )}
+
+        {hasCourseEbook && (
+          <div className="course-meta-block">
+            <h2>Ebook do curso</h2>
+            <a
+              href={courseEbookLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="course-ebook-card"
+            >
+              {courseEbook.image ? (
+                <div
+                  className="course-ebook-card-image"
+                  style={{ backgroundImage: `url(${courseEbook.image})` }}
+                  role="img"
+                  aria-label={`Imagem do site ${courseEbook.siteName}`}
+                />
+              ) : (
+                <div className="course-ebook-card-image-fallback">
+                  {courseEbook.siteName.slice(0, 1).toUpperCase()}
+                </div>
+              )}
+              <div className="course-ebook-card-content">
+                <p className="course-ebook-card-site">{courseEbook.siteName}</p>
+                <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
+                <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
+                <span className="course-ebook-card-cta">Abrir ebook completo ↗</span>
+              </div>
+            </a>
+          </div>
+        )}
+
+        {hasCourseResources && (
+          <div className="course-meta-block">
+            <h2>Recursos do curso</h2>
+            <ul className="course-resource-list">
+              {courseUsefulLinks.map((link) => (
+                <li key={link.url}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="course-resource-link"
+                  >
+                    {getShortLink(link.url)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {courseTags.length > 0 && (
           <div className="course-meta-block">

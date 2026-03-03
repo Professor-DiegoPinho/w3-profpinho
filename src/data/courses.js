@@ -9,7 +9,9 @@ export const courses = [
     tags: ["python", "programação", "algoritmos"],
     prerequisites: [],
     order: 1,
-    video: "",
+    youtubeId: "",
+    ebook: {},
+    usefulLinks: [],
     seo: {
       metaTitle: "Curso de Python do Zero ao Avançado",
       metaDescription: "Curso completo de Python com exercícios práticos.",
@@ -25,8 +27,18 @@ export const courses = [
     isFree: true,
     tags: ["python", "programação", "algoritmos"],
     prerequisites: [],
-    order: 1,
-    video: "",
+    order: 2,
+    youtubeId: "XvmP4BC14D4",
+    ebook: {
+      title: "Lógica de Programação com Python",
+      siteName: "Diego Pinho - Educação e Tecnologia",
+      url: "https://diegopinho.com.br/livros/logica-programacao-python",
+      image: "/images/ebook-cover-logica-python.webp",
+      displayUrl: "diegopinho.com.br"
+    },
+    usefulLinks: [
+      "https://diegopinho.notion.site/L-gica-de-Programa-o-para-quem-nunca-programou-na-vida-1a05b3c6f6d580f6be9ed65a3c227826"
+    ],
     seo: {
       metaTitle: "Curso de Lógica de Programação com Python para iniciantes",
       metaDescription: "Curso gratuito de lógica de programação com Python para iniciantes.",
