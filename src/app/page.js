@@ -1,6 +1,5 @@
 import { auth } from '@/auth';
 import CategoriesSection from '@/components/CategoriesSection';
-import Layout from '@/components/Layout';
 import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
 import { getCategories, getSidebarData } from '@/lib/markdown';
 
@@ -17,8 +16,7 @@ export default async function Home() {
   const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
 
   return (
-    <Layout sidebarData={sidebarData}>
-      <div className="home-page">
+    <div className="home-page">
         <header className="home-header">
           <h1>Aprenda Programação com o Prof. Diego Pinho</h1>
           <p>Seu local de referência e confiança para aprender tecnologia.</p>
@@ -102,6 +100,5 @@ export default async function Home() {
           </div>
         </section>
       </div>
-    </Layout>
   );
 }

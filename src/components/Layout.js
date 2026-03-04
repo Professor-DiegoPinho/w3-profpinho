@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Footer from './Footer';
 import GoogleSignInButton from './GoogleSignInButton';
@@ -8,11 +9,36 @@ import LessonContentSkeleton from './LessonContentSkeleton';
 import SearchBox from './SearchBox';
 import Sidebar from './Sidebar';
 
-export default function Layout({ children, sidebarData, currentCategory, currentSlug }) {
+export default function Layout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isRouteLoading, setIsRouteLoading] = useState(false);
   const [pendingPath, setPendingPath] = useState(null);
+  const [sidebarData, setSidebarData] = useState([]);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    let isActive = true;
+
+    fetch('/api/sidebar')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!isActive) {
+          return;
+        }
+
+        setSidebarData(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        if (isActive) {
+          setSidebarData([]);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   // Detectar se é mobile
   useEffect(() => {
@@ -31,26 +57,20 @@ export default function Layout({ children, sidebarData, currentCategory, current
     if (isMobile) {
       setIsSidebarOpen(false);
     }
-  }, [currentCategory, currentSlug, isMobile]);
+  }, [isMobile, pathname]);
 
   useEffect(() => {
     if (!pendingPath) {
       return;
     }
 
-    let currentPath = '/';
-
-    if (currentCategory && currentSlug) {
-      currentPath = `/${currentCategory}/${currentSlug}`;
-    } else if (currentCategory) {
-      currentPath = `/${currentCategory}`;
-    }
-
-    if (currentPath === pendingPath) {
+    if (pathname === pendingPath) {
       setIsRouteLoading(false);
       setPendingPath(null);
     }
-  }, [currentCategory, currentSlug, pendingPath]);
+  }, [pathname, pendingPath]);
+
+  const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -62,10 +82,8 @@ export default function Layout({ children, sidebarData, currentCategory, current
 
   return (
     <div className="app-layout">
-      {/* Header com busca */}
       <header className="app-header">
         <div className="header-content">
-          {/* Botão hambúrguer - apenas visível no mobile */}
           {isMobile && (
             <button
               className="hamburger-button"
@@ -96,17 +114,14 @@ export default function Layout({ children, sidebarData, currentCategory, current
         </div>
       </header>
 
-      {/* Container principal para sidebar e conteúdo */}
       <div className="layout-body">
-        {/* Overlay para fechar sidebar no mobile */}
         {isMobile && isSidebarOpen && (
           <div className="sidebar-overlay" onClick={closeSidebar}></div>
         )}
 
         <Sidebar
           sidebarData={sidebarData}
-          currentCategory={currentCategory}
-          currentSlug={currentSlug}
+          currentCategory={resolvedCurrentCategory}
           isOpen={isSidebarOpen}
           isMobile={isMobile}
           onLinkClick={closeSidebar}

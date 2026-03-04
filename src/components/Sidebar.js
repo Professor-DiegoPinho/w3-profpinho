@@ -6,6 +6,15 @@ import { useEffect, useState } from 'react';
 
 const SIDEBAR_EXPANDED_COURSES_KEY = 'sidebar-expanded-my-course-lessons';
 
+function ChevronIcon({ className }) {
+  return (
+    <span className={className} aria-hidden="true">
+      <span className="toggle-chevron-line toggle-chevron-line-left" />
+      <span className="toggle-chevron-line toggle-chevron-line-right" />
+    </span>
+  );
+}
+
 export default function Sidebar({
   sidebarData,
   currentCategory,
@@ -124,24 +133,30 @@ export default function Sidebar({
               aria-label={isExpanded ? 'Fechar aulas' : 'Abrir aulas'}
               onClick={() => toggleMyCourseLessons(category.category)}
             >
-              <span className={`category-toggle-icon ${isExpanded ? 'open' : ''}`}>▾</span>
+              <span className={`category-toggle-icon ${isExpanded ? 'open' : ''}`}>
+                <ChevronIcon className="toggle-chevron" />
+              </span>
             </button>
           </div>
 
-          {isExpanded && Array.isArray(category.posts) && category.posts.length > 0 && (
-            <ul className="posts-list">
-              {category.posts.map((post) => (
-                <li key={post.slug} className="post-item">
-                  <Link
-                    href={`/${post.category}/${post.slug}`}
-                    className="post-link"
-                    onClick={(event) => handlePostLinkClick(event, post)}
-                  >
-                    <span className="post-link-text">{post.title}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {Array.isArray(category.posts) && category.posts.length > 0 && (
+            <div className={`sidebar-collapse category-posts-collapse ${isExpanded ? 'open' : ''}`}>
+              <div className="sidebar-collapse-inner">
+                <ul className="posts-list">
+                  {category.posts.map((post) => (
+                    <li key={post.slug} className="post-item">
+                      <Link
+                        href={`/${post.category}/${post.slug}`}
+                        className="post-link"
+                        onClick={(event) => handlePostLinkClick(event, post)}
+                      >
+                        <span className="post-link-text">{post.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           )}
         </div>
       );
@@ -173,9 +188,15 @@ export default function Sidebar({
               onClick={() => setIsMyCoursesOpen((prev) => !prev)}
             >
               <span>Meus cursos</span>
-              <span className={`sidebar-group-toggle ${isMyCoursesOpen ? 'open' : ''}`}>▾</span>
+              <span className={`sidebar-group-toggle ${isMyCoursesOpen ? 'open' : ''}`}>
+                <ChevronIcon className="toggle-chevron" />
+              </span>
             </button>
-            {isMyCoursesOpen && renderMyCourseLinks(enrolledCourses)}
+            <div className={`sidebar-collapse ${isMyCoursesOpen ? 'open' : ''}`}>
+              <div className="sidebar-collapse-inner">
+                {renderMyCourseLinks(enrolledCourses)}
+              </div>
+            </div>
           </section>
         )}
 
@@ -187,9 +208,15 @@ export default function Sidebar({
               onClick={() => setIsAvailableCoursesOpen((prev) => !prev)}
             >
               <span>Cursos disponíveis</span>
-              <span className={`sidebar-group-toggle ${isAvailableCoursesOpen ? 'open' : ''}`}>▾</span>
+              <span className={`sidebar-group-toggle ${isAvailableCoursesOpen ? 'open' : ''}`}>
+                <ChevronIcon className="toggle-chevron" />
+              </span>
             </button>
-            {isAvailableCoursesOpen && renderCategoryLinks(availableCourses)}
+            <div className={`sidebar-collapse ${isAvailableCoursesOpen ? 'open' : ''}`}>
+              <div className="sidebar-collapse-inner">
+                {renderCategoryLinks(availableCourses)}
+              </div>
+            </div>
           </section>
         )}
       </nav>

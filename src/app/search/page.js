@@ -1,10 +1,9 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import Layout from '@/components/Layout';
 import { ReadingTimeCompact } from '@/components/ReadingTime';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
 
 function SearchPageContent() {
   const searchParams = useSearchParams();
@@ -95,8 +94,7 @@ function SearchPageContent() {
   };
 
   return (
-    <Layout sidebarData={sidebarData}>
-      <div className="search-page">
+    <div className="search-page">
         <div className="search-page-header">
           <h1>Buscar Conteúdo</h1>
 
@@ -277,7 +275,6 @@ function SearchPageContent() {
           ) : null}
         </div>
       </div>
-    </Layout>
   );
 }
 

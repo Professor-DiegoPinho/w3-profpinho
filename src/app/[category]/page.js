@@ -1,18 +1,15 @@
 import { auth } from "@/auth";
 import CourseEnrollmentButton from "@/components/CourseEnrollmentButton";
-import Layout from "@/components/Layout";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { courses } from "@/data/courses";
 import {
   getCourseEnrollmentCount,
   getCourseEnrollmentDate,
   getEnrolledCourseIds,
-  mapSidebarWithAccess,
 } from "@/lib/enrollment";
 import {
   getCategories,
   getPostsInCategory,
-  getSidebarData,
 } from "@/lib/markdown";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -55,7 +52,6 @@ export default async function CategoryPage({ params }) {
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
 
-  const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
   const firstPost = posts[0];
   const totalLessons = posts.length;
   const totalReadingMinutes = posts.reduce(
@@ -118,8 +114,7 @@ export default async function CategoryPage({ params }) {
     : null;
 
   return (
-    <Layout sidebarData={sidebarData} currentCategory={category}>
-      <section className="course-enrollment-page">
+    <section className="course-enrollment-page">
         <header className="course-enrollment-header">
           {courseImage && (
             <div className="course-enrollment-logo">
@@ -248,7 +243,6 @@ export default async function CategoryPage({ params }) {
           )}
         </div>
       </section>
-    </Layout>
   );
 }
 
