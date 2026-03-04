@@ -57,6 +57,21 @@ export async function getCourseEnrollmentDate(userId, courseId) {
   return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
 }
 
+export async function getCourseEnrollmentCount(courseId) {
+  if (!courseId) {
+    return 0;
+  }
+
+  const enrollmentsQuery = query(
+    collection(db, "enrollments"),
+    where("courseId", "==", courseId)
+  );
+
+  const enrollmentsSnapshot = await getDocs(enrollmentsQuery);
+
+  return enrollmentsSnapshot.size;
+}
+
 export function mapSidebarWithAccess(sidebarData, enrolledCourseIds = []) {
   const enrolledSet = new Set(enrolledCourseIds);
 

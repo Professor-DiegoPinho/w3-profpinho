@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { courses } from "@/data/courses";
 import {
+  getCourseEnrollmentCount,
   getCourseEnrollmentDate,
   getEnrolledCourseIds,
   mapSidebarWithAccess,
@@ -61,6 +62,7 @@ export default async function CategoryPage({ params }) {
     (acc, post) => acc + (post.readingTime?.minutes || 0),
     0,
   );
+  const totalEnrolledStudents = await getCourseEnrollmentCount(category);
   const courseTitle =
     course?.title || category.charAt(0).toUpperCase() + category.slice(1);
   const courseDescription =
@@ -143,12 +145,12 @@ export default async function CategoryPage({ params }) {
             <span>lições disponíveis</span>
           </div>
           <div className="course-summary-item">
-            <strong>{totalReadingMinutes}</strong>
-            <span>minutos de conteúdo estimado</span>
+            <strong>{totalEnrolledStudents}</strong>
+            <span>alunos inscritos</span>
           </div>
           <div className="course-summary-item">
-            <strong>{firstPost.title}</strong>
-            <span>primeira lição</span>
+            <strong>{totalReadingMinutes}</strong>
+            <span>minutos de leitura estimado</span>
           </div>
         </div>
 
