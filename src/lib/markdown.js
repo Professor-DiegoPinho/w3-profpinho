@@ -7,7 +7,7 @@ import { calculateReadingTime } from './readingTime.js';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
-function formatCategoryTitle(category) {
+export function getCategoryTitle(category) {
   const matchingCourse = courses.find((course) => course.slug === category);
 
   if (matchingCourse?.title) {
@@ -19,6 +19,16 @@ function formatCategoryTitle(category) {
     .filter(Boolean)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+}
+
+export function getCategoryDescription(category) {
+  const matchingCourse = courses.find((course) => course.slug === category);
+
+  if (matchingCourse?.description) {
+    return matchingCourse.description;
+  }
+
+  return `Aprenda ${getCategoryTitle(category)} do básico até conceitos avançados.`;
 }
 
 // Get all categories (folders) in the content directory
@@ -149,7 +159,8 @@ export function getSidebarData() {
 
     return {
       category,
-      title: formatCategoryTitle(category),
+      title: getCategoryTitle(category),
+      description: getCategoryDescription(category),
       posts
     };
   });

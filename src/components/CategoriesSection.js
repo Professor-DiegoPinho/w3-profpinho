@@ -6,11 +6,18 @@ export default function CategoriesSection({ categories, sidebarData }) {
       {categories.map((category) => {
         const categoryData = sidebarData.find((cat) => cat.category === category);
         const firstPost = categoryData?.posts[0];
+        const categoryTitle =
+          categoryData?.title ||
+          category
+            .split('-')
+            .filter(Boolean)
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
 
         return (
           <div key={category} className="category-card">
-            <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
-            <p>Aprenda {category} do básico até conceitos avançados.</p>
+            <h2>{categoryTitle}</h2>
+            <p>{categoryData.description}</p>
             <div className="category-stats">
               <span>{categoryData?.posts.length || 0} lições</span>
             </div>

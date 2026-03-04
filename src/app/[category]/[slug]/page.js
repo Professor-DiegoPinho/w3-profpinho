@@ -3,7 +3,7 @@ import MarkdownContent from '@/components/MarkdownContent';
 import PostNavigation from '@/components/PostNavigation';
 import ReadingTime from '@/components/ReadingTime';
 import { hasCourseEnrollment } from '@/lib/enrollment';
-import { getAllPosts, getPost, getPostNavigation } from '@/lib/markdown';
+import { getAllPosts, getCategoryTitle, getPost, getPostNavigation } from '@/lib/markdown';
 import { notFound, redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -40,13 +40,14 @@ export default async function PostPage({ params }) {
   }
 
   const navigation = getPostNavigation(category, slug);
+  const categoryTitle = getCategoryTitle(category);
 
   return (
     <article className="post-content">
       <header className="post-header">
         <div className="breadcrumb">
           <span className="category-name">
-            {category.charAt(0).toUpperCase() + category.slice(1)}
+            {categoryTitle}
           </span>
           <span className="separator">›</span>
           <span className="post-title">{post.title}</span>
@@ -86,7 +87,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${post.title} - ${category.charAt(0).toUpperCase() + category.slice(1)} Tutorial`,
+    title: `${post.title} - ${getCategoryTitle(category)} Tutorial`,
     description: post.description,
   };
 }
