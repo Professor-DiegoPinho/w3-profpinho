@@ -1,7 +1,7 @@
 export const courses = [
   {
     slug: "python",
-    title: "Python do Zero ao Avançado",
+    title: "Python",
     description: "Aprenda python do básico até conceitos avançados.",
     image: "/images/logo_python.png",
     badge: "Gratuito",
@@ -20,7 +20,7 @@ export const courses = [
   },
   {
     slug: "logica-de-programacao-python",
-    title: "Lógica de Programação com Python para iniciantes",
+    title: "Lógica de Programação com Python",
     description: "Dê seus primeiros passos no mundo da programação neste curso gratuito de lógica de programação com a linguagem de programação Python.",
     image: "/images/logo_python.png",
     badge: "Novo",
