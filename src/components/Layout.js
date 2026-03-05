@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import CookieConsent from './CookieConsent';
 import Footer from './Footer';
 import GoogleSignInButton from './GoogleSignInButton';
 import LessonContentSkeleton from './LessonContentSkeleton';
@@ -143,6 +144,7 @@ export default function Layout({ children }) {
       </div>
 
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
