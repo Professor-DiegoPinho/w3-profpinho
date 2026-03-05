@@ -3,6 +3,7 @@ import { db } from "@/lib/firebase";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import { cookies } from "next/headers";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
@@ -56,6 +57,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!userDoc.exists()) {
           payload.createdAt = serverTimestamp();
+
+          try {
+            const cookieStore = await cookies();
+            const utmCookie = cookieStore.get("utm_data");
+            if (utmCookie?.value) {
+              const utmData = JSON.parse(decodeURIComponent(utmCookie.value));
+              if (utmData && typeof utmData === "object") {
+                payload.acquisition = { ...utmData };
+              }
+            }
+          } catch {
+            console.error("Erro ao ler cookie de aquisição para o usuário novo");
+          }
         }
 
         await setDoc(userRef, payload, { merge: true });
