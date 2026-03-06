@@ -103,6 +103,33 @@ export default function CourseLessonsList({ posts = [] }) {
             </button>
           </li>
         )}
+
+        {showAllLessons && hasMoreLessons && (
+          <li className="course-lesson-action-item">
+            <button
+              type="button"
+              className="course-lesson-action-btn course-lesson-action-btn-close"
+              onClick={() => setShowAllLessons(false)}
+            >
+              <span className="course-lesson-icon course-lesson-icon-action" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path
+                    d="M7 12h10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <div className="course-lesson-content">
+                <p className="course-lesson-title">Ver menos</p>
+                
+              </div>
+            </button>
+          </li>
+        )}
       </ul>
     </div>
   );

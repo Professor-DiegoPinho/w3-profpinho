@@ -77,13 +77,17 @@ export default async function CategoryPage({ params }) {
     course?.description ||
     firstPost.description ||
     `Aprenda ${category} com aulas progressivas do básico ao avançado.`;
-  const courseBadge = course?.badge || "Curso";
+  const courseBadge =
+    typeof course?.badge === "string" && course.badge.trim().length > 0
+      ? course.badge.trim()
+      : null;
   const courseTags = Array.isArray(course?.tags) ? course.tags : [];
   const coursePrerequisites = Array.isArray(course?.prerequisites)
     ? course.prerequisites
     : [];
   const courseAccessType = getCourseAccessType(course);
   const courseAccessLabel = getCourseAccessLabel(course);
+  const showAccessBadge = courseAccessType === "free-course";
   const requiresEnrollment = courseRequiresEnrollment(course);
   const requiresPayment = isPaidCourse(course);
 
@@ -147,8 +151,12 @@ export default async function CategoryPage({ params }) {
             </div>
           )}
           <div className="course-enrollment-badges">
-            <span className="course-enrollment-badge">{courseBadge}</span>
-            <span className="course-enrollment-badge">{courseAccessLabel}</span>
+            {courseBadge && (
+              <span className="course-enrollment-badge">{courseBadge}</span>
+            )}
+            {showAccessBadge && (
+              <span className="course-enrollment-badge">{courseAccessLabel}</span>
+            )}
           </div>
           <h1>{courseTitle}</h1>
           <p>{courseDescription}</p>
@@ -214,7 +222,7 @@ export default async function CategoryPage({ params }) {
 
         {hasCourseResources && (
           <div className="course-meta-block">
-            <h2>Recursos do curso</h2>
+            <h2>Recursos adicionais</h2>
             <ul className="course-resource-list">
               {courseUsefulLinks.map((link) => (
                 <li key={link.url}>

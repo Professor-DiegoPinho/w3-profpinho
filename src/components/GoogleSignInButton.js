@@ -2,9 +2,10 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-export default function GoogleSignInButton() {
+export default function GoogleSignInButton({ onNavigateStart }) {
   const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [avatarLoadError, setAvatarLoadError] = useState(false);
@@ -76,13 +77,46 @@ export default function GoogleSignInButton() {
             role="menu"
             aria-label="Menu do usuário"
           >
+            <div className="user-dropdown-header">
+              <p className="user-dropdown-name">{userName}</p>
+              {session?.user?.email && (
+                <p className="user-dropdown-email">{session.user.email}</p>
+              )}
+            </div>
+
+            <div className="user-dropdown-divider" aria-hidden="true" />
+
+            <Link
+              href="/meu-perfil"
+              className="user-dropdown-item"
+              onClick={() => {
+                onNavigateStart?.("/meu-perfil");
+                setIsMenuOpen(false);
+              }}
+              role="menuitem"
+            >
+              <span className="user-dropdown-item-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M5 20a7 7 0 0 1 14 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span className="user-dropdown-item-label">Meu perfil</span>
+            </Link>
             <button
               type="button"
               className="user-dropdown-item"
               onClick={handleSignOut}
               role="menuitem"
             >
-              Sair
+              <span className="user-dropdown-item-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M16 17l5-5-5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M21 12H9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span className="user-dropdown-item-label">Sair</span>
             </button>
           </div>
         )}

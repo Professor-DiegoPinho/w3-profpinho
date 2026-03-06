@@ -35,7 +35,7 @@ export const courses = [
     title: "Lógica de Programação com Python",
     description: "Dê seus primeiros passos no mundo da programação neste curso gratuito de lógica de programação com a linguagem de programação Python.",
     image: "/images/logo_python.png",
-    badge: "Curso gratuito",
+    badge: "",
     accessType: COURSE_ACCESS_TYPES.FREE_COURSE,
     visibility: COURSE_VISIBILITY.PUBLIC,
     tags: ["python", "programação", "algoritmos"],

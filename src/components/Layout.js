@@ -7,6 +7,7 @@ import CookieConsent from './CookieConsent';
 import Footer from './Footer';
 import GoogleSignInButton from './GoogleSignInButton';
 import LessonContentSkeleton from './LessonContentSkeleton';
+import ProfilePageSkeleton from './ProfilePageSkeleton';
 import SearchBox from './SearchBox';
 import Sidebar from './Sidebar';
 
@@ -82,6 +83,13 @@ export default function Layout({ children }) {
     setIsSidebarOpen(false);
   };
 
+  const handleNavigateStart = (targetPath) => {
+    setPendingPath(targetPath);
+    setIsRouteLoading(true);
+  };
+
+  const isProfileRouteLoading = pendingPath === '/meu-perfil';
+
   return (
     <div className="app-layout">
       <header className="app-header">
@@ -111,7 +119,7 @@ export default function Layout({ children }) {
           <SearchBox className="header-search" />
 
           <div className="header-auth">
-            <GoogleSignInButton />
+            <GoogleSignInButton onNavigateStart={handleNavigateStart} />
           </div>
         </div>
       </header>
@@ -128,16 +136,13 @@ export default function Layout({ children }) {
           isOpen={isSidebarOpen}
           isMobile={isMobile}
           onLinkClick={closeSidebar}
-          onNavigateStart={(targetPath) => {
-            setPendingPath(targetPath);
-            setIsRouteLoading(true);
-          }}
+          onNavigateStart={handleNavigateStart}
         />
 
         <main className="main-content">
           <div className={`content-wrapper ${isRouteLoading ? 'content-wrapper-loading' : ''}`}>
             {isRouteLoading ? (
-              <LessonContentSkeleton />
+              isProfileRouteLoading ? <ProfilePageSkeleton /> : <LessonContentSkeleton />
             ) : (
               children
             )}
