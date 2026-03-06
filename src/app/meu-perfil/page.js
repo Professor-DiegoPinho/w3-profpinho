@@ -60,22 +60,21 @@ export default async function MyProfilePage() {
   const userId = session?.user?.id;
 
   if (!userId) {
-    redirect("/api/auth/signin?callbackUrl=%2Fmeu-perfil");
+    redirect("/");
   }
 
   const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
 
-  let userData = {};
+  const userRef = doc(db, "users", userId);
+  const userDoc = await getDoc(userRef).catch(() => null);
 
-  try {
-    const userRef = doc(db, "users", userId);
-    const userDoc = await getDoc(userRef);
-    userData = userDoc.exists() ? userDoc.data() : {};
-  } catch {
-    userData = {};
+  if (!userDoc?.exists()) {
+    redirect("/");
   }
+
+  const userData = userDoc.data() || {};
 
   const enrolledCourses = await Promise.all(
     enrolledCourseIds.map(async (courseId) => {
