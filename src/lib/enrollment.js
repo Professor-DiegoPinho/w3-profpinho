@@ -1,3 +1,9 @@
+import {
+    canUserAccessCourseLessons,
+    getCourseAccessType,
+    getCourseVisibility,
+    isCourseVisibleToUser,
+} from "@/lib/courseAccess";
 import { db } from "@/lib/firebase";
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 
@@ -73,17 +79,26 @@ export async function getCourseEnrollmentCount(courseId) {
 }
 
 export function mapSidebarWithAccess(sidebarData, enrolledCourseIds = []) {
-  const enrolledSet = new Set(enrolledCourseIds);
+  return sidebarData
+    .filter((categoryData) =>
+      isCourseVisibleToUser(categoryData.category, enrolledCourseIds)
+    )
+    .map((categoryData) => {
+      const hasCategoryAccess = canUserAccessCourseLessons(
+        categoryData.category,
+        enrolledCourseIds
+      );
+      const isEnrolled = enrolledCourseIds.includes(categoryData.category);
 
-  return sidebarData.map((categoryData) => {
-    const hasCategoryAccess = enrolledSet.has(categoryData.category);
-
-    return {
-      ...categoryData,
-      posts: categoryData.posts.map((post) => ({
-        ...post,
-        isRestricted: !hasCategoryAccess,
-      })),
-    };
-  });
+      return {
+        ...categoryData,
+        accessType: getCourseAccessType(categoryData.category),
+        visibility: getCourseVisibility(categoryData.category),
+        isEnrolled,
+        posts: categoryData.posts.map((post) => ({
+          ...post,
+          isRestricted: !hasCategoryAccess,
+        })),
+      };
+    });
 }

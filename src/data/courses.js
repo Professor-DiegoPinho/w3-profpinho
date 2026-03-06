@@ -1,11 +1,23 @@
+export const COURSE_ACCESS_TYPES = {
+  TUTORIAL: "tutorial",
+  FREE_COURSE: "free-course",
+  PAID_COURSE: "paid-course",
+};
+
+export const COURSE_VISIBILITY = {
+  PUBLIC: "public",
+  PRIVATE: "private",
+};
+
 export const courses = [
   {
     slug: "python",
     title: "Python",
     description: "Aprenda python do básico até conceitos avançados.",
     image: "/images/logo_python.png",
-    badge: "Gratuito",
-    isFree: true,
+    badge: "Tutorial",
+    accessType: COURSE_ACCESS_TYPES.TUTORIAL,
+    visibility: COURSE_VISIBILITY.PUBLIC,
     tags: ["python", "programação", "algoritmos"],
     prerequisites: [],
     order: 1,
@@ -23,8 +35,9 @@ export const courses = [
     title: "Lógica de Programação com Python",
     description: "Dê seus primeiros passos no mundo da programação neste curso gratuito de lógica de programação com a linguagem de programação Python.",
     image: "/images/logo_python.png",
-    badge: "Novo",
-    isFree: true,
+    badge: "Curso gratuito",
+    accessType: COURSE_ACCESS_TYPES.FREE_COURSE,
+    visibility: COURSE_VISIBILITY.PUBLIC,
     tags: ["python", "programação", "algoritmos"],
     prerequisites: [],
     order: 2,

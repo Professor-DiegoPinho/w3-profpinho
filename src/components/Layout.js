@@ -72,6 +72,7 @@ export default function Layout({ children }) {
   }, [pathname, pendingPath]);
 
   const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
+  const resolvedCurrentSlug = pathname.split('/').filter(Boolean)[1];
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -123,6 +124,7 @@ export default function Layout({ children }) {
         <Sidebar
           sidebarData={sidebarData}
           currentCategory={resolvedCurrentCategory}
+          currentSlug={resolvedCurrentSlug}
           isOpen={isSidebarOpen}
           isMobile={isMobile}
           onLinkClick={closeSidebar}

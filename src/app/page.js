@@ -1,19 +1,19 @@
 import { auth } from '@/auth';
 import CategoriesSection from '@/components/CategoriesSection';
 import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
-import { getCategories, getSidebarData } from '@/lib/markdown';
+import { getSidebarData } from '@/lib/markdown';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const session = await auth();
   const userId = session?.user?.id;
-  const categories = getCategories();
   const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
 
   const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
+  const categories = sidebarData.map((categoryData) => categoryData.category);
 
   return (
     <div className="home-page">

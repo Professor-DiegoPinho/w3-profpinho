@@ -3,16 +3,23 @@ import CourseEnrollmentButton from "@/components/CourseEnrollmentButton";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { courses } from "@/data/courses";
 import {
-  getCourseEnrollmentCount,
-  getCourseEnrollmentDate,
-  getEnrolledCourseIds,
+    courseRequiresEnrollment,
+    getCourseAccessLabel,
+    getCourseAccessType,
+    isCourseVisibleToUser,
+    isPaidCourse,
+} from "@/lib/courseAccess";
+import {
+    getCourseEnrollmentCount,
+    getCourseEnrollmentDate,
+    getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import {
-  getCategories,
-  getPostsInCategory,
+    getCategories,
+    getPostsInCategory,
 } from "@/lib/markdown";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -52,6 +59,10 @@ export default async function CategoryPage({ params }) {
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
 
+  if (!isCourseVisibleToUser(category, enrolledCourseIds)) {
+    notFound();
+  }
+
   const firstPost = posts[0];
   const totalLessons = posts.length;
   const totalReadingMinutes = posts.reduce(
@@ -70,7 +81,15 @@ export default async function CategoryPage({ params }) {
   const coursePrerequisites = Array.isArray(course?.prerequisites)
     ? course.prerequisites
     : [];
-  const courseAccessLabel = course?.isFree ? "Gratuito" : "Premium";
+  const courseAccessType = getCourseAccessType(course);
+  const courseAccessLabel = getCourseAccessLabel(course);
+  const requiresEnrollment = courseRequiresEnrollment(course);
+  const requiresPayment = isPaidCourse(course);
+
+  if (courseAccessType === "tutorial" && firstPost?.slug) {
+    redirect(`/${category}/${firstPost.slug}`);
+  }
+
   const courseImage = course?.image;
   const coursePresentationVideoId =
     typeof course?.youtubeId === "string" && course.youtubeId.trim()
@@ -102,7 +121,7 @@ export default async function CategoryPage({ params }) {
     : [];
   const hasCourseResources = courseUsefulLinks.length > 0;
   const isUserEnrolled = enrolledCourseIds.includes(category);
-  const enrollmentDate = isUserEnrolled
+  const enrollmentDate = requiresEnrollment && isUserEnrolled
     ? await getCourseEnrollmentDate(userId, category)
     : null;
   const enrollmentDateLabel = enrollmentDate
@@ -237,6 +256,10 @@ export default async function CategoryPage({ params }) {
           <CourseEnrollmentButton
             category={category}
             firstPostSlug={firstPost.slug}
+            accessType={courseAccessType}
+            requiresEnrollment={requiresEnrollment}
+            requiresPayment={requiresPayment}
+            checkoutUrl={course?.checkoutUrl}
           />
           {enrollmentDateLabel && (
             <p className="course-enrollment-date">Inscreveu-se em {enrollmentDateLabel}</p>
@@ -261,7 +284,7 @@ export async function generateMetadata({ params }) {
   const seo = course?.seo;
   const title =
     seo?.metaTitle ||
-    `Inscrição - ${course?.title || category.charAt(0).toUpperCase() + category.slice(1)}`;
+    `${course?.title || category.charAt(0).toUpperCase() + category.slice(1)} - ${getCourseAccessLabel(course)}`;
   const description =
     seo?.metaDescription ||
     course?.description ||

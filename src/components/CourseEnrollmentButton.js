@@ -5,7 +5,14 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CourseEnrollmentButton({ category, firstPostSlug }) {
+export default function CourseEnrollmentButton({
+  category,
+  firstPostSlug,
+  accessType,
+  requiresEnrollment,
+  requiresPayment,
+  checkoutUrl,
+}) {
   const { data: session, status, update } = useSession();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,6 +28,21 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
     }
 
     setErrorMessage("");
+
+    if (!requiresEnrollment) {
+      router.push(`/${category}/${firstPostSlug}`);
+      return;
+    }
+
+    if (requiresPayment && !isEnrolled) {
+      if (!checkoutUrl) {
+        setErrorMessage("Este curso exige pagamento. Link de checkout indisponível no momento.");
+        return;
+      }
+
+      window.location.href = checkoutUrl;
+      return;
+    }
 
     if (status !== "authenticated") {
       setIsAuthModalOpen(true);
@@ -79,8 +101,12 @@ export default function CourseEnrollmentButton({ category, firstPostSlug }) {
         {isSubmitting
           ? "Acessando conteúdo..."
           : isEnrolled
-            ? "Acessar"
-            : "Inscreva-se gratuitamente"}
+            ? "Acessar aulas"
+            : requiresEnrollment
+              ? accessType === "paid-course"
+                ? "Comprar curso"
+                : "Inscreva-se gratuitamente"
+              : "Acessar tutorial"}
       </button>
 
       {errorMessage && <p className="course-enroll-error">{errorMessage}</p>}

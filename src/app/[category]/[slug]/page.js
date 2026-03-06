@@ -2,7 +2,11 @@ import { auth } from '@/auth';
 import MarkdownContent from '@/components/MarkdownContent';
 import PostNavigation from '@/components/PostNavigation';
 import ReadingTime from '@/components/ReadingTime';
-import { hasCourseEnrollment } from '@/lib/enrollment';
+import {
+  canUserAccessCourseLessons,
+  isCourseVisibleToUser,
+} from '@/lib/courseAccess';
+import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { getAllPosts, getCategoryTitle, getPost, getPostNavigation } from '@/lib/markdown';
 import { notFound, redirect } from 'next/navigation';
 
@@ -29,13 +33,15 @@ export default async function PostPage({ params }) {
   const userId = session?.user?.id;
   const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
     ? session.user.enrolledCourseIds
-    : null;
+    : await getEnrolledCourseIds(userId);
 
-  const isEnrolled = Array.isArray(enrolledCourseIds)
-    ? enrolledCourseIds.includes(category)
-    : await hasCourseEnrollment(userId, category);
+  if (!isCourseVisibleToUser(category, enrolledCourseIds)) {
+    notFound();
+  }
 
-  if (!isEnrolled) {
+  const hasLessonAccess = canUserAccessCourseLessons(category, enrolledCourseIds);
+
+  if (!hasLessonAccess) {
     redirect(`/${category}`);
   }
 

@@ -5,6 +5,11 @@ export default function CategoriesSection({ categories, sidebarData }) {
     <div className="categories-grid">
       {categories.map((category) => {
         const categoryData = sidebarData.find((cat) => cat.category === category);
+
+        if (!categoryData) {
+          return null;
+        }
+
         const firstPost = categoryData?.posts[0];
         const categoryTitle =
           categoryData?.title ||
@@ -17,7 +22,7 @@ export default function CategoriesSection({ categories, sidebarData }) {
         return (
           <div key={category} className="category-card">
             <h2>{categoryTitle}</h2>
-            <p>{categoryData.description}</p>
+            <p>{categoryData.description || 'Conteudo em desenvolvimento.'}</p>
             <div className="category-stats">
               <span>{categoryData?.posts.length || 0} lições</span>
             </div>

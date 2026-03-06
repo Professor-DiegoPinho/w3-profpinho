@@ -140,6 +140,8 @@ a:active {
   position: fixed;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   z-index: 1000;
   transition: transform 0.3s ease;
 }
@@ -158,6 +160,12 @@ a:active {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding-bottom: 24px;
 }
 
 .sidebar-group {
@@ -195,6 +203,18 @@ a:active {
   letter-spacing: normal;
   color: var(--color-text-black);
   border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-group-title-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-group-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
 }
 
 .sidebar-group-toggle {
@@ -236,6 +256,34 @@ a:active {
 .category-link-row {
   display: flex;
   align-items: stretch;
+}
+
+.tutorial-category-row {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 15px 20px;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.tutorial-category-row:hover {
+  background-color: #f8f9fa;
+}
+
+.tutorial-category-row.active .category-title {
+  font-weight: 700;
+}
+
+.tutorial-category-row .category-toggle-icon {
+  width: 32px;
+  height: 32px;
 }
 
 .category-link {
@@ -339,6 +387,7 @@ a:active {
 }
 
 .category-toggle-btn:focus-visible,
+.tutorial-category-row:focus-visible,
 .sidebar-group-title:focus-visible {
   outline: 2px solid var(--color-red);
   outline-offset: -2px;
@@ -350,7 +399,7 @@ a:active {
 
 .category-link.active {
   background-color: transparent;
-  border-bottom: 2px solid var(--color-red);
+  border-bottom: none;
 }
 
 .category-link.active .category-title {
@@ -426,10 +475,14 @@ a:active {
 }
 
 .post-link.active {
-  background-color: var(--color-red);
-  color: white;
-  border-left-color: var(--color-red);
+  background-color: #fff4f7;
+  color: var(--color-text-black);
+  border-left-color: transparent;
   font-weight: 500;
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 .post-link.locked {
