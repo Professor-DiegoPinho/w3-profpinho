@@ -13,7 +13,6 @@ export default async function Home() {
     : await getEnrolledCourseIds(userId);
 
   const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
-  const categories = sidebarData.map((categoryData) => categoryData.category);
 
   return (
     <div className="home-page">
@@ -22,7 +21,7 @@ export default async function Home() {
           <p>Seu local de referência e confiança para aprender tecnologia.</p>
         </header>
 
-        <CategoriesSection categories={categories} sidebarData={sidebarData} />
+        <CategoriesSection sidebarData={sidebarData} />
 
         {/* Seção Sobre o Professor */}
         <section className="about-professor">

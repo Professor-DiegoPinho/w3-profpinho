@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import CourseItem from './sidebar/CourseItem';
 import SectionHeader from './sidebar/SectionHeader';
 import TutorialItem from './sidebar/TutorialItem';
@@ -19,6 +19,23 @@ export default function Sidebar({
   const [isTutorialsOpen, setIsTutorialsOpen] = useState(true);
   const [isCoursesOpen, setIsCoursesOpen] = useState(true);
   const [expandedItems, setExpandedItems] = useExpandedItems();
+
+  useEffect(() => {
+    if (!currentCategory || !currentSlug) {
+      return;
+    }
+
+    setExpandedItems((prev) => {
+      if (prev[currentCategory]) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [currentCategory]: true,
+      };
+    });
+  }, [currentCategory, currentSlug, setExpandedItems]);
 
   const handleLinkClick = () => {
     if (isMobile && onLinkClick) {
@@ -54,13 +71,38 @@ export default function Sidebar({
     }));
   };
 
-  const tutorialCategories = sidebarData.filter(
-    (category) => category.accessType === 'tutorial'
+  const tutorialCategories = useMemo(
+    () => sidebarData.filter((category) => category.accessType === 'tutorial'),
+    [sidebarData]
   );
 
-  const courseCategories = sidebarData.filter(
-    (category) => category.accessType !== 'tutorial'
+  const courseCategories = useMemo(
+    () => sidebarData.filter((category) => category.accessType !== 'tutorial'),
+    [sidebarData]
   );
+
+  useEffect(() => {
+    if (!currentCategory || !currentSlug) {
+      return;
+    }
+
+    const isTutorialCategory = tutorialCategories.some(
+      (category) => category.category === currentCategory
+    );
+
+    if (isTutorialCategory) {
+      setIsTutorialsOpen(true);
+      return;
+    }
+
+    const isCourseCategory = courseCategories.some(
+      (category) => category.category === currentCategory
+    );
+
+    if (isCourseCategory) {
+      setIsCoursesOpen(true);
+    }
+  }, [currentCategory, currentSlug, tutorialCategories, courseCategories]);
 
   const shouldShowTutorials = tutorialCategories.length > 0;
   const shouldShowCourses = courseCategories.length > 0;

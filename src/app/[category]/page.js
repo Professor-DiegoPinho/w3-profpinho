@@ -1,22 +1,23 @@
 import { auth } from "@/auth";
 import CourseEnrollmentButton from "@/components/CourseEnrollmentButton";
+import CourseLessonsList from "@/components/CourseLessonsList";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { courses } from "@/data/courses";
 import {
-    courseRequiresEnrollment,
-    getCourseAccessLabel,
-    getCourseAccessType,
-    isCourseVisibleToUser,
-    isPaidCourse,
+  courseRequiresEnrollment,
+  getCourseAccessLabel,
+  getCourseAccessType,
+  isCourseVisibleToUser,
+  isPaidCourse,
 } from "@/lib/courseAccess";
 import {
-    getCourseEnrollmentCount,
-    getCourseEnrollmentDate,
-    getEnrolledCourseIds,
+  getCourseEnrollmentCount,
+  getCourseEnrollmentDate,
+  getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import {
-    getCategories,
-    getPostsInCategory,
+  getCategories,
+  getPostsInCategory,
 } from "@/lib/markdown";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
@@ -166,6 +167,11 @@ export default async function CategoryPage({ params }) {
             <strong>{totalReadingMinutes}</strong>
             <span>minutos de leitura estimado</span>
           </div>
+        </div>
+
+        <div className="course-meta-block">
+          <h2>Aulas do curso</h2>
+          <CourseLessonsList posts={posts} />
         </div>
 
         {coursePresentationVideoId && (
