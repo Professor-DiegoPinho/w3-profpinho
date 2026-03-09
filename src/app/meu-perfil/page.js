@@ -1,13 +1,13 @@
 import { auth } from "@/auth";
+import AvatarImage from "@/components/AvatarImage";
 import { courses } from "@/data/courses";
 import {
-  getCourseEnrollmentDate,
-  getEnrolledCourseIds,
+    getCourseEnrollmentDate,
+    getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import { db } from "@/lib/firebase";
 import { getCategoryTitle } from "@/lib/markdown";
 import { doc, getDoc } from "firebase/firestore";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -118,7 +118,7 @@ export default async function MyProfilePage() {
     <section className="profile-page">
       <header className="profile-header">
         <div className="profile-header-content">
-          <Image
+          <AvatarImage
             src={userImage}
             alt={`Foto de ${userName}`}
             width={72}

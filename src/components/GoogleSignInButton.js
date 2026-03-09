@@ -5,10 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+const AVATAR_RETRY_DELAY_MS = 5000;
+
 export default function GoogleSignInButton({ onNavigateStart }) {
   const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [avatarLoadError, setAvatarLoadError] = useState(false);
+  const [avatarRetryKey, setAvatarRetryKey] = useState(0);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -35,7 +38,22 @@ export default function GoogleSignInButton({ onNavigateStart }) {
 
   useEffect(() => {
     setAvatarLoadError(false);
+    setAvatarRetryKey(0);
   }, [session?.user?.image]);
+
+  useEffect(() => {
+    if (!avatarLoadError || !session?.user?.image) {
+      return undefined;
+    }
+
+    // Retry after a short delay so transient CDN/network failures can recover.
+    const retryTimer = setTimeout(() => {
+      setAvatarLoadError(false);
+      setAvatarRetryKey((currentKey) => currentKey + 1);
+    }, AVATAR_RETRY_DELAY_MS);
+
+    return () => clearTimeout(retryTimer);
+  }, [avatarLoadError, session?.user?.image]);
 
   const handleGoogleSignIn = () => {
     signIn("google", { callbackUrl: "/" });
@@ -49,7 +67,13 @@ export default function GoogleSignInButton({ onNavigateStart }) {
   if (status === "authenticated") {
     const userImage = session?.user?.image;
     const userName = session?.user?.name || "Usuário";
-    const avatarSrc = !userImage || avatarLoadError ? "/default-avatar.svg" : userImage;
+    const userImageWithVersion = userImage
+      ? `${userImage}${userImage.includes("?") ? "&" : "?"}v=${avatarRetryKey}`
+      : null;
+    const avatarSrc =
+      !userImageWithVersion || avatarLoadError
+        ? "/default-avatar.svg"
+        : userImageWithVersion;
 
     return (
       <div className="user-menu" ref={menuRef}>
