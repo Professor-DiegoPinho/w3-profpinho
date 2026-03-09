@@ -40,6 +40,7 @@ export const courses = [
     visibility: COURSE_VISIBILITY.PUBLIC,
     tags: ["python", "programação", "algoritmos"],
     prerequisites: [],
+    workloadHours: 3,
     order: 2,
     youtubeId: "XvmP4BC14D4",
     ebook: {

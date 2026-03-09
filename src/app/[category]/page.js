@@ -66,10 +66,9 @@ export default async function CategoryPage({ params }) {
 
   const firstPost = posts[0];
   const totalLessons = posts.length;
-  const totalReadingMinutes = posts.reduce(
-    (acc, post) => acc + (post.readingTime?.minutes || 0),
-    0,
-  );
+  const courseWorkloadHours = Number.isInteger(course?.workloadHours)
+    ? course.workloadHours
+    : 0;
   const totalEnrolledStudents = await getCourseEnrollmentCount(category);
   const courseTitle =
     course?.title || category.charAt(0).toUpperCase() + category.slice(1);
@@ -164,16 +163,22 @@ export default async function CategoryPage({ params }) {
 
         <div className="course-enrollment-summary">
           <div className="course-summary-item">
-            <strong>{totalLessons}</strong>
-            <span>lições disponíveis</span>
+            <strong>
+              {totalLessons} {totalLessons === 1 ? "Aula" : "Aulas"}
+            </strong>
+            <span>Conteúdo do curso</span>
           </div>
           <div className="course-summary-item">
-            <strong>{totalEnrolledStudents}</strong>
-            <span>alunos inscritos</span>
+            <strong>
+              {totalEnrolledStudents} {totalEnrolledStudents === 1 ? "Aluno" : "Alunos"}
+            </strong>
+            <span>Comunidade ativa</span>
           </div>
           <div className="course-summary-item">
-            <strong>{totalReadingMinutes}</strong>
-            <span>minutos de leitura estimado</span>
+            <strong>
+              {courseWorkloadHours} {courseWorkloadHours === 1 ? "Hora" : "Horas"}
+            </strong>
+            <span>Carga horária estimada</span>
           </div>
         </div>
 
