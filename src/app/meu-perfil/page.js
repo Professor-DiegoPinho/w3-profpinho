@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import AvatarImage from "@/components/AvatarImage";
+import AvatarImage from "@/components/AvatarImage/AvatarImage";
 import { courses } from "@/data/courses";
 import {
     getCourseEnrollmentDate,

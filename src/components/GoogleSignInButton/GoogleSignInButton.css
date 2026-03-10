@@ -1,0 +1,172 @@
+.google-signin-button {
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 1px solid var(--color-black);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.google-signin-button:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.google-signin-icon {
+  display: none;
+  width: 22px;
+  height: 22px;
+}
+
+.google-signin-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-avatar-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--color-light-gray);
+  background: var(--color-white);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.user-avatar-button:hover {
+  transform: translateY(-1px);
+  border-color: #c8c8d6;
+  box-shadow: 0 6px 16px rgba(42, 40, 54, 0.14);
+}
+
+.user-avatar-button[aria-expanded="true"] {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.12);
+}
+
+.user-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-avatar-fallback {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
+  background: var(--color-black);
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 240px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcff 100%);
+  border: 1px solid #d8d8e4;
+  border-radius: 12px;
+  padding: 8px;
+  z-index: 1005;
+  box-shadow: 0 14px 28px rgba(42, 40, 54, 0.16);
+  transform-origin: top right;
+  animation: userDropdownIn 0.2s ease-out;
+}
+
+.user-dropdown-header {
+  padding: 8px 10px 10px;
+}
+
+.user-dropdown-name {
+  color: var(--color-text-black);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.user-dropdown-email {
+  color: #6f6f7e;
+  font-size: 0.8rem;
+  line-height: 1.25;
+  margin-top: 4px;
+  word-break: break-word;
+}
+
+.user-dropdown-divider {
+  height: 1px;
+  background: #ececf3;
+  margin: 2px 6px 6px;
+}
+
+.user-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--color-text-black);
+  text-align: left;
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.user-dropdown-item:hover {
+  background: #f4f4fb;
+  color: var(--color-text-black);
+  transform: translateX(2px);
+}
+
+.user-dropdown-item-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #6f6f7e;
+  flex-shrink: 0;
+}
+
+.user-dropdown-item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.user-dropdown-item-label {
+  line-height: 1.2;
+}
+
+.user-dropdown-item:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 1px;
+}
+
+@keyframes userDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }

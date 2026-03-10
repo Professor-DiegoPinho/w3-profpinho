@@ -1,5 +1,5 @@
-import Layout from "@/components/Layout";
-import Providers from "@/components/Providers";
+import Layout from "@/components/Layout/Layout";
+import Providers from "@/components/Providers/Providers";
 import { JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 

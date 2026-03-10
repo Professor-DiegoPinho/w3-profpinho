@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
-import CourseEnrollmentButton from "@/components/CourseEnrollmentButton";
-import CourseLessonsList from "@/components/CourseLessonsList";
-import YouTubeEmbed from "@/components/YouTubeEmbed";
+import CourseEnrollmentButton from "@/components/CourseEnrollmentButton/CourseEnrollmentButton";
+import CourseLessonsList from "@/components/CourseLessonsList/CourseLessonsList";
+import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
 import { courses } from "@/data/courses";
 import {
   courseRequiresEnrollment,

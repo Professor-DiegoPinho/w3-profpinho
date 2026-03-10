@@ -1,10 +1,10 @@
 import { auth } from '@/auth';
-import MarkdownContent from '@/components/MarkdownContent';
-import PostNavigation from '@/components/PostNavigation';
-import ReadingTime from '@/components/ReadingTime';
+import MarkdownContent from '@/components/MarkdownContent/MarkdownContent';
+import PostNavigation from '@/components/PostNavigation/PostNavigation';
+import ReadingTime from '@/components/ReadingTime/ReadingTime';
 import {
-  canUserAccessCourseLessons,
-  isCourseVisibleToUser,
+    canUserAccessCourseLessons,
+    isCourseVisibleToUser,
 } from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { getAllPosts, getCategoryTitle, getPost, getPostNavigation } from '@/lib/markdown';

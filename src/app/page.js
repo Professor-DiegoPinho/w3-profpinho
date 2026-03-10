@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import CategoriesSection from '@/components/CategoriesSection';
+import CategoriesSection from '@/components/CategoriesSection/CategoriesSection';
 import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
 import { getSidebarData } from '@/lib/markdown';
 

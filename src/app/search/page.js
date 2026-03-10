@@ -1,6 +1,6 @@
 'use client';
 
-import { ReadingTimeCompact } from '@/components/ReadingTime';
+import { ReadingTimeCompact } from '@/components/ReadingTime/ReadingTime';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
