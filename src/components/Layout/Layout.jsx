@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 import CookieConsent from '../CookieConsent/CookieConsent';
 import Footer from '../Footer/Footer';
 import GoogleSignInButton from '../GoogleSignInButton/GoogleSignInButton';
-import LessonContentSkeleton from '../LessonContentSkeleton/LessonContentSkeleton';
-import ProfilePageSkeleton from '../ProfilePageSkeleton/ProfilePageSkeleton';
 import SearchBox from '../SearchBox/SearchBox';
 import Sidebar from '../Sidebar/Sidebar';
+import LessonContentSkeleton from '../Skeletons/LessonContentSkeleton';
+import ProfilePageSkeleton from '../Skeletons/ProfilePageSkeleton';
 
 const SIDEBAR_COLLAPSE_BREAKPOINT = 1100;
 

@@ -1,4 +1,4 @@
-import LessonContentSkeleton from '@/components/LessonContentSkeleton/LessonContentSkeleton';
+import LessonContentSkeleton from '@/components/Skeletons/LessonContentSkeleton';
 
 export default function LessonLoading() {
   return <LessonContentSkeleton />;

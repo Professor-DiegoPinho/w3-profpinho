@@ -1,4 +1,4 @@
-import './LessonContentSkeleton.css';
+import './Skeletons.css';
 
 export default function LessonContentSkeleton() {
   return (

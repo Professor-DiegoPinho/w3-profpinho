@@ -1,5 +1,4 @@
-import '../LessonContentSkeleton/LessonContentSkeleton.css';
-import './ProfilePageSkeleton.css';
+import './Skeletons.css';
 
 export default function ProfilePageSkeleton() {
   return (
