@@ -2,28 +2,39 @@
   background: var(--color-black);
   color: var(--color-white);
   border: 1px solid var(--color-black);
-  border-radius: 8px;
-  padding: 10px 16px;
+  border-radius: 999px;
+  min-height: 46px;
+  padding: 0 18px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .google-signin-button:hover {
   background: var(--color-white);
   color: var(--color-black);
+  transform: translateY(-1px);
 }
 
 .google-signin-icon {
-  display: none;
-  width: 22px;
-  height: 22px;
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .google-signin-icon svg {
   width: 100%;
   height: 100%;
+}
+
+.google-signin-text {
+  line-height: 1;
 }
 
 .user-menu {
@@ -164,6 +175,69 @@
   from {
     opacity: 0;
     transform: translateY(-6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .header-auth {
+    position: static;
+  }
+
+  .header-auth .google-signin-button {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 1105;
+    min-height: 48px;
+    padding: 0 18px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .header-auth .google-signin-text {
+    display: inline;
+  }
+
+  .header-auth .google-signin-icon {
+    display: inline-flex;
+  }
+
+  .header-auth .user-menu {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 1105;
+  }
+
+  .header-auth .user-avatar-button {
+    width: 52px;
+    height: 52px;
+    box-shadow: 0 14px 30px rgba(12, 12, 18, 0.22);
+  }
+
+  .header-auth .user-dropdown {
+    top: auto;
+    right: 0;
+    bottom: calc(100% + 12px);
+    min-width: min(240px, calc(100vw - 32px));
+    transform-origin: bottom right;
+    box-shadow: 0 18px 34px rgba(42, 40, 54, 0.2);
+    animation: userDropdownInMobile 0.2s ease-out;
+  }
+}
+
+@keyframes userDropdownInMobile {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
   }
 
   to {
