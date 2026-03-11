@@ -2,15 +2,30 @@ import { getEnrolledCourseIds } from "@/lib/enrollment";
 import { db } from "@/lib/firebase";
 import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import { cookies } from "next/headers";
 
+function getProviderUserId(account) {
+  if (!account?.providerAccountId) {
+    return null;
+  }
+
+  if (account.provider === "google") {
+    return account.providerAccountId;
+  }
+
+  return `${account.provider}:${account.providerAccountId}`;
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google],
+  providers: [Google, GitHub],
   callbacks: {
     async jwt({ token, account, trigger, session }) {
-      if (account?.providerAccountId) {
-        token.userId = account.providerAccountId;
+      const providerUserId = getProviderUserId(account);
+
+      if (providerUserId) {
+        token.userId = providerUserId;
       }
 
       if (!token.userId && token.sub) {
@@ -38,20 +53,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async signIn({ user, account }) {
-      if (account?.provider !== "google") return true;
-      if (!account?.providerAccountId) return true;
-      if (!user?.email) return true;
+      const userId = getProviderUserId(account);
 
-      const userRef = doc(db, "users", account.providerAccountId);
+      if (!userId) return true;
+
+      const userRef = doc(db, "users", userId);
 
       try {
         const userDoc = await getDoc(userRef);
 
         const payload = {
+          userId,
           name: user.name ?? null,
-          email: user.email.toLowerCase(),
+          email: typeof user.email === "string" ? user.email.toLowerCase() : null,
           image: user.image ?? null,
           provider: account.provider,
+          providerAccountId: account.providerAccountId,
           lastLoginAt: serverTimestamp(),
         };
 

@@ -228,9 +228,22 @@
 }
 
 /* — GitHub — */
-.signin-provider--github {
-  opacity: 0.4;
-  cursor: not-allowed;
+.signin-provider--github::after {
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(110, 118, 129, 0.08) 55%,
+    rgba(36, 41, 46, 0.14) 100%
+  );
+}
+
+.signin-provider--github:not(:disabled):hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 8px 28px rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.signin-provider--github:not(:disabled):hover::after {
+  opacity: 1;
 }
 
 /* ── Provider internals ──────────────────────────────────────── */
@@ -322,7 +335,7 @@
   -webkit-mask-size: contain;
 }
 
-.signin-provider--google:not(:disabled):hover .signin-provider-arrow {
+.signin-provider:not(:disabled):hover .signin-provider-arrow {
   transform: translateX(4px);
   color: rgba(255, 255, 255, 0.65);
 }

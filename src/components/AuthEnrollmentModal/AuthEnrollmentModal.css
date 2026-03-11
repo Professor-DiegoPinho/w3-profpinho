@@ -86,12 +86,19 @@
 
 .auth-modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-end;
   gap: 12px;
 }
 
+.auth-modal-provider-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .auth-modal-cancel,
-.auth-modal-confirm {
+.auth-modal-provider {
   border: none;
   border-radius: 8px;
   padding: 12px 16px;
@@ -109,13 +116,23 @@
   background: #eaeaea;
 }
 
-.auth-modal-confirm {
+.auth-modal-provider--google {
   background: var(--color-red);
   color: var(--color-white);
 }
 
-.auth-modal-confirm:hover {
+.auth-modal-provider--google:hover {
   background: var(--color-red-second);
+  transform: translateY(-1px);
+}
+
+.auth-modal-provider--github {
+  background: #111827;
+  color: var(--color-white);
+}
+
+.auth-modal-provider--github:hover {
+  background: #1f2937;
   transform: translateY(-1px);
 }
 
@@ -151,10 +168,15 @@
 
   .auth-modal-actions {
     flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .auth-modal-provider-actions {
+    flex-direction: column;
   }
 
   .auth-modal-cancel,
-  .auth-modal-confirm {
+  .auth-modal-provider {
     width: 100%;
     text-align: center;
   }

@@ -2,7 +2,7 @@
 import './CourseEnrollmentButton.css';
 
 import AuthEnrollmentModal from "@/components/AuthEnrollmentModal/AuthEnrollmentModal";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -116,7 +116,6 @@ export default function CourseEnrollmentButton({
         isOpen={isAuthModalOpen}
         category={category}
         onClose={() => setIsAuthModalOpen(false)}
-        onConfirm={() => signIn("google", { callbackUrl: `/${category}` })}
       />
     </div>
   );

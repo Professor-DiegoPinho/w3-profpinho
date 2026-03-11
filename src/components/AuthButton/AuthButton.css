@@ -1,4 +1,4 @@
-.google-signin-button {
+.auth-button {
   background: var(--color-black);
   color: var(--color-white);
   border: 1px solid var(--color-black);
@@ -15,25 +15,25 @@
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
-.google-signin-button:hover {
+.auth-button:hover {
   background: var(--color-white);
   color: var(--color-black);
   transform: translateY(-1px);
 }
 
-.google-signin-icon {
+.auth-button-icon {
   display: inline-flex;
   width: 18px;
   height: 18px;
   flex-shrink: 0;
 }
 
-.google-signin-icon svg {
+.auth-button-icon svg {
   width: 100%;
   height: 100%;
 }
 
-.google-signin-text {
+.auth-button-text {
   line-height: 1;
 }
 
@@ -188,7 +188,7 @@
     position: static;
   }
 
-  .header-auth .google-signin-button {
+  .header-auth .auth-button {
     position: fixed;
     right: 16px;
     bottom: calc(16px + env(safe-area-inset-bottom, 0px));
@@ -202,11 +202,11 @@
     gap: 10px;
   }
 
-  .header-auth .google-signin-text {
+  .header-auth .auth-button-text {
     display: inline;
   }
 
-  .header-auth .google-signin-icon {
+  .header-auth .auth-button-icon {
     display: inline-flex;
   }
 

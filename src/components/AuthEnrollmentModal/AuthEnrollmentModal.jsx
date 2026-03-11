@@ -1,15 +1,20 @@
 "use client";
 import './AuthEnrollmentModal.css';
 
+import { signIn } from "next-auth/react";
 import { useEffect, useRef } from "react";
 
 export default function AuthEnrollmentModal({
   isOpen,
   category,
   onClose,
-  onConfirm,
 }) {
   const modalContentRef = useRef(null);
+
+  const handleProviderSignIn = (provider) => {
+    onClose();
+    signIn(provider, { callbackUrl: `/${category}` });
+  };
 
   useEffect(() => {
     if (!isOpen) {
@@ -49,23 +54,32 @@ export default function AuthEnrollmentModal({
         <span className="auth-modal-badge">Acesso ao curso</span>
         <h3 id="auth-modal-title">Entre para liberar seu aprendizado</h3>
         <p>
-          Crie sua conta gratuita com Google para começar a aprender {category} e desbloquear todo o conteúdo do curso.
+          Crie sua conta gratuita com Google ou GitHub para começar a aprender {category} e desbloquear todo o conteúdo do curso.
         </p>
 
         <div className="auth-modal-actions">
+          <div className="auth-modal-provider-actions">
+            <button
+              type="button"
+              className="auth-modal-provider auth-modal-provider--google"
+              onClick={() => handleProviderSignIn("google")}
+            >
+              Continuar com Google
+            </button>
+            <button
+              type="button"
+              className="auth-modal-provider auth-modal-provider--github"
+              onClick={() => handleProviderSignIn("github")}
+            >
+              Continuar com GitHub
+            </button>
+          </div>
           <button
             type="button"
             className="auth-modal-cancel"
             onClick={onClose}
           >
             Agora não
-          </button>
-          <button
-            type="button"
-            className="auth-modal-confirm"
-            onClick={onConfirm}
-          >
-            Quero me cadastrar com Google
           </button>
         </div>
       </div>

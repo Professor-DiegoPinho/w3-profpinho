@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import AuthButton from '../AuthButton/AuthButton';
 import CookieConsent from '../CookieConsent/CookieConsent';
 import Footer from '../Footer/Footer';
-import GoogleSignInButton from '../GoogleSignInButton/GoogleSignInButton';
 import SearchBox from '../SearchBox/SearchBox';
 import Sidebar from '../Sidebar/Sidebar';
 import LessonContentSkeleton from '../Skeletons/LessonContentSkeleton';
@@ -119,7 +119,7 @@ export default function Layout({ children }) {
           <SearchBox className="header-search" />
 
           <div className="header-auth">
-            <GoogleSignInButton onNavigateStart={handleNavigateStart} />
+            <AuthButton onNavigateStart={handleNavigateStart} />
           </div>
         </div>
       </header>

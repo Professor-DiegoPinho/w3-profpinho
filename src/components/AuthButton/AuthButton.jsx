@@ -1,6 +1,6 @@
 "use client";
 import SignInModal from '../SignInModal/SignInModal';
-import './GoogleSignInButton.css';
+import './AuthButton.css';
 
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 
 const AVATAR_RETRY_DELAY_MS = 5000;
 
-export default function GoogleSignInButton({ onNavigateStart }) {
+export default function AuthButton({ onNavigateStart }) {
   const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -58,7 +58,7 @@ export default function GoogleSignInButton({ onNavigateStart }) {
     return () => clearTimeout(retryTimer);
   }, [avatarLoadError, session?.user?.image]);
 
-  const handleGoogleSignIn = () => {
+  const handleAuthClick = () => {
     setIsSignInModalOpen(true);
   };
 
@@ -155,12 +155,12 @@ export default function GoogleSignInButton({ onNavigateStart }) {
     <>
       <button
         type="button"
-        className="google-signin-button"
-        onClick={handleGoogleSignIn}
+        className="auth-button"
+        onClick={handleAuthClick}
         aria-label="Entrar na plataforma"
       >
-        <span className="google-signin-text">Entrar</span>
-        <span className="google-signin-icon" aria-hidden="true">
+        <span className="auth-button-text">Entrar</span>
+        <span className="auth-button-icon" aria-hidden="true">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24px"

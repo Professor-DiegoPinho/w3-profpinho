@@ -9,6 +9,11 @@ export default function SignInModal({ isOpen, onClose }) {
   const cardRef = useRef(null);
   const [isMounted, setIsMounted] = useState(false);
 
+  const handleProviderSignIn = (provider) => {
+    onClose();
+    signIn(provider, { callbackUrl: "/" });
+  };
+
   useEffect(() => {
     setIsMounted(true);
 
@@ -65,7 +70,7 @@ export default function SignInModal({ isOpen, onClose }) {
           <button
             type="button"
             className="signin-provider signin-provider--google"
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() => handleProviderSignIn("google")}
           >
             <span className="signin-provider-icon">
               <span className="signin-provider-icon-asset signin-provider-icon-asset--google" aria-hidden="true" />
@@ -82,9 +87,7 @@ export default function SignInModal({ isOpen, onClose }) {
           <button
             type="button"
             className="signin-provider signin-provider--github"
-            disabled
-            aria-disabled="true"
-            aria-describedby="github-coming-soon"
+            onClick={() => handleProviderSignIn("github")}
           >
             <span className="signin-provider-icon">
               <span className="signin-provider-icon-asset signin-provider-icon-asset--github" aria-hidden="true" />
@@ -93,12 +96,8 @@ export default function SignInModal({ isOpen, onClose }) {
               <span className="signin-provider-subtitle">Continuar com</span>
               <span className="signin-provider-name">GitHub</span>
             </span>
-            <span
-              id="github-coming-soon"
-              className="signin-provider-badge"
-              aria-label="Em breve"
-            >
-              Em breve
+            <span className="signin-provider-arrow" aria-hidden="true">
+              <span className="signin-provider-arrow-icon" />
             </span>
           </button>
         </div>
