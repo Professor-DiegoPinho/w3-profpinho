@@ -1,31 +1,310 @@
 import { getEnrolledCourseIds } from "@/lib/enrollment";
 import { db } from "@/lib/firebase";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { randomUUID } from "crypto";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    serverTimestamp,
+    setDoc,
+    where,
+} from "firebase/firestore";
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import { cookies } from "next/headers";
 
-function getProviderUserId(account) {
-  if (!account?.providerAccountId) {
+const hasGoogleProviderConfig =
+  typeof process.env.AUTH_GOOGLE_ID === "string" &&
+  process.env.AUTH_GOOGLE_ID.length > 0 &&
+  typeof process.env.AUTH_GOOGLE_SECRET === "string" &&
+  process.env.AUTH_GOOGLE_SECRET.length > 0;
+
+const hasGithubProviderConfig =
+  typeof process.env.AUTH_GITHUB_ID === "string" &&
+  process.env.AUTH_GITHUB_ID.length > 0 &&
+  typeof process.env.AUTH_GITHUB_SECRET === "string" &&
+  process.env.AUTH_GITHUB_SECRET.length > 0;
+
+const providers = [];
+
+if (hasGoogleProviderConfig) {
+  providers.push(Google);
+}
+
+if (hasGithubProviderConfig) {
+  providers.push(GitHub);
+}
+
+function normalizeEmail(email) {
+  if (typeof email !== "string") {
     return null;
   }
 
-  if (account.provider === "google") {
-    return account.providerAccountId;
+  const normalized = email.trim().toLowerCase();
+  return normalized.length > 0 ? normalized : null;
+}
+
+function getProviderLinkId(account) {
+  if (!account?.providerAccountId || !account?.provider) {
+    return null;
   }
 
   return `${account.provider}:${account.providerAccountId}`;
 }
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Google, GitHub],
-  callbacks: {
-    async jwt({ token, account, trigger, session }) {
-      const providerUserId = getProviderUserId(account);
+function toMillis(timestamp) {
+  if (typeof timestamp?.toMillis === "function") {
+    return timestamp.toMillis();
+  }
 
-      if (providerUserId) {
-        token.userId = providerUserId;
+  return Number.MAX_SAFE_INTEGER;
+}
+
+function generateUserId() {
+  return `usr_${randomUUID()}`;
+}
+
+function buildProviderConnections(existingUserData, account, normalizedEmail) {
+  const existingConnections =
+    existingUserData?.providerConnections && typeof existingUserData.providerConnections === "object"
+      ? existingUserData.providerConnections
+      : {};
+
+  const providerKey = account?.provider;
+
+  if (!providerKey) {
+    return existingConnections;
+  }
+
+  const existingProviderConnection =
+    existingConnections[providerKey] && typeof existingConnections[providerKey] === "object"
+      ? existingConnections[providerKey]
+      : {};
+
+  return {
+    ...existingConnections,
+    [providerKey]: {
+      ...existingProviderConnection,
+      provider: providerKey,
+      providerAccountId: account?.providerAccountId ?? null,
+      email: normalizedEmail,
+      connectedAt: existingProviderConnection.connectedAt ?? serverTimestamp(),
+      lastLoginAt: serverTimestamp(),
+    },
+  };
+}
+
+function buildLinkedProviderIds(existingUserData, account) {
+  const existingIds = Array.isArray(existingUserData?.linkedProviderIds)
+    ? existingUserData.linkedProviderIds
+    : [];
+
+  const newProviderLinkId = getProviderLinkId(account);
+
+  if (!newProviderLinkId || existingIds.includes(newProviderLinkId)) {
+    return existingIds;
+  }
+
+  return [...existingIds, newProviderLinkId];
+}
+
+function pickPrimaryUserDoc(userDocs, account) {
+  if (!Array.isArray(userDocs) || userDocs.length === 0) {
+    return null;
+  }
+
+  const googleLegacyId = account?.provider === "google" ? account.providerAccountId : null;
+  const providerLinkId = getProviderLinkId(account);
+
+  if (googleLegacyId) {
+    const legacyGoogleDoc = userDocs.find((userDoc) => userDoc.id === googleLegacyId);
+    if (legacyGoogleDoc) {
+      return legacyGoogleDoc;
+    }
+  }
+
+  if (providerLinkId) {
+    const providerDoc = userDocs.find((userDoc) => userDoc.id === providerLinkId);
+    if (providerDoc) {
+      return providerDoc;
+    }
+  }
+
+  return [...userDocs].sort((a, b) => toMillis(a.data()?.createdAt) - toMillis(b.data()?.createdAt))[0];
+}
+
+async function getUsersByEmail(normalizedEmail) {
+  if (!normalizedEmail) {
+    return [];
+  }
+
+  const usersByEmailQuery = query(
+    collection(db, "users"),
+    where("email", "==", normalizedEmail)
+  );
+
+  const usersSnapshot = await getDocs(usersByEmailQuery);
+  return usersSnapshot.docs;
+}
+
+async function migrateEnrollmentsToUser(targetUserId, sourceUserIds) {
+  const uniqueSourceIds = [...new Set(sourceUserIds)].filter(
+    (sourceUserId) =>
+      typeof sourceUserId === "string" &&
+      sourceUserId.length > 0 &&
+      sourceUserId !== targetUserId
+  );
+
+  for (const sourceUserId of uniqueSourceIds) {
+    const sourceEnrollmentsQuery = query(
+      collection(db, "enrollments"),
+      where("userId", "==", sourceUserId)
+    );
+    const sourceEnrollmentsSnapshot = await getDocs(sourceEnrollmentsQuery);
+
+    for (const enrollmentDoc of sourceEnrollmentsSnapshot.docs) {
+      const enrollmentData = enrollmentDoc.data();
+      const courseId = enrollmentData?.courseId;
+
+      if (typeof courseId !== "string" || courseId.length === 0) {
+        continue;
+      }
+
+      const targetEnrollmentId = `${targetUserId}_${courseId}`;
+      const targetEnrollmentRef = doc(db, "enrollments", targetEnrollmentId);
+
+      await setDoc(
+        targetEnrollmentRef,
+        {
+          ...enrollmentData,
+          enrollmentId: targetEnrollmentId,
+          userId: targetUserId,
+          courseId,
+        },
+        { merge: true }
+      );
+    }
+  }
+}
+
+async function resolveUserIdFromProviderLink(account) {
+  const providerLinkId = getProviderLinkId(account);
+
+  if (!providerLinkId) {
+    return null;
+  }
+
+  // Busca na coleção users pelo array linkedProviderIds
+  const usersByProviderQuery = query(
+    collection(db, "users"),
+    where("linkedProviderIds", "array-contains", providerLinkId)
+  );
+  const usersSnapshot = await getDocs(usersByProviderQuery);
+
+  if (usersSnapshot.empty) {
+    return null;
+  }
+
+  // Se houver mais de um (caso raro de inconsistência), pega o mais antigo
+  const userDoc = usersSnapshot.docs.length === 1
+    ? usersSnapshot.docs[0]
+    : [...usersSnapshot.docs].sort((a, b) => toMillis(a.data()?.createdAt) - toMillis(b.data()?.createdAt))[0];
+
+  return userDoc.id;
+}
+
+async function resolveOrCreateUser({ user, account }) {
+  const normalizedEmail = normalizeEmail(user?.email);
+  const providerLinkId = getProviderLinkId(account);
+  let userId = await resolveUserIdFromProviderLink(account);
+
+  const usersByEmail = await getUsersByEmail(normalizedEmail);
+  const primaryUserDoc = pickPrimaryUserDoc(usersByEmail, account);
+
+  if (!userId && primaryUserDoc) {
+    userId = primaryUserDoc.id;
+  }
+
+  if (!userId) {
+    userId = generateUserId();
+  }
+
+  const userRef = doc(db, "users", userId);
+  const userDoc = await getDoc(userRef);
+  const existingUserData = userDoc.exists() ? userDoc.data() : null;
+
+  const duplicateUserIds = usersByEmail
+    .map((candidateDoc) => candidateDoc.id)
+    .filter((candidateUserId) => candidateUserId !== userId);
+
+  const googleLegacyId = account?.provider === "google" ? account.providerAccountId : null;
+  if (googleLegacyId && googleLegacyId !== userId) {
+    duplicateUserIds.push(googleLegacyId);
+  }
+
+  if (providerLinkId && providerLinkId !== userId) {
+    duplicateUserIds.push(providerLinkId);
+  }
+
+  await migrateEnrollmentsToUser(userId, duplicateUserIds);
+
+  const payload = {
+    userId,
+    name: user?.name ?? null,
+    email: normalizedEmail,
+    image: user?.image ?? null,
+    // Mantemos os campos legados como "ultimo provider usado".
+    provider: account?.provider ?? null,
+    providerAccountId: account?.providerAccountId ?? null,
+    providerConnections: buildProviderConnections(existingUserData, account, normalizedEmail),
+    linkedProviderIds: buildLinkedProviderIds(existingUserData, account),
+    lastLoginAt: serverTimestamp(),
+  };
+
+  if (!userDoc.exists()) {
+    payload.createdAt = serverTimestamp();
+
+    try {
+      const cookieStore = await cookies();
+      const utmCookie = cookieStore.get("utm_data");
+      if (utmCookie?.value) {
+        const utmData = JSON.parse(decodeURIComponent(utmCookie.value));
+        if (utmData && typeof utmData === "object") {
+          payload.acquisition = { ...utmData };
+        }
+      }
+    } catch {
+      console.error("Erro ao ler cookie de aquisição para o usuário novo");
+    }
+  }
+
+  await setDoc(userRef, payload, { merge: true });
+
+  return userId;
+}
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers,
+  callbacks: {
+    async jwt({ token, user, account, trigger, session }) {
+      if (account?.providerAccountId) {
+        const linkedUserId = await resolveUserIdFromProviderLink(account);
+        if (linkedUserId) {
+          token.userId = linkedUserId;
+        }
+      }
+
+      if (!token.userId) {
+        const normalizedEmail = normalizeEmail(user?.email ?? token?.email);
+        const usersByEmail = await getUsersByEmail(normalizedEmail);
+        const primaryUserDoc = pickPrimaryUserDoc(usersByEmail, account);
+
+        if (primaryUserDoc) {
+          token.userId = primaryUserDoc.id;
+        }
       }
 
       if (!token.userId && token.sub) {
@@ -53,43 +332,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async signIn({ user, account }) {
-      const userId = getProviderUserId(account);
-
-      if (!userId) return true;
-
-      const userRef = doc(db, "users", userId);
+      if (!account?.provider || !account?.providerAccountId) {
+        return true;
+      }
 
       try {
-        const userDoc = await getDoc(userRef);
-
-        const payload = {
-          userId,
-          name: user.name ?? null,
-          email: typeof user.email === "string" ? user.email.toLowerCase() : null,
-          image: user.image ?? null,
-          provider: account.provider,
-          providerAccountId: account.providerAccountId,
-          lastLoginAt: serverTimestamp(),
-        };
-
-        if (!userDoc.exists()) {
-          payload.createdAt = serverTimestamp();
-
-          try {
-            const cookieStore = await cookies();
-            const utmCookie = cookieStore.get("utm_data");
-            if (utmCookie?.value) {
-              const utmData = JSON.parse(decodeURIComponent(utmCookie.value));
-              if (utmData && typeof utmData === "object") {
-                payload.acquisition = { ...utmData };
-              }
-            }
-          } catch {
-            console.error("Erro ao ler cookie de aquisição para o usuário novo");
-          }
-        }
-
-        await setDoc(userRef, payload, { merge: true });
+        await resolveOrCreateUser({ user, account });
       } catch (error) {
         console.error("Erro ao salvar usuário no Firestore:", error);
       }
