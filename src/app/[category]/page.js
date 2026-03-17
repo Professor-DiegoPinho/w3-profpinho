@@ -2,22 +2,22 @@ import { auth } from "@/auth";
 import CourseEnrollmentButton from "@/components/CourseEnrollmentButton/CourseEnrollmentButton";
 import CourseLessonsList from "@/components/CourseLessonsList/CourseLessonsList";
 import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
-import { courses } from "@/data/courses";
+import { content } from "@/data";
 import {
-  courseRequiresEnrollment,
-  getCourseAccessLabel,
-  getCourseAccessType,
-  isCourseVisibleToUser,
-  isPaidCourse,
+    courseRequiresEnrollment,
+    getCourseAccessLabel,
+    getCourseAccessType,
+    isCourseVisibleToUser,
+    isPaidCourse,
 } from "@/lib/courseAccess";
 import {
-  getCourseEnrollmentCount,
-  getCourseEnrollmentDate,
-  getEnrolledCourseIds,
+    getCourseEnrollmentCount,
+    getCourseEnrollmentDate,
+    getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import {
-  getCategories,
-  getPostsInCategory,
+    getCategories,
+    getPostsInCategory,
 } from "@/lib/markdown";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
@@ -48,7 +48,7 @@ export async function generateStaticParams() {
 export default async function CategoryPage({ params }) {
   const { category } = await params;
   const posts = getPostsInCategory(category);
-  const course = courses.find((item) => item.slug === category);
+  const course = content.find((item) => item.slug === category);
 
   if (!posts.length) {
     notFound();
@@ -90,7 +90,7 @@ export default async function CategoryPage({ params }) {
   const requiresEnrollment = courseRequiresEnrollment(course);
   const requiresPayment = isPaidCourse(course);
 
-  if (courseAccessType === "tutorial" && firstPost?.slug) {
+  if ((courseAccessType === "tutorial" || courseAccessType === "resume") && firstPost?.slug) {
     redirect(`/${category}/${firstPost.slug}`);
   }
 
@@ -291,7 +291,7 @@ export default async function CategoryPage({ params }) {
 export async function generateMetadata({ params }) {
   const { category } = await params;
   const posts = getPostsInCategory(category);
-  const course = courses.find((item) => item.slug === category);
+  const course = content.find((item) => item.slug === category);
 
   if (!posts.length) {
     return {

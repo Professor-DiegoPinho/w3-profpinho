@@ -1,43 +1,12 @@
-export const COURSE_ACCESS_TYPES = {
-  TUTORIAL: "tutorial",
-  FREE_COURSE: "free-course",
-  PAID_COURSE: "paid-course",
-};
-
-export const COURSE_VISIBILITY = {
-  PUBLIC: "public",
-  PRIVATE: "private",
-};
-
 export const courses = [
-  {
-    slug: "python",
-    title: "Python",
-    description: "Aprenda python do básico até conceitos avançados.",
-    image: "/images/logo_python.png",
-    badge: "Tutorial",
-    accessType: COURSE_ACCESS_TYPES.TUTORIAL,
-    visibility: COURSE_VISIBILITY.PUBLIC,
-    tags: ["python", "programação", "algoritmos"],
-    prerequisites: [],
-    order: 1,
-    youtubeId: "",
-    ebook: {},
-    usefulLinks: [],
-    seo: {
-      metaTitle: "Curso de Python do Zero ao Avançado",
-      metaDescription: "Curso completo de Python com exercícios práticos.",
-      ogImage: "/images/logo_python.png"
-    }
-  },
   {
     slug: "logica-de-programacao-python",
     title: "Lógica de Programação com Python",
     description: "Dê seus primeiros passos no mundo da programação neste curso gratuito de lógica de programação com a linguagem de programação Python.",
     image: "/images/logo_python.png",
     badge: "",
-    accessType: COURSE_ACCESS_TYPES.FREE_COURSE,
-    visibility: COURSE_VISIBILITY.PUBLIC,
+    accessType: "free-course",
+    visibility: "public",
     tags: ["python", "programação", "algoritmos"],
     prerequisites: [],
     workloadHours: 3,
