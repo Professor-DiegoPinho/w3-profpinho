@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import './PostNavigation.css';
 
 export default function PostNavigation({ previous, next, category }) {
   if (!previous && !next) {

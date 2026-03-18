@@ -1,4 +1,5 @@
 "use client";
+import './Footer.css';
 
 import Link from 'next/link';
 

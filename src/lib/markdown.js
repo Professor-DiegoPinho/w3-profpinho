@@ -1,10 +1,35 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { courses } from '@/data/courses';
 import { processAllLiquidTags } from './liquidTags.js';
 import { calculateReadingTime } from './readingTime.js';
 
 const contentDirectory = path.join(process.cwd(), 'content');
+
+export function getCategoryTitle(category) {
+  const matchingCourse = courses.find((course) => course.slug === category);
+
+  if (matchingCourse?.title) {
+    return matchingCourse.title;
+  }
+
+  return category
+    .split('-')
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+export function getCategoryDescription(category) {
+  const matchingCourse = courses.find((course) => course.slug === category);
+
+  if (matchingCourse?.description) {
+    return matchingCourse.description;
+  }
+
+  return `Aprenda ${getCategoryTitle(category)} do básico até conceitos avançados.`;
+}
 
 // Get all categories (folders) in the content directory
 export function getCategories() {
@@ -134,7 +159,8 @@ export function getSidebarData() {
 
     return {
       category,
-      title: category.charAt(0).toUpperCase() + category.slice(1),
+      title: getCategoryTitle(category),
+      description: getCategoryDescription(category),
       posts
     };
   });

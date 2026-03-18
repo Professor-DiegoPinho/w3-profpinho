@@ -1,0 +1,435 @@
+/* ── Overlay ─────────────────────────────────────────────────── */
+.signin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 24, 0.56);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  z-index: 1200;
+}
+
+@supports (-moz-appearance: none) {
+  .signin-overlay {
+    backdrop-filter: none;
+  }
+}
+
+/* ── Card ────────────────────────────────────────────────────── */
+.signin-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: #0c0c12;
+  border-radius: 28px;
+  padding: 40px 32px 36px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 24px 64px rgba(0, 0, 0, 0.65),
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  animation: signinCardIn 0.5s cubic-bezier(0.34, 1.42, 0.64, 1) both;
+}
+
+@keyframes signinCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Close button ────────────────────────────────────────────── */
+.signin-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.25s ease;
+  z-index: 2;
+}
+
+.signin-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  transform: rotate(90deg);
+}
+
+.signin-close-icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+  background-color: currentColor;
+  mask-image: url("/icons/ic_close.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("/icons/ic_close.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.signin-header {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 28px;
+  animation: signinHeaderIn 0.5s 0.1s cubic-bezier(0.34, 1.42, 0.64, 1) both;
+}
+
+@keyframes signinHeaderIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.signin-icon-wrap {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  background: rgba(243, 76, 97, 0.1);
+  border: 1px solid rgba(243, 76, 97, 0.22);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f34c61;
+  box-shadow: 0 0 20px rgba(243, 76, 97, 0.15);
+}
+
+.signin-header-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  background-color: currentColor;
+  mask-image: url("/icons/ic_user.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("/icons/ic_user.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.signin-header h2 {
+  color: #fff;
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  letter-spacing: -0.025em;
+}
+
+.signin-header p {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Provider buttons ────────────────────────────────────────── */
+.signin-providers {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 22px;
+  animation: signinProvidersIn 0.5s 0.18s cubic-bezier(0.34, 1.42, 0.64, 1) both;
+}
+
+@keyframes signinProvidersIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.signin-provider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease;
+  text-align: left;
+  overflow: hidden;
+}
+
+/* Shimmer layer shown on hover */
+.signin-provider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.signin-provider:not(:disabled):hover {
+  transform: translateY(-3px);
+}
+
+/* — Google — */
+.signin-provider--google::after {
+  background: linear-gradient(
+    130deg,
+    rgba(66, 133, 244, 0.1) 0%,
+    rgba(234, 67, 53, 0.06) 50%,
+    rgba(52, 168, 83, 0.06) 100%
+  );
+}
+
+.signin-provider--google:not(:disabled):hover {
+  border-color: rgba(66, 133, 244, 0.45);
+  box-shadow: 0 8px 28px rgba(66, 133, 244, 0.22), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.signin-provider--google:not(:disabled):hover::after {
+  opacity: 1;
+}
+
+/* — GitHub — */
+.signin-provider--github::after {
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(110, 118, 129, 0.08) 55%,
+    rgba(36, 41, 46, 0.14) 100%
+  );
+}
+
+.signin-provider--github:not(:disabled):hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 8px 28px rgba(255, 255, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.signin-provider--github:not(:disabled):hover::after {
+  opacity: 1;
+}
+
+/* ── Provider internals ──────────────────────────────────────── */
+.signin-provider-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.signin-provider-icon-asset {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.signin-provider-icon-asset--google {
+  background-image: url("/icons/ic_google.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.signin-provider-icon-asset--github {
+  background-color: currentColor;
+  mask-image: url("/icons/ic_github.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("/icons/ic_github.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.signin-provider-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.signin-provider-subtitle {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.38);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.signin-provider-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.015em;
+}
+
+.signin-provider-arrow {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.signin-provider-arrow-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: currentColor;
+  mask-image: url("/icons/ic_arrow_right.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("/icons/ic_arrow_right.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+.signin-provider:not(:disabled):hover .signin-provider-arrow {
+  transform: translateX(4px);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.signin-provider-badge {
+  position: relative;
+  z-index: 1;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ── Terms ───────────────────────────────────────────────────── */
+.signin-terms {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.2);
+  margin: 0;
+  line-height: 1.6;
+  animation: signinTermsIn 0.5s 0.25s ease both;
+}
+
+@keyframes signinTermsIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes signinCardInMobile {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .signin-overlay {
+    padding: 14px 14px 0;
+    align-items: flex-end;
+  }
+
+  .signin-card {
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    padding: 26px 18px 22px;
+    border-bottom: none;
+    box-shadow:
+      0 -10px 30px rgba(0, 0, 0, 0.24),
+      0 -1px 0 rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    animation: signinCardInMobile 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .signin-header {
+    margin-bottom: 22px;
+  }
+
+  .signin-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .signin-header p {
+    font-size: 0.82rem;
+  }
+
+  .signin-providers {
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .signin-provider {
+    padding: 14px 15px;
+  }
+
+  .signin-provider-badge {
+    font-size: 0.64rem;
+  }
+
+  .signin-terms {
+    font-size: 0.69rem;
+  }
+}

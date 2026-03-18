@@ -1,0 +1,35 @@
+.course-enroll-button {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-red);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.course-enroll-button:hover {
+  background-color: var(--color-red-second);
+}
+
+.course-enroll-button:focus {
+  outline: none;
+}
+
+.course-enroll-button:focus-visible {
+  outline: 2px solid var(--color-red-second);
+  outline-offset: 2px;
+}
+
+.course-enroll-button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.course-enroll-error {
+  margin-top: 10px;
+  color: var(--color-red-second);
+  font-size: 0.9rem;
+}

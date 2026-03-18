@@ -1,9 +1,16 @@
-import { notFound } from 'next/navigation';
-import Layout from '@/components/Layout';
-import MarkdownContent from '@/components/MarkdownContent';
-import PostNavigation from '@/components/PostNavigation';
-import ReadingTime from '@/components/ReadingTime';
-import { getPost, getSidebarData, getPostNavigation, getAllPosts } from '@/lib/markdown';
+import { auth } from '@/auth';
+import MarkdownContent from '@/components/MarkdownContent/MarkdownContent';
+import PostNavigation from '@/components/PostNavigation/PostNavigation';
+import ReadingTime from '@/components/ReadingTime/ReadingTime';
+import {
+    canUserAccessCourseLessons,
+    isCourseVisibleToUser,
+} from '@/lib/courseAccess';
+import { getEnrolledCourseIds } from '@/lib/enrollment';
+import { getAllPosts, getCategoryTitle, getPost, getPostNavigation } from '@/lib/markdown';
+import { notFound, redirect } from 'next/navigation';
+
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -22,46 +29,56 @@ export default async function PostPage({ params }) {
     notFound();
   }
 
-  const sidebarData = getSidebarData();
+  const session = await auth();
+  const userId = session?.user?.id;
+  const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
+    ? session.user.enrolledCourseIds
+    : await getEnrolledCourseIds(userId);
+
+  if (!isCourseVisibleToUser(category, enrolledCourseIds)) {
+    notFound();
+  }
+
+  const hasLessonAccess = canUserAccessCourseLessons(category, enrolledCourseIds);
+
+  if (!hasLessonAccess) {
+    redirect(`/${category}`);
+  }
+
   const navigation = getPostNavigation(category, slug);
+  const categoryTitle = getCategoryTitle(category);
 
   return (
-    <Layout
-      sidebarData={sidebarData}
-      currentCategory={category}
-      currentSlug={slug}
-    >
-      <article className="post-content">
-        <header className="post-header">
-          <div className="breadcrumb">
-            <span className="category-name">
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </span>
-            <span className="separator">›</span>
-            <span className="post-title">{post.title}</span>
-          </div>
-          <h1>{post.title}</h1>
-          {post.description && (
-            <p className="post-description">{post.description}</p>
-          )}
-          {post.readingTime && (
-            <div className="post-meta">
-              <ReadingTime readingTime={post.readingTime} showFullText={true} />
-            </div>
-          )}
-        </header>
-
-        <div className="post-body">
-          <MarkdownContent content={post.content} />
+    <article className="post-content">
+      <header className="post-header">
+        <div className="breadcrumb">
+          <span className="category-name">
+            {categoryTitle}
+          </span>
+          <span className="separator">›</span>
+          <span className="post-title">{post.title}</span>
         </div>
+        <h1>{post.title}</h1>
+        {post.description && (
+          <p className="post-description">{post.description}</p>
+        )}
+        {post.readingTime && (
+          <div className="post-meta">
+            <ReadingTime readingTime={post.readingTime} showFullText={true} />
+          </div>
+        )}
+      </header>
 
-        <PostNavigation
-          previous={navigation.previous}
-          next={navigation.next}
-          category={category}
-        />
-      </article>
-    </Layout>
+      <div className="post-body">
+        <MarkdownContent content={post.content} />
+      </div>
+
+      <PostNavigation
+        previous={navigation.previous}
+        next={navigation.next}
+        category={category}
+      />
+    </article>
   );
 }
 
@@ -76,7 +93,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${post.title} - ${category.charAt(0).toUpperCase() + category.slice(1)} Tutorial`,
+    title: `${post.title} - ${getCategoryTitle(category)} Tutorial`,
     description: post.description,
   };
 }

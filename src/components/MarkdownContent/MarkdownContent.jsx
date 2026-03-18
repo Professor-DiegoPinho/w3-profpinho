@@ -1,8 +1,8 @@
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 
 export default function MarkdownContent({ content }) {
   const components = {
@@ -27,7 +27,7 @@ export default function MarkdownContent({ content }) {
       }
 
       return (
-        <code className={`inline-code ${className || ''}`} {...props}>
+        <code className={`inline-code ${className || ''}`.trim()} {...props}>
           {children}
         </code>
       );

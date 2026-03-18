@@ -1,4 +1,5 @@
 'use client';
+import './ReadingTime.css';
 
 import { formatReadingTime } from '@/lib/readingTime';
 
@@ -48,7 +49,7 @@ export default function ReadingTime({
 
   return (
     <div
-      className={`reading-time ${getVariantClass()} ${className}`}
+      className={`reading-time ${getVariantClass()} ${className}`.trim()}
       style={{ '--reading-time-color': formatted.color, 'backgroundColor': formatted.background }}
       title={`${words} palavras • ${formatted.fullText}`}
     >

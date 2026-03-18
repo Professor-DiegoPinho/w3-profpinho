@@ -1,43 +1,27 @@
-import Link from 'next/link';
-import Layout from '@/components/Layout';
-import { getSidebarData, getCategories } from '@/lib/markdown';
+import { auth } from '@/auth';
+import CategoriesSection from '@/components/CategoriesSection/CategoriesSection';
+import { getEnrolledCourseIds, mapSidebarWithAccess } from '@/lib/enrollment';
+import { getSidebarData } from '@/lib/markdown';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const sidebarData = getSidebarData();
-  const categories = getCategories();
+  const session = await auth();
+  const userId = session?.user?.id;
+  const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
+    ? session.user.enrolledCourseIds
+    : await getEnrolledCourseIds(userId);
+
+  const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
 
   return (
-    <Layout sidebarData={sidebarData}>
-      <div className="home-page">
+    <div className="home-page">
         <header className="home-header">
           <h1>Aprenda Programação com o Prof. Diego Pinho</h1>
           <p>Seu local de referência e confiança para aprender tecnologia.</p>
         </header>
 
-        <div className="categories-grid">
-          {categories.map((category) => {
-            const categoryData = sidebarData.find(cat => cat.category === category);
-            const firstPost = categoryData?.posts[0];
-
-            return (
-              <div key={category} className="category-card">
-                <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
-                <p>Aprenda {category} do básico até conceitos avançados.</p>
-                <div className="category-stats">
-                  <span>{categoryData?.posts.length || 0} lições</span>
-                </div>
-                {firstPost && (
-                  <Link
-                    href={`/${category}/${firstPost.slug}`}
-                    className="start-learning-btn"
-                  >
-                    Comece a aprender
-                  </Link>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <CategoriesSection sidebarData={sidebarData} />
 
         {/* Seção Sobre o Professor */}
         <section className="about-professor">
@@ -115,6 +99,5 @@ export default async function Home() {
           </div>
         </section>
       </div>
-    </Layout>
   );
 }

@@ -1,4 +1,6 @@
-import { Poppins, JetBrains_Mono } from "next/font/google";
+import Layout from "@/components/Layout/Layout";
+import Providers from "@/components/Providers/Providers";
+import { JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -72,7 +74,9 @@ export default function RootLayout({ children }) {
         <link rel="canonical" href="https://hub.diegopinho.com.br" />
       </head>
       <body className={`${poppins.variable} ${jetbrainsMono.variable}`}>
-        {children}
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   );

@@ -1,8 +1,8 @@
 'use client';
+import './SearchBox.css';
 
-import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SearchBox({ className = '' }) {
   const [query, setQuery] = useState('');
@@ -123,7 +123,7 @@ export default function SearchBox({ className = '' }) {
   };
 
   return (
-    <div className={`search-container ${className}`} ref={searchRef}>
+    <div className={`search-container ${className}`.trim()} ref={searchRef}>
       <div className="search-input-wrapper">
         <input
           type="text"
@@ -163,7 +163,7 @@ export default function SearchBox({ className = '' }) {
                 {results.map((result, index) => (
                   <div
                     key={`${result.category}-${result.slug}`}
-                    className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`}
+                    className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`.trim()}
                     onClick={() => handleResultClick(result)}
                   >
                     <div className="search-result-content">

@@ -58,12 +58,27 @@ w3pinho/
    npm install
    ```
 
-3. **Execute o projeto**:
+3. **Configure as variáveis de ambiente**:
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Como obter as variáveis de ambiente**:
+
+   - **Google Cloud OAuth**: Crie um projeto no [Google Cloud Console](https://console.cloud.google.com/), configure uma credencial OAuth e obtenha o `client ID` e `client secret`.
+   - **GitHub OAuth**: Crie um aplicativo OAuth no [GitHub Developer Settings](https://github.com/settings/applications/new), configure a URL de callback e obtenha o `client ID` e `client secret`.
+   - **Auth Secret**: Gere um segredo seguro para autenticação usando o comando:
+     ```bash
+     npx auth secret
+     ```   
+   
+
+5. **Execute o projeto**:
    ```bash
    npm run dev
    ```
 
-4. **Acesse no navegador**:
+6. **Acesse no navegador**:
    ```
    http://localhost:3000
    ```

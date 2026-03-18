@@ -1,0 +1,157 @@
+"use client";
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import AuthButton from '../AuthButton/AuthButton';
+import CookieConsent from '../CookieConsent/CookieConsent';
+import Footer from '../Footer/Footer';
+import SearchBox from '../SearchBox/SearchBox';
+import Sidebar from '../Sidebar/Sidebar';
+import LessonContentSkeleton from '../Skeletons/LessonContentSkeleton';
+import ProfilePageSkeleton from '../Skeletons/ProfilePageSkeleton';
+
+const SIDEBAR_COLLAPSE_BREAKPOINT = 1100;
+
+export default function Layout({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isRouteLoading, setIsRouteLoading] = useState(false);
+  const [pendingPath, setPendingPath] = useState(null);
+  const [sidebarData, setSidebarData] = useState([]);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    let isActive = true;
+
+    fetch('/api/sidebar')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!isActive) {
+          return;
+        }
+
+        setSidebarData(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        if (isActive) {
+          setSidebarData([]);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  // Detectar telas compactas para recolher a sidebar mais cedo
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= SIDEBAR_COLLAPSE_BREAKPOINT);
+    };
+
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Fechar sidebar ao mudar de rota em mobile
+  useEffect(() => {
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  }, [isMobile, pathname]);
+
+  useEffect(() => {
+    if (!pendingPath) {
+      return;
+    }
+
+    if (pathname === pendingPath) {
+      setIsRouteLoading(false);
+      setPendingPath(null);
+    }
+  }, [pathname, pendingPath]);
+
+  const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
+  const resolvedCurrentSlug = pathname.split('/').filter(Boolean)[1];
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const handleNavigateStart = (targetPath) => {
+    setPendingPath(targetPath);
+    setIsRouteLoading(true);
+  };
+
+  const isProfileRouteLoading = pendingPath === '/meu-perfil';
+
+  return (
+    <div className="app-layout">
+      <header className="app-header">
+        <div className="header-content">
+          <button
+            className="hamburger-button"
+            onClick={toggleSidebar}
+            aria-label="Abrir menu"
+          >
+            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
+            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
+            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
+          </button>
+
+          <div className="header-brand">
+            <Link href="/" className="header-logo">
+              <img
+                src="/diegopinho-learninghub-logo.svg"
+                alt="Learning Hub Logo"
+                className="header-logo-image"
+              />
+            </Link>
+          </div>
+
+          <SearchBox className="header-search" />
+
+          <div className="header-auth">
+            <AuthButton onNavigateStart={handleNavigateStart} />
+          </div>
+        </div>
+      </header>
+
+      <div className="layout-body">
+        {isSidebarOpen && (
+          <div className="sidebar-overlay" onClick={closeSidebar}></div>
+        )}
+
+        <Sidebar
+          sidebarData={sidebarData}
+          currentCategory={resolvedCurrentCategory}
+          currentSlug={resolvedCurrentSlug}
+          isOpen={isSidebarOpen}
+          isMobile={isMobile}
+          onLinkClick={closeSidebar}
+          onNavigateStart={handleNavigateStart}
+        />
+
+        <main className="main-content">
+          <div className={`content-wrapper ${isRouteLoading ? 'content-wrapper-loading' : ''}`}>
+            {isRouteLoading ? (
+              isProfileRouteLoading ? <ProfilePageSkeleton /> : <LessonContentSkeleton />
+            ) : (
+              children
+            )}
+          </div>
+        </main>
+      </div>
+
+      <Footer />
+      <CookieConsent />
+    </div>
+  );
+}
