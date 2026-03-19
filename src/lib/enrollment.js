@@ -1,22 +1,25 @@
 import {
-    canUserAccessCourseLessons,
-    getCourseAccessType,
-    getCourseVisibility,
-    isCourseVisibleToUser,
+  canUserAccessCourseLessons,
+  getCourseAccessType,
+  getCourseVisibility,
+  isCourseVisibleToUser,
 } from "@/lib/courseAccess";
-import { db } from "@/lib/firebase";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { adminDb } from "@/lib/firebaseAdmin";
 
 export async function hasCourseEnrollment(userId, courseId) {
   if (!userId || !courseId) {
     return false;
   }
 
-  const enrollmentId = `${userId}_${courseId}`;
-  const enrollmentRef = doc(db, "enrollments", enrollmentId);
-  const enrollmentDoc = await getDoc(enrollmentRef);
+  try {
+    const enrollmentId = `${userId}_${courseId}`;
+    const enrollmentDoc = await adminDb.collection("enrollments").doc(enrollmentId).get();
 
-  return enrollmentDoc.exists();
+    return enrollmentDoc.exists;
+  } catch (error) {
+    console.error("Erro ao verificar matrícula:", error);
+    return false;
+  }
 }
 
 export async function getEnrolledCourseIds(userId) {
@@ -24,16 +27,19 @@ export async function getEnrolledCourseIds(userId) {
     return [];
   }
 
-  const enrollmentsQuery = query(
-    collection(db, "enrollments"),
-    where("userId", "==", userId)
-  );
+  try {
+    const enrollmentsSnapshot = await adminDb
+      .collection("enrollments")
+      .where("userId", "==", userId)
+      .get();
 
-  const enrollmentsSnapshot = await getDocs(enrollmentsQuery);
-
-  return enrollmentsSnapshot.docs
-    .map((enrollmentDoc) => enrollmentDoc.data()?.courseId)
-    .filter((courseId) => typeof courseId === "string" && courseId.length > 0);
+    return enrollmentsSnapshot.docs
+      .map((enrollmentDoc) => enrollmentDoc.data()?.courseId)
+      .filter((courseId) => typeof courseId === "string" && courseId.length > 0);
+  } catch (error) {
+    console.error("Erro ao buscar cursos matriculados:", error);
+    return [];
+  }
 }
 
 export async function getCourseEnrollmentDate(userId, courseId) {
@@ -41,26 +47,30 @@ export async function getCourseEnrollmentDate(userId, courseId) {
     return null;
   }
 
-  const enrollmentId = `${userId}_${courseId}`;
-  const enrollmentRef = doc(db, "enrollments", enrollmentId);
-  const enrollmentDoc = await getDoc(enrollmentRef);
+  try {
+    const enrollmentId = `${userId}_${courseId}`;
+    const enrollmentDoc = await adminDb.collection("enrollments").doc(enrollmentId).get();
 
-  if (!enrollmentDoc.exists()) {
+    if (!enrollmentDoc.exists) {
+      return null;
+    }
+
+    const enrolledAt = enrollmentDoc.data()?.enrolledAt;
+
+    if (!enrolledAt) {
+      return null;
+    }
+
+    if (typeof enrolledAt?.toDate === "function") {
+      return enrolledAt.toDate();
+    }
+
+    const parsedDate = new Date(enrolledAt);
+    return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
+  } catch (error) {
+    console.error("Erro ao buscar data de matrícula:", error);
     return null;
   }
-
-  const enrolledAt = enrollmentDoc.data()?.enrolledAt;
-
-  if (!enrolledAt) {
-    return null;
-  }
-
-  if (typeof enrolledAt?.toDate === "function") {
-    return enrolledAt.toDate();
-  }
-
-  const parsedDate = new Date(enrolledAt);
-  return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
 }
 
 export async function getCourseEnrollmentCount(courseId) {
@@ -68,14 +78,17 @@ export async function getCourseEnrollmentCount(courseId) {
     return 0;
   }
 
-  const enrollmentsQuery = query(
-    collection(db, "enrollments"),
-    where("courseId", "==", courseId)
-  );
+  try {
+    const enrollmentsSnapshot = await adminDb
+      .collection("enrollments")
+      .where("courseId", "==", courseId)
+      .get();
 
-  const enrollmentsSnapshot = await getDocs(enrollmentsQuery);
-
-  return enrollmentsSnapshot.size;
+    return enrollmentsSnapshot.size;
+  } catch (error) {
+    console.error("Erro ao buscar contagem de matrículas:", error);
+    return 0;
+  }
 }
 
 export function mapSidebarWithAccess(sidebarData, enrolledCourseIds = []) {

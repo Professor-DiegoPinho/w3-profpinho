@@ -1,16 +1,7 @@
 import { getEnrolledCourseIds } from "@/lib/enrollment";
-import { db } from "@/lib/firebase";
+import { adminDb } from "@/lib/firebaseAdmin";
 import { randomUUID } from "crypto";
-import {
-    collection,
-    doc,
-    getDoc,
-    getDocs,
-    query,
-    serverTimestamp,
-    setDoc,
-    where,
-} from "firebase/firestore";
+import { FieldValue } from "firebase-admin/firestore";
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
@@ -91,8 +82,8 @@ function buildProviderConnections(existingUserData, account, normalizedEmail) {
       provider: providerKey,
       providerAccountId: account?.providerAccountId ?? null,
       email: normalizedEmail,
-      connectedAt: existingProviderConnection.connectedAt ?? serverTimestamp(),
-      lastLoginAt: serverTimestamp(),
+      connectedAt: existingProviderConnection.connectedAt ?? FieldValue.serverTimestamp(),
+      lastLoginAt: FieldValue.serverTimestamp(),
     },
   };
 }
@@ -141,12 +132,11 @@ async function getUsersByEmail(normalizedEmail) {
     return [];
   }
 
-  const usersByEmailQuery = query(
-    collection(db, "users"),
-    where("email", "==", normalizedEmail)
-  );
+  const usersSnapshot = await adminDb
+    .collection("users")
+    .where("email", "==", normalizedEmail)
+    .get();
 
-  const usersSnapshot = await getDocs(usersByEmailQuery);
   return usersSnapshot.docs;
 }
 
@@ -159,11 +149,10 @@ async function migrateEnrollmentsToUser(targetUserId, sourceUserIds) {
   );
 
   for (const sourceUserId of uniqueSourceIds) {
-    const sourceEnrollmentsQuery = query(
-      collection(db, "enrollments"),
-      where("userId", "==", sourceUserId)
-    );
-    const sourceEnrollmentsSnapshot = await getDocs(sourceEnrollmentsQuery);
+    const sourceEnrollmentsSnapshot = await adminDb
+      .collection("enrollments")
+      .where("userId", "==", sourceUserId)
+      .get();
 
     for (const enrollmentDoc of sourceEnrollmentsSnapshot.docs) {
       const enrollmentData = enrollmentDoc.data();
@@ -174,10 +163,8 @@ async function migrateEnrollmentsToUser(targetUserId, sourceUserIds) {
       }
 
       const targetEnrollmentId = `${targetUserId}_${courseId}`;
-      const targetEnrollmentRef = doc(db, "enrollments", targetEnrollmentId);
 
-      await setDoc(
-        targetEnrollmentRef,
+      await adminDb.collection("enrollments").doc(targetEnrollmentId).set(
         {
           ...enrollmentData,
           enrollmentId: targetEnrollmentId,
@@ -198,11 +185,10 @@ async function resolveUserIdFromProviderLink(account) {
   }
 
   // Busca na coleção users pelo array linkedProviderIds
-  const usersByProviderQuery = query(
-    collection(db, "users"),
-    where("linkedProviderIds", "array-contains", providerLinkId)
-  );
-  const usersSnapshot = await getDocs(usersByProviderQuery);
+  const usersSnapshot = await adminDb
+    .collection("users")
+    .where("linkedProviderIds", "array-contains", providerLinkId)
+    .get();
 
   if (usersSnapshot.empty) {
     return null;
@@ -232,9 +218,9 @@ async function resolveOrCreateUser({ user, account }) {
     userId = generateUserId();
   }
 
-  const userRef = doc(db, "users", userId);
-  const userDoc = await getDoc(userRef);
-  const existingUserData = userDoc.exists() ? userDoc.data() : null;
+  const userRef = adminDb.collection("users").doc(userId);
+  const userDoc = await userRef.get();
+  const existingUserData = userDoc.exists ? userDoc.data() : null;
 
   const duplicateUserIds = usersByEmail
     .map((candidateDoc) => candidateDoc.id)
@@ -261,11 +247,11 @@ async function resolveOrCreateUser({ user, account }) {
     providerAccountId: account?.providerAccountId ?? null,
     providerConnections: buildProviderConnections(existingUserData, account, normalizedEmail),
     linkedProviderIds: buildLinkedProviderIds(existingUserData, account),
-    lastLoginAt: serverTimestamp(),
+    lastLoginAt: FieldValue.serverTimestamp(),
   };
 
-  if (!userDoc.exists()) {
-    payload.createdAt = serverTimestamp();
+  if (!userDoc.exists) {
+    payload.createdAt = FieldValue.serverTimestamp();
 
     try {
       const cookieStore = await cookies();
@@ -281,7 +267,7 @@ async function resolveOrCreateUser({ user, account }) {
     }
   }
 
-  await setDoc(userRef, payload, { merge: true });
+  await userRef.set(payload, { merge: true });
 
   return userId;
 }

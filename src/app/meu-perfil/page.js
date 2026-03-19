@@ -6,9 +6,8 @@ import {
   getCourseEnrollmentDate,
   getEnrolledCourseIds,
 } from "@/lib/enrollment";
-import { db } from "@/lib/firebase";
+import { adminDb } from "@/lib/firebaseAdmin";
 import { getCategoryTitle } from "@/lib/markdown";
-import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -81,10 +80,9 @@ export default async function MyProfilePage() {
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
 
-  const userRef = doc(db, "users", userId);
-  const userDoc = await getDoc(userRef).catch(() => null);
+  const userDoc = await adminDb.collection("users").doc(userId).get().catch(() => null);
 
-  if (!userDoc?.exists()) {
+  if (!userDoc?.exists) {
     redirect("/");
   }
 

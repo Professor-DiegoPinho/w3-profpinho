@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
-import { db } from "@/lib/firebase";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { adminDb } from "@/lib/firebaseAdmin";
+import { FieldValue } from "firebase-admin/firestore";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -19,8 +19,8 @@ export async function POST(request) {
     }
 
     const enrollmentId = `${userId}_${courseId}`;
-    const enrollmentRef = doc(db, "enrollments", enrollmentId);
-    const enrollmentDoc = await getDoc(enrollmentRef);
+    const enrollmentRef = adminDb.collection("enrollments").doc(enrollmentId);
+    const enrollmentDoc = await enrollmentRef.get();
 
     const payload = {
       enrollmentId,
@@ -28,15 +28,11 @@ export async function POST(request) {
       courseId,
     };
 
-    if (!enrollmentDoc.exists()) {
-      payload.enrolledAt = serverTimestamp();
+    if (!enrollmentDoc.exists) {
+      payload.enrolledAt = FieldValue.serverTimestamp();
     }
 
-    await setDoc(
-      enrollmentRef,
-      payload,
-      { merge: true }
-    );
+    await enrollmentRef.set(payload, { merge: true });
 
     return NextResponse.json({ ok: true });
   } catch (error) {
