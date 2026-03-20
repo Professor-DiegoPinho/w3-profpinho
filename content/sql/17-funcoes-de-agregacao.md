@@ -36,31 +36,31 @@ total_produtos | valor_em_estoque | preco_medio | mais_barato | mais_caro
 5              | 76274.50         | 1011.76     | 89.90       | 3500
 ```
 
-Com uma única consulta, você tem um panorama estatístico completo da tabela — muito útil para relatórios e dashboards.
+Com uma única consulta, você tem um panorama estatístico completo da tabela, muito útil para relatórios e dashboards.
 
 ## Regras importantes
 
 **1. Funções de agregação ignoram `NULL`**
 
-Se uma coluna tem valores nulos, eles são simplesmente desconsiderados no cálculo — exceto no `COUNT(*)`, que conta todas as linhas independentemente.
+Se uma coluna tem valores nulos, eles são simplesmente desconsiderados no cálculo. Exceto no `COUNT(*)`, que conta todas as linhas independentemente.
 
 **2. Não misture colunas normais com agregações sem GROUP BY**
 
 ```sql
--- ERRADO — o banco não sabe qual "nome" exibir junto com o COUNT
+-- ERRADO: o banco não sabe qual "nome" exibir junto com o COUNT
 SELECT nome, COUNT(*) FROM produtos;
 
--- CORRETO — use GROUP BY para agrupar
+-- CORRETO: use GROUP BY para agrupar
 SELECT categoria, COUNT(*) FROM produtos GROUP BY categoria;
 ```
 
 **3. Funções de agregação não funcionam no WHERE**
 
 ```sql
--- ERRADO
+-- ERRADO: não é possível usar AVG no WHERE
 SELECT * FROM produtos WHERE AVG(preco) > 500;
 
--- CORRETO — use HAVING (para filtrar após o agrupamento)
+-- CORRETO: use HAVING (para filtrar após o agrupamento)
 SELECT categoria, AVG(preco) FROM produtos
 GROUP BY categoria
 HAVING AVG(preco) > 500;

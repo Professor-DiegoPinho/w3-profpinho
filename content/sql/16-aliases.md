@@ -6,7 +6,7 @@ order: 16
 
 # SQL Aliases
 
-Aliases são apelidos temporários que você pode dar a colunas ou tabelas dentro de uma query. Eles não alteram nada no banco — existem apenas durante a execução da consulta.
+Aliases são apelidos temporários que você pode dar a colunas ou tabelas dentro de uma query. Eles não alteram nada no banco e existem apenas durante a execução da consulta.
 
 ## Alias em coluna
 
@@ -19,7 +19,7 @@ SELECT nome AS produto, preco AS valor FROM produtos;
 | Notebook | 3500   |
 | Mouse    | 89.90  |
 
-A palavra `AS` é opcional — você pode escrever `nome produto` — mas usá-la deixa o código mais legível.
+A palavra `AS` é opcional. Você pode escrever `nome produto`, mas usá-la deixa o código mais legível.
 
 ## Alias com espaços
 
@@ -47,11 +47,11 @@ FROM produtos;
 Especialmente útil em queries com JOIN para encurtar o código:
 
 ```sql
--- Sem alias — verboso
+-- Sem alias: verboso
 SELECT produtos.nome, pedidos.total
 FROM produtos INNER JOIN pedidos ON produtos.id = pedidos.produto_id;
 
--- Com alias — muito mais limpo
+-- Com alias: muito mais limpo
 SELECT p.nome, pe.total
 FROM produtos AS p
 INNER JOIN pedidos AS pe ON p.id = pe.produto_id;

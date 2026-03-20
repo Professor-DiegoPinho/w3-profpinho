@@ -18,7 +18,7 @@ LEFT JOIN tabela_direita AS d ON e.coluna = d.coluna;
 
 ## Exemplo
 
-Listando todos os clientes e seus pedidos — inclusive quem nunca pediu nada:
+Listando todos os clientes e seus pedidos, inclusive quem nunca pediu nada:
 
 ```sql
 SELECT c.nome, p.id AS pedido_id, p.total
@@ -63,4 +63,4 @@ ORDER BY total_pedidos DESC;
 
 Com `INNER JOIN`, clientes sem pedidos desapareceriam do resultado. Com `LEFT JOIN`, eles aparecem com `total_pedidos = 0`.
 
-> O `LEFT JOIN` é o segundo tipo mais usado, logo após o `INNER JOIN`. Sempre que precisar garantir que todos os registros de uma tabela apareçam no resultado — independentemente de ter par na outra — ele é a escolha certa.
+> O `LEFT JOIN` é o segundo tipo mais usado, logo após o `INNER JOIN`. Sempre que precisar garantir que todos os registros de uma tabela apareçam no resultado, independentemente de ter par na outra, ele é a escolha certa.

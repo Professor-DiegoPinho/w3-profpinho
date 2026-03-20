@@ -16,7 +16,7 @@ SELECT CURRENT_TIME;   -- hora atual: 14:32:00
 SELECT NOW();          -- data e hora: 2024-03-15 14:32:00
 ```
 
-## EXTRACT — extraindo partes de uma data
+## EXTRACT: extraindo partes de uma data
 
 ```sql
 -- Extraindo o ano, mês e dia separadamente
@@ -38,7 +38,7 @@ WHERE EXTRACT(MONTH FROM data_pedido) = EXTRACT(MONTH FROM CURRENT_DATE)
   AND EXTRACT(YEAR  FROM data_pedido) = EXTRACT(YEAR  FROM CURRENT_DATE);
 ```
 
-## DATE_TRUNC — truncando a data (PostgreSQL)
+## DATE_TRUNC: truncando a data (PostgreSQL)
 
 Muito útil para agrupar por mês ou por ano:
 
@@ -53,14 +53,14 @@ GROUP BY DATE_TRUNC('month', data_pedido)
 ORDER BY mes;
 ```
 
-## AGE — calculando diferença de datas (PostgreSQL)
+## AGE: calculando diferença de datas (PostgreSQL)
 
 ```sql
 -- Há quanto tempo o cliente foi cadastrado
 SELECT nome, AGE(NOW(), criado_em) AS tempo_de_cadastro FROM clientes;
 ```
 
-## INTERVAL — adicionando/subtraindo tempo
+## INTERVAL: adicionando/subtraindo tempo
 
 ```sql
 -- Pedidos dos últimos 30 dias
@@ -71,7 +71,7 @@ WHERE data_pedido >= NOW() - INTERVAL '30 days';
 SELECT CURRENT_DATE + INTERVAL '7 days' AS vencimento;
 ```
 
-## TO_CHAR — formatando datas como texto (PostgreSQL)
+## TO_CHAR: formatando datas como texto (PostgreSQL)
 
 ```sql
 SELECT TO_CHAR(data_pedido, 'DD/MM/YYYY') AS data_formatada FROM pedidos;

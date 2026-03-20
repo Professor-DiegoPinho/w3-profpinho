@@ -6,14 +6,14 @@ order: 23
 
 # SQL HAVING
 
-O `HAVING` filtra **grupos** criados pelo `GROUP BY`. Ele funciona como um `WHERE`, mas é avaliado depois da agregação — o que significa que pode usar funções como `COUNT`, `SUM`, `AVG`, etc.
+O `HAVING` filtra **grupos** criados pelo `GROUP BY`. Ele funciona como um `WHERE`, mas é avaliado depois da agregação, o que significa que pode usar funções como `COUNT`, `SUM`, `AVG`, etc.
 
 ## Por que não usar WHERE?
 
 O `WHERE` é avaliado **antes** do agrupamento, então não pode referenciar funções agregadoras:
 
 ```sql
--- ERRADO — causará erro
+-- ERRADO: causará erro
 SELECT categoria, COUNT(*) FROM produtos
 WHERE COUNT(*) > 1
 GROUP BY categoria;
@@ -58,7 +58,7 @@ Móveis       | 635.00
 
 ## WHERE e HAVING juntos
 
-Os dois podem aparecer na mesma query — cada um no seu momento:
+Os dois podem aparecer na mesma query, cada um no seu momento:
 
 ```sql
 -- Clientes ativos com mais de 1 pedido concluído
@@ -69,7 +69,7 @@ GROUP BY cliente_id
 HAVING COUNT(*) > 1;             -- filtra depois de agrupar
 ```
 
-## WHERE vs HAVING — resumo
+## WHERE vs HAVING: resumo
 
 | Cláusula | Quando age         | Pode usar funções agregadoras? |
 |----------|--------------------|-------------------------------|

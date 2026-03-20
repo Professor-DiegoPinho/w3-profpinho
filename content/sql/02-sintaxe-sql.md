@@ -36,7 +36,7 @@ select nome, preco from produtos where preco > 100;
 
 ## Ponto e vírgula
 
-O `;` indica o fim de uma instrução. Em muitas ferramentas ele é obrigatório — use sempre para evitar problemas.
+O `;` indica o fim de uma instrução. Em muitas ferramentas ele é obrigatório. Use sempre para evitar problemas.
 
 ## Comentários
 
@@ -66,4 +66,4 @@ WHERE categoria = 'Eletrônicos'
 ORDER BY preco;
 ```
 
-> Código bem formatado não muda o resultado — mas faz toda a diferença para quem vai ler depois (inclusive você mesmo, daqui a algumas semanas).
+> Código bem formatado não muda o resultado mas faz toda a diferença para quem vai ler depois (inclusive você mesmo, daqui a algumas semanas).

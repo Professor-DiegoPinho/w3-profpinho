@@ -6,7 +6,7 @@ order: 33
 
 # SQL Constraints
 
-Constraints (restrições) são regras aplicadas às colunas de uma tabela para garantir que os dados inseridos sejam **válidos e consistentes**. Elas previnem problemas antes que aconteçam — e são fundamentais para manter a integridade do banco de dados.
+Constraints (restrições) são regras aplicadas às colunas de uma tabela para garantir que os dados inseridos sejam **válidos e consistentes**. Elas previnem problemas antes que aconteçam e são fundamentais para manter a integridade do banco de dados.
 
 ## Por que usar constraints?
 
@@ -60,6 +60,6 @@ CREATE TABLE clientes (
 );
 ```
 
-Quando a constraint for violada, a mensagem de erro citará `uq_cliente_email` — muito mais claro do que um nome gerado automaticamente.
+Quando a constraint for violada, a mensagem de erro citará `uq_cliente_email`, o que é muito mais claro do que um nome gerado automaticamente.
 
 > Nas próximas páginas veremos cada constraint em detalhe, com exemplos de uso e os erros que elas previnem.

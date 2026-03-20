@@ -6,7 +6,7 @@ order: 10
 
 # SQL Valores NULL
 
-`NULL` representa a **ausência de valor** em um campo — não é zero, não é string vazia. É simplesmente a falta de informação.
+`NULL` representa a **ausência de valor** em um campo. Não é zero, não é string vazia. É simplesmente a falta de informação.
 
 ## Como surgem valores NULL?
 
@@ -19,7 +19,7 @@ Um campo fica `NULL` quando:
 Você **não pode** usar `=` para comparar com `NULL`. Isso não funciona:
 
 ```sql
--- ERRADO — não retorna nada
+-- ERRADO - não retorna nada
 SELECT * FROM clientes WHERE telefone = NULL;
 ```
 
@@ -66,4 +66,4 @@ FROM clientes;
 | Ana Souza  | (11) 99999-0001  |
 | Pedro Lima | Não informado    |
 
-> `NULL` é um dos conceitos mais importantes — e mais mal compreendidos — do SQL. Lembre-se: comparações com `NULL` sempre usam `IS NULL` ou `IS NOT NULL`, nunca `=`.
+> `NULL` é um dos conceitos mais importantes do SQL. Lembre-se: comparações com `NULL` sempre usam `IS NULL` ou `IS NOT NULL`, nunca `=`.

@@ -61,6 +61,6 @@ WHERE categoria = 'Eletrônicos';
 Se uma coluna tem valores `NULL`, eles não entram nem no numerador nem no denominador:
 
 - Preços: 100, 200, NULL, 300
-- Média: (100 + 200 + 300) / 3 = **200** — o NULL não é contado como zero
+- Média: (100 + 200 + 300) / 3 = **200** - o NULL não é contado como zero
 
 > Se precisar tratar `NULL` como zero no cálculo, use `COALESCE(coluna, 0)` antes de calcular a média.

@@ -16,7 +16,7 @@ FROM nome_da_tabela
 ORDER BY coluna [ASC|DESC];
 ```
 
-- `ASC` — crescente (A→Z, menor→maior). É o padrão — pode ser omitido;
+- `ASC` — crescente (A→Z, menor→maior). É o padrão e pode ser omitido;
 - `DESC` — decrescente (Z→A, maior→menor).
 
 ## Exemplos

@@ -18,7 +18,7 @@ RIGHT JOIN tabela_direita AS d ON e.coluna = d.coluna;
 
 ## Exemplo
 
-Listando todos os produtos e os pedidos em que aparecem — inclusive produtos que nunca foram pedidos:
+Listando todos os produtos e os pedidos em que aparecem, inclusive produtos que nunca foram pedidos:
 
 ```sql
 SELECT pr.nome AS produto, p.id AS pedido_id, p.total
@@ -48,7 +48,7 @@ SELECT pr.nome, p.total
 FROM pedidos AS p
 RIGHT JOIN produtos AS pr ON p.produto_id = pr.id;
 
--- Com LEFT JOIN (equivalente — só inverteu a ordem)
+-- Com LEFT JOIN (equivalente, só inverteu a ordem)
 SELECT pr.nome, p.total
 FROM produtos AS pr
 LEFT JOIN pedidos AS p ON pr.id = p.produto_id;

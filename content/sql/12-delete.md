@@ -6,7 +6,7 @@ order: 12
 
 # SQL DELETE
 
-O `DELETE` remove registros de uma tabela. É simples — e exatamente por isso exige atenção redobrada.
+O `DELETE` remove registros de uma tabela. É simples e exatamente por isso exige atenção redobrada.
 
 ## Sintaxe
 
@@ -40,7 +40,7 @@ DELETE FROM produtos;
 |--------------|-------------------------------------------------------------|
 | `DELETE`     | Remove registros específicos (com ou sem `WHERE`)           |
 | `TRUNCATE`   | Remove **todos** os registros rapidamente, mantém a tabela  |
-| `DROP TABLE` | Remove a tabela inteira — estrutura e dados                 |
+| `DROP TABLE` | Remove a tabela inteira: estrutura e dados                 |
 
 ```sql
 TRUNCATE TABLE produtos;    -- esvazia a tabela

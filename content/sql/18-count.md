@@ -54,11 +54,11 @@ SELECT COUNT(DISTINCT categoria) AS total_categorias FROM produtos;
 
 ## Usando alias
 
-Sempre nomeie o resultado com `AS` — sem ele, a coluna vem com o nome genérico `count`:
+Sempre nomeie o resultado com `AS`. Sem ele, a coluna vem com o nome genérico `count`:
 
 ```sql
 SELECT COUNT(*) AS total_pedidos FROM pedidos;
 SELECT COUNT(*) AS pedidos_pendentes FROM pedidos WHERE status = 'pendente';
 ```
 
-> Funções agregadoras como `COUNT` não podem ser usadas diretamente no `WHERE`. Para filtrar com base em resultados agregados, use `HAVING` — que veremos mais adiante.
+> Funções agregadoras como `COUNT` não podem ser usadas diretamente no `WHERE`. Para filtrar com base em resultados agregados, use `HAVING`, o qual veremos mais adiante.

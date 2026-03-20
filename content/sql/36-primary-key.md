@@ -6,7 +6,7 @@ order: 36
 
 # SQL PRIMARY KEY
 
-A `PRIMARY KEY` identifica cada registro de uma tabela de forma **única e inequívoca**. Ela combina automaticamente `NOT NULL + UNIQUE` — nenhum valor pode se repetir e nenhum pode ser nulo.
+A `PRIMARY KEY` identifica cada registro de uma tabela de forma **única e inequívoca**. Ela combina automaticamente `NOT NULL + UNIQUE`. Nenhum valor pode se repetir e nenhum pode ser nulo.
 
 Cada tabela pode ter apenas **uma** chave primária.
 
@@ -20,7 +20,7 @@ CREATE TABLE produtos (
 );
 ```
 
-O tipo `SERIAL` (PostgreSQL) cria um inteiro que se incrementa automaticamente — você não precisa gerenciar o valor do `id` manualmente.
+O tipo `SERIAL` (PostgreSQL) cria um inteiro que se incrementa automaticamente você não precisa gerenciar o valor do `id` manualmente.
 
 No MySQL, o equivalente é `INT AUTO_INCREMENT`:
 
@@ -44,7 +44,7 @@ CREATE TABLE itens_pedido (
 );
 ```
 
-Aqui, um produto pode aparecer em vários pedidos e um pedido pode ter vários produtos — mas a combinação `pedido_id + produto_id` precisa ser única.
+Aqui, um produto pode aparecer em vários pedidos e um pedido pode ter vários produtos, mas a combinação `pedido_id + produto_id` precisa ser única.
 
 ## Adicionando PRIMARY KEY em tabela existente
 
@@ -54,6 +54,6 @@ ALTER TABLE produtos ADD PRIMARY KEY (id);
 
 ## Por que usar SERIAL / AUTO_INCREMENT?
 
-Sem auto-incremento, você precisaria gerenciar os IDs manualmente — e qualquer descuido pode causar duplicatas ou conflitos. Com `SERIAL`, o banco garante que cada novo registro receba um ID único automaticamente.
+Sem auto-incremento, você precisaria gerenciar os IDs manualmente e qualquer descuido pode causar duplicatas ou conflitos. Com `SERIAL`, o banco garante que cada novo registro receba um ID único automaticamente.
 
 > Escolha valores estáveis como chave primária. IDs numéricos auto-incrementais são a escolha mais comum e segura para a maioria dos casos.

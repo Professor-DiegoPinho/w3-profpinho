@@ -6,7 +6,7 @@ order: 39
 
 # SQL ALTER TABLE
 
-O `ALTER TABLE` modifica a estrutura de uma tabela já existente — sem perder os dados que já estão nela. É usado para adicionar, remover ou renomear colunas e constraints.
+O `ALTER TABLE` modifica a estrutura de uma tabela já existente sem perder os dados que já estão nela. É usado para adicionar, remover ou renomear colunas e constraints.
 
 ## Adicionar uma coluna
 

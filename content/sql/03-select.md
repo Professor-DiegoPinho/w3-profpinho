@@ -82,4 +82,4 @@ SELECT DISTINCT categoria FROM produtos;
 | Eletrônicos |
 | Móveis      |
 
-Com múltiplas colunas, o `DISTINCT` considera a combinação de todas elas — não apenas cada coluna individualmente.
+Com múltiplas colunas, o `DISTINCT` considera a combinação de todas elas e não apenas cada coluna individualmente.

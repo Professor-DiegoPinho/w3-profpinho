@@ -26,7 +26,7 @@ Os valores devem seguir exatamente a mesma ordem das colunas listadas.
 
 ## Tipos de dados e aspas
 
-- **Texto** → entre aspas simples: `'Eletrônicos'`
+- **Texto** → entre aspas *simples*: `'Eletrônicos'`
 - **Números** → sem aspas: `1200`, `30`
 - **Datas** → aspas simples no formato `YYYY-MM-DD`: `'2024-03-15'`
 
@@ -42,7 +42,7 @@ VALUES
   ('Webcam', 'Eletrônicos', 249, 45);
 ```
 
-> Se qualquer uma das linhas tiver erro, **nenhuma** será inserida — o `INSERT` é tratado como uma operação única.
+> Se qualquer uma das linhas tiver erro, **nenhuma** será inserida. O `INSERT` é tratado como uma operação única.
 
 ## Omitindo colunas
 

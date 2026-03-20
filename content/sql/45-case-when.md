@@ -6,7 +6,7 @@ order: 45
 
 # SQL CASE WHEN
 
-O `CASE WHEN` é a forma do SQL de escrever lógica condicional — equivalente ao `if/else` de outras linguagens. Ele avalia condições em sequência e retorna o valor correspondente à primeira condição verdadeira.
+O `CASE WHEN` é a forma do SQL de escrever lógica condicional, equivalente ao `if/else` de outras linguagens. Ele avalia condições em sequência e retorna o valor correspondente à primeira condição verdadeira.
 
 ## Sintaxe
 

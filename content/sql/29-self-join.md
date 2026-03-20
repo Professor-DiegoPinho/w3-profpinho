@@ -39,7 +39,7 @@ Pedro Lima    | Ana Souza
 Carla Mendes  | Ana Souza
 ```
 
-Carlos Silva não aparece porque o `gerente_id` dele é `NULL` — sem par no `INNER JOIN`.
+Carlos Silva não aparece porque o `gerente_id` dele é `NULL` sem par no `INNER JOIN`.
 
 ## Incluindo quem não tem gerente
 
@@ -69,4 +69,4 @@ O Self Join aparece sempre que uma tabela tem relacionamentos internos:
 - Hierarquias organizacionais;
 - Redes de referência (quem indicou quem).
 
-> O Self Join não tem uma sintaxe especial — é apenas um JOIN normal onde as duas tabelas são a mesma. A chave é usar aliases diferentes para distingui-las.
+> O Self Join não tem uma sintaxe especial, é apenas um JOIN normal onde as duas tabelas são a mesma. A chave é usar aliases diferentes para distingui-las.

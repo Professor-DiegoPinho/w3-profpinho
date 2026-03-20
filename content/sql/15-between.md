@@ -6,7 +6,7 @@ order: 15
 
 # SQL BETWEEN
 
-O operador `BETWEEN` filtra registros cujo valor está dentro de um intervalo. Ele é **inclusivo** nos dois extremos — ou seja, os valores dos limites também entram no resultado.
+O operador `BETWEEN` filtra registros cujo valor está dentro de um intervalo. Ele é **inclusivo** nos dois extremos, ou seja, os valores dos limites também entram no resultado.
 
 ## Sintaxe
 
@@ -49,7 +49,7 @@ WHERE preco NOT BETWEEN 100 AND 500;
 
 ## BETWEEN vs operadores de comparação
 
-As duas formas são equivalentes — use a que deixar o código mais legível:
+As duas formas são equivalentes. Use a que deixar o código mais legível:
 
 ```sql
 -- Com BETWEEN

@@ -6,7 +6,7 @@ order: 46
 
 # SQL Operadores e Funções Numéricas
 
-O SQL permite fazer cálculos diretamente nas queries — tanto com operadores matemáticos simples quanto com funções específicas.
+O SQL permite fazer cálculos diretamente nas queries tanto com operadores matemáticos simples quanto com funções específicas.
 
 ## Operadores aritméticos
 
@@ -74,6 +74,6 @@ FROM itens_pedido;
 
 ## Operadores de comparação e lógicos
 
-Além dos aritméticos, você já conhece os de comparação (`=`, `!=`, `>`, `<`, `>=`, `<=`) e os lógicos (`AND`, `OR`, `NOT`) — amplamente usados no `WHERE`.
+Além dos aritméticos, você já conhece os de comparação (`=`, `!=`, `>`, `<`, `>=`, `<=`) e os lógicos (`AND`, `OR`, `NOT`) amplamente usados no `WHERE`.
 
 > Operações matemáticas com `NULL` sempre resultam em `NULL`. Se precisar tratar `NULL` como zero em um cálculo, use `COALESCE(coluna, 0)`.

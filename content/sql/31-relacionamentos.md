@@ -6,7 +6,7 @@ order: 31
 
 # Relacionamentos entre tabelas
 
-Em bancos relacionais, os dados são organizados em tabelas menores e conectadas — o que evita redundância e mantém a consistência. A conexão entre elas é feita através de **chaves**.
+Em bancos relacionais, os dados são organizados em tabelas menores e conectadas, o que evita redundância e mantém a consistência. A conexão entre elas é feita através de **chaves**.
 
 ## Chave Primária (PRIMARY KEY)
 

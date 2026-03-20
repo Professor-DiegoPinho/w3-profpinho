@@ -59,6 +59,6 @@ CREATE TABLE pedidos (
 );
 ```
 
-Aqui, `status` não pode ser nulo e já tem um valor padrão caso não seja informado. `total` também não pode ser nulo, mas não tem padrão — você é obrigado a informar.
+Aqui, `status` não pode ser nulo e já tem um valor padrão caso não seja informado. `total` também não pode ser nulo, mas não tem padrão, você é obrigado a informar.
 
 > Defina `NOT NULL` em todas as colunas que fazem parte da identidade ou das regras de negócio do registro. Campos verdadeiramente opcionais podem ficar sem a constraint.

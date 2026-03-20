@@ -6,7 +6,7 @@ order: 41
 
 # SQL Indexes
 
-Um índice é uma estrutura de dados auxiliar que o banco cria para acelerar a busca de registros. Funciona como o índice de um livro — em vez de ler página por página, você vai direto ao que precisa.
+Um índice é uma estrutura de dados auxiliar que o banco cria para acelerar a busca de registros. Funciona como o índice de um livro. Ao invés de ler página por página, você vai direto ao que precisa.
 
 ## Por que usar índices?
 
@@ -42,7 +42,7 @@ SELECT * FROM produtos ORDER BY categoria;
 
 ## Índice único
 
-Além de acelerar as buscas, um índice único impede valores duplicados — funciona de forma parecida com a constraint `UNIQUE`:
+Além de acelerar as buscas, um índice único impede valores duplicados. Funciona de forma parecida com a constraint `UNIQUE`:
 
 ```sql
 CREATE UNIQUE INDEX idx_clientes_email ON clientes (email);
@@ -65,10 +65,10 @@ DROP INDEX IF EXISTS idx_produtos_categoria;
 
 ## Cuidados com índices
 
-Índices **aceleram leituras**, mas **têm custo em escritas** — cada `INSERT`, `UPDATE` e `DELETE` precisa atualizar também os índices da tabela. Por isso:
+Índices **aceleram leituras**, mas **têm custo em escritas**. Cada `INSERT`, `UPDATE` e `DELETE` precisa atualizar também os índices da tabela. Por isso:
 
 - Não indexe tudo indiscriminadamente;
 - Priorize colunas usadas frequentemente em `WHERE`, `JOIN` e `ORDER BY`;
 - Colunas com poucos valores distintos (como `ativo = true/false`) raramente se beneficiam de índice.
 
-> Primary Keys e colunas com `UNIQUE` já criam índices automaticamente — você não precisa criá-los manualmente nesses casos.
+> Primary Keys e colunas com `UNIQUE` já criam índices automaticamente, ou seja, você não precisa criá-los manualmente nesses casos.

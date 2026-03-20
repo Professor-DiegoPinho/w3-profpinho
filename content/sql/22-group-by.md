@@ -61,7 +61,7 @@ ORDER BY cliente_id;
 Toda coluna no `SELECT` que **não** estiver dentro de uma função agregadora **deve** estar no `GROUP BY`:
 
 ```sql
--- ERRADO — "nome" não está no GROUP BY nem é uma agregação
+-- ERRADO: "nome" não está no GROUP BY nem é uma agregação
 SELECT nome, categoria, COUNT(*)
 FROM produtos
 GROUP BY categoria;

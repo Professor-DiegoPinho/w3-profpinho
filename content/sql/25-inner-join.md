@@ -62,4 +62,4 @@ INNER JOIN produtos AS pr ON p.produto_id = pr.id;
 
 Cada `JOIN` adiciona uma nova tabela, conectada pelas chaves em comum.
 
-> A palavra `INNER` é opcional — `JOIN` sozinho já é um `INNER JOIN` por padrão. Mas incluí-la deixa a intenção mais explícita.
+> A palavra `INNER` é opcional. `JOIN` sozinho já é um `INNER JOIN` por padrão. Mas incluí-la deixa a intenção mais explícita.

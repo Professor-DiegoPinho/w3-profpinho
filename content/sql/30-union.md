@@ -6,7 +6,7 @@ order: 30
 
 # SQL UNION
 
-O `UNION` combina o resultado de **duas ou mais queries** em um único conjunto de dados. Ao contrário dos JOINs — que combinam colunas — o `UNION` combina **linhas**.
+O `UNION` combina o resultado de **duas ou mais queries** em um único conjunto de dados. Ao contrário dos JOINs, que combinam colunas, o `UNION` combina **linhas**.
 
 ## Sintaxe
 

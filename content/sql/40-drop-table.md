@@ -6,7 +6,7 @@ order: 40
 
 # SQL DROP TABLE
 
-O `DROP TABLE` remove uma tabela do banco de dados **permanentemente** — apaga a estrutura e todos os dados que ela contém.
+O `DROP TABLE` remove uma tabela do banco de dados **permanentemente** e apaga a estrutura e todos os dados que ela contém.
 
 ## Sintaxe
 
@@ -38,7 +38,7 @@ Remove a tabela e automaticamente apaga também as constraints que referenciam e
 DROP TABLE clientes CASCADE;
 ```
 
-Use com cuidado — isso pode impactar outras tabelas que dependem da que está sendo removida.
+Use com cuidado: isso pode impactar outras tabelas que dependem da que está sendo removida.
 
 ## DROP TABLE vs TRUNCATE vs DELETE
 

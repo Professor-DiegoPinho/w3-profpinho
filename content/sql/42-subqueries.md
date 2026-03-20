@@ -10,7 +10,7 @@ Uma subconsulta (ou subquery) é uma query SQL dentro de outra query. O resultad
 
 ## Subquery no WHERE
 
-O uso mais comum — o resultado da query interna vira um valor de comparação:
+O resultado da query interna vira um valor de comparação:
 
 ```sql
 -- Produtos com preço acima da média

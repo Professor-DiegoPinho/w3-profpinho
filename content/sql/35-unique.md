@@ -6,7 +6,7 @@ order: 35
 
 # SQL UNIQUE
 
-A constraint `UNIQUE` garante que todos os valores de uma coluna sejam únicos — nenhum registro pode ter o mesmo valor que outro na mesma coluna.
+A constraint `UNIQUE` garante que todos os valores de uma coluna sejam únicos nenhum registro pode ter o mesmo valor que outro na mesma coluna.
 
 ## Definindo UNIQUE
 

@@ -6,7 +6,7 @@ order: 37
 
 # SQL FOREIGN KEY
 
-A `FOREIGN KEY` (chave estrangeira) cria um vínculo entre duas tabelas. Ela garante que o valor de uma coluna exista na tabela referenciada — impedindo referências inválidas.
+A `FOREIGN KEY` (chave estrangeira) cria um vínculo entre duas tabelas. Ela garante que o valor de uma coluna exista na tabela referenciada impedindo referências inválidas.
 
 ## Definindo FOREIGN KEY
 

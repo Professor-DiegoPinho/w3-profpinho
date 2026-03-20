@@ -34,7 +34,7 @@ LIMIT 3;
 | Mesa     | 850   |
 | Teclado  | 199.90|
 
-> Sempre use `ORDER BY` junto com `LIMIT`. Sem ordenação, o banco não garante quais registros serão retornados — o resultado pode mudar entre execuções.
+> Sempre use `ORDER BY` junto com `LIMIT`. Sem ordenação, o banco não garante quais registros serão retornados. O resultado pode mudar entre execuções.
 
 ## LIMIT com OFFSET
 

@@ -6,7 +6,7 @@ order: 7
 
 # SQL NOT
 
-O operador `NOT` **inverte** uma condição. Se algo seria verdadeiro, o `NOT` o torna falso — e vice-versa.
+O operador `NOT` **inverte** uma condição. Se algo seria verdadeiro, o `NOT` o torna falso e vice-versa.
 
 ## Sintaxe
 

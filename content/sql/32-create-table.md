@@ -38,7 +38,7 @@ CREATE TABLE produtos (
 |-------------------|--------------------------------------------------|
 | `INTEGER` / `INT` | Números inteiros                                 |
 | `SERIAL`          | Inteiro auto-incremental (ideal para `id`)       |
-| `DECIMAL(p, s)`   | Número com casas decimais — ex: `DECIMAL(10, 2)` |
+| `DECIMAL(p, s)`   | Número com casas decimais. ex: `DECIMAL(10, 2)` |
 | `VARCHAR(n)`      | Texto com limite de `n` caracteres               |
 | `TEXT`            | Texto longo sem limite definido                  |
 | `BOOLEAN`         | Verdadeiro ou falso                              |
@@ -72,6 +72,6 @@ CREATE TABLE clientes (
 SELECT * FROM produtos;
 ```
 
-Se a tabela estiver vazia, o resultado não terá linhas — mas as colunas aparecerão, confirmando que a criação foi bem-sucedida.
+Se a tabela estiver vazia, o resultado não terá linhas, mas as colunas aparecerão, confirmando que a criação foi bem-sucedida.
 
 > Evite nomes de tabelas e colunas com acentos ou espaços. Prefira underscore: `data_nascimento`, `nome_completo`.
