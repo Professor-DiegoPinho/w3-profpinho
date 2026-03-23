@@ -1,8 +1,28 @@
 import {
-  COURSE_ACCESS_TYPES,
-  COURSE_VISIBILITY,
-  courses,
-} from '@/data/courses';
+    CONTENT_TYPE,
+    CONTENT_VISIBILITY,
+    content,
+} from '@/data';
+
+function normalizeCategorySlug(slug) {
+  if (typeof slug !== 'string') {
+    return slug;
+  }
+
+  return slug.replace(/[_-](resume|resumo)$/i, '');
+}
+
+function inferCategoryAccessType(slug) {
+  if (typeof slug !== 'string') {
+    return null;
+  }
+
+  if (/[_-](resume|resumo)$/i.test(slug)) {
+    return CONTENT_TYPE.RESUME;
+  }
+
+  return null;
+}
 
 function getCourse(courseOrSlug) {
   if (!courseOrSlug) {
@@ -10,7 +30,24 @@ function getCourse(courseOrSlug) {
   }
 
   if (typeof courseOrSlug === 'string') {
-    return courses.find((course) => course.slug === courseOrSlug) || null;
+    const normalizedSlug = normalizeCategorySlug(courseOrSlug);
+    const inferredAccessType = inferCategoryAccessType(courseOrSlug);
+
+    if (inferredAccessType) {
+      const typedMatch = content.find(
+        (course) => course.slug === normalizedSlug && course.accessType === inferredAccessType
+      );
+
+      if (typedMatch) {
+        return typedMatch;
+      }
+    }
+
+    return (
+      content.find((course) => course.slug === courseOrSlug)
+      || content.find((course) => course.slug === normalizedSlug)
+      || null
+    );
   }
 
   return courseOrSlug;
@@ -20,7 +57,7 @@ export function getCourseAccessType(courseOrSlug) {
   const course = getCourse(courseOrSlug);
 
   if (!course?.accessType) {
-    return COURSE_ACCESS_TYPES.FREE_COURSE;
+    return CONTENT_TYPE.FREE_COURSE;
   }
 
   return course.accessType;
@@ -30,22 +67,24 @@ export function getCourseVisibility(courseOrSlug) {
   const course = getCourse(courseOrSlug);
 
   if (!course?.visibility) {
-    return COURSE_VISIBILITY.PUBLIC;
+    return CONTENT_VISIBILITY.PUBLIC;
   }
 
   return course.visibility;
 }
 
 export function isPublicCourse(courseOrSlug) {
-  return getCourseVisibility(courseOrSlug) === COURSE_VISIBILITY.PUBLIC;
+  return getCourseVisibility(courseOrSlug) === CONTENT_VISIBILITY.PUBLIC;
 }
 
 export function courseRequiresEnrollment(courseOrSlug) {
-  return getCourseAccessType(courseOrSlug) !== COURSE_ACCESS_TYPES.TUTORIAL;
+  const accessType = getCourseAccessType(courseOrSlug);
+
+  return accessType !== CONTENT_TYPE.TUTORIAL && accessType !== CONTENT_TYPE.RESUME;
 }
 
 export function isPaidCourse(courseOrSlug) {
-  return getCourseAccessType(courseOrSlug) === COURSE_ACCESS_TYPES.PAID_COURSE;
+  return getCourseAccessType(courseOrSlug) === CONTENT_TYPE.PAID_COURSE;
 }
 
 export function canUserAccessCourseLessons(courseOrSlug, enrolledCourseIds = []) {
@@ -73,11 +112,15 @@ export function isCourseVisibleToUser(courseOrSlug, enrolledCourseIds = []) {
 export function getCourseAccessLabel(courseOrSlug) {
   const accessType = getCourseAccessType(courseOrSlug);
 
-  if (accessType === COURSE_ACCESS_TYPES.TUTORIAL) {
+  if (accessType === CONTENT_TYPE.TUTORIAL) {
     return 'Tutorial aberto';
   }
 
-  if (accessType === COURSE_ACCESS_TYPES.PAID_COURSE) {
+  if (accessType === CONTENT_TYPE.RESUME) {
+    return 'Resumo aberto';
+  }
+
+  if (accessType === CONTENT_TYPE.PAID_COURSE) {
     return 'Curso pago';
   }
 

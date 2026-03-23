@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
 import AvatarImage from "@/components/AvatarImage/AvatarImage";
 import ProfileConnectButton from "@/components/ProfileConnectButton/ProfileConnectButton";
-import { courses } from "@/data/courses";
+import { content } from "@/data";
 import {
-  getCourseEnrollmentDate,
-  getEnrolledCourseIds,
+    getCourseEnrollmentDate,
+    getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import { adminDb } from "@/lib/firebaseAdmin";
 import { getCategoryTitle } from "@/lib/markdown";
@@ -46,7 +46,7 @@ function formatDate(value) {
 }
 
 function resolveCourseLabel(courseId) {
-  const matchingCourse = courses.find((course) => course.slug === courseId);
+  const matchingCourse = content.find((course) => course.slug === courseId);
 
   if (matchingCourse?.title) {
     return matchingCourse.title;

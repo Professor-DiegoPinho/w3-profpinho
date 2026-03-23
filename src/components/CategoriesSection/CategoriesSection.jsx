@@ -1,9 +1,9 @@
-import { COURSE_ACCESS_TYPES } from '@/data/courses';
+import { CONTENT_TYPE } from '@/data';
 import Link from 'next/link';
 import './CategoriesSection.css';
 
 function CategoryCard({ categoryData, ctaLabel, href, showFreeBadge = false }) {
-  const isFreeCourse = categoryData.accessType === COURSE_ACCESS_TYPES.FREE_COURSE;
+  const isFreeCourse = categoryData.accessType === CONTENT_TYPE.FREE_COURSE;
 
   return (
     <div className="category-card">
@@ -15,7 +15,7 @@ function CategoryCard({ categoryData, ctaLabel, href, showFreeBadge = false }) {
       </div>
       <p>{categoryData.description || 'Conteudo em desenvolvimento.'}</p>
       <div className="category-stats">
-        <span>{categoryData?.posts.length || 0} licoes</span>
+        <span>{categoryData?.posts.length || 0} lições</span>
       </div>
       <Link href={href} className="start-learning-btn">
         {ctaLabel}
@@ -24,7 +24,7 @@ function CategoryCard({ categoryData, ctaLabel, href, showFreeBadge = false }) {
   );
 }
 
-function CategorySection({ title, categories, ctaLabel, isTutorialSection = false, showFreeBadge = false }) {
+function CategorySection({ title, categories, ctaLabel, isDirectPostSection = false, showFreeBadge = false }) {
   if (!categories.length) {
     return null;
   }
@@ -40,7 +40,7 @@ function CategorySection({ title, categories, ctaLabel, isTutorialSection = fals
             return null;
           }
 
-          const href = isTutorialSection
+          const href = isDirectPostSection
             ? `/${categoryData.category}/${firstPost.slug}`
             : `/${categoryData.category}`;
 
@@ -61,11 +61,17 @@ function CategorySection({ title, categories, ctaLabel, isTutorialSection = fals
 
 export default function CategoriesSection({ sidebarData }) {
   const tutorialCategories = sidebarData.filter(
-    (category) => category.accessType === COURSE_ACCESS_TYPES.TUTORIAL
+    (category) => category.accessType === CONTENT_TYPE.TUTORIAL
   );
 
   const courseCategories = sidebarData.filter(
-    (category) => category.accessType !== COURSE_ACCESS_TYPES.TUTORIAL
+    (category) =>
+      category.accessType === CONTENT_TYPE.FREE_COURSE ||
+      category.accessType === CONTENT_TYPE.PAID_COURSE
+  );
+
+  const resumeCategories = sidebarData.filter(
+    (category) => category.accessType === CONTENT_TYPE.RESUME
   );
 
   return (
@@ -74,7 +80,7 @@ export default function CategoriesSection({ sidebarData }) {
         title="Tutoriais"
         categories={tutorialCategories}
         ctaLabel="Comece por aqui"
-        isTutorialSection={true}
+        isDirectPostSection={true}
       />
 
       <CategorySection
@@ -82,6 +88,13 @@ export default function CategoriesSection({ sidebarData }) {
         categories={courseCategories}
         ctaLabel="Saiba mais"
         showFreeBadge={true}
+      />
+
+      <CategorySection
+        title="Resumos"
+        categories={resumeCategories}
+        ctaLabel="Ver resumo"
+        isDirectPostSection={true}
       />
     </>
   );

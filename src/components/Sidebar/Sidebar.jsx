@@ -3,6 +3,7 @@ import './Sidebar.css';
 
 import { useEffect, useMemo, useState } from 'react';
 import CourseItem from './CourseItem/CourseItem';
+import ResumeItem from './ResumeItem/ResumeItem';
 import SectionHeader from './SectionHeader/SectionHeader';
 import TutorialItem from './TutorialItem/TutorialItem';
 import useExpandedItems from './useExpandedItems/useExpandedItems';
@@ -19,6 +20,7 @@ export default function Sidebar({
 }) {
   const [isTutorialsOpen, setIsTutorialsOpen] = useState(true);
   const [isCoursesOpen, setIsCoursesOpen] = useState(true);
+  const [isResumesOpen, setIsResumesOpen] = useState(true);
   const [expandedItems, setExpandedItems] = useExpandedItems();
 
   useEffect(() => {
@@ -78,7 +80,12 @@ export default function Sidebar({
   );
 
   const courseCategories = useMemo(
-    () => sidebarData.filter((category) => category.accessType !== 'tutorial'),
+    () => sidebarData.filter((category) => category.accessType === 'free-course' || category.accessType === 'paid-course'),
+    [sidebarData]
+  );
+
+  const resumeCategories = useMemo(
+    () => sidebarData.filter((category) => category.accessType === 'resume'),
     [sidebarData]
   );
 
@@ -102,11 +109,21 @@ export default function Sidebar({
 
     if (isCourseCategory) {
       setIsCoursesOpen(true);
+      return;
     }
-  }, [currentCategory, currentSlug, tutorialCategories, courseCategories]);
+
+    const isResumeCategory = resumeCategories.some(
+      (category) => category.category === currentCategory
+    );
+
+    if (isResumeCategory) {
+      setIsResumesOpen(true);
+    }
+  }, [currentCategory, currentSlug, tutorialCategories, courseCategories, resumeCategories]);
 
   const shouldShowTutorials = tutorialCategories.length > 0;
   const shouldShowCourses = courseCategories.length > 0;
+  const shouldShowResumes = resumeCategories.length > 0;
 
   return (
     <aside className={`sidebar ${isOpen ? 'sidebar-open' : ''} ${isMobile ? 'sidebar-mobile' : ''}`.trim()}>
@@ -171,6 +188,40 @@ export default function Sidebar({
                       onPostClick={handlePostLinkClick}
                       currentCategory={currentCategory}
                       currentSlug={currentSlug}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {shouldShowResumes && (
+          <section className="sidebar-group">
+            <SectionHeader
+              title="Resumos"
+              iconSrc="/icons/ic_resumes.svg"
+              isOpen={isResumesOpen}
+              onToggle={() => setIsResumesOpen((prev) => !prev)}
+            />
+            <div className={`sidebar-collapse ${isResumesOpen ? 'open' : ''}`.trim()}>
+              <div className="sidebar-collapse-inner">
+                {resumeCategories.map((category) => {
+                  const firstPost = category?.posts?.[0];
+
+                  if (!firstPost) {
+                    return null;
+                  }
+
+                  const isCategoryActive =
+                    currentCategory === category.category && currentSlug === firstPost.slug;
+
+                  return (
+                    <ResumeItem
+                      key={category.category}
+                      category={category}
+                      isCategoryActive={isCategoryActive}
+                      onPostClick={handlePostLinkClick}
                     />
                   );
                 })}
