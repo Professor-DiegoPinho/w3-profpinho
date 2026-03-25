@@ -1,0 +1,90 @@
+.course-progress-wrapper {
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-tertiary, #e5e7eb);
+  background: var(--color-background-secondary, #f9fafb);
+  transition: all 0.3s ease;
+  margin-bottom: 32px;
+}
+
+.course-progress-wrapper.course-progress-complete {
+  border-color: #639922;
+  background: rgba(99, 153, 34, 0.06);
+}
+
+.course-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.course-progress-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-black);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.course-progress-complete .course-progress-label {
+  color: #3b6d11;
+}
+
+.course-progress-complete-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: #639922;
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.course-progress-stats {
+  font-size: 13px;
+  color: var(--color-text-secondary, #6b7280);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.course-progress-stats strong {
+  color: var(--color-text-primary, #111827);
+  font-weight: 600;
+}
+
+.course-progress-percentage {
+  font-weight: 600;
+  color: #639922;
+  margin-left: 2px;
+}
+
+.course-progress-complete .course-progress-percentage {
+  color: #3b6d11;
+}
+
+.course-progress-track {
+  height: 6px;
+  background: var(--color-border-tertiary, #e5e7eb);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.course-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #639922, #97c459);
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 0;
+}
+
+.course-progress-complete .course-progress-fill {
+  background: #639922;
+}
