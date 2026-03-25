@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import CourseEnrollmentButton from "@/components/CourseEnrollmentButton/CourseEnrollmentButton";
+import CourseInfoToggle from "@/components/CourseInfoToggle/CourseInfoToggle";
 import CourseLessonsList from "@/components/CourseLessonsList/CourseLessonsList";
 import CourseProgress from "@/components/CourseProgress/CourseProgress";
-import CourseInfoToggle from "@/components/CourseInfoToggle/CourseInfoToggle";
 import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
 import { content } from "@/data";
 import {
