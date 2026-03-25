@@ -3,11 +3,12 @@ import AvatarImage from "@/components/AvatarImage/AvatarImage";
 import ProfileConnectButton from "@/components/ProfileConnectButton/ProfileConnectButton";
 import { content } from "@/data";
 import {
-    getCourseEnrollmentDate,
-    getEnrolledCourseIds,
+  getCourseEnrollmentDate,
+  getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import { adminDb } from "@/lib/firebaseAdmin";
-import { getCategoryTitle } from "@/lib/markdown";
+import { getCategoryTitle, getPostsInCategory } from "@/lib/markdown";
+import { getLessonProgress } from "@/lib/progress";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -91,11 +92,21 @@ export default async function MyProfilePage() {
   const enrolledCourses = await Promise.all(
     enrolledCourseIds.map(async (courseId) => {
       const enrolledAt = await getCourseEnrollmentDate(userId, courseId);
+      const progressData = await getLessonProgress(userId, courseId);
+      const courseLessons = getPostsInCategory(courseId);
+      
+      const completedSlugs = progressData?.completedLessons ?? [];
+      const nextLesson = courseLessons.find(
+        (lesson) => !completedSlugs.includes(lesson.slug)
+      );
+      const nextLessonSlug = nextLesson?.slug || (courseLessons[0]?.slug ?? null);
 
       return {
         id: courseId,
         title: resolveCourseLabel(courseId),
         enrolledAt,
+        progress: progressData,
+        nextLessonSlug,
       };
     }),
   );
@@ -216,8 +227,21 @@ export default async function MyProfilePage() {
                         ? `Inscrição em ${formatDate(course.enrolledAt)}`
                         : "Data de inscrição indisponível"}
                     </p>
+                    {course.progress && (
+                      <div className="profile-course-progress">
+                        <div className="profile-course-progress-bar">
+                          <div
+                            className="profile-course-progress-fill"
+                            style={{ width: `${course.progress.completionPercentage || 0}%` }}
+                          />
+                        </div>
+                        <span className="profile-course-progress-text">
+                          {course.progress.completionPercentage || 0}% completo
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  <Link href={`/${course.id}`} className="profile-course-link" aria-label={`Acessar curso ${course.title}`}>
+                  <Link href={`/${course.id}${course.nextLessonSlug ? `/${course.nextLessonSlug}` : ''}`} className="profile-course-link" aria-label={`Acessar curso ${course.title}`}>
                     Continuar curso
                   </Link>
                 </li>
