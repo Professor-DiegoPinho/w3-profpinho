@@ -64,7 +64,7 @@
 }
 
 .course-lesson-icon-action {
-  color: var(--color-text-info, #185fa5);
+  color: var(--color-red);
 }
 
 .course-lesson-content {
@@ -105,7 +105,7 @@
 }
 
 .course-lesson-link:hover .course-lesson-title {
-  color: var(--color-text-info, #185fa5);
+  color: var(--color-red);
 }
 
 .course-lesson-arrow {
@@ -118,7 +118,7 @@
 
 .course-lesson-link:hover .course-lesson-arrow {
   transform: translateX(2px);
-  color: var(--color-text-info, #185fa5);
+  color: var(--color-red);
 }
 
 .course-lesson-action-item {
@@ -152,5 +152,5 @@
 }
 
 .course-lesson-action-btn:hover .course-lesson-title {
-  color: var(--color-text-info, #185fa5);
+  color: var(--color-red);
 }

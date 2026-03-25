@@ -58,15 +58,15 @@ export default function CourseLessonsList({
   completedLessons = [],
   isEnrolled = false,
 }) {
-  const [showAllLessons, setShowAllLessons] = useState(false);
+  const [showAllLessons, setShowAllLessons] = useState(isEnrolled);
 
   const hasMoreLessons = posts.length > PREVIEW_LESSONS_COUNT;
   const hiddenLessonsCount = Math.max(0, posts.length - PREVIEW_LESSONS_COUNT);
 
   const visibleLessons = useMemo(() => {
-    if (showAllLessons) return posts;
+    if (showAllLessons || isEnrolled) return posts;
     return posts.slice(0, PREVIEW_LESSONS_COUNT);
-  }, [posts, showAllLessons]);
+  }, [posts, showAllLessons, isEnrolled]);
 
   return (
     <div className="course-lessons-block">
@@ -118,7 +118,7 @@ export default function CourseLessonsList({
           );
         })}
 
-        {!showAllLessons && hasMoreLessons && (
+        {!showAllLessons && hasMoreLessons && !isEnrolled && (
           <li className="course-lesson-action-item">
             <button
               type="button"
@@ -148,7 +148,7 @@ export default function CourseLessonsList({
           </li>
         )}
 
-        {showAllLessons && hasMoreLessons && (
+        {showAllLessons && hasMoreLessons && !isEnrolled && (
           <li className="course-lesson-action-item">
             <button
               type="button"

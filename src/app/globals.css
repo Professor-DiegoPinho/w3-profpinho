@@ -378,6 +378,80 @@ a:active {
   color: var(--color-red-second);
 }
 
+.course-ebook-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px;
+  padding: 12px;
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.course-ebook-card:hover {
+  border-color: #dadbe9;
+  box-shadow: 0 8px 18px rgba(42, 40, 54, 0.08);
+}
+
+.course-ebook-card-image {
+  width: 100%;
+  height: 140px;
+  border-radius: 10px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.course-ebook-card-image-fallback {
+  width: 100%;
+  height: 140px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #639922 0%, #97c459 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+}
+
+.course-ebook-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.course-ebook-card-site {
+  font-size: 0.85rem;
+  color: #999;
+  margin: 0;
+  font-weight: 500;
+}
+
+.course-ebook-card-title {
+  font-size: 1.1rem;
+  color: var(--color-text-black);
+  margin: 0;
+  font-weight: 600;
+}
+
+.course-ebook-card-domain {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.course-ebook-card-cta {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-red);
+  margin-top: 4px;
+}
+
 
 @media (max-width: 950px) {
   .course-enrollment-header {
@@ -397,6 +471,15 @@ a:active {
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .course-ebook-card {
+    grid-template-columns: 1fr;
+  }
+
+  .course-ebook-card-image,
+  .course-ebook-card-image-fallback {
+    height: 200px;
   }
 
 }

@@ -1,10 +1,15 @@
 .course-progress-wrapper {
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid var(--color-border-tertiary, #e5e7eb);
-  background: var(--color-background-secondary, #f9fafb);
-  transition: all 0.3s ease;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #ececec;
+  background-color: #fafafa;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-bottom: 32px;
+}
+
+.course-progress-wrapper:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(42, 40, 54, 0.08);
 }
 
 .course-progress-wrapper.course-progress-complete {
@@ -16,18 +21,37 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.course-progress-header-left {
+  display: flex;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
 .course-progress-label {
-  font-size: 18px;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-text-black);
   display: flex;
   align-items: center;
   gap: 5px;
+  margin: 0;
+}
+
+.course-progress-separator {
+  color: #666;
+  font-size: 14px;
+  margin: 0 2px;
+}
+
+.course-progress-enrollment-info {
+  font-size: 0.95rem;
+  color: #666;
 }
 
 .course-progress-complete .course-progress-label {
@@ -47,16 +71,16 @@
   font-weight: 700;
 }
 
-.course-progress-stats {
-  font-size: 13px;
-  color: var(--color-text-secondary, #6b7280);
+.course-progress-stats-desktop {
+  font-size: 0.95rem;
+  color: #666;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.course-progress-stats strong {
-  color: var(--color-text-primary, #111827);
+.course-progress-stats-desktop strong {
+  color: var(--color-text-black);
   font-weight: 600;
 }
 
@@ -71,10 +95,11 @@
 }
 
 .course-progress-track {
-  height: 6px;
-  background: var(--color-border-tertiary, #e5e7eb);
+  height: 8px;
+  background: #e5e7eb;
   border-radius: 999px;
   overflow: hidden;
+  margin-bottom: 12px;
 }
 
 .course-progress-fill {
@@ -87,4 +112,37 @@
 
 .course-progress-complete .course-progress-fill {
   background: #639922;
+}
+
+.course-progress-stats-mobile {
+  font-size: 0.95rem;
+  color: #666;
+  display: none;
+  gap: 6px;
+}
+
+.course-progress-stats-mobile strong {
+  color: var(--color-text-black);
+  font-weight: 600;
+}
+
+.course-progress-percentage-mobile {
+  font-weight: 600;
+  color: #639922;
+  margin-left: 2px;
+}
+
+.course-progress-complete .course-progress-percentage-mobile {
+  color: #3b6d11;
+}
+
+@media (max-width: 800px) {
+  .course-progress-stats-desktop {
+    display: none;
+  }
+
+  .course-progress-stats-mobile {
+    display: flex;
+    align-items: center;
+  }
 }

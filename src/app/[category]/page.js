@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import CourseEnrollmentButton from "@/components/CourseEnrollmentButton/CourseEnrollmentButton";
 import CourseLessonsList from "@/components/CourseLessonsList/CourseLessonsList";
 import CourseProgress from "@/components/CourseProgress/CourseProgress";
+import CourseInfoToggle from "@/components/CourseInfoToggle/CourseInfoToggle";
 import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
 import { content } from "@/data";
 import {
@@ -189,6 +190,7 @@ export default async function CategoryPage({ params }) {
           courseSlug={category}
           totalLessons={totalLessons}
           initialProgress={serializedProgress}
+          enrollmentDateLabel={enrollmentDateLabel}
         />
       )}
 
@@ -202,105 +204,190 @@ export default async function CategoryPage({ params }) {
         />
       </div>
 
-      {coursePresentationVideoId && (
-        <div className="course-meta-block">
-          <h2>Saiba mais sobre o curso</h2>
-          <YouTubeEmbed videoId={coursePresentationVideoId} />
-        </div>
-      )}
-
-      {hasCourseEbook && (
-        <div className="course-meta-block">
-          <h2>Ebook do curso</h2>
-          <a
-            href={courseEbookLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="course-ebook-card"
-          >
-            {courseEbook.image ? (
-              <div
-                className="course-ebook-card-image"
-                style={{ backgroundImage: `url(${courseEbook.image})` }}
-                role="img"
-                aria-label={`Imagem do site ${courseEbook.siteName}`}
-              />
-            ) : (
-              <div className="course-ebook-card-image-fallback">
-                {courseEbook.siteName.slice(0, 1).toUpperCase()}
-              </div>
-            )}
-            <div className="course-ebook-card-content">
-              <p className="course-ebook-card-site">{courseEbook.siteName}</p>
-              <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
-              <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
-              <span className="course-ebook-card-cta">Abrir ebook completo ↗</span>
+      {userId && isUserEnrolled ? (
+        <CourseInfoToggle summary="Saiba mais">
+          {coursePresentationVideoId && (
+            <div className="course-meta-block">
+              <h2>Vídeo de apresentação</h2>
+              <YouTubeEmbed videoId={coursePresentationVideoId} />
             </div>
-          </a>
-        </div>
-      )}
+          )}
 
-      {hasCourseResources && (
-        <div className="course-meta-block">
-          <h2>Recursos adicionais</h2>
-          <ul className="course-resource-list">
-            {courseUsefulLinks.map((link) => (
-              <li key={link.url}>
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="course-resource-link"
-                >
-                  {getShortLink(link.url)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+          {hasCourseEbook && (
+            <div className="course-meta-block">
+              <h2>Ebook do curso</h2>
+              <a
+                href={courseEbookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="course-ebook-card"
+              >
+                {courseEbook.image ? (
+                  <div
+                    className="course-ebook-card-image"
+                    style={{ backgroundImage: `url(${courseEbook.image})` }}
+                    role="img"
+                    aria-label={`Imagem do site ${courseEbook.siteName}`}
+                  />
+                ) : (
+                  <div className="course-ebook-card-image-fallback">
+                    {courseEbook.siteName.slice(0, 1).toUpperCase()}
+                  </div>
+                )}
+                <div className="course-ebook-card-content">
+                  <p className="course-ebook-card-site">{courseEbook.siteName}</p>
+                  <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
+                  <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
+                  <span className="course-ebook-card-cta">Abrir ebook completo ↗</span>
+                </div>
+              </a>
+            </div>
+          )}
 
-      {courseTags.length > 0 && (
-        <div className="course-meta-block">
-          <h2>Tags</h2>
-          <div className="course-tags-list">
-            {courseTags.map((tag) => (
-              <span key={tag} className="course-tag-chip">
-                {tag}
-              </span>
-            ))}
+          {hasCourseResources && (
+            <div className="course-meta-block">
+              <h2>Recursos adicionais</h2>
+              <ul className="course-resource-list">
+                {courseUsefulLinks.map((link) => (
+                  <li key={link.url}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="course-resource-link"
+                    >
+                      {getShortLink(link.url)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {courseTags.length > 0 && (
+            <div className="course-meta-block">
+              <h2>Tags</h2>
+              <div className="course-tags-list">
+                {courseTags.map((tag) => (
+                  <span key={tag} className="course-tag-chip">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {coursePrerequisites.length > 0 && (
+            <div className="course-meta-block">
+              <h2>Pré-requisitos</h2>
+              <ul className="course-prerequisites-list">
+                {coursePrerequisites.map((prerequisite) => (
+                  <li key={prerequisite}>{prerequisite}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </CourseInfoToggle>
+      ) : (
+        <>
+          {coursePresentationVideoId && (
+            <div className="course-meta-block">
+              <h2>Saiba mais sobre o curso</h2>
+              <YouTubeEmbed videoId={coursePresentationVideoId} />
+            </div>
+          )}
+
+          {hasCourseEbook && (
+            <div className="course-meta-block">
+              <h2>Ebook do curso</h2>
+              <a
+                href={courseEbookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="course-ebook-card"
+              >
+                {courseEbook.image ? (
+                  <div
+                    className="course-ebook-card-image"
+                    style={{ backgroundImage: `url(${courseEbook.image})` }}
+                    role="img"
+                    aria-label={`Imagem do site ${courseEbook.siteName}`}
+                  />
+                ) : (
+                  <div className="course-ebook-card-image-fallback">
+                    {courseEbook.siteName.slice(0, 1).toUpperCase()}
+                  </div>
+                )}
+                <div className="course-ebook-card-content">
+                  <p className="course-ebook-card-site">{courseEbook.siteName}</p>
+                  <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
+                  <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
+                  <span className="course-ebook-card-cta">Abrir ebook completo ↗</span>
+                </div>
+              </a>
+            </div>
+          )}
+
+          {hasCourseResources && (
+            <div className="course-meta-block">
+              <h2>Recursos adicionais</h2>
+              <ul className="course-resource-list">
+                {courseUsefulLinks.map((link) => (
+                  <li key={link.url}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="course-resource-link"
+                    >
+                      {getShortLink(link.url)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {courseTags.length > 0 && (
+            <div className="course-meta-block">
+              <h2>Tags</h2>
+              <div className="course-tags-list">
+                {courseTags.map((tag) => (
+                  <span key={tag} className="course-tag-chip">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="course-meta-block">
+            {coursePrerequisites.length > 0 && (
+              <>
+                <h2>Pré-requisitos</h2>
+                <ul className="course-prerequisites-list">
+                  {coursePrerequisites.map((prerequisite) => (
+                    <li key={prerequisite}>{prerequisite}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
-        </div>
+        </>
       )}
 
-      <div className="course-meta-block">
-        {coursePrerequisites.length > 0 && (
-          <>
-            <h2>Pré-requisitos</h2>
-            <ul className="course-prerequisites-list">
-              {coursePrerequisites.map((prerequisite) => (
-                <li key={prerequisite}>{prerequisite}</li>
-              ))}
-            </ul>
-          </>
-        )}
-      </div>
-
-      <div className="course-enrollment-actions">
-        <CourseEnrollmentButton
-          category={category}
-          firstPostSlug={firstPost.slug}
-          accessType={courseAccessType}
-          requiresEnrollment={requiresEnrollment}
-          requiresPayment={requiresPayment}
-          checkoutUrl={course?.checkoutUrl}
-        />
-        {enrollmentDateLabel && (
-          <p className="course-enrollment-date">
-            Inscreveu-se em {enrollmentDateLabel}
-          </p>
-        )}
-      </div>
+      {!isUserEnrolled && (
+        <div className="course-enrollment-actions">
+          <CourseEnrollmentButton
+            category={category}
+            firstPostSlug={firstPost.slug}
+            accessType={courseAccessType}
+            requiresEnrollment={requiresEnrollment}
+            requiresPayment={requiresPayment}
+            checkoutUrl={course?.checkoutUrl}
+          />
+        </div>
+      )}
     </section>
   );
 }
