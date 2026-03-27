@@ -8,6 +8,7 @@ import CookieConsent from '../CookieConsent/CookieConsent';
 import DynamicSidebar from '../DynamicSidebar/DynamicSidebar';
 import Footer from '../Footer/Footer';
 import HeaderNav from '../HeaderNav/HeaderNav';
+import MobileSidebar from '../MobileSidebar/MobileSidebar';
 import SearchBox from '../SearchBox/SearchBox';
 import LessonContentSkeleton from '../Skeletons/LessonContentSkeleton';
 import ProfilePageSkeleton from '../Skeletons/ProfilePageSkeleton';
@@ -138,15 +139,26 @@ export default function Layout({ children }) {
           <div className="sidebar-overlay" onClick={closeSidebar}></div>
         )}
 
-        <DynamicSidebar
-          sidebarData={sidebarData}
-          currentCategory={resolvedCurrentCategory}
-          currentSlug={resolvedCurrentSlug}
-          isOpen={isSidebarOpen}
-          isMobile={isMobile}
-          onLinkClick={closeSidebar}
-          onNavigateStart={handleNavigateStart}
-        />
+        {isMobile ? (
+          <MobileSidebar
+            sidebarData={sidebarData}
+            currentCategory={resolvedCurrentCategory}
+            currentSlug={resolvedCurrentSlug}
+            isOpen={isSidebarOpen}
+            onLinkClick={closeSidebar}
+            onNavigateStart={handleNavigateStart}
+          />
+        ) : (
+          <DynamicSidebar
+            sidebarData={sidebarData}
+            currentCategory={resolvedCurrentCategory}
+            currentSlug={resolvedCurrentSlug}
+            isOpen={isSidebarOpen}
+            isMobile={isMobile}
+            onLinkClick={closeSidebar}
+            onNavigateStart={handleNavigateStart}
+          />
+        )}
 
         <main className="main-content">
           <div className={`content-wrapper ${isRouteLoading ? 'content-wrapper-loading' : ''}`}>

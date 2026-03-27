@@ -23,7 +23,7 @@
 
 @media (max-width: 1100px) {
   .dynamic-sidebar {
-    transform: translateX(-100%);
+    display: none;
   }
 
   .dynamic-sidebar.sidebar-open {

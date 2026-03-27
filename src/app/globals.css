@@ -223,6 +223,24 @@ a:active {
     margin-left: 0;
   }
 
+  .layout-body.has-sidebar .main-content {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .layout-body.no-sidebar .main-content {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .layout-body.has-sidebar ~ .app-footer {
+    margin-left: 0;
+  }
+
+  .layout-body.no-sidebar ~ .app-footer {
+    margin-left: 0;
+  }
+
   .content-wrapper {
     max-width: 100%;
     overflow-x: hidden;
