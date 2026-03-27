@@ -5,8 +5,6 @@
   padding: 60px 0 0 0;
   margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-left: 280px;
-  /* Mesma margem do main-content para não ficar atrás da sidebar */
 }
 
 .footer-content {

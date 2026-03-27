@@ -5,9 +5,10 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AuthButton from '../AuthButton/AuthButton';
 import CookieConsent from '../CookieConsent/CookieConsent';
+import DynamicSidebar from '../DynamicSidebar/DynamicSidebar';
 import Footer from '../Footer/Footer';
+import HeaderNav from '../HeaderNav/HeaderNav';
 import SearchBox from '../SearchBox/SearchBox';
-import Sidebar from '../Sidebar/Sidebar';
 import LessonContentSkeleton from '../Skeletons/LessonContentSkeleton';
 import ProfilePageSkeleton from '../Skeletons/ProfilePageSkeleton';
 
@@ -76,6 +77,7 @@ export default function Layout({ children }) {
 
   const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
   const resolvedCurrentSlug = pathname.split('/').filter(Boolean)[1];
+  const hasSidebarContent = Boolean(resolvedCurrentCategory);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -116,6 +118,13 @@ export default function Layout({ children }) {
             </Link>
           </div>
 
+          <HeaderNav
+            sidebarData={sidebarData}
+            currentCategory={resolvedCurrentCategory}
+            currentSlug={resolvedCurrentSlug}
+            onNavigateStart={handleNavigateStart}
+          />
+
           <SearchBox className="header-search" />
 
           <div className="header-auth">
@@ -124,12 +133,12 @@ export default function Layout({ children }) {
         </div>
       </header>
 
-      <div className="layout-body">
+      <div className={`layout-body ${hasSidebarContent ? 'has-sidebar' : 'no-sidebar'}`.trim()}>
         {isSidebarOpen && (
           <div className="sidebar-overlay" onClick={closeSidebar}></div>
         )}
 
-        <Sidebar
+        <DynamicSidebar
           sidebarData={sidebarData}
           currentCategory={resolvedCurrentCategory}
           currentSlug={resolvedCurrentSlug}

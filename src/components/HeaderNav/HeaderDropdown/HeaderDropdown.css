@@ -1,0 +1,116 @@
+/* Header Dropdown Styles */
+.header-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* Criar área invisível entre botão e menu para manter dropdown aberto */
+  padding-bottom: 8px;
+}
+
+.header-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-black);
+}
+
+.header-dropdown-trigger:hover {
+  background-color: #f5f5f5;
+}
+
+.header-dropdown-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.header-dropdown-label {
+  white-space: nowrap;
+}
+
+.header-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 280px;
+  background: var(--color-white);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-dropdown-content {
+  max-height: 600px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-red, #F34C61) var(--color-gray, #f0f0f0);
+}
+
+.dropdown-category-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 16px;
+  color: var(--color-text-black);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  border: none;
+  text-align: left;
+}
+
+.dropdown-category-link:hover {
+  background-color: #f9f9f9;
+}
+
+.dropdown-category-link.active {
+  color: var(--color-red, #F34C61);
+  background-color: #ffe5e8;
+}
+
+.dropdown-category-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-dropdown-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.header-dropdown-content::-webkit-scrollbar-track {
+  background: var(--color-gray, #f0f0f0);
+  border-radius: 999px;
+}
+
+.header-dropdown-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-red, #F34C61), var(--color-red-second, #ce3635));
+  border-radius: 999px;
+}
+
+.header-dropdown-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-red-second, #ce3635);
+}

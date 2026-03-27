@@ -141,12 +141,29 @@ a:active {
 /* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 280px;
-  width: calc(100% - 280px);
   min-width: 0;
   background-color: var(--color-white-ghost-white);
   display: flex;
   flex-direction: column;
+}
+
+.layout-body.has-sidebar .main-content {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+}
+
+.layout-body.no-sidebar .main-content {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Footer adjustment for sidebar */
+.layout-body.has-sidebar ~ .app-footer {
+  margin-left: 280px;
+}
+
+.layout-body.no-sidebar ~ .app-footer {
+  margin-left: 0;
 }
 
 .content-wrapper {
@@ -1714,7 +1731,7 @@ a:active {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1001;
   background: var(--color-white);
   border-bottom: 1px solid var(--color-light-gray);
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
@@ -1724,8 +1741,8 @@ a:active {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 30px;
   height: 100%;
   padding: 2rem;
   max-width: 100%;
@@ -1753,13 +1770,15 @@ a:active {
 }
 
 .header-search {
-  flex: 0 1 400px;
+  flex: 1;
   max-width: 400px;
+  min-width: 200px;
 }
 
 .header-auth {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
 }
 
 /* Ajustar layout principal para acomodar header */
