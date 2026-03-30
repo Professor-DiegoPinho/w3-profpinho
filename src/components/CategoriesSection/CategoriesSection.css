@@ -23,7 +23,7 @@
 
 .categories-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
   margin-bottom: 60px;
   padding: 0 40px;
@@ -106,3 +106,9 @@
   background-color: var(--color-red-second);
 }
 
+@media (max-width: 768px) {
+  .categories-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+}

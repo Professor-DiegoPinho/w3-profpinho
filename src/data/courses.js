@@ -2,7 +2,7 @@ export const courses = [
   {
     slug: "logica-de-programacao-python",
     title: "Lógica de Programação com Python",
-    description: "Dê seus primeiros passos no mundo da programação neste curso gratuito de lógica de programação com a linguagem de programação Python.",
+    description: "Dê seus primeiros passos no mundo da programação neste curso gratuito de lógica de programação com Python.",
     image: "/images/logo_python.png",
     badge: "",
     accessType: "free-course",

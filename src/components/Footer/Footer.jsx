@@ -30,9 +30,8 @@ export default function Footer() {
           <h3>Serviços</h3>
           <ul className="footer-links">
             <li><Link href="https://alunos.diegopinho.com.br/" target="_blank">Área do Aluno</Link></li>
-            <li><Link href="https://forms.gle/TRCvg1Cm1LSK2xiy8" target='_blank'>Consultoria Personalizada</Link></li>
-            <li><Link href="https://www.udemy.com/user/diegomartinsdepinho/" target="_blank">Cursos Completos</Link></li>
-            <li><Link href="https://diegopinho.notion.site/Guia-para-a-inscri-o-de-novos-as-instrutores-as-26a5b3c6f6d5809188c2eb2a63574d1c" target='_blank'>Trabalhe Conosco</Link></li>
+            <li><Link href="https://forms.gle/TRCvg1Cm1LSK2xiy8" target='_blank'>Solicite um orçamento</Link></li>
+            <li><Link href="https://diegopinho.com.br/vagas" target='_blank'>Trabalhe Conosco</Link></li>
           </ul>
         </div>
 
@@ -51,10 +50,10 @@ export default function Footer() {
         <div className="footer-section footer-links-section">
           <h3>Links</h3>
           <ul className="footer-links">
-            <li><Link href="https://blog.diegopinho.com.br">Nosso Blog</Link></li>
-            <li><Link href="/">Learning Hub</Link></li>
-            <li><a href="https://www.udemy.com/user/diegomartinsdepinho/" target="_blank" rel="noopener noreferrer">Cursos Online</a></li>
-            <li><a href="https://www.casadocodigo.com.br/search?type=product&q=diego+pinho" target="_blank" rel="noopener noreferrer">Livros Publicados</a></li>
+            <li><Link href="https://diegopinho.com.br" target='_blank'>Site Institucional</Link></li>
+            <li><Link target='_blank' href="https://blog.diegopinho.com.br">Nosso Blog</Link></li>
+            <li><Link href="https://www.udemy.com/user/diegomartinsdepinho/" target="_blank" rel="noopener noreferrer">Cursos Online</Link></li>
+            <li><Link href="https://www.casadocodigo.com.br/search?type=product&q=diego+pinho" target="_blank" rel="noopener noreferrer">Livros Publicados</Link></li>
           </ul>
         </div>
       </div>
