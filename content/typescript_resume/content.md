@@ -1,4 +1,3 @@
-
 ---
 title: "Resumo Prático de TypeScript"
 description: "Guia essencial de TypeScript em português para iniciantes. Conceitos fundamentais com exemplos práticos de tipagem em JavaScript."

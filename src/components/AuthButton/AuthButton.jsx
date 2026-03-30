@@ -16,6 +16,7 @@ export default function AuthButton({ onNavigateStart }) {
   const [avatarLoadError, setAvatarLoadError] = useState(false);
   const [avatarRetryKey, setAvatarRetryKey] = useState(0);
   const menuRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -58,12 +59,32 @@ export default function AuthButton({ onNavigateStart }) {
     return () => clearTimeout(retryTimer);
   }, [avatarLoadError, session?.user?.image]);
 
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setIsMenuOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsMenuOpen(false);
+    }, 150);
+  };
+
+  const handleMenuItemClick = () => {
+    setIsMenuOpen(false);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
   const handleAuthClick = () => {
     setIsSignInModalOpen(true);
   };
 
   const handleSignOut = () => {
-    setIsMenuOpen(false);
+    handleMenuItemClick();
     signOut({ callbackUrl: "/" });
   };
 
@@ -79,11 +100,15 @@ export default function AuthButton({ onNavigateStart }) {
         : userImageWithVersion;
 
     return (
-      <div className="user-menu" ref={menuRef}>
+      <div 
+        className="user-menu" 
+        ref={menuRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <button
           type="button"
           className="user-avatar-button"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-label="Abrir menu do usuário"
           aria-haspopup="menu"
           aria-expanded={isMenuOpen}
@@ -118,7 +143,7 @@ export default function AuthButton({ onNavigateStart }) {
               className="user-dropdown-item"
               onClick={() => {
                 onNavigateStart?.("/meu-perfil");
-                setIsMenuOpen(false);
+                handleMenuItemClick();
               }}
               role="menuitem"
             >

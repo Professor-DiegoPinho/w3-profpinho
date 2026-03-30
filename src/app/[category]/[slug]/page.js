@@ -1,13 +1,15 @@
 import { auth } from '@/auth';
 import MarkdownContent from '@/components/MarkdownContent/MarkdownContent';
+import MarkLesson from '@/components/MarkLesson/MarkLesson';
 import PostNavigation from '@/components/PostNavigation/PostNavigation';
 import ReadingTime from '@/components/ReadingTime/ReadingTime';
 import {
-    canUserAccessCourseLessons,
-    isCourseVisibleToUser,
+  canUserAccessCourseLessons,
+  isCourseVisibleToUser,
 } from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
-import { getAllPosts, getCategoryTitle, getPost, getPostNavigation } from '@/lib/markdown';
+import { getAllPosts, getCategoryTitle, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
+import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
 import { notFound, redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -48,6 +50,15 @@ export default async function PostPage({ params }) {
   const navigation = getPostNavigation(category, slug);
   const categoryTitle = getCategoryTitle(category);
 
+  const allLessons = getPostsInCategory(category);
+  const totalLessons = allLessons.length;
+
+  const progressData = userId
+    ? await getLessonProgress(userId, category)
+    : null;
+
+  const isDone = isLessonCompleted(progressData, slug);
+
   return (
     <article className="post-content">
       <header className="post-header">
@@ -72,6 +83,17 @@ export default async function PostPage({ params }) {
       <div className="post-body">
         <MarkdownContent content={post.content} />
       </div>
+
+      {userId && (
+        <div className="lesson-completion">
+          <MarkLesson
+            courseSlug={category}
+            lessonSlug={slug}
+            totalLessons={totalLessons}
+            initialDone={isDone}
+          />
+        </div>
+      )}
 
       <PostNavigation
         previous={navigation.previous}

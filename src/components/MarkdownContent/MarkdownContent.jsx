@@ -65,6 +65,14 @@ export default function MarkdownContent({ content }) {
 
     strong: ({ children }) => <strong className="content-bold">{children}</strong>,
     em: ({ children }) => <em className="content-italic">{children}</em>,
+
+    img: ({ src, alt, ...props }) => {
+      // Don't render if src is empty or falsy
+      if (!src) {
+        return null;
+      }
+      return <img src={src} alt={alt || ''} {...props} />;
+    },
   };
 
   return (
