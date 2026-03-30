@@ -79,6 +79,7 @@ export default function Layout({ children }) {
   const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
   const resolvedCurrentSlug = pathname.split('/').filter(Boolean)[1];
   const hasSidebarContent = Boolean(resolvedCurrentCategory);
+  const shouldShowSidebar = Boolean(resolvedCurrentCategory && resolvedCurrentSlug);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -134,7 +135,7 @@ export default function Layout({ children }) {
         </div>
       </header>
 
-      <div className={`layout-body ${hasSidebarContent ? 'has-sidebar' : 'no-sidebar'}`.trim()}>
+      <div className={`layout-body ${shouldShowSidebar ? 'has-sidebar' : 'no-sidebar'}`.trim()}>
         {isSidebarOpen && (
           <div className="sidebar-overlay" onClick={closeSidebar}></div>
         )}
@@ -149,15 +150,17 @@ export default function Layout({ children }) {
             onNavigateStart={handleNavigateStart}
           />
         ) : (
-          <DynamicSidebar
-            sidebarData={sidebarData}
-            currentCategory={resolvedCurrentCategory}
-            currentSlug={resolvedCurrentSlug}
-            isOpen={isSidebarOpen}
-            isMobile={isMobile}
-            onLinkClick={closeSidebar}
-            onNavigateStart={handleNavigateStart}
-          />
+          shouldShowSidebar && (
+            <DynamicSidebar
+              sidebarData={sidebarData}
+              currentCategory={resolvedCurrentCategory}
+              currentSlug={resolvedCurrentSlug}
+              isOpen={isSidebarOpen}
+              isMobile={isMobile}
+              onLinkClick={closeSidebar}
+              onNavigateStart={handleNavigateStart}
+            />
+          )
         )}
 
         <main className="main-content">

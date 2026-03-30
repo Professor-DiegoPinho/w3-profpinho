@@ -39,6 +39,9 @@
 
 .user-menu {
   position: relative;
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
 }
 
 .user-avatar-button {
@@ -56,14 +59,12 @@
 }
 
 .user-avatar-button:hover {
-  transform: translateY(-1px);
   border-color: #c8c8d6;
   box-shadow: 0 6px 16px rgba(42, 40, 54, 0.14);
 }
 
 .user-avatar-button[aria-expanded="true"] {
-  border-color: var(--color-red);
-  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.12);
+  border-color: #c8c8d6;
 }
 
 .user-avatar-image {
@@ -96,7 +97,7 @@
   z-index: 1005;
   box-shadow: 0 14px 28px rgba(42, 40, 54, 0.16);
   transform-origin: top right;
-  animation: userDropdownIn 0.2s ease-out;
+  animation: slideDown 0.2s ease-out;
 }
 
 .user-dropdown-header {
@@ -180,6 +181,17 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
