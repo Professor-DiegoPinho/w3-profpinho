@@ -17,7 +17,10 @@ export default function HeaderDropdown({
   onLinkClick,
 }) {
   const handleCategoryClick = (event, category) => {
-    const targetPath = `/${category.category}`;
+    // Para resumos, ir direto para o arquivo content.md
+    const targetPath = group.type === 'resume' 
+      ? `/${category.category}/content`
+      : `/${category.category}`;
 
     if (!isModifiedClick(event) && !event.defaultPrevented && onNavigateStart) {
       onNavigateStart(targetPath);
@@ -47,7 +50,7 @@ export default function HeaderDropdown({
               return (
                 <Link
                   key={category.category}
-                  href={`/${category.category}`}
+                  href={group.type === 'resume' ? `/${category.category}/content` : `/${category.category}`}
                   className={`dropdown-category-link ${isActive ? 'active' : ''}`}
                   onClick={(event) => handleCategoryClick(event, category)}
                 >

@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { isModifiedClick } from '../Sidebar/utils/utils';
@@ -14,6 +15,8 @@ export default function DynamicSidebar({
   onLinkClick,
   onNavigateStart,
 }) {
+  const { data: session } = useSession();
+
   const { currentContext, contextItems, categoryTitle } = useMemo(() => {
     if (!currentCategory || !sidebarData) {
       return { currentContext: null, contextItems: [], categoryTitle: '' };
@@ -31,6 +34,12 @@ export default function DynamicSidebar({
 
     // If user is in a course lesson
     if (accessType === 'free-course' || accessType === 'paid-course') {
+      // Verificar se é um curso pago e o usuário não está inscrito
+      const isEnrolled = session?.user?.enrolledCourseIds?.includes(matchedCategory.category) ?? false;
+      if (accessType === 'paid-course' && !isEnrolled) {
+        return { currentContext: null, contextItems: [], categoryTitle: '' };
+      }
+
       return {
         currentContext: 'course',
         contextItems:
@@ -64,7 +73,7 @@ export default function DynamicSidebar({
     }
 
     return { currentContext: null, contextItems: [], categoryTitle: '' };
-  }, [currentCategory, sidebarData]);
+  }, [currentCategory, sidebarData, session?.user?.enrolledCourseIds]);
 
   const handlePostLinkClick = (event, post) => {
     const targetPath = `/${post.category}/${post.slug}`;
@@ -118,21 +127,21 @@ export default function DynamicSidebar({
         <div className="sidebar-items open">
           <div className="sidebar-items-inner">
             {currentContext === 'resume' ? (
-              // For resumes, show list of resume categories (other resumes)
+              // For resumes, show list of resume categories (other resumes) - direto para content.md
               <ul className="dynamic-sidebar-list">
                 {contextItems.map((resume) => {
                   const isActive =
                     currentCategory === resume.category &&
-                    currentSlug === resume.posts[0]?.slug;
+                    currentSlug === 'content';
 
                   return (
                     <li key={resume.category}>
                       <Link
-                        href={`/${resume.category}/${resume.posts[0]?.slug || ''}`}
+                        href={`/${resume.category}/content`}
                         className={`dynamic-sidebar-link ${isActive ? 'active' : ''}`}
                         onClick={(event) =>
                           handlePostLinkClick(event, {
-                            ...resume.posts[0],
+                            slug: 'content',
                             category: resume.category,
                           })
                         }

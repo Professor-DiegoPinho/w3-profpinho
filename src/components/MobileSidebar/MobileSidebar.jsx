@@ -1,6 +1,5 @@
 "use client";
 
-import { isPaidCourse } from '@/lib/courseAccess';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -83,7 +82,7 @@ export default function MobileSidebar({
 
   const handleCourseSelect = (courseData) => {
     // Se não está logado ou é um curso pago e não está inscrito, mostra tela de inscrição
-    if (!session || (isPaidCourse(courseData.accessType) && !isUserEnrolled(courseData.category))) {
+    if (!session || (courseData.accessType === 'paid-course' && !isUserEnrolled(courseData.category))) {
       // Marca como "precisa inscrição" criando um estado especial
       setSelectedSubCategory(`${courseData.category}__enrollment`);
     } else {
@@ -217,17 +216,17 @@ export default function MobileSidebar({
           </div>
 
           {selectedCategory === 'resume' ? (
-            // Para resumos (direto para a aula)
+            // Para resumos (direto para content.md)
             <ul className="mobile-content-list">
               {resumes.map((resume) => {
                 const isActive =
                   currentCategory === resume.category &&
-                  currentSlug === resume.posts[0]?.slug;
+                  currentSlug === 'content';
 
                 return (
                   <li key={resume.category}>
                     <Link
-                      href={`/${resume.category}/${resume.posts[0]?.slug || ''}`}
+                      href={`/${resume.category}/content`}
                       className={`mobile-content-link ${isActive ? 'active' : ''}`}
                       onClick={(event) =>
                         handleCategoryLinkClick(event, resume)
