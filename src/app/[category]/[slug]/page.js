@@ -3,11 +3,13 @@ import MarkdownContent from '@/components/MarkdownContent/MarkdownContent';
 import MarkLesson from '@/components/MarkLesson/MarkLesson';
 import PostNavigation from '@/components/PostNavigation/PostNavigation';
 import ReadingTime from '@/components/ReadingTime/ReadingTime';
+import TableOfContents from '@/components/TableOfContents/TableOfContents';
 import {
   canUserAccessCourseLessons,
   isCourseVisibleToUser,
 } from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
+import { generateId } from '@/lib/generateId';
 import { getAllPosts, getCategoryTitle, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
 import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
 import { notFound, redirect } from 'next/navigation';
@@ -69,7 +71,7 @@ export default async function PostPage({ params }) {
           <span className="separator">›</span>
           <span className="post-title">{post.title}</span>
         </div>
-        <h1>{post.title}</h1>
+        <h1 id={generateId(post.title)}>{post.title}</h1>
         {post.description && (
           <p className="post-description">{post.description}</p>
         )}
@@ -81,7 +83,8 @@ export default async function PostPage({ params }) {
       </header>
 
       <div className="post-body">
-        <MarkdownContent content={post.content} />
+        <TableOfContents content={post.content} title={post.title} />
+        <MarkdownContent content={post.content} title={post.title} />
       </div>
 
       {userId && (
