@@ -8,11 +8,11 @@ export async function GET(request) {
     const category = searchParams.get('category');
     const limit = parseInt(searchParams.get('limit')) || 10;
 
-    if (!query || query.trim().length < 2) {
+    if (!query || query.trim().length < 2 || query.length > 200) {
       return NextResponse.json({
         results: [],
         total: 0,
-        message: 'Query must be at least 2 characters long'
+        message: 'Query must be between 2 and 200 characters long'
       });
     }
 

@@ -123,6 +123,13 @@ export function getPostsInCategory(category) {
 export function getPost(category, slug) {
   const filePath = path.join(contentDirectory, category, `${slug}.md`);
 
+  // Protege contra path traversal
+  const resolvedPath = path.resolve(filePath);
+  const resolvedBase = path.resolve(contentDirectory);
+  if (!resolvedPath.startsWith(resolvedBase + path.sep)) {
+    return null;
+  }
+
   if (!fs.existsSync(filePath)) {
     return null;
   }

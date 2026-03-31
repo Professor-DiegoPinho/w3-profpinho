@@ -2,6 +2,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 
 export default function MarkdownContent({ content }) {
@@ -80,7 +81,7 @@ export default function MarkdownContent({ content }) {
       <ReactMarkdown
         components={components}
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        rehypePlugins={[rehypeRaw, [rehypeSanitize, { ...defaultSchema, attributes: { ...defaultSchema.attributes, '*': [...(defaultSchema.attributes['*'] || []), 'className', 'style'] } }]]}
       >
         {content}
       </ReactMarkdown>

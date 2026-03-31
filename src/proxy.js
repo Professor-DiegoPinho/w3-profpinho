@@ -34,7 +34,7 @@ export default auth(function proxy(request) {
     const value = encodeURIComponent(JSON.stringify(utmData));
     response.headers.append(
       "Set-Cookie",
-      `${COOKIE_NAME}=${value}; Path=/; SameSite=Lax; HttpOnly; Max-Age=${COOKIE_MAX_AGE}`
+      `${COOKIE_NAME}=${value}; Path=/; SameSite=Lax; HttpOnly; Secure; Max-Age=${COOKIE_MAX_AGE}`
     );
   }
 
