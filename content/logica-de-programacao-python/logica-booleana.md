@@ -4,6 +4,11 @@ description: "Combine condições com and e or para criar validações mais comp
 order: 7
 ---
 
+# Videoaula
+{% embed "https://youtu.be/Hav8qzVbT8U?si=ihhnoacDdodPbVp-" %}
+
+# Compilado(s)
+
 - Comparações resultam em valores booleanos, ou seja, em `True` ou `False`.
 - **Mas o que acontece quando temos comparações com múltiplos fatores?**
 - Por exemplo, vamos supor que estamos administrando um parque de diversões e que, para entrar em um determinado brinquedo, é necessário:
@@ -74,7 +79,7 @@ order: 7
     ```
     
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Autorização negada meu parceiro
 

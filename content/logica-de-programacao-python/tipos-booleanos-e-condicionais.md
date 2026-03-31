@@ -4,7 +4,10 @@ description: "Descubra como comparações geram True e False e use if/else para 
 order: 5
 ---
 
-## Valores booleanos
+# Videoaula
+{% embed "https://youtu.be/C_VpQ7ZZBgM?si=c38kvHWiSJmWpOEL" %}
+
+# Compilado(s)
 
 - Além dos inteiros e dos textos (strings), há um outro tipo muito comum no Python, o booleano (`bool`). Junto com os demais, eles são chamados de **tipos primitivos**.
 - Uma variável do tipo booleano só pode assumir dois valores: `True` ou `False`.
@@ -55,7 +58,7 @@ order: 5
 - O `if` é um tipo de estrutura que “ativa” o código aninhado à ele se, e somente se, a comparação inserida nele for verdadeira. Neste caso, se inserirmos qualquer valor de idade que seja maior ou igual a dezoito, recebemos a mensagem `Você é maior de idade`.
 - Caso uma condição não seja verdadeira, podemos também atribuir um comportamento a ela. Para isso, unimos um `else` ao `if`.
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Esse brinquedo é para crianças
 

@@ -4,7 +4,10 @@ description: "Pratique listas, menus e condicionais criando um sistema para cada
 order: 12
 ---
 
-## Projeto: Participantes
+# Videoaula
+{% embed "https://youtu.be/vuWLxeao6MI?si=q_JPqBDJPAoJHCDH" %}
+
+# Projeto: Participantes
 
 Crie um projeto em que seja possível inserir, consultar, remover e alterar uma lista de participantes de um determinado evento. O programa deve conter um menu e funcionar conforme o exemplo abaixo:
 

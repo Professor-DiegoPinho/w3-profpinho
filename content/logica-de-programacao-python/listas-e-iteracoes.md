@@ -4,6 +4,11 @@ description: "Aprenda a criar listas, acessar elementos por índice, usar append
 order: 9
 ---
 
+# Videoaula
+{% embed "https://youtu.be/ZY7GIIfZohE?si=xIuW5d7mhzfDngs6" %}
+
+# Compilado(s)
+
 Listas são estruturas que nos permitem armazenar múltiplas informações em um único lugar. Isso facilita muito a nossa vida, pois assim podemos lidar com apenas uma única variável ao invés de várias delas.
 
 Podemos iniciar uma lista desta forma:
@@ -59,7 +64,7 @@ for nome in lista_nomes:
 
 ![image.png](attachment:a7d0d5d1-f4a3-499d-a53f-410663b7180e:image.png)
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Quem são os participantes?
 

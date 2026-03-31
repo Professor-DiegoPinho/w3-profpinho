@@ -4,6 +4,11 @@ description: "Aprofunde o uso de not e expressões booleanas para inverter condi
 order: 8
 ---
 
+# Videoaula
+{% embed "https://youtu.be/VXHUNgjMPQ0?si=4Vd_4eDTS-ff_aNT" %}
+
+# Compilado(s)
+
 - Os operadores lógicos nos permitem combinar diferentes comparações dentro de uma mesma condição. Vimos dois deles: o `and` e o `or`.
     
     
@@ -107,7 +112,7 @@ order: 8
     | or (OU lógico) | Retorna true se pelo menos uma das condições for verdadeira. |
     | not (NÃO lógico) | Inverte o valor lógico de uma expressão. |
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Sem convite não entra
 

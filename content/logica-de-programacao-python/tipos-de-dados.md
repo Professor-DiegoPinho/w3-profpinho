@@ -4,6 +4,11 @@ description: "Entenda tipagem no Python, diferenças entre str, int, float e boo
 order: 4
 ---
 
+# Videoaula
+{% embed "https://youtu.be/NxdYJDdBwf4?si=umSs0-X3LkxEqx0o" %}
+
+# Compilado(s)
+
 - As variáveis são capazes de guardar qualquer coisa, no entanto, as coisas ocupam espaços diferentes na memória do computador.
 - Um texto, um número inteiro, um “número quebrado”… todos eles exigem espaços diferentes na memória da computador e por conta disso são administrados de forma distinta pelo Python, mesmo que você não indique isso explicitamente.
 - Chamamos isso de **tipagem fraca**, ou seja, você não precisa discriminar o tipo de dado de forma explícita. Você encarrega esse trabalho para o programa.
@@ -56,7 +61,7 @@ order: 4
     - Numéricos: `int` (números inteiros), `float` (números quebrados);
     - Booleanos: `bool` (verdadeiro/falso).
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Você não me parece velho(a)
 

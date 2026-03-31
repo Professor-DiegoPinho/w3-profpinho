@@ -4,6 +4,11 @@ description: "Use o while para repetições condicionais, validação de entrada
 order: 11
 ---
 
+# Videoaula
+{% embed "https://youtu.be/rK4DShlUaA8?si=X-Cd0Jd6WSdjgKK3" %}
+
+# Compilado(s)
+
 Aprendemos como usar o laço de repetição `for…in range` para quando sabemos exatamente quantas vezes o número de vezes que vamos repetir algo. **Mas e quando não sabemos?** A vida (e principalmente o usuário) é imprevisível e nem sempre teremos esse dado de antemão. Vamos levar em consideração este pequeno código, por exemplo:
 
 ```python
@@ -75,7 +80,7 @@ print("Foguete lançado!")
 
 Agora sim! Sai pra lá loop infinito! 🔁
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: O ego do professor
 

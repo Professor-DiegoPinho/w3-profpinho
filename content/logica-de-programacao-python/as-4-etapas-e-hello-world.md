@@ -4,7 +4,10 @@ description: "Conheça as quatro etapas de um algoritmo (entrada, armazenamento,
 order: 1
 ---
 
-## 4 etapas de funcionamento de um computador/programa
+# Videoaula
+{% embed "https://www.youtube.com/embed/9xhYJcRROp0?si=6SJv3w7L1WkWWejq" %}
+
+# Compilado(s)
 
 - Todos os programas de computador são escritos em **linguagens de programação**, ou seja, uma linguagem intermediária entre a linguagem humana e a linguagem de máquina.
 - Todo programa de computador executa um ou mais **algoritmos**, ou seja, um conjunto finitos de etapas para um fim específico.
@@ -34,7 +37,7 @@ order: 1
     ```
     
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Olá, mundo!
 

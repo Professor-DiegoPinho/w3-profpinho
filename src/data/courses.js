@@ -9,7 +9,7 @@ export const courses = [
     visibility: "public",
     tags: ["python", "programação", "algoritmos"],
     prerequisites: [],
-    workloadHours: 3,
+    workloadHours: 6,
     order: 2,
     youtubeId: "XvmP4BC14D4",
     ebook: {
@@ -19,9 +19,7 @@ export const courses = [
       image: "/images/ebook-cover-logica-python.webp",
       displayUrl: "diegopinho.com.br"
     },
-    usefulLinks: [
-      "https://diegopinho.notion.site/L-gica-de-Programa-o-para-quem-nunca-programou-na-vida-1a05b3c6f6d580f6be9ed65a3c227826"
-    ],
+    usefulLinks: [],
     seo: {
       metaTitle: "Curso de Lógica de Programação com Python para iniciantes",
       metaDescription: "Curso gratuito de lógica de programação com Python para iniciantes.",

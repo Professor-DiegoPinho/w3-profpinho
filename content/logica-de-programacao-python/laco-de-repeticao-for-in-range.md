@@ -4,6 +4,11 @@ description: "Domine o for com range para repetir ações por quantidade, contar
 order: 10
 ---
 
+# Videoaula
+{% embed "https://youtu.be/0Iyxig-M8Kg?si=hMkyzWSdou1d1lS6" %}
+
+# Compilado(s)
+
 Vimos que o `for…in` é muito útil para iterar uma lista. Ou seja, passar por cada um dos itens da lista e fazer alguma ação com isso.
 
 Mas a verdade é que o `for…in` nada mais é do que um laço de repetição já configurado pelo Python para nós. Conseguimos reaproveitar essa estrutura, por exemplo:
@@ -25,7 +30,7 @@ for index in range(len(lista)): # tamanho da lista
 	print(nome)
 ```
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: De castigo na escola
 

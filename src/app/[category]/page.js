@@ -103,12 +103,12 @@ export default async function CategoryPage({ params }) {
   const courseEbookLink = courseEbook.url;
   const courseUsefulLinks = Array.isArray(course?.usefulLinks)
     ? course.usefulLinks
-        .map((link) => {
-          if (typeof link === "string") return { label: link, url: link };
-          if (link?.url) return { label: link.label || link.url, url: link.url };
-          return null;
-        })
-        .filter(Boolean)
+      .map((link) => {
+        if (typeof link === "string") return { label: link, url: link };
+        if (link?.url) return { label: link.label || link.url, url: link.url };
+        return null;
+      })
+      .filter(Boolean)
     : [];
   const hasCourseResources = courseUsefulLinks.length > 0;
   const isUserEnrolled = enrolledCourseIds.includes(category);
@@ -118,23 +118,23 @@ export default async function CategoryPage({ params }) {
       : null;
   const enrollmentDateLabel = enrollmentDate
     ? new Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }).format(enrollmentDate)
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }).format(enrollmentDate)
     : null;
 
   const progressData = userId ? await getLessonProgress(userId, category) : null;
   const completedLessons = progressData?.completedLessons ?? [];
   const serializedProgress = progressData
     ? {
-        completedLessons: progressData.completedLessons ?? [],
-        totalLessons: progressData.totalLessons ?? 0,
-        completionPercentage: progressData.completionPercentage ?? 0,
-        completedAt: progressData.completedAt?._seconds
-          ? new Date(progressData.completedAt._seconds * 1000).toISOString()
-          : null,
-      }
+      completedLessons: progressData.completedLessons ?? [],
+      totalLessons: progressData.totalLessons ?? 0,
+      completionPercentage: progressData.completionPercentage ?? 0,
+      completedAt: progressData.completedAt?._seconds
+        ? new Date(progressData.completedAt._seconds * 1000).toISOString()
+        : null,
+    }
     : null;
 
   return (
@@ -171,8 +171,7 @@ export default async function CategoryPage({ params }) {
         </div>
         <div className="course-summary-item">
           <strong>
-            {totalEnrolledStudents}{" "}
-            {totalEnrolledStudents === 1 ? "Aluno" : "Alunos"}
+            {"+"}{totalEnrolledStudents < 100 ? 100 : totalEnrolledStudents}{" Alunos"}
           </strong>
           <span>Comunidade ativa</span>
         </div>
@@ -215,7 +214,7 @@ export default async function CategoryPage({ params }) {
 
           {hasCourseEbook && (
             <div className="course-meta-block">
-              <h2>Ebook do curso</h2>
+              <h2>Materiais do curso</h2>
               <a
                 href={courseEbookLink}
                 target="_blank"
@@ -238,7 +237,7 @@ export default async function CategoryPage({ params }) {
                   <p className="course-ebook-card-site">{courseEbook.siteName}</p>
                   <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
                   <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
-                  <span className="course-ebook-card-cta">Abrir ebook completo ↗</span>
+                  <span className="course-ebook-card-cta">Abrir material completo ↗</span>
                 </div>
               </a>
             </div>
@@ -299,7 +298,7 @@ export default async function CategoryPage({ params }) {
 
           {hasCourseEbook && (
             <div className="course-meta-block">
-              <h2>Ebook do curso</h2>
+              <h2>Materiais do curso</h2>
               <a
                 href={courseEbookLink}
                 target="_blank"
@@ -322,7 +321,7 @@ export default async function CategoryPage({ params }) {
                   <p className="course-ebook-card-site">{courseEbook.siteName}</p>
                   <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
                   <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
-                  <span className="course-ebook-card-cta">Abrir ebook completo ↗</span>
+                  <span className="course-ebook-card-cta">Abrir material completo ↗</span>
                 </div>
               </a>
             </div>
@@ -405,8 +404,7 @@ export async function generateMetadata({ params }) {
   const seo = course?.seo;
   const title =
     seo?.metaTitle ||
-    `${
-      course?.title || category.charAt(0).toUpperCase() + category.slice(1)
+    `${course?.title || category.charAt(0).toUpperCase() + category.slice(1)
     } - ${getCourseAccessLabel(course)}`;
   const description =
     seo?.metaDescription ||

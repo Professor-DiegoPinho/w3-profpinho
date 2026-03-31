@@ -4,6 +4,11 @@ description: "Aprenda a armazenar entradas em variáveis, reutilizar valores e r
 order: 3
 ---
 
+# Videoaula
+{% embed "https://youtu.be/BJbTQ7KlEEo?si=ghO_BjSkak-F9Vvy" %}
+
+# Compilado(s)
+
 - Quando usamos um comando de entrada como o `input()`, temos um problema:
     
     ```python
@@ -30,7 +35,7 @@ order: 3
     ```
     
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Historinha (Parte 2)
 

@@ -54,7 +54,7 @@ export default function AuthEnrollmentModal({
         <span className="auth-modal-badge">Acesso ao curso</span>
         <h3 id="auth-modal-title">Entre para liberar seu aprendizado</h3>
         <p>
-          Crie sua conta gratuita com Google ou GitHub para começar a aprender {category} e desbloquear todo o conteúdo do curso.
+          Crie sua conta gratuita com Google ou GitHub para começar a aprender e desbloquear todo o conteúdo do curso.
         </p>
 
         <div className="auth-modal-actions">

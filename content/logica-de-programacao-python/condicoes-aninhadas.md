@@ -4,6 +4,11 @@ description: "Aprenda a lidar com múltiplos caminhos de decisão usando if anin
 order: 6
 ---
 
+# Videoaula
+{% embed "https://youtu.be/5ljS0eNzlIc?si=EE-zjVa6Yq65xnl8" %}
+
+# Compilado(s)
+
 - Aprendemos que as condicionais nos permitem criar diferentes fluxos dentro do código. Como neste exemplo:
     
     ```python
@@ -52,7 +57,7 @@ order: 6
     
 - Você pode usar quantos `elif` quiser, lembrando que o else sempre será o caminho acionado caso nenhum dos anteriores tenha sido.
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Eu sou maior do que você!
 

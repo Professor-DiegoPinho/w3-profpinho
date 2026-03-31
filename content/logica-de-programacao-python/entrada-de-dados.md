@@ -4,6 +4,11 @@ description: "Aprenda a capturar dados do usuário com input(), montar mensagens
 order: 2
 ---
 
+# Videoaula
+{% embed "https://youtu.be/z833fDbi2gU?si=9oJ1YQ6zOXMMTH-F" %}
+
+# Compilado(s)
+
 - Aprendemos o comando `print()` do Python para exibir informações no console.
 - Mas e quisermos enviar informações para um programa?
 - Uma das formas de fazer isso é usando o comando `input()`.
@@ -17,7 +22,7 @@ order: 2
 - Note que o comando `input()` recebe como parâmetro um texto que será exibido para o usuário para que ele saiba o que digitar (caso contrário, ficaria muito difícil dele adivinhar, né? rs) 😅
 - E tanto no comando `input()` quanto `print()`, os espaços são respeitados. Utilize isso ao seu favor para evitar que ostextosfiquemtodos juntos, como eu acabei de fazer ai, rs.
 
-# 🧩 Exercícios
+# Exercícios
 
 ## Exercício 1: Saudação personalizada
 
