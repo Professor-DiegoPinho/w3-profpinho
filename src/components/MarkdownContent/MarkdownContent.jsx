@@ -5,6 +5,36 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
 
+const sanitizeSchema = {
+  ...defaultSchema,
+  tagNames: [
+    ...(defaultSchema.tagNames || []),
+    'iframe',
+    'details',
+    'summary',
+    'section',
+  ],
+  attributes: {
+    ...defaultSchema.attributes,
+    '*': [
+      ...(defaultSchema.attributes['*'] || []),
+      'className',
+      'style',
+      'ariaHidden',
+      'ariaLabel',
+    ],
+    iframe: ['src', 'title', 'frameBorder', 'allow', 'allowFullScreen', 'className'],
+    a: [...(defaultSchema.attributes.a || []), 'target', 'rel', 'className'],
+    details: ['className'],
+    summary: ['className'],
+    section: ['className'],
+  },
+  protocols: {
+    ...defaultSchema.protocols,
+    src: ['https'],
+  },
+};
+
 export default function MarkdownContent({ content }) {
   const components = {
     code({ node, inline, className, children, ...props }) {
@@ -81,7 +111,7 @@ export default function MarkdownContent({ content }) {
       <ReactMarkdown
         components={components}
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw, [rehypeSanitize, { ...defaultSchema, attributes: { ...defaultSchema.attributes, '*': [...(defaultSchema.attributes['*'] || []), 'className', 'style'] } }]]}
+        rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]}
       >
         {content}
       </ReactMarkdown>
