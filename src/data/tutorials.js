@@ -38,5 +38,25 @@ export const tutorials = [
       metaDescription: "Aprenda SQL do zero com exemplos práticos.",
       ogImage: "/images/logo_sql.png"
     }
+  },
+  {
+    slug: "html",
+    title: "HTML",
+    description: "Aprenda HTML para criar a estrutura de páginas web.",
+    image: "/images/logo_html.png",
+    badge: "Tutorial",
+    accessType: "tutorial",
+    visibility: "public",
+    tags: ["html", "web", "front-end"],
+    prerequisites: [],
+    order: 3,
+    youtubeId: "",
+    ebook: {},
+    usefulLinks: [],
+    seo: {
+      metaTitle: "Curso de HTML para Iniciantes",
+      metaDescription: "Aprenda HTML do zero com exemplos práticos.",
+      ogImage: "/images/logo_html.png"
+    }
   }
 ];
