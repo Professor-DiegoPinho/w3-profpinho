@@ -11,7 +11,7 @@ export const courses = [
     prerequisites: [],
     workloadHours: 6,
     order: 2,
-    youtubeId: "XvmP4BC14D4",
+    youtubeId: "RNmaPJgN0U",
     ebook: {
       title: "Lógica de Programação com Python",
       siteName: "Diego Pinho - Educação e Tecnologia",
