@@ -8,7 +8,7 @@ order: 9
 
 Às vezes um texto precisa de ênfase. Em outras, precisa indicar algo importante, removido ou complementar. Para isso, o HTML possui algumas tags próprias.
 
-## Texto em destaque forte
+## Texto com alta importância
 
 ```html
 <p>Leia o <strong>manual</strong> antes de continuar.</p>
@@ -38,7 +38,7 @@ Visualmente podem parecer semelhantes a `strong` e `em`, mas o significado semâ
 ## Marca-texto
 
 ```html
-<p>O prazo termina em <mark>sexta-feira</mark>.</p>
+<p>O prazo termina na <mark>sexta-feira</mark>.</p>
 ```
 
 A tag `<mark>` destaca o texto.

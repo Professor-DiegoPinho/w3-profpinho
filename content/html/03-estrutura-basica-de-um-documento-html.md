@@ -57,7 +57,7 @@ Guarda informações sobre a página que não aparecem diretamente no conteúdo 
 </head>
 ```
 
-Aqui costumam ficar título da aba, metadados, links para CSS e outras configurações.
+Aqui costumam ficar título da aba, metadados, links para arquivos de estilização (CSS) e outras configurações.
 
 ### `<body>`
 

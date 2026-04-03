@@ -52,7 +52,7 @@ Comentários costumam ser úteis para:
 
 ## Mas não exagere
 
-Comentário demais também atrapalha. Se o código precisa de explicação o tempo inteiro, às vezes o problema não é falta de comentário, e sim o código estar confuso feito gaveta de fio velho.
+Comentário demais também atrapalha. Se o código precisa de explicação o tempo inteiro, às vezes o problema não é falta de comentário, e sim o código estar confuso. Use comentários para esclarecer, não para esconder a complexidade.
 
 ## Exemplo prático
 

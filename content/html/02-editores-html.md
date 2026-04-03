@@ -22,7 +22,7 @@ Alguns exemplos comuns:
 - VS Code;
 - Notepad++;
 - Sublime Text;
-- o Bloco de Notas, em último caso, quando a vida te odeia um pouco.
+- o Bloco de Notas, em último caso.
 
 O importante aqui não é o editor ser chique. É ele deixar você escrever texto puro sem inventar formatação escondida.
 
@@ -40,7 +40,7 @@ Suponha que você crie um arquivo chamado `index.html` com este conteúdo:
 </html>
 ```
 
-Depois de salvar, basta dar dois cliques no arquivo ou arrastá-lo para o navegador.
+Depois de salvar, basta dar dois cliques no arquivo que ele abrirá no seu navegador.
 
 ## O que acontece depois?
 

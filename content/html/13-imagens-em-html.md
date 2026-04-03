@@ -1,7 +1,7 @@
 ---
 title: "Imagens em HTML"
 description: "Como exibir imagens em HTML usando a tag img e atributos importantes"
-order: 15
+order: 13
 ---
 
 # Exibindo imagens na página
@@ -34,7 +34,7 @@ Fornece uma descrição da imagem.
 <img src="produto.png" alt="Tênis esportivo azul">
 ```
 
-Esse atributo é importante caso a imagem não carregue ou para tecnologias assistivas.
+Esse atributo é importante caso a imagem não carregue ou para leitores de tela, garantindo acessibilidade.
 
 ## Definindo largura e altura
 

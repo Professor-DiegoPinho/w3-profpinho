@@ -19,7 +19,7 @@ Cada `<p>` representa um parágrafo.
 
 ## Um detalhe que costuma confundir
 
-No código, você pode apertar Enter várias vezes achando que o navegador vai respeitar exatamente aquele espaçamento. Só que não funciona assim.
+No código, você pode apertar "Enter" várias vezes achando que o navegador vai respeitar exatamente aquele espaçamento. Só que não funciona assim.
 
 Veja:
 
@@ -31,14 +31,14 @@ Veja:
 </p>
 ```
 
-No navegador, isso normalmente será exibido como uma linha contínua.
+No navegador, isso normalmente será exibido como uma linha contínua, sem quebras. O HTML ignora os espaços em branco extras.
 
 ## Quebra de linha com `<br>`
 
 Se você quiser forçar uma quebra de linha dentro do conteúdo, pode usar `<br>`.
 
 ```html
-<p>Rua das Flores, 123<br>Centro<br>Santa Maria - RS</p>
+<p>Rua das Flores, 123<br>Centro<br>Rio de Janeiro - RJ</p>
 ```
 
 Isso é útil para endereços, poemas ou casos em que a quebra faz sentido.
@@ -60,7 +60,7 @@ Ela funciona como uma divisão temática na página.
 ```html
 <h1>Sobre mim</h1>
 
-<p>Meu nome é Eduardo e eu gosto de desenvolvimento web.</p>
+<p>Meu nome é João e eu gosto de desenvolvimento web.</p>
 
 <p>Estou estudando HTML para construir páginas melhores e mais organizadas.</p>
 
@@ -75,4 +75,4 @@ Ela funciona como uma divisão temática na página.
 - use `<br>` para quebra de linha pontual;
 - use `<hr>` para separar seções.
 
-Não vale sair usando `<br>` para empurrar layout. Isso até funciona por cinco minutos, mas depois vira gambiarra com crachá.
+Não vale sair usando `<br>` para empurrar o layout. Isso até funciona no início, mas com o tempo vai virar uma bagunça difícil de manter.

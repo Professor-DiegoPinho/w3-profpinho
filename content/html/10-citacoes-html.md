@@ -43,7 +43,7 @@ Nesse caso, o significado completo fica associado à sigla.
 ```html
 <address>
   Escrito por Maria Silva.<br>
-  Porto Alegre - RS
+  São Paulo, Brasil.
 </address>
 ```
 
@@ -71,4 +71,4 @@ Essa tag costuma ser usada para dados de contato ou autoria.
 
 ## Quando usar isso?
 
-Essas tags não aparecem em toda página, mas são úteis quando o conteúdo pede esse tipo de marcação. E quando você usa a tag certa, o HTML fica mais semântico e mais fácil de entender.
+Essas tags não aparecem em toda página e está tudo bem não chegar a utilizar no seu projeto, mas são úteis quando o conteúdo pede esse tipo de marcação. E quando você usa a tag certa, o HTML fica mais semântico e mais fácil de entender.

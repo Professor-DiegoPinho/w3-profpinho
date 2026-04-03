@@ -61,7 +61,7 @@ Errado:
 <p>Texto com <strong>destaque.</p></strong>
 ```
 
-No exemplo errado, a ordem de fechamento ficou bagunçada. O navegador até tenta adivinhar sua intenção, mas não é bom depender da caridade dele.
+No exemplo errado, a ordem de fechamento ficou bagunçada. O navegador até tenta adivinhar sua intenção, mas não é bom depender do navegador para corrigir erros de estrutura.
 
 ## Elementos vazios
 

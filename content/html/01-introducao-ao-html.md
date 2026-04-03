@@ -10,7 +10,9 @@ HTML (**HyperText Markup Language**) é a linguagem de marcação usada para cri
 
 Com HTML você define o que cada parte da página é: um título, um parágrafo, uma imagem, um link, uma lista e assim por diante.
 
-Ele não cuida do visual bonito da página e nem da interatividade. De forma simples:
+Ele não cuida do visual bonito da página e nem da interatividade. 
+
+De forma simples:
 
 - **HTML** estrutura o conteúdo;
 - **CSS** estiliza;
@@ -55,4 +57,4 @@ No dia a dia, HTML é usado para montar a base de páginas como:
 - páginas de login;
 - áreas administrativas.
 
-Mesmo em projetos com frameworks modernos, o HTML continua ali por baixo dos panos. Ele é a fundação. Sem ele, o resto vira enfeite brigando por espaço vazio.
+Mesmo em projetos com frameworks modernos, o HTML continua ali por baixo dos panos. Saber o básico de HTML é essencial para entender como a web funciona e para criar páginas que sejam acessíveis e bem estruturadas.

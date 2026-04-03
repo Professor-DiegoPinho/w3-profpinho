@@ -22,15 +22,14 @@ Eles representam uma **hierarquia**. O `h1` é o título principal. Os demais v�
 ```html
 <h1>Guia de Viagem</h1>
 <h2>Brasil</h2>
-<h3>Rio Grande do Sul</h3>
-<h4>Santa Maria</h4>
+<h3>Rio de Janeiro</h3>
 ```
 
 Perceba a lógica: cada nível aprofunda o assunto do nível anterior.
 
 ## Não é só uma questão de tamanho
 
-Muita gente olha para os títulos e pensa: “vou usar `h1` porque fica maior”. Esse raciocínio é meio torto.
+Muita gente olha para os títulos e pensa: “vou usar `h1` porque fica maior”. Porém, o tamanho visual é apenas um detalhe. O mais importante é a **semântica**.
 
 As tags de título existem para dar **significado** ao conteúdo, e não apenas aparência. O tamanho visual pode ser alterado depois com CSS.
 
@@ -67,5 +66,4 @@ Quando você usa títulos corretamente, o conteúdo fica mais organizado para:
 
 - o navegador;
 - mecanismos de busca;
-- tecnologias assistivas;
-- e para qualquer pessoa que esteja tentando entender sua página sem sofrer.
+- tecnologias de acessibilidade, como leitores de tela.

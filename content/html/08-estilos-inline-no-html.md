@@ -62,9 +62,9 @@ O `style` inline é útil para:
 
 ## E qual é o problema?
 
-Quando o projeto começa a crescer, espalhar estilo dentro do HTML vira bagunça. O código fica mais difícil de ler, repetir e manter.
+Quando o projeto começa a crescer, adicionar estilos dentro do HTML torna o código mais difícil de ler, repetir e manter.
 
-Por isso, no dia a dia, é mais comum separar o visual no CSS. Mas antes de correr para isso, vale entender o básico com exemplos pequenos.
+Por isso, no dia a dia, é mais comum separar o visual no CSS, uma outra linguagem que tem a função de cuidar do estilo, deixando o HTML apenas para o conteúdo.
 
 ## Exemplo prático
 

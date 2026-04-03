@@ -1,7 +1,7 @@
 ---
 title: "Links em HTML"
 description: "Como criar links em HTML para navegar entre páginas e recursos"
-order: 14
+order: 12
 ---
 
 # Criando links
@@ -63,4 +63,4 @@ Sempre que criar um link, pense em duas coisas:
 - para onde a pessoa vai;
 - se o texto do link deixa isso claro.
 
-Evite coisas muito genéricas como “clique aqui” quando o contexto puder ser mais específico. Link bom já entrega a intenção sem fazer a pessoa jogar no modo adivinhação.
+Evite coisas muito genéricas como “clique aqui” quando o contexto puder ser mais específico. Link bom já entrega a intenção sem fazer a pessoa ter que pensar muito.

@@ -32,7 +32,7 @@ Então:
 href="https://exemplo.com"
 ```
 
-significa que o atributo `href` recebeu aquele valor.
+significa que o atributo `href` recebeu o valor `"https://exemplo.com"`.
 
 ## Exemplos comuns
 
@@ -53,13 +53,13 @@ O `href` diz para onde o link aponta.
 - `src` informa o caminho da imagem;
 - `alt` descreve a imagem.
 
-### Campo com `placeholder`
+### Campo de texto com `placeholder`
 
 ```html
 <input type="text" placeholder="Digite seu nome">
 ```
 
-Aqui temos mais de um atributo no mesmo elemento.
+Note que nos dois últimos exemplos temos mais de um atributo no mesmo elemento.
 
 ## Mais de um atributo na mesma tag
 
@@ -79,7 +79,7 @@ Nesse link:
 
 ## Um cuidado importante
 
-Os atributos não ficam jogados em qualquer lugar do elemento. Eles devem aparecer dentro da tag de abertura.
+Os atributos não ficam jogados em qualquer lugar do elemento. Eles devem aparecer **dentro da tag de abertura**.
 
 Correto:
 
