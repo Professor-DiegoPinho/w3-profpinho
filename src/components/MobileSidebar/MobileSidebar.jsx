@@ -51,6 +51,7 @@ export default function MobileSidebar({
   }, [selectedSubCategory, sidebarData]);
 
   const isEnrollmentScreen = selectedSubCategory?.endsWith('__enrollment') || false;
+  const activePage = selectedSubCategory ? 2 : selectedCategory ? 1 : 0;
 
   // Atualizar a ref com o valor atual de onLinkClick
   useEffect(() => {
@@ -143,149 +144,172 @@ export default function MobileSidebar({
   // Renderização de 3 telas
   return (
     <aside className={`mobile-sidebar ${isOpen ? 'sidebar-open' : ''}`.trim()}>
-      {!selectedCategory ? (
-        // TELA 1: Seleção de tipo (Tutoriais/Cursos/Resumos)
-        <nav className="mobile-sidebar-nav categories-view">
-          <h2 className="mobile-sidebar-title">Conteúdo</h2>
+      <div className="mobile-sidebar-viewport">
+        <div
+          className="mobile-sidebar-pages"
+          style={{
+            transform: `translate3d(-${(activePage * 100) / 3}%, 0, 0)`,
+          }}
+        >
+          <nav className="mobile-sidebar-nav mobile-sidebar-page categories-view">
+            <h2 className="mobile-sidebar-title">Conteúdo</h2>
 
-          <ul className="mobile-categories-list">
-            {tutorials.length > 0 && (
-              <li>
-                <button
-                  className="mobile-category-btn"
-                  onClick={() => handleCategorySelect('tutorial')}
-                >
-                  <img
-                    src={getCategoryIcon('tutorial')}
-                    alt="Tutoriais"
-                    className="mobile-category-icon"
-                  />
-                  <span className="mobile-category-name">Tutoriais</span>
-                </button>
-              </li>
-            )}
-
-            {courses.length > 0 && (
-              <li>
-                <button
-                  className="mobile-category-btn"
-                  onClick={() => handleCategorySelect('course')}
-                >
-                  <img
-                    src={getCategoryIcon('course')}
-                    alt="Cursos"
-                    className="mobile-category-icon"
-                  />
-                  <span className="mobile-category-name">Cursos</span>
-                </button>
-              </li>
-            )}
-
-            {resumes.length > 0 && (
-              <li>
-                <button
-                  className="mobile-category-btn"
-                  onClick={() => handleCategorySelect('resume')}
-                >
-                  <img
-                    src={getCategoryIcon('resume')}
-                    alt="Resumos"
-                    className="mobile-category-icon"
-                  />
-                  <span className="mobile-category-name">Resumos</span>
-                </button>
-              </li>
-            )}
-          </ul>
-        </nav>
-      ) : !selectedSubCategory ? (
-        // TELA 2: Seleção de categoria específica dentro do tipo
-        <nav className="mobile-sidebar-nav content-view">
-          <div className="mobile-sidebar-header">
-            <button className="mobile-back-btn" onClick={handleBack}>
-              <span className="mobile-back-arrow">←</span>
-              <span>Voltar</span>
-            </button>
-            <h2 className="mobile-content-title">
-              {selectedCategory === 'tutorial'
-                ? 'Tutoriais'
-                : selectedCategory === 'course'
-                  ? 'Cursos'
-                  : 'Resumos'}
-            </h2>
-          </div>
-
-          {selectedCategory === 'resume' ? (
-            // Para resumos (direto para content.md)
-            <ul className="mobile-content-list">
-              {resumes.map((resume) => {
-                const isActive =
-                  currentCategory === resume.category &&
-                  currentSlug === 'content';
-
-                return (
-                  <li key={resume.category}>
-                    <Link
-                      href={`/${resume.category}/content`}
-                      className={`mobile-content-link ${isActive ? 'active' : ''}`}
-                      onClick={(event) =>
-                        handleCategoryLinkClick(event, resume)
-                      }
-                    >
-                      {resume.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          ) : selectedCategory === 'tutorial' ? (
-            // Para tutoriais (clica em um tutorial para ver as aulas)
-            <ul className="mobile-content-list">
-              {tutorials.map((tutorial) => (
-                <li key={tutorial.category}>
+            <ul className="mobile-categories-list">
+              {tutorials.length > 0 && (
+                <li>
                   <button
-                    className="mobile-content-btn"
-                    onClick={() => handleSubCategorySelect(tutorial.category)}
+                    className="mobile-category-btn"
+                    onClick={() => handleCategorySelect('tutorial')}
                   >
-                    {tutorial.title}
+                    <img
+                      src={getCategoryIcon('tutorial')}
+                      alt="Tutoriais"
+                      className="mobile-category-icon"
+                    />
+                    <span className="mobile-category-name">Tutoriais</span>
                   </button>
                 </li>
-              ))}
-            </ul>
-          ) : (
-            // Para cursos (clica em um curso para ver as aulas ou inscrição)
-            <ul className="mobile-content-list">
-              {courses.map((course) => (
-                <li key={course.category}>
+              )}
+
+              {courses.length > 0 && (
+                <li>
                   <button
-                    className="mobile-content-btn"
-                    onClick={() => handleCourseSelect(course)}
+                    className="mobile-category-btn"
+                    onClick={() => handleCategorySelect('course')}
                   >
-                    {course.title}
+                    <img
+                      src={getCategoryIcon('course')}
+                      alt="Cursos"
+                      className="mobile-category-icon"
+                    />
+                    <span className="mobile-category-name">Cursos</span>
                   </button>
                 </li>
-              ))}
+              )}
+
+              {resumes.length > 0 && (
+                <li>
+                  <button
+                    className="mobile-category-btn"
+                    onClick={() => handleCategorySelect('resume')}
+                  >
+                    <img
+                      src={getCategoryIcon('resume')}
+                      alt="Resumos"
+                      className="mobile-category-icon"
+                    />
+                    <span className="mobile-category-name">Resumos</span>
+                  </button>
+                </li>
+              )}
             </ul>
-          )}
-        </nav>
-      ) : (
-        // TELA 3: Lista de aulas (para tutoriais e cursos)
-        <nav className="mobile-sidebar-nav content-view">
-          <div className="mobile-sidebar-header">
-            <button className="mobile-back-btn" onClick={handleBack}>
-              <span className="mobile-back-arrow">←</span>
-              <span>Voltar</span>
-            </button>
-            {selectedSubCategoryData && (
+          </nav>
+
+          <nav className="mobile-sidebar-nav mobile-sidebar-page content-view">
+            <div className="mobile-sidebar-header">
+              <button className="mobile-back-btn" onClick={handleBack}>
+                <span className="mobile-back-arrow">←</span>
+                <span>Voltar</span>
+              </button>
               <h2 className="mobile-content-title">
-                {selectedSubCategoryData.title}
+                {selectedCategory === 'tutorial'
+                  ? 'Tutoriais'
+                  : selectedCategory === 'course'
+                    ? 'Cursos'
+                    : 'Resumos'}
               </h2>
-            )}
-          </div>
+            </div>
 
-          {selectedCategory === 'course' && selectedSubCategoryData ? (
-            // Para cursos: mostrar lista de aulas apenas se não precisa de inscrição
-            !isEnrollmentScreen ? (
+            {selectedCategory === 'resume' ? (
+              // Para resumos (direto para content.md)
+              <ul className="mobile-content-list">
+                {resumes.map((resume) => {
+                  const isActive =
+                    currentCategory === resume.category &&
+                    currentSlug === 'content';
+
+                  return (
+                    <li key={resume.category}>
+                      <Link
+                        href={`/${resume.category}/content`}
+                        className={`mobile-content-link ${isActive ? 'active' : ''}`}
+                        onClick={(event) =>
+                          handleCategoryLinkClick(event, resume)
+                        }
+                      >
+                        {resume.title}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : selectedCategory === 'tutorial' ? (
+              // Para tutoriais (clica em um tutorial para ver as aulas)
+              <ul className="mobile-content-list">
+                {tutorials.map((tutorial) => (
+                  <li key={tutorial.category}>
+                    <button
+                      className="mobile-content-btn"
+                      onClick={() => handleSubCategorySelect(tutorial.category)}
+                    >
+                      {tutorial.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              // Para cursos (clica em um curso para ver as aulas ou inscrição)
+              <ul className="mobile-content-list">
+                {courses.map((course) => (
+                  <li key={course.category}>
+                    <button
+                      className="mobile-content-btn"
+                      onClick={() => handleCourseSelect(course)}
+                    >
+                      {course.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </nav>
+
+          <nav className="mobile-sidebar-nav mobile-sidebar-page content-view">
+            <div className="mobile-sidebar-header">
+              <button className="mobile-back-btn" onClick={handleBack}>
+                <span className="mobile-back-arrow">←</span>
+                <span>Voltar</span>
+              </button>
+              {selectedSubCategoryData && (
+                <h2 className="mobile-content-title">
+                  {selectedSubCategoryData.title}
+                </h2>
+              )}
+            </div>
+
+            {selectedCategory === 'course' && selectedSubCategoryData ? (
+              // Para cursos: mostrar lista de aulas apenas se não precisa de inscrição
+              !isEnrollmentScreen ? (
+                <ul className="mobile-content-list">
+                  {selectedSubCategoryData?.posts?.map((post) => {
+                    const isActive = currentSlug === post.slug;
+
+                    return (
+                      <li key={post.slug}>
+                        <Link
+                          href={`/${post.category}/${post.slug}`}
+                          className={`mobile-content-link ${isActive ? 'active' : ''}`}
+                          onClick={(event) => handlePostLinkClick(event, post)}
+                        >
+                          {post.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : null
+            ) : (
+              // Para tutoriais: mostrar lista de aulas normalmente
               <ul className="mobile-content-list">
                 {selectedSubCategoryData?.posts?.map((post) => {
                   const isActive = currentSlug === post.slug;
@@ -303,29 +327,10 @@ export default function MobileSidebar({
                   );
                 })}
               </ul>
-            ) : null
-          ) : (
-            // Para tutoriais: mostrar lista de aulas normalmente
-            <ul className="mobile-content-list">
-              {selectedSubCategoryData?.posts?.map((post) => {
-                const isActive = currentSlug === post.slug;
-
-                return (
-                  <li key={post.slug}>
-                    <Link
-                      href={`/${post.category}/${post.slug}`}
-                      className={`mobile-content-link ${isActive ? 'active' : ''}`}
-                      onClick={(event) => handlePostLinkClick(event, post)}
-                    >
-                      {post.title}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </nav>
-      )}
+            )}
+          </nav>
+        </div>
+      </div>
     </aside>
   );
 }

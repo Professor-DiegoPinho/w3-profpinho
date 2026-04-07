@@ -148,6 +148,25 @@
   transform: translateX(2px);
 }
 
+/* Mobile: Desabilitar hover effects e usar apenas click */
+@media (max-width: 640px) {
+  .user-avatar-button:hover {
+    border-color: inherit;
+    box-shadow: none;
+  }
+
+  .user-dropdown-item:hover {
+    background: transparent;
+    color: var(--color-text-black);
+    transform: none;
+  }
+
+  .user-dropdown-item:active {
+    background: #f4f4fb;
+    transform: translateX(2px);
+  }
+}
+
 .user-dropdown-item-icon {
   width: 18px;
   height: 18px;

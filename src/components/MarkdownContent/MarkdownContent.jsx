@@ -1,3 +1,4 @@
+import { generateId } from '@/lib/generateId';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -35,7 +36,18 @@ const sanitizeSchema = {
   },
 };
 
-export default function MarkdownContent({ content }) {
+export default function MarkdownContent({ content, title }) {
+  const getTextFromChildren = (children) => {
+    if (typeof children === 'string') return children;
+    if (Array.isArray(children)) {
+      return children.map(getTextFromChildren).join('');
+    }
+    if (children?.props?.children) {
+      return getTextFromChildren(children.props.children);
+    }
+    return '';
+  };
+
   const components = {
     code({ node, inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
@@ -64,10 +76,22 @@ export default function MarkdownContent({ content }) {
       );
     },
 
-    h1: ({ children }) => <h1 className="content-h1">{children}</h1>,
-    h2: ({ children }) => <h2 className="content-h2">{children}</h2>,
-    h3: ({ children }) => <h3 className="content-h3">{children}</h3>,
-    h4: ({ children }) => <h4 className="content-h4">{children}</h4>,
+    h1: ({ children }) => {
+      const id = generateId(getTextFromChildren(children));
+      return <h1 id={id} className="content-h1">{children}</h1>;
+    },
+    h2: ({ children }) => {
+      const id = generateId(getTextFromChildren(children));
+      return <h2 id={id} className="content-h2">{children}</h2>;
+    },
+    h3: ({ children }) => {
+      const id = generateId(getTextFromChildren(children));
+      return <h3 id={id} className="content-h3">{children}</h3>;
+    },
+    h4: ({ children }) => {
+      const id = generateId(getTextFromChildren(children));
+      return <h4 id={id} className="content-h4">{children}</h4>;
+    },
 
     p: ({ children }) => <p className="content-paragraph">{children}</p>,
 
@@ -98,7 +122,6 @@ export default function MarkdownContent({ content }) {
     em: ({ children }) => <em className="content-italic">{children}</em>,
 
     img: ({ src, alt, ...props }) => {
-      // Don't render if src is empty or falsy
       if (!src) {
         return null;
       }
