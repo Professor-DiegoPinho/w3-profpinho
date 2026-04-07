@@ -79,6 +79,10 @@ export default function AuthButton({ onNavigateStart }) {
     }
   };
 
+  const handleAvatarClick = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   const handleAuthClick = () => {
     setIsSignInModalOpen(true);
   };
@@ -112,6 +116,7 @@ export default function AuthButton({ onNavigateStart }) {
           aria-label="Abrir menu do usuário"
           aria-haspopup="menu"
           aria-expanded={isMenuOpen}
+          onClick={handleAvatarClick}
         >
           <Image
             src={avatarSrc}

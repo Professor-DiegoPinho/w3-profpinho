@@ -7,7 +7,9 @@ import TableOfContents from '@/components/TableOfContents/TableOfContents';
 import {
   canUserAccessCourseLessons,
   isCourseVisibleToUser,
+  getCourseAccessType,
 } from '@/lib/courseAccess';
+import { CONTENT_TYPE } from '@/data';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { generateId } from '@/lib/generateId';
 import { getAllPosts, getCategoryTitle, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
@@ -51,6 +53,10 @@ export default async function PostPage({ params }) {
 
   const navigation = getPostNavigation(category, slug);
   const categoryTitle = getCategoryTitle(category);
+  const contentAccessType = getCourseAccessType(category);
+  const isCourseContent = 
+    contentAccessType === CONTENT_TYPE.FREE_COURSE || 
+    contentAccessType === CONTENT_TYPE.PAID_COURSE;
 
   const allLessons = getPostsInCategory(category);
   const totalLessons = allLessons.length;
@@ -87,7 +93,7 @@ export default async function PostPage({ params }) {
         <MarkdownContent content={post.content} title={post.title} />
       </div>
 
-      {userId && (
+      {userId && isCourseContent && (
         <div className="lesson-completion">
           <MarkLesson
             courseSlug={category}

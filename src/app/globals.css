@@ -1148,6 +1148,18 @@ a:active {
   max-width: none;
 }
 
+.post-body {
+  /* Default: padding normal para mobile e tablet */
+  padding: 0;
+}
+
+/* Tablets e desktops pequenos (1200px+): adiciona padding lateral para evitar sobreposição do TOC */
+@media (min-width: 1200px) {
+  .post-content {
+    padding-right: 240px;
+  }
+}
+
 .post-header {
   margin-bottom: 40px;
   padding-bottom: 20px;

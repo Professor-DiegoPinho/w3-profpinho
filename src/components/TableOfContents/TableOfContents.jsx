@@ -1,21 +1,28 @@
 'use client';
 
 import { generateId } from '@/lib/generateId';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './TableOfContents.css';
 
 export default function TableOfContents({ content, title }) {
   const [headings, setHeadings] = useState([]);
   const [activeId, setActiveId] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const tocRef = useRef(null);
+  const toggleButtonRef = useRef(null);
 
   // Extract headings from markdown content
   useEffect(() => {
     const contentWithTitle = title ? `# ${title}\n\n${content}` : content;
+    
+    // Remove code blocks (between ``` markers) to avoid treating # comments as headings
+    const contentWithoutCodeBlocks = contentWithTitle.replace(/```[\s\S]*?```/g, '');
+    
     const headingRegex = /^(#{1,4})\s+(.+)$/gm;
     const matches = [];
     let match;
 
-    while ((match = headingRegex.exec(contentWithTitle)) !== null) {
+    while ((match = headingRegex.exec(contentWithoutCodeBlocks)) !== null) {
       const level = match[1].length;
       const text = match[2].trim();
       const id = generateId(text);
@@ -70,46 +77,120 @@ export default function TableOfContents({ content, title }) {
     };
   }, [headings]);
 
-  if (headings.length === 0) {
-    return null;
-  }
-
-  const handleClickHeading = (id) => {
+  // Close TOC when clicking on a link (mobile)
+  const handleLinkClick = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const headerHeight = 70; // Fixed header height
-      const offset = 20; // Extra padding below header
+      const headerHeight = 70;
+      const offset = 20;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       
       window.scrollTo({
         top: elementPosition - headerHeight - offset,
         behavior: 'smooth',
       });
+
+      // Close TOC on mobile after clicking a link
+      if (window.innerWidth <= 1199) {
+        setIsOpen(false);
+        document.body.classList.remove('toc-open');
+      }
     }
   };
 
+  // Control body overflow when TOC opens/closes on mobile
+  useEffect(() => {
+    if (window.innerWidth <= 640) {
+      if (isOpen) {
+        document.body.classList.add('toc-open');
+      } else {
+        document.body.classList.remove('toc-open');
+      }
+    }
+
+    return () => {
+      document.body.classList.remove('toc-open');
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isOpen &&
+        tocRef.current &&
+        !tocRef.current.contains(event.target) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(event.target)
+      ) {
+        setIsOpen(false);
+        document.body.classList.remove('toc-open');
+      }
+    };
+
+    if (window.innerWidth <= 1199) {
+      document.addEventListener('click', handleClickOutside);
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+      };
+    }
+  }, [isOpen]);
+
+  if (headings.length === 0) {
+    return null;
+  }
+
   return (
-    <nav className="table-of-contents" aria-label="Tabela de conteúdos">
-      <div className="toc-container">
-        <h3 className="toc-title">Nesta página</h3>
-        <ul className="toc-list">
-          {headings.map((heading) => (
-            <li
-              key={heading.id}
-              className={`toc-item toc-level-${heading.level} ${
-                activeId === heading.id ? 'active' : ''
-              }`}
-            >
-              <button
-                onClick={() => handleClickHeading(heading.id)}
-                className="toc-link"
+    <>
+      {/* Mobile Toggle Button */}
+      <button
+        ref={toggleButtonRef}
+        className={`toc-mobile-toggle ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Alternar Tabela de Conteúdos"
+        aria-expanded={isOpen}
+      >
+        <svg
+          className="toc-toggle-icon"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      {/* TOC Container with Slide Animation */}
+      <nav 
+        ref={tocRef}
+        className={`table-of-contents ${isOpen ? 'open' : ''}`} 
+        aria-label="Tabela de conteúdos"
+      >
+        <div className="toc-container">
+          <h3 className="toc-title">Nesta página</h3>
+          <ul className="toc-list">
+            {headings.map((heading) => (
+              <li
+                key={heading.id}
+                className={`toc-item toc-level-${heading.level} ${
+                  activeId === heading.id ? 'active' : ''
+                }`}
               >
-                {heading.text}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+                <button
+                  onClick={() => handleLinkClick(heading.id)}
+                  className="toc-link"
+                >
+                  {heading.text}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 }
