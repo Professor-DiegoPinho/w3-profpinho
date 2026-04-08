@@ -2,18 +2,20 @@ import { auth } from '@/auth';
 import MarkdownContent from '@/components/MarkdownContent/MarkdownContent';
 import MarkLesson from '@/components/MarkLesson/MarkLesson';
 import PostNavigation from '@/components/PostNavigation/PostNavigation';
+import ProjectSubmission from '@/components/ProjectSubmission/ProjectSubmission';
 import ReadingTime from '@/components/ReadingTime/ReadingTime';
 import TableOfContents from '@/components/TableOfContents/TableOfContents';
-import {
-  canUserAccessCourseLessons,
-  isCourseVisibleToUser,
-  getCourseAccessType,
-} from '@/lib/courseAccess';
 import { CONTENT_TYPE } from '@/data';
+import {
+    canUserAccessCourseLessons,
+    getCourseAccessType,
+    isCourseVisibleToUser,
+} from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { generateId } from '@/lib/generateId';
 import { getAllPosts, getCategoryTitle, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
 import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
+import { getProjectSubmissions } from '@/lib/submissions';
 import { notFound, redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -67,6 +69,13 @@ export default async function PostPage({ params }) {
 
   const isDone = isLessonCompleted(progressData, slug);
 
+  // Dados para o componente de submissão do projeto
+  let projectSubmissions = null;
+  if (slug === 'projeto' && userId) {
+    const submissions = await getProjectSubmissions(userId, category);
+    projectSubmissions = submissions?.attempts || [];
+  }
+
   return (
     <article className="post-content">
       <header className="post-header">
@@ -93,7 +102,15 @@ export default async function PostPage({ params }) {
         <MarkdownContent content={post.content} title={post.title} />
       </div>
 
-      {userId && isCourseContent && (
+      {userId && isCourseContent && slug === 'projeto' ? (
+        <div className="lesson-completion">
+          <ProjectSubmission
+            courseSlug={category}
+            projectTitle={post.title}
+            initialSubmissions={projectSubmissions}
+          />
+        </div>
+      ) : userId && isCourseContent ? (
         <div className="lesson-completion">
           <MarkLesson
             courseSlug={category}
@@ -102,7 +119,7 @@ export default async function PostPage({ params }) {
             initialDone={isDone}
           />
         </div>
-      )}
+      ) : null}
 
       <PostNavigation
         previous={navigation.previous}

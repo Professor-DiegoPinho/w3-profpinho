@@ -154,3 +154,114 @@
 .course-lesson-action-btn:hover .course-lesson-title {
   color: var(--color-red);
 }
+
+/* Project Section Styles */
+.course-project-section {
+  margin-top: 24px;
+  padding-top: 24px;
+}
+
+.course-project-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border, #e0e0e0),
+    transparent
+  );
+  margin-bottom: 16px;
+}
+
+.course-project-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary, #666);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  padding: 0 16px;
+}
+
+.course-project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.course-project-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 8px;
+  border: 2px solid var(--color-red, #d32f2f);
+  background: rgba(211, 47, 47, 0.04);
+  transition: all 0.2s ease;
+}
+
+.course-project-item:hover {
+  background: rgba(211, 47, 47, 0.08);
+  border-color: var(--color-red, #d32f2f);
+}
+
+.course-project-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-red, #d32f2f);
+}
+
+.course-project-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.course-project-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.course-project-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-red, #d32f2f);
+  word-break: break-word;
+}
+
+.course-project-description {
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.4;
+}
+
+.course-project-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.course-project-arrow {
+  margin-left: auto;
+  font-size: 18px;
+  color: var(--color-red, #d32f2f);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+  font-weight: 600;
+}
+
+.course-project-link:hover .course-project-arrow {
+  transform: translateX(4px);
+}
