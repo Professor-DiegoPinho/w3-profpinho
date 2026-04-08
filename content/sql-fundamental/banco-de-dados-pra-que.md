@@ -29,6 +29,6 @@ Além disso, os bancos de dados também fazem com que a memória do computador s
 
 {% endtoggle %}
 
-{% links "Links da aula" %}
+{% links "Links e referências" %}
 - [**Learning Hub - Tutoriais de SQL**](https://hub.diegopinho.com.br/sql/01-introducao-ao-sql)
 {% endlinks %}
