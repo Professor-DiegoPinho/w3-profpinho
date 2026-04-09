@@ -28,7 +28,7 @@ export async function submitProjectUrl(userId, courseSlug, submissionUrl, platfo
   const newSubmission = {
     url: submissionUrl,
     platform: platform || "Outro",
-    submittedAt: FieldValue.serverTimestamp(),
+    submittedAt: new Date().toISOString(),
     id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
   };
 

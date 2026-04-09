@@ -1,4 +1,6 @@
 import { auth } from "@/auth";
+import { getCourse } from "@/lib/courseAccess";
+import { sendProjectSubmissionEmail } from "@/lib/emails";
 import { deleteProjectSubmission, getProjectSubmissions, submitProjectUrl } from "@/lib/submissions";
 import { validateUrl } from "@/lib/urlValidation";
 import { NextResponse } from "next/server";
@@ -56,6 +58,24 @@ export async function POST(request) {
       submissionUrl,
       platform || validation.platform
     );
+
+    // Enviar email de confirmação de entrega
+    try {
+      const course = getCourse(courseSlug);
+      const courseName = course?.title || courseSlug;
+
+      await sendProjectSubmissionEmail({
+        recipientEmail: session.user.email,
+        studentName: session.user.name || "Aluno",
+        courseName: courseName,
+        submissionDate: new Date().toISOString().split('T')[0],
+      });
+
+      console.log(`✓ Email de submissão enviado para ${session.user.email}`);
+    } catch (emailError) {
+      // Log error mas não interrompe o fluxo de submissão
+      console.error("❌ Erro ao enviar email de submissão:", emailError);
+    }
 
     // Retornar todas as submissões após adicionar a nova
     const allSubmissions = await getProjectSubmissions(session.user.id, courseSlug);
