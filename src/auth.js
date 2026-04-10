@@ -305,6 +305,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.enrolledCourseIds = await getEnrolledCourseIds(token.userId);
       }
 
+      // Buscar role do Firestore no momento do login (quando account estiver presente)
+      if (account && token.userId) {
+        try {
+          const userDoc = await adminDb.collection("users").doc(token.userId).get();
+          if (userDoc.exists) {
+            token.role = userDoc.data()?.role ?? null;
+          } else {
+            token.role = null;
+          }
+        } catch (error) {
+          console.error("Erro ao buscar role do usuário:", error);
+          token.role = null;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -313,6 +328,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.enrolledCourseIds = Array.isArray(token.enrolledCourseIds)
           ? token.enrolledCourseIds
           : [];
+        session.user.role = token.role ?? null;
       }
 
       return session;

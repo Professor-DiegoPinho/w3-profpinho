@@ -50,6 +50,47 @@ export async function submitProjectUrl(userId, courseSlug, submissionUrl, platfo
 }
 
 /**
+ * Serializa as submissões, convertendo Firestore Timestamps em ISO strings
+ * @param {object} submissionData - Dados brutos do Firestore
+ * @returns {object} - Dados serializados e seguros para passar ao cliente
+ */
+function serializeSubmissionData(submissionData) {
+  if (!submissionData) return null;
+
+  // Serializar para JSON puro (remove métodos não-serializáveis)
+  let plainData;
+  try {
+    plainData = JSON.parse(JSON.stringify(submissionData));
+  } catch (e) {
+    console.error("Erro ao serializar dados de submissão:", e);
+    return null;
+  }
+
+  // Se tem attempts, serializar cada um
+  if (Array.isArray(plainData.attempts)) {
+    plainData.attempts = plainData.attempts.map((attempt) => {
+      const result = {};
+      for (const [key, value] of Object.entries(attempt)) {
+        // Converter Firestore Timestamps para ISO strings
+        if (value && typeof value === "object" && value._seconds !== undefined) {
+          result[key] = new Date(value._seconds * 1000).toISOString();
+        } else {
+          result[key] = value || null;
+        }
+      }
+      return result;
+    });
+  }
+
+  // Serializar lastSubmittedAt se for Timestamp
+  if (plainData.lastSubmittedAt && typeof plainData.lastSubmittedAt === "object" && plainData.lastSubmittedAt._seconds !== undefined) {
+    plainData.lastSubmittedAt = new Date(plainData.lastSubmittedAt._seconds * 1000).toISOString();
+  }
+
+  return plainData;
+}
+
+/**
  * Obtém as tentativas de entrega do projeto
  * @param {string} userId - ID do usuário
  * @param {string} courseSlug - Slug do curso
@@ -72,7 +113,7 @@ export async function getProjectSubmissions(userId, courseSlug) {
     };
   }
 
-  return snap.data();
+  return serializeSubmissionData(snap.data());
 }
 
 /**

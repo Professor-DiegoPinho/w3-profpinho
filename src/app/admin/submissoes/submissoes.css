@@ -1,0 +1,386 @@
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.admin-submissoes-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-submissoes-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text-black);
+  margin-bottom: 24px;
+}
+
+.admin-submissoes-table-wrapper {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  overflow: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.admin-submissoes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.admin-submissoes-table thead {
+  background-color: var(--color-gray);
+  border-bottom: 2px solid var(--color-light-gray);
+}
+
+.admin-submissoes-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-black);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.admin-submissoes-table tbody tr {
+  border-bottom: 1px solid var(--color-light-gray);
+  transition: background-color 0.2s ease;
+}
+
+.admin-submissoes-table tbody tr:hover {
+  background-color: var(--color-white-smoke);
+}
+
+.admin-submissoes-table td {
+  padding: 16px;
+  color: var(--color-text-light-black);
+  word-break: break-word;
+  vertical-align: middle;
+}
+
+/* Link Button */
+.admin-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 6px;
+  background-color: var(--color-gray);
+  color: var(--color-text-black);
+  border: 1px solid var(--color-light-gray);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.admin-link-button:hover {
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  border-color: var(--color-dark-blue);
+  transform: scale(1.05);
+}
+
+.admin-link-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Evaluate Button with Icon */
+.admin-evaluate-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  width: 100%;
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  border: 1px solid var(--color-dark-blue);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.admin-evaluate-button:hover {
+  background-color: #003580;
+  box-shadow: 0 4px 12px rgba(0, 74, 173, 0.25);
+  transform: translateY(-2px);
+}
+
+.admin-evaluate-button:active {
+  transform: translateY(0);
+}
+
+.admin-evaluate-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Status Badges */
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  width: 100%;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+}
+
+.admin-status-approved {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.admin-status-rejected {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
+/* Modal Dialog - DIV based with :target selector */
+.admin-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Show modal when targeted via anchor hash */
+.admin-modal:target {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.admin-modal-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeInBg 0.3s ease;
+}
+
+@keyframes fadeInBg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.admin-modal-content {
+  position: relative;
+  z-index: 1001;
+  width: 90%;
+  max-width: 500px;
+  padding: 32px;
+  background-color: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+.admin-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-black);
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.admin-modal-info {
+  background-color: var(--color-gray);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.admin-modal-info p {
+  margin: 8px 0;
+  color: var(--color-text-light-black);
+}
+
+.admin-modal-info p:last-child {
+  margin-bottom: 0;
+}
+
+.admin-modal-link {
+  color: var(--color-dark-blue);
+  text-decoration: none;
+  word-break: break-all;
+  font-weight: 500;
+}
+
+.admin-modal-link:hover {
+  text-decoration: underline;
+}
+
+.admin-modal-actions {
+  margin-bottom: 20px;
+}
+
+.admin-modal-button-group {
+  display: flex;
+  gap: 12px;
+}
+
+.admin-modal-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-modal-btn-approve {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.admin-modal-btn-approve:hover {
+  background-color: #039659;
+  box-shadow: 0 4px 12px rgba(4, 170, 109, 0.25);
+  transform: translateY(-2px);
+}
+
+.admin-modal-btn-approve:active {
+  transform: translateY(0);
+}
+
+.admin-modal-btn-reject {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
+.admin-modal-btn-reject:hover {
+  background-color: var(--color-red-second);
+  box-shadow: 0 4px 12px rgba(243, 76, 97, 0.25);
+  transform: translateY(-2px);
+}
+
+.admin-modal-btn-reject:active {
+  transform: translateY(0);
+}
+
+.admin-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gray);
+  color: var(--color-text-black);
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-light-gray);
+}
+
+.admin-modal-close:hover {
+  background-color: var(--color-light-gray);
+}
+
+.admin-submissoes-empty-cell {
+  text-align: center;
+  color: var(--color-dark-gray);
+  padding: 32px !important;
+}
+
+.admin-submissoes-info {
+  font-size: 12px;
+  color: var(--color-text-light-black);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .admin-submissoes-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .admin-submissoes-table {
+    font-size: 12px;
+  }
+
+  .admin-submissoes-table th,
+  .admin-submissoes-table td {
+    padding: 12px;
+  }
+
+  .admin-submissoes-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .admin-modal {
+    width: 95%;
+    max-width: 90vw;
+  }
+
+  .admin-modal-content {
+    padding: 24px;
+  }
+
+  .admin-modal-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .admin-modal-button-group {
+    flex-direction: column;
+  }
+
+  .admin-evaluate-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .admin-status-badge {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .admin-modal-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}

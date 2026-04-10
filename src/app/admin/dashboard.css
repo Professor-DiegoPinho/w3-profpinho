@@ -1,0 +1,117 @@
+.admin-dashboard-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-dashboard-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text-black);
+  margin-bottom: 32px;
+}
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.admin-stat-card {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.admin-stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.admin-stat-icon {
+  font-size: 24px;
+  opacity: 0.7;
+}
+
+.admin-stat-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-light-black);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.admin-stat-card:hover .admin-stat-title {
+  color: var(--color-text-black);
+}
+
+.admin-stat-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-dark-blue);
+  margin: 0;
+}
+
+/* Status Cards */
+.admin-stat-card-pending {
+  border-left-color: #fbbf24;
+}
+
+.admin-stat-card-pending .admin-stat-value {
+  color: #fbbf24;
+}
+
+.admin-stat-card-approved {
+  border-left-color: var(--color-green);
+}
+
+.admin-stat-card-approved .admin-stat-value {
+  color: var(--color-green);
+}
+
+.admin-stat-card-rejected {
+  border-left-color: var(--color-red);
+}
+
+.admin-stat-card-rejected .admin-stat-value {
+  color: var(--color-red);
+}
+
+@media (max-width: 768px) {
+  .admin-dashboard-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .admin-stat-value {
+    font-size: 36px;
+  }
+
+  .admin-stat-card {
+    padding: 16px;
+  }
+
+  .admin-stat-header {
+    margin-bottom: 12px;
+  }
+
+  .admin-stat-title {
+    font-size: 12px;
+  }
+
+  .admin-stat-icon {
+    font-size: 20px;
+  }
+}

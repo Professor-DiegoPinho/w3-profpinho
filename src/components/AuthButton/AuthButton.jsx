@@ -160,6 +160,28 @@ export default function AuthButton({ onNavigateStart }) {
               </span>
               <span className="user-dropdown-item-label">Meu perfil</span>
             </Link>
+
+            {session?.user?.role === "admin" && (
+              <Link
+                href="/admin"
+                className="user-dropdown-item"
+                onClick={() => {
+                  onNavigateStart?.("/admin");
+                  handleMenuItemClick();
+                }}
+                role="menuitem"
+              >
+                <span className="user-dropdown-item-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L4 5V11C4 16.55 8.07 21.2 12 22.97C15.93 21.2 20 16.55 20 11V5L12 2Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 10V14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M9 11H15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+                <span className="user-dropdown-item-label">Admin</span>
+              </Link>
+            )}
+
             <button
               type="button"
               className="user-dropdown-item"
