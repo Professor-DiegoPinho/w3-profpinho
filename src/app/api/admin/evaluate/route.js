@@ -17,6 +17,7 @@ export async function POST(request) {
     const attemptIndex = parseInt(formData.get("attemptIndex"), 10);
     const courseSlug = formData.get("courseSlug");
     const action = formData.get("action");
+    const evaluationFeedback = formData.get("evaluationFeedback");
 
     if (!userId || !submissionId || attemptIndex === null || !courseSlug || !action) {
       return NextResponse.json(
@@ -65,9 +66,14 @@ export async function POST(request) {
     const updatedAttempts = [...attempts];
     updatedAttempts[attemptIndex] = {
       ...updatedAttempts[attemptIndex],
-      evaluationStatus: action === "approve" ? "approved" : "rejected",
+      status: action === "approve" ? "approved" : "rejected",
       evaluatedAt: new Date(),
     };
+
+    // Adicionar feedback se foi preenchido
+    if (evaluationFeedback && typeof evaluationFeedback === "string" && evaluationFeedback.trim().length > 0) {
+      updatedAttempts[attemptIndex].evaluationFeedback = evaluationFeedback.trim();
+    }
 
     await submissionRef.update({
       attempts: updatedAttempts,

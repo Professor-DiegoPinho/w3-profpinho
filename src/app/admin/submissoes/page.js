@@ -19,8 +19,10 @@ function serializeAttempt(attempt) {
     id: attempt.id ?? null,
     url: attempt.url ?? null,
     platform: attempt.platform ?? null,
+    feedback: attempt.feedback ?? null,
     submittedAt: convertTimestamp(attempt.submittedAt),
-    evaluationStatus: attempt.evaluationStatus ?? null,
+    status: attempt.status ?? null,
+    evaluationFeedback: attempt.evaluationFeedback ?? null,
     evaluatedAt: convertTimestamp(attempt.evaluatedAt),
   };
 }
@@ -150,9 +152,9 @@ export default async function SubmissoesPage() {
                       </a>
                     </td>
                     <td>
-                      {item.attempt?.evaluationStatus ? (
-                        <span className={`admin-status-badge admin-status-${item.attempt.evaluationStatus}`}>
-                          {item.attempt.evaluationStatus === "approved" ? "✓ Aprovado" : "✕ Reprovado"}
+                      {item.attempt?.status && item.attempt.status !== "pending" ? (
+                        <span className={`admin-status-badge admin-status-${item.attempt.status}`}>
+                          {item.attempt.status === "approved" ? "✓ Aprovado" : "✕ Reprovado"}
                         </span>
                       ) : (
                         <a href={`#${modalId}`} className="admin-evaluate-button">
@@ -213,12 +215,32 @@ export default async function SubmissoesPage() {
                 </p>
               </div>
 
+              {item.attempt?.feedback && (
+                <div className="admin-modal-student-feedback">
+                  <h3 className="admin-modal-feedback-title">Feedback do Aluno</h3>
+                  <p className="admin-modal-feedback-text">{item.attempt.feedback}</p>
+                </div>
+              )}
+
               <div className="admin-modal-actions">
                 <form action="/api/admin/evaluate" method="POST" style={{ width: "100%" }}>
                   <input type="hidden" name="userId" value={item.userId} />
                   <input type="hidden" name="submissionId" value={item.submissionId} />
                   <input type="hidden" name="attemptIndex" value={item.attemptIndex} />
                   <input type="hidden" name="courseSlug" value={item.courseSlug} />
+                  
+                  <div className="admin-modal-feedback-group">
+                    <label htmlFor={`feedback-${item.userId}-${item.submissionId}`} className="admin-modal-feedback-label">
+                      Comentários sobre a avaliação (opcional)
+                    </label>
+                    <textarea
+                      id={`feedback-${item.userId}-${item.submissionId}`}
+                      name="evaluationFeedback"
+                      className="admin-modal-feedback-textarea"
+                      rows="4"
+                      placeholder="Digite seus comentários sobre o projeto entregue..."
+                    ></textarea>
+                  </div>
                   
                   <div className="admin-modal-button-group">
                     <button

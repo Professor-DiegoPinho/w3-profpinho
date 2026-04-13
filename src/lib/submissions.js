@@ -7,9 +7,10 @@ import { FieldValue } from "firebase-admin/firestore";
  * @param {string} courseSlug - Slug do curso
  * @param {string} submissionUrl - URL da entrega
  * @param {string} platform - Plataforma detectada
+ * @param {string|null} feedback - Comentários opcionais sobre o projeto
  * @returns {object} - Dados da submissão criada
  */
-export async function submitProjectUrl(userId, courseSlug, submissionUrl, platform) {
+export async function submitProjectUrl(userId, courseSlug, submissionUrl, platform, feedback = null) {
   if (!userId || !courseSlug || !submissionUrl) {
     throw new Error("userId, courseSlug e submissionUrl são obrigatórios.");
   }
@@ -30,7 +31,13 @@ export async function submitProjectUrl(userId, courseSlug, submissionUrl, platfo
     platform: platform || "Outro",
     submittedAt: new Date().toISOString(),
     id: `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    status: "pending", // pending | reviewed | approved | rejected
   };
+
+  // Adicionar feedback apenas se for uma string não vazia
+  if (typeof feedback === "string" && feedback.length > 0) {
+    newSubmission.feedback = feedback;
+  }
 
   const updatedAttempts = [...attempts, newSubmission];
 
@@ -42,6 +49,8 @@ export async function submitProjectUrl(userId, courseSlug, submissionUrl, platfo
     },
     { merge: true }
   );
+
+  console.log(`✓ Submission saved - Feedback:`, newSubmission.feedback || "(sem feedback)");
 
   return {
     submission: newSubmission,
@@ -75,7 +84,8 @@ function serializeSubmissionData(submissionData) {
         if (value && typeof value === "object" && value._seconds !== undefined) {
           result[key] = new Date(value._seconds * 1000).toISOString();
         } else {
-          result[key] = value || null;
+          // Preservar o valor como está (incluindo strings vazias, false, 0, etc)
+          result[key] = value !== null && value !== undefined ? value : null;
         }
       }
       return result;

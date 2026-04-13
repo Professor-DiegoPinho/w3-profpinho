@@ -247,8 +247,69 @@
   text-decoration: underline;
 }
 
+.admin-modal-student-feedback {
+  background-color: rgba(33, 150, 243, 0.05);
+  border: 1px solid rgba(33, 150, 243, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-modal-feedback-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1976d2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 0;
+}
+
+.admin-modal-feedback-text {
+  font-size: 13px;
+  color: var(--color-text-light-black);
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .admin-modal-actions {
   margin-bottom: 20px;
+}
+
+.admin-modal-feedback-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.admin-modal-feedback-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-black);
+}
+
+.admin-modal-feedback-textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 13px;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 6px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.admin-modal-feedback-textarea:focus {
+  outline: none;
+  border-color: var(--color-dark-blue);
+  box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.1);
+}
+
+.admin-modal-feedback-textarea::placeholder {
+  color: var(--color-text-light-black);
 }
 
 .admin-modal-button-group {

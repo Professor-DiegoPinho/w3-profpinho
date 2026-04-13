@@ -41,11 +41,11 @@ async function getSubmissionStats() {
         }
 
         attempts.forEach((attempt) => {
-          if (!attempt.evaluationStatus) {
+          if (!attempt.status || attempt.status === "pending") {
             pendingEvaluations++;
-          } else if (attempt.evaluationStatus === "approved") {
+          } else if (attempt.status === "approved") {
             approved++;
-          } else if (attempt.evaluationStatus === "rejected") {
+          } else if (attempt.status === "rejected") {
             rejected++;
           }
         });
