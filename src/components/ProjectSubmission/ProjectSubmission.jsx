@@ -34,6 +34,8 @@ export default function ProjectSubmission({
   const [submitCheckLoading, setSubmitCheckLoading] = useState(true);
   const [missingLessons, setMissingLessons] = useState([]);
   const [hasPendingSubmission, setHasPendingSubmission] = useState(false);
+  const [hasApprovedSubmission, setHasApprovedSubmission] = useState(false);
+  const [approvedSubmission, setApprovedSubmission] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [pendingSubmission, setPendingSubmission] = useState(null);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
@@ -46,6 +48,15 @@ export default function ProjectSubmission({
   useEffect(() => {
     const pendingExists = Array.isArray(submissions) && submissions.some((sub) => sub.status === "pending");
     setHasPendingSubmission(pendingExists);
+  }, [submissions]);
+
+  // Verificar se há submissão aprovada
+  useEffect(() => {
+    const approved = Array.isArray(submissions) && submissions.find((sub) => sub.status === "approved");
+    setHasApprovedSubmission(!!approved);
+    if (approved) {
+      setApprovedSubmission(approved);
+    }
   }, [submissions]);
 
   useEffect(() => {
@@ -74,7 +85,6 @@ export default function ProjectSubmission({
     checkSubmitPermission();
   }, [courseSlug]);
 
-  // Fechar modal com ESC ou clique fora
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -134,10 +144,8 @@ export default function ProjectSubmission({
     setError("");
     setSuccessMessage("");
 
-    // Preparar o feedback: remover espaços em branco e converter vazios em null
     const trimmedFeedback = feedback.trim();
 
-    // Mostrar modal de confirmação
     setPendingSubmission({
       url,
       platform: validation.platform || "Outro",
@@ -208,9 +216,21 @@ export default function ProjectSubmission({
       case "pending":
         return "⏳";
       case "approved":
-        return "✓";
+        return (
+          <img
+            src="/icons/ic_approved.svg"
+            alt="Aprovado"
+            className="project-submission-status-icon-img"
+          />
+        );
       case "rejected":
-        return "✗";
+        return (
+          <img
+            src="/icons/ic_rejected.svg"
+            alt="Reprovado"
+            className="project-submission-status-icon-img"
+          />
+        );
       default:
         return "•";
     }
@@ -300,7 +320,26 @@ export default function ProjectSubmission({
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="project-submission-form">
+        {hasApprovedSubmission && (
+          <div className="project-submission-success-message">
+            <div className="project-submission-success-message-header">
+              <img
+                src="/icons/ic_approved.svg"
+                alt="Aprovado"
+                className="project-submission-success-message-icon"
+              />
+              <p className="project-submission-success-message-title">
+                Projeto Aprovado
+              </p>
+            </div>
+            <p className="project-submission-success-message-description">
+              Parabéns! Seu projeto foi aprovado. Você não pode mais enviar novas versões.
+            </p>
+          </div>
+        )}
+
+        {!hasApprovedSubmission && (
+          <form onSubmit={handleSubmit} className="project-submission-form">
           <div className="project-submission-form-group">
             <div className="project-submission-input-wrapper">
               <input
@@ -369,6 +408,7 @@ export default function ProjectSubmission({
             )}
           </button>
         </form>
+        )}
 
         {submissions.length > 0 && (
           <div className="project-submission-history">
@@ -376,7 +416,7 @@ export default function ProjectSubmission({
               Histórico de entregas ({submissions.length})
             </h4>
             <ul className="project-submission-list">
-              {submissions.map((submission) => (
+              {[...submissions].reverse().map((submission) => (
                 <li
                   key={submission.id}
                   className="project-submission-item"
@@ -389,7 +429,7 @@ export default function ProjectSubmission({
                     }
                   }}
                 >
-                  <div className="project-submission-item-status-badge">
+                  <div className={`project-submission-item-status-badge project-submission-item-status-badge-${submission.status}`}>
                     <span className="project-submission-item-status-icon">
                       {getStatusIcon(submission.status)}
                     </span>
@@ -418,7 +458,7 @@ export default function ProjectSubmission({
                       </p>
                     )}
                   </div>
-                  <div className="project-submission-item-status-label">
+                  <div className={`project-submission-item-status-label project-submission-item-status-label-${submission.status}`}>
                     {getStatusText(submission.status)}
                   </div>
                 </li>
@@ -519,7 +559,7 @@ export default function ProjectSubmission({
               <div className="project-submission-details-content">
                 <div className="project-submission-details-section">
                   <h4 className="project-submission-details-section-title">Status</h4>
-                  <div className="project-submission-details-status">
+                  <div className={`project-submission-details-status project-submission-details-status-${selectedSubmission.status}`}>
                     <span className="project-submission-details-status-icon">
                       {getStatusIcon(selectedSubmission.status)}
                     </span>

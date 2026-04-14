@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-  <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15" />
+  <circle cx="12" cy="12" r="10" fill="#d32f2f" opacity="0.15" />
   <path
-    d="M7 12.5L10.5 16L17 9"
+    d="M8 8L16 16M16 8L8 16"
     fill="none"
-    stroke="currentColor"
+    stroke="#d32f2f"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"

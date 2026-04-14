@@ -1,0 +1,11 @@
+<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+  <circle cx="12" cy="12" r="10" fill="#2e7d32" opacity="0.15" />
+  <path
+    d="M7 12.5L10.5 16L17 9"
+    fill="none"
+    stroke="#2e7d32"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+</svg>
