@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import AvatarImage from "@/components/AvatarImage/AvatarImage";
+import CertificatesSection from "@/components/CertificatesSection";
 import ProfileConnectButton from "@/components/ProfileConnectButton/ProfileConnectButton";
 import { content } from "@/data";
 import {
@@ -262,10 +263,7 @@ export default async function MyProfilePage() {
         </article>
 
         <article className="profile-card">
-          <h2>Certificados</h2>
-          <p className="profile-coming-soon-note">
-            Nenhum certificado até o momento.
-          </p>
+          <CertificatesSection />
         </article>
 
         <article className="profile-card">

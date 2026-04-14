@@ -75,6 +75,44 @@ export async function POST(request) {
       updatedAttempts[attemptIndex].evaluationFeedback = evaluationFeedback.trim();
     }
 
+    // NOVO: Se aprovou, gerar certificado automaticamente
+    if (action === "approve") {
+      try {
+        // Chamar API de geração de certificado
+        const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+        const certificateResponse = await fetch(
+          `${baseUrl}/api/admin/certificates/generate`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // Passar o token de admin se necessário
+              Cookie: request.headers.get("cookie") || "",
+            },
+            body: JSON.stringify({
+              userId,
+              courseSlug,
+              submissionId,
+            }),
+          }
+        );
+
+        if (certificateResponse.ok) {
+          const certData = await certificateResponse.json();
+          console.log("Certificado gerado com sucesso:", certData);
+          // Atualizar a submissão com o ID do certificado
+          if (certData.certificate?.certificateId) {
+            updatedAttempts[attemptIndex].certificateId = certData.certificate.certificateId;
+          }
+        } else {
+          console.error("Erro ao gerar certificado:", await certificateResponse.text());
+        }
+      } catch (certError) {
+        // Não faça falhar a aprovação se houver erro na geração do certificado
+        console.error("Erro ao chamar API de geração de certificado:", certError);
+      }
+    }
+
     await submissionRef.update({
       attempts: updatedAttempts,
     });

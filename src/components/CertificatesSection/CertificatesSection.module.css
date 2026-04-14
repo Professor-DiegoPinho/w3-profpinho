@@ -1,0 +1,176 @@
+.container {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title::before {
+  content: "🎓";
+  font-size: 1.5rem;
+}
+
+.loading,
+.empty {
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  border-left: 4px solid #f39c12;
+}
+
+.certificatesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.certificateCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 5px solid #e74c3c;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.certificateCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.certificateInfo {
+  margin-bottom: 1rem;
+}
+
+.courseName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.courseDetails {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.courseDetails strong {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.generatedDate {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+}
+
+.generatedDate strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.certificateId {
+  font-size: 0.85rem;
+  color: #999;
+  word-break: break-all;
+}
+
+.certificateId code {
+  background: #f5f5f5;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: "Courier New", monospace;
+  color: #333;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.downloadBtn,
+.copyBtn {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.downloadBtn {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+}
+
+.downloadBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+.downloadBtn:active {
+  transform: scale(0.98);
+}
+
+.copyBtn {
+  background: #ecf0f1;
+  color: #333;
+  border: 1px solid #bdc3c7;
+}
+
+.copyBtn:hover {
+  background: #d5dbdb;
+  border-color: #95a5a6;
+}
+
+.copyBtn.copied {
+  background: #27ae60;
+  color: white;
+  border-color: #27ae60;
+}
+
+@media (max-width: 768px) {
+  .certificatesList {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .downloadBtn,
+  .copyBtn {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+}
