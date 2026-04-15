@@ -17,7 +17,14 @@ export async function generateCertificatePDF(certificateData) {
 
   try {
     // Converter data para formato dd/mm/YYYY
-    const generatedDate = new Date(certificateData.generatedAt);
+    // Se for um Timestamp do Firebase, converter com .toDate()
+    let generatedDate = certificateData.generatedAt;
+    if (generatedDate?.toDate && typeof generatedDate.toDate === 'function') {
+      generatedDate = generatedDate.toDate();
+    } else {
+      generatedDate = new Date(generatedDate);
+    }
+    
     const day = String(generatedDate.getDate()).padStart(2, "0");
     const month = String(generatedDate.getMonth() + 1).padStart(2, "0");
     const year = generatedDate.getFullYear();

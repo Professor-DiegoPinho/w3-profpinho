@@ -161,7 +161,7 @@ export async function validateAndGetCertificate(certificateId) {
       studentName: foundCertificate.studentName,
       courseName: foundCertificate.courseName,
       workloadHours: foundCertificate.workloadHours,
-      generatedAt: foundCertificate.generatedAt,
+      generatedAt: foundCertificate.generatedAt?.toDate?.() || foundCertificate.generatedAt,
     };
   } catch (error) {
     console.error("Erro ao validar certificado:", error);

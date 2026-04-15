@@ -47,7 +47,7 @@ export async function POST(request) {
       courseName,
       workloadHours,
       certificateId: certificate.certificateId,
-      generatedAt: certificate.generatedAt,
+      generatedAt: certificate.generatedAt?.toDate?.() || certificate.generatedAt,
     });
 
     // Salvar PDF em Firebase Storage (opcional - agora apenas retorna o certificado criado)

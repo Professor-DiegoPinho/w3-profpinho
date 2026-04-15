@@ -59,7 +59,7 @@ export async function GET(request, { params }) {
       courseName: certificate.courseName,
       workloadHours: certificate.workloadHours,
       certificateId: certificate.certificateId,
-      generatedAt: certificate.generatedAt,
+      generatedAt: certificate.generatedAt?.toDate?.() || certificate.generatedAt,
     });
 
     // Retornar PDF para download

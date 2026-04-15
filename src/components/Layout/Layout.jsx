@@ -79,7 +79,8 @@ export default function Layout({ children }) {
   const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
   const resolvedCurrentSlug = pathname.split('/').filter(Boolean)[1];
   const hasSidebarContent = Boolean(resolvedCurrentCategory);
-  const shouldShowSidebar = Boolean(resolvedCurrentCategory && resolvedCurrentSlug);
+  const routesWithoutSidebar = ['validar-certificado', 'meu-perfil', 'search', 'admin'];
+  const shouldShowSidebar = Boolean(resolvedCurrentCategory && resolvedCurrentSlug && !routesWithoutSidebar.includes(resolvedCurrentCategory));
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
