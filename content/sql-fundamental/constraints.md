@@ -9,8 +9,6 @@ order: 4
 
 # Compilado(s)
 
-# 📚 Compilado
-
 ## Constraints (Restrições)
 
 Aprendemos como criar tabelas e inserir valores dentro delas. Mas como garantir que isso não vire uma bagunça?

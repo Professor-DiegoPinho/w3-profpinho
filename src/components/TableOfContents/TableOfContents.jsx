@@ -14,10 +14,10 @@ export default function TableOfContents({ content, title }) {
   // Extract headings from markdown content
   useEffect(() => {
     const contentWithTitle = title ? `# ${title}\n\n${content}` : content;
-    
+
     // Remove code blocks (between ``` markers) to avoid treating # comments as headings
     const contentWithoutCodeBlocks = contentWithTitle.replace(/```[\s\S]*?```/g, '');
-    
+
     const headingRegex = /^(#{1,4})\s+(.+)$/gm;
     const matches = [];
     let match;
@@ -84,7 +84,7 @@ export default function TableOfContents({ content, title }) {
       const headerHeight = 70;
       const offset = 20;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      
+
       window.scrollTo({
         top: elementPosition - headerHeight - offset,
         behavior: 'smooth',
@@ -165,20 +165,19 @@ export default function TableOfContents({ content, title }) {
       </button>
 
       {/* TOC Container with Slide Animation */}
-      <nav 
+      <nav
         ref={tocRef}
-        className={`table-of-contents ${isOpen ? 'open' : ''}`} 
+        className={`table-of-contents ${isOpen ? 'open' : ''}`}
         aria-label="Tabela de conteúdos"
       >
         <div className="toc-container">
           <h3 className="toc-title">Nesta página</h3>
           <ul className="toc-list">
-            {headings.map((heading) => (
+            {headings.map((heading, index) => (
               <li
-                key={heading.id}
-                className={`toc-item toc-level-${heading.level} ${
-                  activeId === heading.id ? 'active' : ''
-                }`}
+                key={heading.id + '-' + index}
+                className={`toc-item toc-level-${heading.level} ${activeId === heading.id ? 'active' : ''
+                  }`}
               >
                 <button
                   onClick={() => handleLinkClick(heading.id)}
