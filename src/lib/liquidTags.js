@@ -153,7 +153,7 @@ function processLinksTags(content) {
       return body.trim();
     }
 
-    return `<section class="content-links-block">\n  <h3 class="content-links-heading">🔗 ${sectionTitle}</h3>\n  <div class="content-links-grid">\n${cards.join('\n')}\n  </div>\n</section>`;
+    return `<section class="content-links-block">\n  <h1 class="content-links-heading">${sectionTitle}</h3>\n  <div class="content-links-grid">\n${cards.join('\n')}\n  </div>\n</section>`;
   });
 }
 
