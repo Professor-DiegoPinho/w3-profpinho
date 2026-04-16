@@ -13,7 +13,7 @@ import {
 } from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { generateId } from '@/lib/generateId';
-import { getAllPosts, getCategoryTitle, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
+import { getAllPosts, getCategoryTitle, getCourseLessonsCount, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
 import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
 import { getProjectSubmissions } from '@/lib/submissions';
 import { notFound, redirect } from 'next/navigation';
@@ -61,7 +61,7 @@ export default async function PostPage({ params }) {
     contentAccessType === CONTENT_TYPE.PAID_COURSE;
 
   const allLessons = getPostsInCategory(category);
-  const totalLessons = allLessons.length;
+  const totalLessons = getCourseLessonsCount(category);
 
   const progressData = userId
     ? await getLessonProgress(userId, category)
@@ -99,10 +99,21 @@ export default async function PostPage({ params }) {
 
       <div className="post-body">
         <TableOfContents content={post.content} title={post.title} />
-        <MarkdownContent content={post.content} title={post.title} />
+        {hasLessonAccess ? (
+          <MarkdownContent content={post.content} title={post.title} />
+        ) : (
+          <div style={{ padding: '20px 0', textAlign: 'center', color: '#666' }}>
+            <p>Esta aula está disponível apenas para alunos inscritos no curso.</p>
+            <p>
+              <a href={`/${category}`} style={{ color: 'var(--color-red)', textDecoration: 'none' }}>
+                Volte para a página do curso para se inscrever
+              </a>
+            </p>
+          </div>
+        )}
       </div>
 
-      {userId && isCourseContent && slug === 'projeto' ? (
+      {userId && hasLessonAccess && isCourseContent && slug === 'projeto' ? (
         <div className="lesson-completion">
           <ProjectSubmission
             courseSlug={category}
@@ -110,7 +121,7 @@ export default async function PostPage({ params }) {
             initialSubmissions={projectSubmissions}
           />
         </div>
-      ) : userId && isCourseContent ? (
+      ) : userId && hasLessonAccess && isCourseContent ? (
         <div className="lesson-completion">
           <MarkLesson
             courseSlug={category}

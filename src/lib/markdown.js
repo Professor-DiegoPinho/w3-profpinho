@@ -119,6 +119,13 @@ export function getPostsInCategory(category) {
   return posts.sort((a, b) => a.order - b.order);
 }
 
+// Conta o número de aulas de um curso, excluindo projeto.md
+export function getCourseLessonsCount(category) {
+  const posts = getPostsInCategory(category);
+  // Filtra o arquivo projeto.md para não contar como uma aula
+  return posts.filter(post => post.slug !== 'projeto').length;
+}
+
 // Get a specific post by category and slug
 export function getPost(category, slug) {
   const filePath = path.join(contentDirectory, category, `${slug}.md`);

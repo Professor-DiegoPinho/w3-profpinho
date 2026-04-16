@@ -1,14 +1,12 @@
 import {
   Body,
   Button,
-  Column,
   Container,
   Head,
   Heading,
   Html,
   Link,
   Preview,
-  Row,
   Section,
   Text,
 } from '@react-email/components';
@@ -70,32 +68,9 @@ export default function EvaluationResultsEmail({
 
             {/* Info Box */}
             <Section style={infoBox}>
-              <Row>
-                <Column style={infoColumn}>
-                  <Text style={infoLabel}>Curso:</Text>
-                </Column>
-                <Column style={infoColumn}>
-                  <Text style={infoValue}>{courseName}</Text>
-                </Column>
-              </Row>
-
-              <Row>
-                <Column style={infoColumn}>
-                  <Text style={infoLabel}>Projeto:</Text>
-                </Column>
-                <Column style={infoColumn}>
-                  <Text style={infoValue}>{projectName}</Text>
-                </Column>
-              </Row>
-
-              <Row>
-                <Column style={infoColumn}>
-                  <Text style={infoLabel}>Data da Avaliação:</Text>
-                </Column>
-                <Column style={infoColumn}>
-                  <Text style={infoValue}>{evaluationDate}</Text>
-                </Column>
-              </Row>
+              <Text style={infoText}><strong>Curso:</strong> {courseName}</Text>
+              <Text style={infoText}><strong>Projeto:</strong> {projectName}</Text>
+              <Text style={infoText}><strong>Data da Avaliação:</strong> {evaluationDate}</Text>
             </Section>
 
             {/* Feedback Section */}
@@ -237,24 +212,11 @@ const infoBox = {
   marginBottom: '24px',
 };
 
-const infoColumn = {
-  paddingRight: '12px',
-};
-
-const infoLabel = {
-  fontSize: '12px',
-  color: '#F34C61',
-  fontWeight: '700',
-  textTransform: 'uppercase',
-  letterSpacing: '0.3px',
-  margin: '0',
-};
-
-const infoValue = {
+const infoText = {
   fontSize: '14px',
-  color: '#333333',
-  fontWeight: '500',
-  margin: '0',
+  color: '#2A2836',
+  margin: '4px 0',
+  lineHeight: '1.5',
 };
 
 const feedbackSection = {

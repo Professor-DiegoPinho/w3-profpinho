@@ -104,7 +104,24 @@
   color: inherit;
 }
 
-.course-lesson-link:hover .course-lesson-title {
+.course-lesson-button {
+  display: flex;
+  align-items: center;
+  gap: inherit;
+  width: 100%;
+  background: none;
+  border: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: left;
+  padding: 0;
+}
+
+.course-lesson-link:hover .course-lesson-title,
+.course-lesson-button:hover .course-lesson-title {
   color: var(--color-red);
 }
 
@@ -116,7 +133,8 @@
   transition: transform 0.15s ease;
 }
 
-.course-lesson-link:hover .course-lesson-arrow {
+.course-lesson-link:hover .course-lesson-arrow,
+.course-lesson-button:hover .course-lesson-arrow {
   transform: translateX(2px);
   color: var(--color-red);
 }

@@ -1,4 +1,6 @@
 import { requireAdmin } from "@/lib/adminAuth";
+import { getCourse } from "@/lib/courseAccess";
+import { sendEvaluationCompletedEmail } from "@/lib/emails";
 import { adminDb } from "@/lib/firebaseAdmin";
 import { NextResponse } from "next/server";
 
@@ -116,6 +118,36 @@ export async function POST(request) {
     await submissionRef.update({
       attempts: updatedAttempts,
     });
+
+    // Send evaluation completed email notification
+    try {
+      // Get user data for email
+      const userDoc = await adminDb.collection("users").doc(userId).get();
+      
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        const userEmail = userData.email;
+        const studentName = userData.name || userData.email;
+        
+        // Get course information from content data
+        const course = getCourse(courseSlug);
+        const courseName = course?.title || courseSlug;
+        const completionDate = new Date().toLocaleDateString('pt-BR');
+        
+        // Send email notification
+        await sendEvaluationCompletedEmail({
+          recipientEmail: userEmail,
+          studentName,
+          courseName,
+          completionDate,
+        });
+        
+        console.log(`✓ Email notificação de avaliação enviado para ${userEmail}`);
+      }
+    } catch (emailError) {
+      // Log error but don't fail the evaluation
+      console.error("Erro ao enviar email de notificação:", emailError);
+    }
 
     // Redirect back to submissions page to see updated status
     return NextResponse.redirect(

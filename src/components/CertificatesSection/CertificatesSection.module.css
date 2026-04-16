@@ -153,6 +153,15 @@
   border-color: #27ae60;
 }
 
+.buttonIcon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  color: currentColor;
+}
+
 @media (max-width: 768px) {
   .certificatesList {
     grid-template-columns: 1fr;

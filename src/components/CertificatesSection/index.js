@@ -113,14 +113,40 @@ export default function CertificatesSection() {
                 onClick={() => handleDownload(cert.id)}
                 title="Baixar certificado em PDF"
               >
-                📥 Baixar PDF
+                <img 
+                  src="/icons/ic_download.svg" 
+                  alt="Baixar" 
+                  className={styles.buttonIcon}
+                  aria-hidden="true"
+                />
+                Baixar PDF
               </button>
               <button
                 className={`${styles.copyBtn} ${copiedId === cert.id ? styles.copied : ""}`}
                 onClick={() => handleCopyLink(cert.id)}
                 title="Copiar link de validação"
               >
-                {copiedId === cert.id ? "✓ Copiado!" : "🔗 Copiar Link"}
+                {copiedId === cert.id ? (
+                  <>
+                    <img 
+                      src="/icons/ic_checkmark.svg" 
+                      alt="Copiado" 
+                      className={styles.buttonIcon}
+                      aria-hidden="true"
+                    />
+                    Copiado!
+                  </>
+                ) : (
+                  <>
+                    <img 
+                      src="/icons/ic_copy.svg" 
+                      alt="Copiar" 
+                      className={styles.buttonIcon}
+                      aria-hidden="true"
+                    />
+                    Copiar Link
+                  </>
+                )}
               </button>
             </div>
           </div>

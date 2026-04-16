@@ -1,3 +1,4 @@
+import { getCourse } from '@/lib/courseAccess';
 import { sendEvaluationResultsEmail } from '@/lib/emails';
 import { NextResponse } from 'next/server';
 
@@ -33,7 +34,8 @@ export async function POST(request) {
     const { 
       recipientEmail, 
       studentName, 
-      courseName, 
+      courseName,
+      courseSlug,
       projectName, 
       evaluationDate, 
       score, 
@@ -133,11 +135,20 @@ export async function POST(request) {
       );
     }
 
+    // Get correct course name from courseSlug if provided
+    let finalCourseName = courseName;
+    if (courseSlug) {
+      const course = getCourse(courseSlug);
+      if (course?.title) {
+        finalCourseName = course.title;
+      }
+    }
+
     // Send the email
     const result = await sendEvaluationResultsEmail({
       recipientEmail,
       studentName,
-      courseName,
+      courseName: finalCourseName,
       projectName,
       evaluationDate,
       score: scoreNum,

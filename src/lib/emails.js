@@ -1,3 +1,4 @@
+import EvaluationCompletedEmail from '@/components/emails/EvaluationCompletedEmail';
 import EvaluationResultsEmail from '@/components/emails/EvaluationResultsEmail';
 import ProjectSubmissionEmail from '@/components/emails/ProjectSubmissionEmail';
 import { render } from '@react-email/components';
@@ -157,6 +158,69 @@ export async function sendEvaluationResultsEmail({
 }
 
 /**
+ * Send evaluation completed notification email
+ * @param {Object} params - Email parameters
+ * @param {string} params.recipientEmail - Recipient email address
+ * @param {string} params.studentName - Student name
+ * @param {string} params.courseName - Course name
+ * @param {string} params.completionDate - Completion date
+ * @returns {Promise<Object>} Resend response
+ */
+export async function sendEvaluationCompletedEmail({
+  recipientEmail,
+  studentName,
+  courseName,
+  completionDate,
+}) {
+  try {
+    if (!recipientEmail) {
+      throw new Error('Recipient email is required');
+    }
+
+    // Render React Email component to HTML
+    const emailHtml = await render(
+      <EvaluationCompletedEmail
+        studentName={studentName}
+        courseName={courseName}
+        completionDate={completionDate}
+      />,
+      {
+        pretty: true,
+      }
+    );
+
+    const response = await resend.emails.send({
+      from: `${EMAIL_CONFIG.FROM_NAME} <${EMAIL_CONFIG.FROM_EMAIL}>`,
+      to: recipientEmail,
+      subject: `✓ Avaliação finalizada - ${courseName}`,
+      html: emailHtml,
+      replyTo: 'support@profpinho.com',
+    });
+
+    if (response.error) {
+      console.error('Email sending error:', response.error);
+      throw new Error(`Failed to send email: ${response.error.message}`);
+    }
+
+    console.log(`✓ Evaluation completed email sent to ${recipientEmail}`, {
+      emailId: response.data.id,
+      studentName,
+      courseName,
+      timestamp: new Date().toISOString(),
+    });
+
+    return response;
+  } catch (error) {
+    console.error('❌ Error sending evaluation completed email:', {
+      recipientEmail,
+      error: error.message,
+      timestamp: new Date().toISOString(),
+    });
+    throw error;
+  }
+}
+
+/**
  * Send batch emails (for administrative purposes)
  * @param {Array<Object>} emails - Array of email objects with type and params
  * @returns {Promise<Array>} Array of responses
@@ -199,6 +263,7 @@ export async function sendBatchEmails(emails) {
 const emailExports = {
   sendProjectSubmissionEmail,
   sendEvaluationResultsEmail,
+  sendEvaluationCompletedEmail,
   sendBatchEmails,
 };
 

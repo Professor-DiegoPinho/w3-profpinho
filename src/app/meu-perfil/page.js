@@ -8,7 +8,7 @@ import {
   getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import { adminDb } from "@/lib/firebaseAdmin";
-import { getCategoryTitle, getPostsInCategory } from "@/lib/markdown";
+import { getCategoryTitle, getCourseLessonsCount, getPostsInCategory } from "@/lib/markdown";
 import { getLessonProgress } from "@/lib/progress";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -95,6 +95,13 @@ export default async function MyProfilePage() {
       const enrolledAt = await getCourseEnrollmentDate(userId, courseId);
       const progressData = await getLessonProgress(userId, courseId);
       const courseLessons = getPostsInCategory(courseId);
+      const correctTotalLessons = getCourseLessonsCount(courseId);
+      
+      // Recalcular a porcentagem com o totalLessons correto (excluindo projeto.md)
+      const completedLessons = progressData?.completedLessons?.length ?? 0;
+      const correctPercentage = correctTotalLessons > 0 
+        ? Math.round((completedLessons / correctTotalLessons) * 100)
+        : 0;
       
       const completedSlugs = progressData?.completedLessons ?? [];
       const nextLesson = courseLessons.find(
@@ -106,7 +113,11 @@ export default async function MyProfilePage() {
         id: courseId,
         title: resolveCourseLabel(courseId),
         enrolledAt,
-        progress: progressData,
+        progress: {
+          ...progressData,
+          totalLessons: correctTotalLessons,
+          completionPercentage: correctPercentage,
+        },
         nextLessonSlug,
       };
     }),
@@ -243,7 +254,7 @@ export default async function MyProfilePage() {
                     )}
                   </div>
                   <Link href={`/${course.id}${course.nextLessonSlug ? `/${course.nextLessonSlug}` : ''}`} className="profile-course-link" aria-label={`Acessar curso ${course.title}`}>
-                    Continuar curso
+                    {course.progress?.completionPercentage === 100 ? 'Acessar curso' : 'Continuar curso'}
                   </Link>
                 </li>
               ))}

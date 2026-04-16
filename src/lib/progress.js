@@ -1,4 +1,5 @@
 import { adminDb } from "@/lib/firebaseAdmin";
+import { getCourseLessonsCount } from "@/lib/markdown";
 import { FieldValue } from "firebase-admin/firestore";
 
 export async function getLessonProgress(userId, courseSlug) {
@@ -52,7 +53,9 @@ export async function toggleLessonComplete(
     ? completed.filter((s) => s !== lessonSlug)
     : [...completed, lessonSlug];
 
-  const total = totalLessons || data.totalLessons || newCompleted.length;
+  // Sempre calcular o total correto usando getCourseLessonsCount
+  // Isso garante que excluamos projeto.md da contagem, mesmo de dados antigos
+  const total = getCourseLessonsCount(courseSlug);
   const percentage =
     total > 0 ? Math.round((newCompleted.length / total) * 100) : 0;
 

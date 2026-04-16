@@ -55,10 +55,17 @@ export async function generateCertificatePDF(certificateData) {
       waitUntil: "networkidle0",
     });
 
-    // Gerar PDF em formato A4 (paisagem, como certificado)
+    // A4 landscape em pixels a 96dpi: 1123 x 794
+    await page.setViewport({
+      width: 1123,
+      height: 794,
+      deviceScaleFactor: 2, // melhora a qualidade
+    });
+
+    // Gerar PDF usando as dimensões definidas no @page do CSS
     const pdfBuffer = await page.pdf({
-      format: "A4",
-      landscape: true,
+      preferCSSPageSize: true,
+      landscape: false,
       margin: {
         top: 0,
         right: 0,
