@@ -1,7 +1,8 @@
 import { courses } from "@/data/courses";
 import { requireAdmin } from "@/lib/adminAuth";
-import { createCertificate } from "@/lib/certificates";
+import { createCertificate, getCertificateByOrCourse, updateCertificatePdfUrl, uploadCertificatePDF } from "@/lib/certificates";
 import { adminDb } from "@/lib/firebaseAdmin";
+import { generateCertificatePDF } from "@/lib/pdf-generator";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -19,6 +20,19 @@ export async function POST(request) {
       return NextResponse.json(
         { error: "userId e courseSlug são obrigatórios" },
         { status: 400 }
+      );
+    }
+
+    // Verificar se já existe certificado para este curso
+    const existingCert = await getCertificateByOrCourse(userId, courseSlug);
+    if (existingCert) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Certificado para este curso já existe",
+          certificateId: existingCert.certificateId,
+        },
+        { status: 409 }
       );
     }
 
@@ -52,10 +66,40 @@ export async function POST(request) {
       submissionId: body.submissionId || null,
     });
 
+    console.log(`✓ Certificado criado: ${certificate.certificateId}`);
+
+    // Gerar PDF
+    const pdfBuffer = await generateCertificatePDF({
+      studentName,
+      courseName: course.title,
+      workloadHours: course.workloadHours,
+      certificateId: certificate.certificateId,
+      generatedAt: certificate.generatedAt?.toDate?.() || certificate.generatedAt,
+    });
+
+    console.log(`✓ PDF gerado com sucesso, tamanho: ${pdfBuffer.length} bytes`);
+
+    // Fazer upload do PDF para Firebase Storage
+    const pdfUrl = await uploadCertificatePDF(pdfBuffer, certificate.certificateId);
+    console.log(`✓ Upload do PDF concluído: ${pdfUrl}`);
+
+    // Atualizar certificado com a URL do PDF
+    await updateCertificatePdfUrl(userId, certificate.certificateId, pdfUrl);
+    console.log(`✓ Certificado atualizado com URL do PDF`);
+
+    console.log(`✓ Certificado gerado para ${studentName} - ${course.title}`);
+
     return NextResponse.json(
       {
         success: true,
-        certificate,
+        certificate: {
+          certificateId: certificate.certificateId,
+          studentName,
+          courseName: course.title,
+          workloadHours: course.workloadHours,
+          pdfUrl,
+          generatedAt: certificate.generatedAt,
+        },
         message: `Certificado gerado com sucesso para ${studentName}`,
       },
       { status: 201 }

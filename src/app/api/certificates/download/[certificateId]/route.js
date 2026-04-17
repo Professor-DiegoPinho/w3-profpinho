@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { adminDb } from "@/lib/firebaseAdmin";
-import { generateCertificatePDF } from "@/lib/pdf-generator";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
@@ -19,61 +18,87 @@ export async function GET(request, { params }) {
     // Obter sessão do usuário
     const session = await auth();
 
-    // Buscar em todos os usuários esse certificado (necessário para saber de quem é)
-    const usersRef = adminDb.collection("users");
-    const usersSnap = await usersRef.get();
+    // 1️⃣ Usar índice na coleção raiz para encontrar o usuário (1 leitura rápida)
+    const certIndexSnap = await adminDb
+      .collection("certificates")
+      .doc(certificateId)
+      .get();
 
-    let certificate = null;
-    let foundUserId = null;
-
-    for (const userDoc of usersSnap.docs) {
-      const certsRef = userDoc.ref.collection("certificates");
-      const certQuery = certsRef.where("certificateId", "==", certificateId);
-      const certSnap = await certQuery.get();
-
-      if (!certSnap.empty) {
-        certificate = certSnap.docs[0].data();
-        foundUserId = userDoc.id;
-        break;
-      }
-    }
-
-    if (!certificate) {
+    if (!certIndexSnap.exists) {
       return NextResponse.json(
         { error: "Certificado não encontrado" },
         { status: 404 }
       );
     }
 
+    const { userId: certificateOwnerId } = certIndexSnap.data();
+
+    // 2️⃣ Buscar dados completos do certificado
+    const certSnap = await adminDb
+      .collection("users")
+      .doc(certificateOwnerId)
+      .collection("certificates")
+      .doc(certificateId)
+      .get();
+
+    if (!certSnap.exists) {
+      return NextResponse.json(
+        { error: "Certificado não encontrado" },
+        { status: 404 }
+      );
+    }
+
+    const certificate = certSnap.data();
+
     // Verificar permissão: o usuário só pode baixar seu próprio certificado (ou admin)
-    if (session?.user?.id !== foundUserId && session?.user?.role !== "admin") {
+    if (session?.user?.id !== certificateOwnerId && session?.user?.role !== "admin") {
       return NextResponse.json(
         { error: "Sem permissão para acessar este certificado" },
         { status: 403 }
       );
     }
 
-    // Gerar PDF
-    const pdfBuffer = await generateCertificatePDF({
-      studentName: certificate.studentName,
-      courseName: certificate.courseName,
-      workloadHours: certificate.workloadHours,
-      certificateId: certificate.certificateId,
-      generatedAt: certificate.generatedAt?.toDate?.() || certificate.generatedAt,
-    });
+    // Verificar se o PDF foi gerado e salvo no Storage
+    if (!certificate.pdfUrl) {
+      return NextResponse.json(
+        { error: "PDF do certificado ainda não foi gerado" },
+        { status: 404 }
+      );
+    }
 
-    // Retornar PDF para download
-    return new NextResponse(pdfBuffer, {
-      status: 200,
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="certificado-${certificate.certificateId}.pdf"`,
-      },
-    });
+    // Fazer proxy do PDF do Firebase Storage para evitar CORS
+    try {
+      const pdfResponse = await fetch(certificate.pdfUrl);
+      
+      if (!pdfResponse.ok) {
+        return NextResponse.json(
+          { error: "Erro ao buscar PDF do Storage" },
+          { status: pdfResponse.status }
+        );
+      }
+
+      const pdfBuffer = await pdfResponse.arrayBuffer();
+
+      // Retornar PDF com headers corretos para download
+      return new NextResponse(pdfBuffer, {
+        status: 200,
+        headers: {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": `attachment; filename="certificado-${certificateId}.pdf"`,
+          "Cache-Control": "private, no-store",
+        },
+      });
+    } catch (fetchError) {
+      console.error("Erro ao fazer fetch do PDF:", fetchError);
+      return NextResponse.json(
+        { error: "Erro ao buscar PDF do Storage", details: fetchError.message },
+        { status: 500 }
+      );
+    }
   } catch (error) {
     console.error("Erro ao baixar certificado:", error.message);
     return NextResponse.json(
-      { error: "Erro ao gerar certificado", details: error.message },
+      { error: "Erro ao baixar certificado", details: error.message },
       { status: 500 }
     );
   }

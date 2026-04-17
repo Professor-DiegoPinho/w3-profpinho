@@ -1,4 +1,75 @@
-import { adminDb } from "@/lib/firebaseAdmin";
+import { adminDb, adminStorage } from "@/lib/firebaseAdmin";
+
+/**
+ * Faz upload do PDF do certificado para Firebase Storage
+ * @param {Buffer} pdfBuffer - Buffer do PDF
+ * @param {string} certificateId - ID do certificado
+ * @returns {Promise<string>} URL pública do PDF
+ */
+export async function uploadCertificatePDF(pdfBuffer, certificateId) {
+  try {
+    // Obter o nome do bucket do Firebase Storage
+    const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+    if (!bucketName) {
+      throw new Error("NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET não está configurado");
+    }
+
+    const bucket = adminStorage.bucket(bucketName);
+    const filePath = `certificates/${certificateId}.pdf`;
+    const file = bucket.file(filePath);
+
+    // Usar createWriteStream para evitar corrupção do PDF
+    return new Promise((resolve, reject) => {
+      const writeStream = file.createWriteStream({
+        metadata: {
+          contentType: "application/pdf",
+          cacheControl: "public, max-age=31536000",
+        },
+        public: true,
+      });
+
+      writeStream.on("error", (error) => {
+        console.error("Erro ao escrever PDF no Storage:", error);
+        reject(error);
+      });
+
+      writeStream.on("finish", () => {
+        // Gerar URL pública
+        const url = `https://storage.googleapis.com/${bucketName}/${filePath}`;
+        console.log("PDF salvo com sucesso:", url);
+        resolve(url);
+      });
+
+      writeStream.end(pdfBuffer);
+    });
+  } catch (error) {
+    console.error("Erro ao fazer upload do certificado PDF:", error);
+    throw error;
+  }
+}
+
+/**
+ * Atualiza o certificado com a URL do PDF
+ * @param {string} userId - ID do usuário
+ * @param {string} certificateId - ID do certificado
+ * @param {string} pdfUrl - URL do PDF no Storage
+ */
+export async function updateCertificatePdfUrl(userId, certificateId, pdfUrl) {
+  try {
+    await adminDb
+      .collection("users")
+      .doc(userId)
+      .collection("certificates")
+      .doc(certificateId)
+      .update({
+        pdfUrl,
+        pdfUploadedAt: new Date(),
+      });
+  } catch (error) {
+    console.error("Erro ao atualizar URL do PDF no certificado:", error);
+    throw error;
+  }
+}
 
 /**
  * Gera um ID único e compacto para o certificado
@@ -31,10 +102,6 @@ export function generateUniqueCertificateId() {
 export async function createCertificate(userId, certificateData) {
   try {
     const certificateId = generateUniqueCertificateId();
-    const certificatesRef = adminDb
-      .collection("users")
-      .doc(userId)
-      .collection("certificates");
 
     const newCertificate = {
       certificateId,
@@ -48,7 +115,28 @@ export async function createCertificate(userId, certificateData) {
       lastValidatedAt: null,
     };
 
-    await certificatesRef.doc(certificateId).set(newCertificate);
+    // Usar batch para salvar em dois lugares atomicamente
+    const batch = adminDb.batch();
+
+    // 1. Documento completo na subcoleção do usuário
+    const userCertRef = adminDb
+      .collection("users")
+      .doc(userId)
+      .collection("certificates")
+      .doc(certificateId);
+    batch.set(userCertRef, newCertificate);
+
+    // 2. Índice na coleção raiz (apenas userId e certificateId para lookup rápido)
+    const rootCertRef = adminDb
+      .collection("certificates")
+      .doc(certificateId);
+    batch.set(rootCertRef, {
+      userId,
+      certificateId,
+      createdAt: new Date(),
+    });
+
+    await batch.commit();
 
     return {
       id: certificateId,
@@ -119,40 +207,42 @@ export async function listUserCertificates(userId) {
  */
 export async function validateAndGetCertificate(certificateId) {
   try {
-    // Procurar em todos os usuários (lento, mas necessário para validação pública)
-    const usersRef = adminDb.collection("users");
-    const usersSnap = await usersRef.get();
+    // 1️⃣ Usar índice na coleção raiz para lookup rápido (1 leitura)
+    const certIndexSnap = await adminDb
+      .collection("certificates")
+      .doc(certificateId)
+      .get();
 
-    let foundCertificate = null;
-    let foundUserId = null;
-
-    for (const userDoc of usersSnap.docs) {
-      const certRef = userDoc.ref.collection("certificates").doc(certificateId);
-      const certSnap = await certRef.get();
-
-      if (certSnap.exists) {
-        foundCertificate = certSnap.data();
-        foundUserId = userDoc.id;
-        break;
-      }
-    }
-
-    if (!foundCertificate) {
+    if (!certIndexSnap.exists) {
       return null;
     }
 
-    // Incrementar contador de validações
-    if (foundUserId) {
-      await adminDb
-        .collection("users")
-        .doc(foundUserId)
-        .collection("certificates")
-        .doc(certificateId)
-        .update({
-          validatedCount: (foundCertificate.validatedCount || 0) + 1,
-          lastValidatedAt: new Date(),
-        });
+    const { userId } = certIndexSnap.data();
+
+    // 2️⃣ Buscar dados completos do certificado (1 leitura)
+    const certSnap = await adminDb
+      .collection("users")
+      .doc(userId)
+      .collection("certificates")
+      .doc(certificateId)
+      .get();
+
+    if (!certSnap.exists) {
+      return null;
     }
+
+    const foundCertificate = certSnap.data();
+
+    // 3️⃣ Incrementar contador de validações
+    await adminDb
+      .collection("users")
+      .doc(userId)
+      .collection("certificates")
+      .doc(certificateId)
+      .update({
+        validatedCount: (foundCertificate.validatedCount || 0) + 1,
+        lastValidatedAt: new Date(),
+      });
 
     // Retornar dados públicos do certificado
     return {

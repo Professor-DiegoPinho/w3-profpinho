@@ -1,5 +1,5 @@
 import { requireAdmin } from "@/lib/adminAuth";
-import { createCertificate, getCertificateByOrCourse } from "@/lib/certificates";
+import { createCertificate, getCertificateByOrCourse, updateCertificatePdfUrl, uploadCertificatePDF } from "@/lib/certificates";
 import { generateCertificatePDF } from "@/lib/pdf-generator";
 import { NextResponse } from "next/server";
 
@@ -50,8 +50,19 @@ export async function POST(request) {
       generatedAt: certificate.generatedAt?.toDate?.() || certificate.generatedAt,
     });
 
-    // Salvar PDF em Firebase Storage (opcional - agora apenas retorna o certificado criado)
-    // Por enquanto, geraremos PDF on-the-fly quando solicitado
+    // Diagnóstico do PDF
+    console.log("=== DIAGNÓSTICO DO PDF ===");
+    console.log("Tipo:", pdfBuffer.constructor.name);
+    console.log("Tamanho:", pdfBuffer.length, "bytes");
+    console.log("Primeiros bytes:", pdfBuffer.slice(0, 4).toString());
+    console.log("Deve ser '%PDF' para ser válido");
+    console.log("=========================");
+
+    // Fazer upload do PDF para Firebase Storage
+    const pdfUrl = await uploadCertificatePDF(pdfBuffer, certificate.certificateId);
+
+    // Atualizar certificado com a URL do PDF
+    await updateCertificatePdfUrl(userId, certificate.certificateId, pdfUrl);
 
     return NextResponse.json(
       {
@@ -62,6 +73,7 @@ export async function POST(request) {
           courseName: certificate.courseName,
           workloadHours: certificate.workloadHours,
           generatedAt: certificate.generatedAt,
+          pdfUrl,
         },
       },
       { status: 201 }
@@ -69,7 +81,7 @@ export async function POST(request) {
   } catch (error) {
     console.error("Erro ao gerar certificado:", error);
     return NextResponse.json(
-      { error: "Erro ao gerar certificado" },
+      { error: "Erro ao gerar certificado", details: error.message },
       { status: 500 }
     );
   }

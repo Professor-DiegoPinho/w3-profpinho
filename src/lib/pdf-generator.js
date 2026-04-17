@@ -34,6 +34,27 @@ export async function generateCertificatePDF(certificateData) {
     const templatePath = path.join(process.cwd(), "src/templates/certificate-template.html");
     let htmlContent = fs.readFileSync(templatePath, "utf-8");
 
+    // Converter imagens para base64 para que o Puppeteer consiga renderizar
+    const publicDir = path.join(process.cwd(), "public");
+    
+    const imageFiles = [
+      { src: "/images/logo.jpeg", path: path.join(publicDir, "images/logo.jpeg") },
+      { src: "/images/diegopinho_sign.jpeg", path: path.join(publicDir, "images/diegopinho_sign.jpeg") }
+    ];
+
+    for (const image of imageFiles) {
+      try {
+        const imageBuffer = fs.readFileSync(image.path);
+        const base64 = imageBuffer.toString("base64");
+        const ext = image.path.toLowerCase().endsWith(".jpeg") ? "jpeg" : "png";
+        const dataUrl = `data:image/${ext};base64,${base64}`;
+        htmlContent = htmlContent.replace(new RegExp(`src="${image.src}"`, "g"), `src="${dataUrl}"`);
+        console.log(`Imagem ${image.src} convertida para base64`);
+      } catch (error) {
+        console.warn(`Erro ao ler imagem ${image.path}:`, error.message);
+      }
+    }
+
     // Substituir placeholders no template
     htmlContent = htmlContent
       .replace(/{{STUDENT_NAME}}/g, certificateData.studentName)
@@ -44,22 +65,70 @@ export async function generateCertificatePDF(certificateData) {
 
     // Iniciar navegador Puppeteer
     browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      headless: "new",
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--allow-file-access-from-files",
+      ],
     });
 
     const page = await browser.newPage();
 
-    // Setar conteúdo HTML
-    await page.setContent(htmlContent, {
-      waitUntil: "networkidle0",
-    });
+    // Permitir acesso a arquivos locais
+    await page.setBypassCSP(true);
 
-    // A4 landscape em pixels a 96dpi: 1123 x 794
+    // IMPORTANTE: Setar viewport ANTES de setar conteúdo
     await page.setViewport({
       width: 1123,
       height: 794,
       deviceScaleFactor: 2, // melhora a qualidade
+    });
+
+    // Setar conteúdo HTML
+    // Usar domcontentloaded em vez de networkidle2 porque as imagens já são base64
+    await page.setContent(htmlContent, {
+      waitUntil: "domcontentloaded",
+    });
+
+    // Aguardar um tempo fixo para renderização segura
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Aguardar que todas as imagens sejam carregadas
+    await page.evaluate(() => {
+      return new Promise((resolve) => {
+        const images = Array.from(document.querySelectorAll("img"));
+        let loadedCount = 0;
+        
+        if (images.length === 0) {
+          resolve();
+          return;
+        }
+
+        images.forEach((img) => {
+          img.onload = () => {
+            loadedCount++;
+            if (loadedCount === images.length) {
+              resolve();
+            }
+          };
+          img.onerror = () => {
+            loadedCount++;
+            console.warn(`Falha ao carregar imagem: ${img.src}`);
+            if (loadedCount === images.length) {
+              resolve();
+            }
+          };
+          // Disparar load novamente se a imagem já estava em cache
+          if (img.complete) {
+            loadedCount++;
+            if (loadedCount === images.length) {
+              resolve();
+            }
+          }
+        });
+      });
     });
 
     // Gerar PDF usando as dimensões definidas no @page do CSS
@@ -75,7 +144,8 @@ export async function generateCertificatePDF(certificateData) {
       printBackground: true,
     });
 
-    return pdfBuffer;
+    // Converter Uint8Array para Buffer (necessário em versões recentes do Puppeteer)
+    return Buffer.from(pdfBuffer);
   } catch (error) {
     console.error("Erro ao gerar PDF do certificado:", error);
     throw error;
