@@ -1,6 +1,7 @@
+import chromium from "@sparticuz/chromium";
 import fs from "fs";
 import path from "path";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 
 /**
  * Gera um PDF do certificado renderizando HTML
@@ -64,15 +65,26 @@ export async function generateCertificatePDF(certificateData) {
       .replace(/{{CERTIFICATE_ID}}/g, certificateData.certificateId);
 
     // Iniciar navegador Puppeteer
-    browser = await puppeteer.launch({
-      headless: "new",
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--allow-file-access-from-files",
-      ],
-    });
+    // Em produção (Vercel): usa puppeteer-core + @sparticuz/chromium (comprimido, ~50MB)
+    // Em desenvolvimento: usa puppeteer normal (com Chromium embutido)
+    const isProduction = process.env.NODE_ENV === "production";
+
+    browser = isProduction
+      ? await puppeteer.launch({
+          args: chromium.args,
+          defaultViewport: chromium.defaultViewport,
+          executablePath: await chromium.executablePath(),
+          headless: true,
+        })
+      : await puppeteer.launch({
+          headless: true,
+          args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--allow-file-access-from-files",
+          ],
+        });
 
     const page = await browser.newPage();
 
