@@ -930,6 +930,59 @@
   cursor: not-allowed;
 }
 
+/* Checkboxes do Modal de Confirmação */
+.project-submission-confirmation-label-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  margin: 0 -12px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.project-submission-confirmation-label-checkbox:hover {
+  background: rgba(243, 76, 97, 0.08);
+  border-color: rgba(243, 76, 97, 0.3);
+}
+
+.project-submission-confirmation-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--color-red, #F34C61);
+  border: 2px solid var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.project-submission-confirmation-checkbox:hover {
+  border-color: var(--color-red, #F34C61);
+  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.1);
+}
+
+.project-submission-confirmation-checkbox:checked:hover {
+  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.2);
+}
+
+.project-submission-confirmation-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.1);
+}
+
+.project-submission-confirmation-label-checkbox span {
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-text-primary, #1a1a1a);
+  line-height: 1.5;
+}
+
 /* Responsividade */
 @media (max-width: 640px) {
   .project-submission-content {
@@ -971,6 +1024,16 @@
 
   .project-submission-confirmation-item {
     font-size: 13px;
+  }
+
+  .project-submission-confirmation-label-checkbox {
+    padding: 10px;
+    margin: 0 -10px;
+  }
+
+  .project-submission-confirmation-checkbox {
+    width: 18px;
+    height: 18px;
   }
 
   .project-submission-confirmation-url {
