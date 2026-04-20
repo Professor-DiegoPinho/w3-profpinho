@@ -3,167 +3,106 @@ import fs from "fs";
 import path from "path";
 import puppeteer from "puppeteer-core";
 
+const PDF_CONFIG = {
+  width: 1123,
+  height: 794,
+  preferCSSPageSize: true,
+  printBackground: true,
+  margin: 0,
+};
+
+const IMAGES = [
+  { src: "/images/logo.png", path: "images/logo.png" },
+  { src: "/images/diegopinho_sign.png", path: "images/diegopinho_sign.png" },
+];
+
+function formatDate(date) {
+  const d = date?.toDate?.() || new Date(date);
+  return [d.getDate(), d.getMonth() + 1, d.getFullYear()]
+    .map(n => String(n).padStart(2, "0"))
+    .join("/");
+}
+
+function convertImagesToBase64(html, publicDir) {
+  let result = html;
+  
+  for (const image of IMAGES) {
+    try {
+      const imagePath = path.join(publicDir, image.path);
+      console.log(`Tentando carregar imagem: ${imagePath}`);
+      
+      if (!fs.existsSync(imagePath)) {
+        console.warn(`Arquivo não encontrado: ${imagePath}`);
+        continue;
+      }
+      
+      const buffer = fs.readFileSync(imagePath);
+      const ext = image.path.endsWith(".jpeg") ? "jpeg" : "png";
+      const dataUrl = `data:image/${ext};base64,${buffer.toString("base64")}`;
+      result = result.replace(new RegExp(`src="${image.src}"`, "g"), `src="${dataUrl}"`);
+      console.log(`✓ Imagem ${image.src} convertida para base64 (${buffer.length} bytes)`);
+    } catch (error) {
+      console.error(`✗ Erro ao processar ${image.path}:`, error.message);
+    }
+  }
+  
+  return result;
+}
+
 /**
  * Gera um PDF do certificado renderizando HTML
- * @param {object} certificateData - Dados do certificado
- * @param {string} certificateData.studentName - Nome do aluno
- * @param {string} certificateData.courseName - Nome do curso
- * @param {number} certificateData.workloadHours - Carga horária
- * @param {string} certificateData.certificateId - ID único do certificado
- * @param {Date} certificateData.generatedAt - Data de geração
- * @returns {Promise<Buffer>} Buffer do PDF pronto para download
+ * @param {object} certificateData
+ * @returns {Promise<Buffer>}
  */
 export async function generateCertificatePDF(certificateData) {
   let browser = null;
 
   try {
-    // Converter data para formato dd/mm/YYYY
-    // Se for um Timestamp do Firebase, converter com .toDate()
-    let generatedDate = certificateData.generatedAt;
-    if (generatedDate?.toDate && typeof generatedDate.toDate === 'function') {
-      generatedDate = generatedDate.toDate();
-    } else {
-      generatedDate = new Date(generatedDate);
-    }
-    
-    const day = String(generatedDate.getDate()).padStart(2, "0");
-    const month = String(generatedDate.getMonth() + 1).padStart(2, "0");
-    const year = generatedDate.getFullYear();
-    const formattedDate = `${day}/${month}/${year}`;
-
-    // Ler template HTML
     const templatePath = path.join(process.cwd(), "src/templates/certificate-template.html");
-    let htmlContent = fs.readFileSync(templatePath, "utf-8");
+    let html = fs.readFileSync(templatePath, "utf-8");
 
-    // Converter imagens para base64 para que o Puppeteer consiga renderizar
-    const publicDir = path.join(process.cwd(), "public");
-    
-    const imageFiles = [
-      { src: "/images/logo.jpeg", path: path.join(publicDir, "images/logo.jpeg") },
-      { src: "/images/diegopinho_sign.jpeg", path: path.join(publicDir, "images/diegopinho_sign.jpeg") }
-    ];
+    html = convertImagesToBase64(html, path.join(process.cwd(), "public"));
 
-    for (const image of imageFiles) {
-      try {
-        const imageBuffer = fs.readFileSync(image.path);
-        const base64 = imageBuffer.toString("base64");
-        const ext = image.path.toLowerCase().endsWith(".jpeg") ? "jpeg" : "png";
-        const dataUrl = `data:image/${ext};base64,${base64}`;
-        htmlContent = htmlContent.replace(new RegExp(`src="${image.src}"`, "g"), `src="${dataUrl}"`);
-        console.log(`Imagem ${image.src} convertida para base64`);
-      } catch (error) {
-        console.warn(`Erro ao ler imagem ${image.path}:`, error.message);
-      }
-    }
-
-    // Substituir placeholders no template
-    htmlContent = htmlContent
+    html = html
       .replace(/{{STUDENT_NAME}}/g, certificateData.studentName)
       .replace(/{{COURSE_NAME}}/g, certificateData.courseName)
-      .replace(/{{WORKLOAD_HOURS}}/g, certificateData.workloadHours.toString())
-      .replace(/{{GENERATED_DATE}}/g, formattedDate)
+      .replace(/{{WORKLOAD_HOURS}}/g, certificateData.workloadHours)
+      .replace(/{{GENERATED_DATE}}/g, formatDate(certificateData.generatedAt))
       .replace(/{{CERTIFICATE_ID}}/g, certificateData.certificateId);
 
-    // Iniciar navegador Puppeteer
-    // Em produção (Vercel): usa puppeteer-core + @sparticuz/chromium (comprimido, ~50MB)
-    // Em desenvolvimento: usa puppeteer normal (com Chromium embutido)
-    const isProduction = process.env.NODE_ENV === "production";
-
-    browser = isProduction
-      ? await puppeteer.launch({
-          args: chromium.args,
-          defaultViewport: chromium.defaultViewport,
-          executablePath: await chromium.executablePath(),
-          headless: true,
-        })
-      : await puppeteer.launch({
-          headless: true,
-          args: [
-            "--no-sandbox",
-            "--disable-setuid-sandbox",
-            "--disable-dev-shm-usage",
-            "--allow-file-access-from-files",
-          ],
-        });
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: true,
+    });
 
     const page = await browser.newPage();
-
-    // Permitir acesso a arquivos locais
     await page.setBypassCSP(true);
-
-    // IMPORTANTE: Setar viewport ANTES de setar conteúdo
-    await page.setViewport({
-      width: 1123,
-      height: 794,
-      deviceScaleFactor: 2, // melhora a qualidade
-    });
-
-    // Setar conteúdo HTML
-    // Usar domcontentloaded em vez de networkidle2 porque as imagens já são base64
-    await page.setContent(htmlContent, {
-      waitUntil: "domcontentloaded",
-    });
-
-    // Aguardar um tempo fixo para renderização segura
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Aguardar que todas as imagens sejam carregadas
-    await page.evaluate(() => {
-      return new Promise((resolve) => {
-        const images = Array.from(document.querySelectorAll("img"));
-        let loadedCount = 0;
-        
-        if (images.length === 0) {
-          resolve();
-          return;
-        }
-
-        images.forEach((img) => {
-          img.onload = () => {
-            loadedCount++;
-            if (loadedCount === images.length) {
-              resolve();
-            }
-          };
-          img.onerror = () => {
-            loadedCount++;
-            console.warn(`Falha ao carregar imagem: ${img.src}`);
-            if (loadedCount === images.length) {
-              resolve();
-            }
-          };
-          // Disparar load novamente se a imagem já estava em cache
-          if (img.complete) {
-            loadedCount++;
-            if (loadedCount === images.length) {
-              resolve();
-            }
-          }
-        });
+    await page.setViewport({ width: PDF_CONFIG.width, height: PDF_CONFIG.height, deviceScaleFactor: 2 });
+    await page.setContent(html, { waitUntil: "domcontentloaded" });
+    await page.evaluate(() => new Promise(resolve => {
+      const images = Array.from(document.querySelectorAll("img"));
+      if (!images.length) return resolve();
+      
+      let loaded = 0;
+      images.forEach(img => {
+        const checkLoad = () => {
+          if (++loaded === images.length) resolve();
+        };
+        img.complete ? checkLoad() : (img.onload = img.onerror = checkLoad);
       });
-    });
+    }));
 
-    // Gerar PDF usando as dimensões definidas no @page do CSS
-    const pdfBuffer = await page.pdf({
-      preferCSSPageSize: true,
-      landscape: false,
-      margin: {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-      },
-      printBackground: true,
+    return await page.pdf({
+      preferCSSPageSize: PDF_CONFIG.preferCSSPageSize,
+      printBackground: PDF_CONFIG.printBackground,
+      margin: { top: 0, right: 0, bottom: 0, left: 0 },
     });
-
-    // Converter Uint8Array para Buffer (necessário em versões recentes do Puppeteer)
-    return Buffer.from(pdfBuffer);
   } catch (error) {
     console.error("Erro ao gerar PDF do certificado:", error);
     throw error;
   } finally {
-    if (browser) {
-      await browser.close();
-    }
+    if (browser) await browser.close();
   }
 }
