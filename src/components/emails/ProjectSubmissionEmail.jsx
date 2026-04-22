@@ -1,13 +1,11 @@
 import {
   Body,
   Button,
-  Column,
   Container,
   Head,
   Heading,
   Html,
   Preview,
-  Row,
   Section,
   Text
 } from '@react-email/components';
@@ -21,8 +19,6 @@ export default function ProjectSubmissionEmail({
   courseName = 'Curso',
   submissionDate = new Date().toLocaleDateString('pt-BR'),
 }) {
-  const dashboardUrl = `${baseUrl}/dashboard`;
-
   return (
     <Html lang="pt-BR">
       <Head />
@@ -32,7 +28,7 @@ export default function ProjectSubmissionEmail({
         <Container style={container}>
           {/* Header */}
           <Section style={header}>
-            <Heading style={headerTitle}>✓ Projeto Entregue com Sucesso!</Heading>
+            <Heading style={headerTitle}>✅ Projeto Entregue com Sucesso!</Heading>
           </Section>
 
           {/* Main Content */}
@@ -51,32 +47,9 @@ export default function ProjectSubmissionEmail({
 
             {/* Info Box */}
             <Section style={infoBox}>
-              <Row>
-                <Column style={infoColumn}>
-                  <Text style={infoLabel}>Aluno:</Text>
-                </Column>
-                <Column style={infoColumn}>
-                  <Text style={infoValue}>{studentName}</Text>
-                </Column>
-              </Row>
-
-              <Row>
-                <Column style={infoColumn}>
-                  <Text style={infoLabel}>Curso:</Text>
-                </Column>
-                <Column style={infoColumn}>
-                  <Text style={infoValue}>{courseName}</Text>
-                </Column>
-              </Row>
-
-              <Row>
-                <Column style={infoColumn}>
-                  <Text style={infoLabel}>Data de Entrega:</Text>
-                </Column>
-                <Column style={infoColumn}>
-                  <Text style={infoValue}>{submissionDate}</Text>
-                </Column>
-              </Row>
+              <Text style={infoText}><strong>Aluno:</strong> {studentName}</Text>
+              <Text style={infoText}><strong>Curso:</strong> {courseName}</Text>
+              <Text style={infoText}><strong>Data de Entrega:</strong> {submissionDate}</Text>
             </Section>
 
             {/* CTA Button */}
@@ -178,30 +151,11 @@ const infoBox = {
   marginBottom: '24px',
 };
 
-const infoRow = {
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: '12px',
-};
-
-const infoColumn = {
-  paddingRight: '12px',
-};
-
-const infoLabel = {
-  fontSize: '12px',
-  color: '#F34C61',
-  fontWeight: '700',
-  textTransform: 'uppercase',
-  letterSpacing: '0.3px',
-  margin: '0',
-};
-
-const infoValue = {
+const infoText = {
   fontSize: '14px',
   color: '#2A2836',
-  fontWeight: '500',
-  margin: '0',
+  margin: '8px 0',
+  lineHeight: '1.5',
 };
 
 const buttonSection = {

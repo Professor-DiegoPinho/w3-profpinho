@@ -70,17 +70,17 @@ Email entregue ao aluno
 
 **Localização:** `src/components/emails/ProjectSubmissionEmail.jsx`
 
-#### EvaluationResultsEmail
-**Quando é enviado:** Quando o professor publica a avaliação de um projeto
+#### EvaluationCompletedEmail
+**Quando é enviado:** Quando o professor aprova uma submissão de projeto
 
 **O que contém:**
-- Nota do projeto (com cor de fundo dinâmica)
-- Mensagem personalizada baseada na nota
-- Detalhes do curso e projeto
-- Feedback do professor (se fornecido)
-- Link para visualizar resultado completo
+- Notificação de conclusão da avaliação
+- Nome do aluno
+- Nome do curso
+- Data de conclusão
+- Link para visualizar resultado
 
-**Localização:** `src/components/emails/EvaluationResultsEmail.jsx`
+**Localização:** `src/components/emails/EvaluationCompletedEmail.jsx`
 
 ### Arquivo Principal
 
@@ -88,7 +88,7 @@ Email entregue ao aluno
 
 Contém as funções:
 - `sendProjectSubmissionEmail()` - Envia email de confirmação de submissão
-- `sendEvaluationResultsEmail()` - Envia email de resultados de avaliação
+- `sendEvaluationCompletedEmail()` - Envia email de conclusão de avaliação
 - `sendBatchEmails()` - (Futuro) Para envios em lote
 
 ### Integração com API
@@ -124,7 +124,7 @@ Os emails usam a paleta de cores do site (`src/app/globals.css`):
 ### Textos
 
 Para alterar mensagens ou textos nos emails:
-1. Abra `src/components/emails/ProjectSubmissionEmail.jsx` ou `EvaluationResultsEmail.jsx`
+1. Abra `src/components/emails/ProjectSubmissionEmail.jsx` ou `EvaluationCompletedEmail.jsx`
 2. Localize o `<Text>` que deseja alterar
 3. Modifique o conteúdo
 

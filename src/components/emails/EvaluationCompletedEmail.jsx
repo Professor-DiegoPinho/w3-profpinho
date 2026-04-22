@@ -19,7 +19,6 @@ export default function EvaluationCompletedEmail({
   courseName = 'Curso',
   completionDate = new Date().toLocaleDateString('pt-BR'),
 }) {
-
   return (
     <Html lang="pt-BR">
       <Head />
@@ -29,7 +28,7 @@ export default function EvaluationCompletedEmail({
         <Container style={container}>
           {/* Header */}
           <Section style={header}>
-            <Heading style={headerTitle}>✓ Avaliação Finalizada!</Heading>
+            <Heading style={headerTitle}>✅ Avaliação Finalizada!</Heading>
           </Section>
 
           {/* Main Content */}
