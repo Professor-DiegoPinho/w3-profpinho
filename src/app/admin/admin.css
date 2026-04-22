@@ -81,21 +81,23 @@
   flex: 1;
   padding: 32px;
   overflow-y: auto;
+  margin-left: 280px;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .admin-container {
-    flex-direction: column;
-  }
-
+@media (max-width: 1200px) {
   .admin-sidebar {
+    position: relative;
     width: 100%;
     height: auto;
-    position: relative;
   }
 
   .admin-main {
-    padding: 24px 16px;
+    margin-left: 0;
+  }
+
+  .admin-container {
+    flex-direction: column;
   }
 }
+

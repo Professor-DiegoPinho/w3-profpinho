@@ -12,7 +12,6 @@ async function getUsers() {
         userId: doc.id,
         name: data.name || "N/A",
         email: data.email || "N/A",
-        role: data.role || null,
         createdAt: data.createdAt,
         lastLoginAt: data.lastLoginAt,
       });
@@ -63,7 +62,6 @@ export default async function UsuariosPage() {
             <tr>
               <th>Nome</th>
               <th>E-mail</th>
-              <th>Role</th>
               <th>Data de Criação</th>
               <th>Último Login</th>
             </tr>
@@ -74,20 +72,13 @@ export default async function UsuariosPage() {
                 <tr key={user.userId}>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>
-                    {user.role ? (
-                      <span className="admin-role-badge">{user.role}</span>
-                    ) : (
-                      "—"
-                    )}
-                  </td>
                   <td>{formatDate(user.createdAt)}</td>
                   <td>{formatDate(user.lastLoginAt)}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="5" className="admin-usuarios-empty-cell">
+                <td colSpan="4" className="admin-usuarios-empty-cell">
                   Nenhum usuário encontrado
                 </td>
               </tr>
