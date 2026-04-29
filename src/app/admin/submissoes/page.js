@@ -1,6 +1,8 @@
 import { adminDb } from "@/lib/firebaseAdmin";
 import "./submissoes.css";
 
+export const dynamic = 'force-dynamic';
+
 function serializeAttempt(attempt) {
   if (!attempt) return null;
   

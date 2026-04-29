@@ -1,6 +1,8 @@
 import { adminDb } from "@/lib/firebaseAdmin";
 import "./usuarios.css";
 
+export const dynamic = 'force-dynamic';
+
 async function getUsers() {
   try {
     const usersSnapshot = await adminDb.collection("users").get();

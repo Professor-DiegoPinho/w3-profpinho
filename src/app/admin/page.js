@@ -1,6 +1,8 @@
 import { adminDb } from "@/lib/firebaseAdmin";
 import "./dashboard.css";
 
+export const dynamic = 'force-dynamic';
+
 async function getTotalUsers() {
   try {
     const usersSnapshot = await adminDb.collection("users").count().get();
