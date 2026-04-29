@@ -58,5 +58,21 @@ export const tutorials = [
       metaDescription: "Aprenda HTML do zero com exemplos práticos.",
       ogImage: "/images/logo_html.png"
     }
+  },
+  {
+    slug: "css",
+    title: "CSS",
+    description: "Aprenda CSS para estilizar páginas web.",
+    image: "/images/logo_css.png",
+    badge: "Tutorial",
+    accessType: "tutorial",
+    visibility: "public",
+    tags: ["css", "web", "front-end"],
+    order: 3,
+    seo: {
+      metaTitle: "Curso de CSS para Iniciantes",
+      metaDescription: "Aprenda CSS do zero com exemplos práticos.",
+      ogImage: "/images/logo_css.png"
+    }
   }
 ];
