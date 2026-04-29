@@ -1,6 +1,7 @@
 import { adminDb } from "@/lib/firebaseAdmin";
 import { getCourseLessonsCount } from "@/lib/markdown";
 import { FieldValue } from "firebase-admin/firestore";
+import { stripLessonPrefix } from "./slugUtils.js";
 
 export async function getLessonProgress(userId, courseSlug) {
   if (!userId || !courseSlug) return null;
@@ -34,6 +35,8 @@ export async function toggleLessonComplete(
     throw new Error("userId, courseSlug e lessonSlug são obrigatórios.");
   }
 
+  const normalizedLessonSlug = stripLessonPrefix(lessonSlug);
+
   const ref = adminDb
     .collection("users")
     .doc(userId)
@@ -47,11 +50,11 @@ export async function toggleLessonComplete(
     ? data.completedLessons
     : [];
 
-  const alreadyDone = completed.includes(lessonSlug);
+  const alreadyDone = completed.includes(normalizedLessonSlug);
 
   const newCompleted = alreadyDone
-    ? completed.filter((s) => s !== lessonSlug)
-    : [...completed, lessonSlug];
+    ? completed.filter((s) => s !== normalizedLessonSlug)
+    : [...completed, normalizedLessonSlug];
 
   // Sempre calcular o total correto usando getCourseLessonsCount
   // Isso garante que excluamos projeto.md da contagem, mesmo de dados antigos
@@ -86,5 +89,7 @@ export async function toggleLessonComplete(
 
 export function isLessonCompleted(progressData, lessonSlug) {
   if (!progressData?.completedLessons) return false;
-  return progressData.completedLessons.includes(lessonSlug);
+  // Normaliza o lessonSlug removendo o prefixo numérico
+  const normalizedLessonSlug = stripLessonPrefix(lessonSlug);
+  return progressData.completedLessons.includes(normalizedLessonSlug);
 }
