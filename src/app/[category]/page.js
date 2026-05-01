@@ -1,26 +1,28 @@
 import { auth } from "@/auth";
 import CourseEnrollmentButton from "@/components/CourseEnrollmentButton/CourseEnrollmentButton";
+import CourseFeedbackCard from "@/components/CourseFeedbackCard/CourseFeedbackCard";
 import CourseInfoToggle from "@/components/CourseInfoToggle/CourseInfoToggle";
 import CourseLessonsList from "@/components/CourseLessonsList/CourseLessonsList";
 import CourseProgress from "@/components/CourseProgress/CourseProgress";
 import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
 import { content } from "@/data";
 import {
-    courseRequiresEnrollment,
-    getCourseAccessLabel,
-    getCourseAccessType,
-    isCourseVisibleToUser,
-    isPaidCourse,
+  courseRequiresEnrollment,
+  getCourseAccessLabel,
+  getCourseAccessType,
+  isCourseVisibleToUser,
+  isPaidCourse,
 } from "@/lib/courseAccess";
 import {
-    getCourseEnrollmentCount,
-    getCourseEnrollmentDate,
-    getEnrolledCourseIds,
+  getCourseEnrollmentCount,
+  getCourseEnrollmentDate,
+  getEnrolledCourseIds,
 } from "@/lib/enrollment";
+import { isProjectApproved } from "@/lib/feedback";
 import {
-    getCategories,
-    getCourseLessonsCount,
-    getPostsInCategory,
+  getCategories,
+  getCourseLessonsCount,
+  getPostsInCategory,
 } from "@/lib/markdown";
 import { getLessonProgress } from "@/lib/progress";
 import Image from "next/image";
@@ -145,6 +147,14 @@ export default async function CategoryPage({ params }) {
     }
     : null;
 
+  // Feedback eligibility check
+  let projectApproved = false;
+  let feedbackResponded = false;
+  if (userId && isUserEnrolled) {
+    projectApproved = await isProjectApproved(userId, category);
+    feedbackResponded = progressData?.feedbackResponded === true;
+  }
+
   return (
     <section className="course-enrollment-page">
       <header className="course-enrollment-header">
@@ -226,6 +236,15 @@ export default async function CategoryPage({ params }) {
           isEnrolled={isUserEnrolled}
         />
       </div>
+
+      {userId && isUserEnrolled && (
+        <CourseFeedbackCard
+          courseSlug={category}
+          completionPercentage={correctCompletionPercentage}
+          projectApproved={projectApproved}
+          feedbackResponded={feedbackResponded}
+        />
+      )}
 
       {userId && isUserEnrolled ? (
         <CourseInfoToggle summary="Saiba mais">
