@@ -311,6 +311,47 @@
   cursor: not-allowed;
 }
 
+/* Question Comment Section */
+.feedback-question-comment {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-left: 3px solid #f39c12;
+  border-radius: 4px;
+  animation: slideDown 0.2s ease-out;
+}
+
+.feedback-question-comment-label {
+  display: block;
+  font-weight: 600;
+  color: #f39c12;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.feedback-question-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+  transition: border-color 0.2s;
+  background: white;
+}
+
+.feedback-question-textarea:focus {
+  outline: none;
+  border-color: #f39c12;
+  box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+}
+
+.feedback-question-textarea + .feedback-char-count {
+  margin-top: 4px;
+  font-size: 0.75rem;
+}
+
 /* Mobile */
 @media (max-width: 640px) {
   .feedback-modal {

@@ -1,4 +1,3 @@
-import { getFeedbackStats } from "@/lib/feedback";
 import { NextResponse } from "next/server";
 
 /**
@@ -11,11 +10,4 @@ export async function GET(request) {
     { error: "Endpoint desativado - Feedback disponível apenas internamente" },
     { status: 403 }
   );
-}
-    console.error("Erro ao buscar stats de feedback:", error);
-    return NextResponse.json(
-      { error: "Erro ao buscar estatísticas" },
-      { status: 500 }
-    );
-  }
 }

@@ -7,22 +7,22 @@ import CourseProgress from "@/components/CourseProgress/CourseProgress";
 import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
 import { content } from "@/data";
 import {
-  courseRequiresEnrollment,
-  getCourseAccessLabel,
-  getCourseAccessType,
-  isCourseVisibleToUser,
-  isPaidCourse,
+    courseRequiresEnrollment,
+    getCourseAccessLabel,
+    getCourseAccessType,
+    isCourseVisibleToUser,
+    isPaidCourse,
 } from "@/lib/courseAccess";
 import {
-  getCourseEnrollmentCount,
-  getCourseEnrollmentDate,
-  getEnrolledCourseIds,
+    getCourseEnrollmentCount,
+    getCourseEnrollmentDate,
+    getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import { isProjectApproved } from "@/lib/feedback";
 import {
-  getCategories,
-  getCourseLessonsCount,
-  getPostsInCategory,
+    getCategories,
+    getCourseLessonsCount,
+    getPostsInCategory,
 } from "@/lib/markdown";
 import { getLessonProgress } from "@/lib/progress";
 import Image from "next/image";

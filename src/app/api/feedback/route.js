@@ -16,7 +16,7 @@ export async function POST(request) {
 
     const userId = session.user.id;
     const body = await request.json();
-    const { courseSlug, npsScore, answers, comment } = body;
+    const { courseSlug, npsScore, answers, questionComments, comment } = body;
 
     if (!courseSlug) {
       return NextResponse.json(
@@ -52,6 +52,7 @@ export async function POST(request) {
     const result = await submitFeedback(userId, courseSlug, {
       npsScore,
       answers,
+      questionComments: questionComments || {},
       comment: comment || "",
     });
 

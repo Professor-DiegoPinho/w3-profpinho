@@ -100,6 +100,16 @@ export async function submitFeedback(userId, courseSlug, feedbackData) {
     }
   }
 
+  // Validar comentários de piores respostas
+  for (const question of FEEDBACK_QUESTIONS) {
+    if (question.showTextareaIfWorst && question.worstOptions.includes(feedbackData.answers[question.id])) {
+      const questionComment = (feedbackData.questionComments?.[question.id] || "").trim();
+      if (!questionComment) {
+        throw new Error(`Comentário obrigatório para: ${question.text}`);
+      }
+    }
+  }
+
   try {
     const docId = `${userId}_${courseSlug}`;
     const feedbackRef = adminDb.collection("courseFeedback").doc(docId);
@@ -109,6 +119,7 @@ export async function submitFeedback(userId, courseSlug, feedbackData) {
       courseSlug,
       npsScore: feedbackData.npsScore,
       answers: feedbackData.answers,
+      questionComments: feedbackData.questionComments || {},
       comment: feedbackData.comment || "",
       respondedAt: FieldValue.serverTimestamp(),
     };

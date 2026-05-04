@@ -11,6 +11,7 @@ import "./FeedbackModal.css";
 export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
   const [npsScore, setNpsScore] = useState(5);
   const [answers, setAnswers] = useState({});
+  const [questionComments, setQuestionComments] = useState({});
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -43,6 +44,19 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
     }));
   };
 
+  const isWorstAnswer = (questionId, value) => {
+    const question = FEEDBACK_QUESTIONS.find((q) => q.id === questionId);
+    if (!question || !question.worstOptions) return false;
+    return question.worstOptions.includes(value);
+  };
+
+  const handleQuestionCommentChange = (questionId, text) => {
+    setQuestionComments((prev) => ({
+      ...prev,
+      [questionId]: text,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -53,6 +67,17 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
     if (!allAnswered) {
       setError("Por favor, responda todas as perguntas");
       return;
+    }
+
+    // Validar comentários específicos para piores respostas
+    for (const question of FEEDBACK_QUESTIONS) {
+      if (question.showTextareaIfWorst && isWorstAnswer(question.id, answers[question.id])) {
+        const comment = (questionComments[question.id] || "").trim();
+        if (!comment) {
+          setError(`Por favor, explique por que escolheu essa opção para: "${question.text}"`);
+          return;
+        }
+      }
     }
 
     setIsSubmitting(true);
@@ -67,6 +92,7 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
           courseSlug,
           npsScore,
           answers,
+          questionComments,
           comment: comment.trim(),
         }),
       });
@@ -159,6 +185,27 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
                       </span>
                     </label>
                   ))}
+                </div>
+              )}
+
+              {/* Conditional textarea for worst answers */}
+              {question.showTextareaIfWorst && isWorstAnswer(question.id, answers[question.id]) && (
+                <div className="feedback-question-comment">
+                  <label htmlFor={`comment-${question.id}`} className="feedback-question-comment-label">
+                    Por que você escolheu essa opção?
+                  </label>
+                  <textarea
+                    id={`comment-${question.id}`}
+                    className="feedback-question-textarea"
+                    placeholder="Nos ajude a entender melhor sua experiência..."
+                    value={questionComments[question.id] || ""}
+                    onChange={(e) => handleQuestionCommentChange(question.id, e.target.value)}
+                    maxLength={500}
+                    rows={3}
+                  />
+                  <span className="feedback-char-count">
+                    {(questionComments[question.id] || "").length}/500
+                  </span>
                 </div>
               )}
             </div>

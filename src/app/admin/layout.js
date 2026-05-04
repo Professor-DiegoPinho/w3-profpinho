@@ -23,6 +23,11 @@ export default function AdminLayout({ children }) {
                 Submissões
               </Link>
             </li>
+            <li>
+              <Link href="/admin/feedbacks" className="admin-nav-link">
+                Feedbacks
+              </Link>
+            </li>
           </ul>
         </nav>
       </aside>

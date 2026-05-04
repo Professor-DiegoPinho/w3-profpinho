@@ -1,8 +1,3 @@
-/**
- * Configuração de perguntas para feedback de cursos
- * Fácil de alterar: adicione/remova perguntas mantendo a estrutura
- */
-
 export const FEEDBACK_QUESTIONS = [
   {
     id: "difficulty",
@@ -15,30 +10,50 @@ export const FEEDBACK_QUESTIONS = [
       { value: "difficult", label: "Difícil" },
       { value: "very-difficult", label: "Muito difícil" },
     ],
+    worstOptions: ["difficult", "very-difficult"],
+    showTextareaIfWorst: true,
   },
   {
-    id: "content-quality",
-    text: "Como você avalia a qualidade do conteúdo?",
+    id: "video-quality",
+    text: "Como você avalia a qualidade dos vídeos?",
     type: "multiple-choice",
     options: [
-      { value: "very-poor", label: "Muito ruim" },
-      { value: "poor", label: "Ruim" },
-      { value: "average", label: "Médio" },
-      { value: "good", label: "Bom" },
       { value: "excellent", label: "Excelente" },
+      { value: "good", label: "Bom" },
+      { value: "average", label: "Médio" },
+      { value: "poor", label: "Ruim" },
+      { value: "very-poor", label: "Muito ruim" },
     ],
+    worstOptions: ["poor", "very-poor"],
+    showTextareaIfWorst: true,
   },
   {
-    id: "would-recommend",
-    text: "Você recomendaria este curso a alguém?",
+    id: "text-quality",
+    text: "Como você avalia a qualidade dos compilados?",
     type: "multiple-choice",
     options: [
-      { value: "definitely-not", label: "Definitivamente não" },
-      { value: "probably-not", label: "Provavelmente não" },
-      { value: "neutral", label: "Neutro" },
-      { value: "probably-yes", label: "Provavelmente sim" },
-      { value: "definitely-yes", label: "Definitivamente sim" },
+      { value: "excellent", label: "Excelente" },
+      { value: "good", label: "Bom" },
+      { value: "average", label: "Médio" },
+      { value: "poor", label: "Ruim" },
+      { value: "very-poor", label: "Muito ruim" },
     ],
+    worstOptions: ["poor", "very-poor"],
+    showTextareaIfWorst: true,
+  },
+  {
+    id: "exercise-quality",
+    text: "Como você avalia a qualidade dos exercícios?",
+    type: "multiple-choice",
+    options: [
+      { value: "excellent", label: "Excelente" },
+      { value: "good", label: "Bom" },
+      { value: "average", label: "Médio" },
+      { value: "poor", label: "Ruim" },
+      { value: "very-poor", label: "Muito ruim" },
+    ],
+    worstOptions: ["poor", "very-poor"],
+    showTextareaIfWorst: true,
   },
 ];
 
