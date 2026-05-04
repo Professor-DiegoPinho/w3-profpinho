@@ -2,18 +2,20 @@ import { auth } from '@/auth';
 import MarkdownContent from '@/components/MarkdownContent/MarkdownContent';
 import MarkLesson from '@/components/MarkLesson/MarkLesson';
 import PostNavigation from '@/components/PostNavigation/PostNavigation';
+import ProjectSubmission from '@/components/ProjectSubmission/ProjectSubmission';
 import ReadingTime from '@/components/ReadingTime/ReadingTime';
 import TableOfContents from '@/components/TableOfContents/TableOfContents';
-import {
-  canUserAccessCourseLessons,
-  isCourseVisibleToUser,
-  getCourseAccessType,
-} from '@/lib/courseAccess';
 import { CONTENT_TYPE } from '@/data';
+import {
+    canUserAccessCourseLessons,
+    getCourseAccessType,
+    isCourseVisibleToUser,
+} from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { generateId } from '@/lib/generateId';
-import { getAllPosts, getCategoryTitle, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
+import { getAllPosts, getCategoryTitle, getCourseLessonsCount, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
 import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
+import { getProjectSubmissions } from '@/lib/submissions';
 import { notFound, redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -59,13 +61,20 @@ export default async function PostPage({ params }) {
     contentAccessType === CONTENT_TYPE.PAID_COURSE;
 
   const allLessons = getPostsInCategory(category);
-  const totalLessons = allLessons.length;
+  const totalLessons = getCourseLessonsCount(category);
 
   const progressData = userId
     ? await getLessonProgress(userId, category)
     : null;
 
   const isDone = isLessonCompleted(progressData, slug);
+
+  // Dados para o componente de submissão do projeto
+  let projectSubmissions = null;
+  if (slug === 'projeto' && userId) {
+    const submissions = await getProjectSubmissions(userId, category);
+    projectSubmissions = submissions?.attempts || [];
+  }
 
   return (
     <article className="post-content">
@@ -90,10 +99,29 @@ export default async function PostPage({ params }) {
 
       <div className="post-body">
         <TableOfContents content={post.content} title={post.title} />
-        <MarkdownContent content={post.content} title={post.title} />
+        {hasLessonAccess ? (
+          <MarkdownContent content={post.content} title={post.title} />
+        ) : (
+          <div style={{ padding: '20px 0', textAlign: 'center', color: '#666' }}>
+            <p>Esta aula está disponível apenas para alunos inscritos no curso.</p>
+            <p>
+              <a href={`/${category}`} style={{ color: 'var(--color-red)', textDecoration: 'none' }}>
+                Volte para a página do curso para se inscrever
+              </a>
+            </p>
+          </div>
+        )}
       </div>
 
-      {userId && isCourseContent && (
+      {userId && hasLessonAccess && isCourseContent && slug === 'projeto' ? (
+        <div className="lesson-completion">
+          <ProjectSubmission
+            courseSlug={category}
+            projectTitle={post.title}
+            initialSubmissions={projectSubmissions}
+          />
+        </div>
+      ) : userId && hasLessonAccess && isCourseContent ? (
         <div className="lesson-completion">
           <MarkLesson
             courseSlug={category}
@@ -102,7 +130,7 @@ export default async function PostPage({ params }) {
             initialDone={isDone}
           />
         </div>
-      )}
+      ) : null}
 
       <PostNavigation
         previous={navigation.previous}

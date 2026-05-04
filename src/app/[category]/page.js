@@ -6,20 +6,21 @@ import CourseProgress from "@/components/CourseProgress/CourseProgress";
 import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
 import { content } from "@/data";
 import {
-  courseRequiresEnrollment,
-  getCourseAccessLabel,
-  getCourseAccessType,
-  isCourseVisibleToUser,
-  isPaidCourse,
+    courseRequiresEnrollment,
+    getCourseAccessLabel,
+    getCourseAccessType,
+    isCourseVisibleToUser,
+    isPaidCourse,
 } from "@/lib/courseAccess";
 import {
-  getCourseEnrollmentCount,
-  getCourseEnrollmentDate,
-  getEnrolledCourseIds,
+    getCourseEnrollmentCount,
+    getCourseEnrollmentDate,
+    getEnrolledCourseIds,
 } from "@/lib/enrollment";
 import {
-  getCategories,
-  getPostsInCategory,
+    getCategories,
+    getCourseLessonsCount,
+    getPostsInCategory,
 } from "@/lib/markdown";
 import { getLessonProgress } from "@/lib/progress";
 import Image from "next/image";
@@ -64,7 +65,7 @@ export default async function CategoryPage({ params }) {
   }
 
   const firstPost = posts[0];
-  const totalLessons = posts.length;
+  const totalLessons = getCourseLessonsCount(category);
   const courseWorkloadHours = Number.isInteger(course?.workloadHours)
     ? course.workloadHours
     : 0;
@@ -126,11 +127,18 @@ export default async function CategoryPage({ params }) {
 
   const progressData = userId ? await getLessonProgress(userId, category) : null;
   const completedLessons = progressData?.completedLessons ?? [];
+  
+  // Recalcular a porcentagem com o totalLessons correto (excluindo projeto.md)
+  const correctTotalLessons = totalLessons;
+  const correctCompletionPercentage = correctTotalLessons > 0 
+    ? Math.round((completedLessons.length / correctTotalLessons) * 100)
+    : 0;
+  
   const serializedProgress = progressData
     ? {
       completedLessons: progressData.completedLessons ?? [],
-      totalLessons: progressData.totalLessons ?? 0,
-      completionPercentage: progressData.completionPercentage ?? 0,
+      totalLessons: correctTotalLessons,
+      completionPercentage: correctCompletionPercentage,
       completedAt: progressData.completedAt?._seconds
         ? new Date(progressData.completedAt._seconds * 1000).toISOString()
         : null,
@@ -191,6 +199,22 @@ export default async function CategoryPage({ params }) {
           initialProgress={serializedProgress}
           enrollmentDateLabel={enrollmentDateLabel}
         />
+      )}
+
+      {!isUserEnrolled && (
+        <div className="course-enrollment-cta-banner">
+          <p className="course-enrollment-cta-text">
+            Quer acessar todas as aulas? Inscreva-se para começar a aprender!
+          </p>
+          <CourseEnrollmentButton
+            category={category}
+            firstPostSlug={firstPost.slug}
+            accessType={courseAccessType}
+            requiresEnrollment={requiresEnrollment}
+            requiresPayment={requiresPayment}
+            checkoutUrl={course?.checkoutUrl}
+          />
+        </div>
       )}
 
       <div className="course-meta-block">

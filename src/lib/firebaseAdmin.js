@@ -1,5 +1,6 @@
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import { getStorage } from "firebase-admin/storage";
 
 function getServiceAccount() {
   const base64 = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
@@ -25,3 +26,4 @@ const app =
     : initializeApp({ credential: cert(getServiceAccount()) });
 
 export const adminDb = getFirestore(app);
+export const adminStorage = getStorage(app);

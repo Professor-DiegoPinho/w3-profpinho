@@ -1,7 +1,11 @@
 "use client";
 import './CourseLessonsList.css';
 
+import AuthEnrollmentModal from "@/components/AuthEnrollmentModal/AuthEnrollmentModal";
+import EnrollmentConfirmModal from "@/components/EnrollmentConfirmModal/EnrollmentConfirmModal";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 const PREVIEW_LESSONS_COUNT = 3;
@@ -52,21 +56,102 @@ function BookIcon() {
   );
 }
 
+function CheckpointIcon() {
+  return (
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M7 12l3 3 7-7"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function CourseLessonsList({
   posts = [],
   category = "",
   completedLessons = [],
   isEnrolled = false,
 }) {
+  const { data: session, status, update } = useSession();
+  const router = useRouter();
   const [showAllLessons, setShowAllLessons] = useState(isEnrolled);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isEnrollmentConfirmModalOpen, setIsEnrollmentConfirmModalOpen] = useState(false);
+  const [pendingLessonSlug, setPendingLessonSlug] = useState(null);
+  const [isEnrolling, setIsEnrolling] = useState(false);
 
-  const hasMoreLessons = posts.length > PREVIEW_LESSONS_COUNT;
-  const hiddenLessonsCount = Math.max(0, posts.length - PREVIEW_LESSONS_COUNT);
+  // Separar o projeto das outras aulas
+  const projectPost = posts.find(post => post.slug === 'projeto');
+  const regularLessons = posts.filter(post => post.slug !== 'projeto');
+  
+  const hasMoreLessons = regularLessons.length > PREVIEW_LESSONS_COUNT;
+  const hiddenLessonsCount = Math.max(0, regularLessons.length - PREVIEW_LESSONS_COUNT);
 
   const visibleLessons = useMemo(() => {
-    if (showAllLessons || isEnrolled) return posts;
-    return posts.slice(0, PREVIEW_LESSONS_COUNT);
-  }, [posts, showAllLessons, isEnrolled]);
+    if (showAllLessons || isEnrolled) return regularLessons;
+    return regularLessons.slice(0, PREVIEW_LESSONS_COUNT);
+  }, [regularLessons, showAllLessons, isEnrolled]);
+
+  const handleLessonClick = (slug) => {
+    if (isEnrolled) {
+      router.push(`/${category}/${slug}`);
+      return;
+    }
+
+    if (status !== "authenticated") {
+      setIsAuthModalOpen(true);
+      return;
+    }
+
+    setPendingLessonSlug(slug);
+    setIsEnrollmentConfirmModalOpen(true);
+  };
+
+  const handleEnrollFromModal = async () => {
+    if (isEnrolling) return;
+    
+    setIsEnrolling(true);
+    try {
+      const response = await fetch("/api/enrollment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          courseId: category,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao salvar enrollment");
+      }
+
+      const currentEnrolled = Array.isArray(session?.user?.enrolledCourseIds)
+        ? session.user.enrolledCourseIds
+        : [];
+
+      if (!currentEnrolled.includes(category)) {
+        await update({
+          enrolledCourseIds: [...currentEnrolled, category],
+        });
+      }
+
+      setIsEnrollmentConfirmModalOpen(false);
+      if (pendingLessonSlug) {
+        router.push(`/${category}/${pendingLessonSlug}`);
+      }
+    } catch (error) {
+      console.error("Erro ao processar enrollment:", error);
+    } finally {
+      setIsEnrolling(false);
+    }
+  };
 
   return (
     <div className="course-lessons-block">
@@ -112,7 +197,13 @@ export default function CourseLessonsList({
                   {lessonContent}
                 </Link>
               ) : (
-                lessonContent
+                <button
+                  type="button"
+                  className="course-lesson-link course-lesson-button"
+                  onClick={() => handleLessonClick(post.slug)}
+                >
+                  {lessonContent}
+                </button>
               )}
             </li>
           );
@@ -174,6 +265,49 @@ export default function CourseLessonsList({
           </li>
         )}
       </ul>
+
+      {projectPost && isEnrolled && (
+        <div className="course-project-section">
+          <div className="course-project-divider"></div>
+          <div className="course-project-label">PROJETO</div>
+          <ul className="course-project-list">
+            <li className="course-project-item">
+              <Link
+                href={`/${category}/${projectPost.slug}`}
+                className="course-project-link"
+              >
+                <span className="course-project-icon" aria-hidden="true">
+                  <CheckpointIcon />
+                </span>
+                <div className="course-project-content">
+                  <p className="course-project-title">{projectPost.title}</p>
+                  <span className="course-project-description">
+                    Aplique os conhecimentos adquiridos
+                  </span>
+                </div>
+                <span className="course-project-arrow" aria-hidden="true">›</span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
+
+      <AuthEnrollmentModal
+        isOpen={isAuthModalOpen}
+        category={category}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
+
+      <EnrollmentConfirmModal
+        isOpen={isEnrollmentConfirmModalOpen}
+        category={category}
+        onEnroll={handleEnrollFromModal}
+        onClose={() => {
+          setIsEnrollmentConfirmModalOpen(false);
+          setPendingLessonSlug(null);
+        }}
+        isLoading={isEnrolling}
+      />
     </div>
   );
 }

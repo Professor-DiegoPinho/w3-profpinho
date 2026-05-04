@@ -1,0 +1,1090 @@
+.project-submission-container {
+  width: 100%;
+  padding: 0;
+}
+
+.project-submission-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(211, 47, 47, 0.03) 0%, rgba(244, 67, 54, 0.02) 100%);
+  border: 1px solid rgba(211, 47, 47, 0.08);
+}
+
+.project-submission-text-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-submission-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-primary, #1a1a1a);
+  line-height: 1.4;
+}
+
+.project-submission-description {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.5;
+}
+
+.project-submission-warning {
+  padding: 12px 16px;
+  background: rgba(251, 188, 4, 0.08);
+  border-left: 4px solid #fbbc04;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-submission-warning-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f57c00;
+  line-height: 1.4;
+}
+
+.project-submission-warning-description {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.4;
+}
+
+.project-submission-missing-lessons {
+  margin: 0;
+  padding-left: 20px;
+  list-style: none;
+}
+
+.project-submission-missing-lesson {
+  margin: 0;
+  padding: 4px 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.4;
+}
+
+.project-submission-missing-lesson::before {
+  content: "○ ";
+  margin-right: 6px;
+  color: #f57c00;
+  font-weight: 600;
+}
+
+.project-submission-pending-warning {
+  background: rgba(63, 81, 181, 0.08);
+  border-left: 4px solid #3f51b5;
+}
+
+.project-submission-pending-warning .project-submission-warning-title {
+  color: #3f51b5;
+}
+
+.project-submission-success-message {
+  padding: 12px 16px;
+  background: rgba(76, 175, 80, 0.08);
+  border-left: 4px solid #4caf50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-submission-success-message-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-submission-success-message-icon {
+  width: 20px;
+  height: 20px;
+  color: #2e7d32;
+  flex-shrink: 0;
+}
+
+.project-submission-success-message-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2e7d32;
+  line-height: 1.4;
+}
+
+.project-submission-success-message-description {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.4;
+}
+
+.project-submission-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-submission-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-submission-input-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-submission-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 2px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  background: var(--color-background-primary, #fff);
+  color: var(--color-text-primary, #1a1a1a);
+  box-sizing: border-box;
+}
+
+.project-submission-input::placeholder {
+  color: var(--color-text-tertiary, #999);
+}
+
+.project-submission-input:focus {
+  outline: none;
+  border-color: var(--color-red, #d32f2f);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.08);
+}
+
+.project-submission-input:disabled {
+  background: var(--color-background-disabled, #f5f5f5);
+  color: var(--color-text-tertiary, #999);
+  cursor: not-allowed;
+  opacity: 0.6;
+  border-color: rgba(211, 47, 47, 0.12);
+}
+
+.project-submission-error,
+.project-submission-success {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: 6px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.project-submission-error {
+  color: var(--color-red, #d32f2f);
+  background: rgba(211, 47, 47, 0.08);
+  border: 1px solid rgba(211, 47, 47, 0.16);
+}
+
+.project-submission-success {
+  color: #2e7d32;
+  background: rgba(46, 125, 50, 0.08);
+  border: 1px solid rgba(46, 125, 50, 0.16);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-submission-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--color-red, #d32f2f);
+  color: white;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-transform: none;
+}
+
+.project-submission-btn:hover:not(:disabled) {
+  background: #b71c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.24);
+}
+
+.project-submission-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.project-submission-btn:disabled {
+  background: var(--color-background-disabled, #f5f5f5);
+  color: var(--color-text-tertiary, #999);
+  cursor: not-allowed;
+}
+
+.project-submission-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-right-color: transparent;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.project-submission-history {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(211, 47, 47, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-submission-history-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.project-submission-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-submission-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--color-background-secondary, #fafafa);
+  border: 1px solid var(--color-border, #e0e0e0);
+  transition: all 0.2s ease;
+}
+
+.project-submission-item:hover {
+  background: var(--color-background-hover, #f5f5f5);
+  border-color: rgba(211, 47, 47, 0.24);
+}
+
+.project-submission-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.project-submission-item-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.project-submission-item-platform {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(211, 47, 47, 0.12);
+  color: var(--color-red, #d32f2f);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.project-submission-item-date {
+  font-size: 12px;
+  color: var(--color-text-tertiary, #999);
+  white-space: nowrap;
+}
+
+.project-submission-item-link {
+  width: fit-content;
+  font-size: 13px;
+  color: var(--color-blue, #1976d2);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+
+.project-submission-item-link:hover {
+  color: var(--color-red, #d32f2f);
+  text-decoration: underline;
+}
+
+.project-submission-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 2px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  background: var(--color-background-primary, #fff);
+  color: var(--color-text-primary, #1a1a1a);
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.project-submission-textarea::placeholder {
+  color: var(--color-text-tertiary, #999);
+}
+
+.project-submission-textarea:focus {
+  outline: none;
+  border-color: var(--color-red, #d32f2f);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.08);
+}
+
+.project-submission-textarea:disabled {
+  background: var(--color-background-disabled, #f5f5f5);
+  color: var(--color-text-tertiary, #999);
+  cursor: not-allowed;
+  opacity: 0.6;
+  border-color: rgba(211, 47, 47, 0.12);
+}
+
+.project-submission-item-feedback {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(211, 47, 47, 0.04);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* Modal de Confirmação de Entrega */
+.project-submission-confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.project-submission-confirmation-modal {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  padding: 32px;
+  animation: slideUp 0.3s ease;
+}
+
+.project-submission-confirmation-title {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #f57c00;
+  line-height: 1.4;
+}
+
+.project-submission-confirmation-content {
+  margin-bottom: 24px;
+}
+
+.project-submission-confirmation-text {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.6;
+}
+
+.project-submission-confirmation-checklist {
+  margin: 0 0 20px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.project-submission-confirmation-item {
+  margin: 0;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--color-text-primary, #1a1a1a);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.project-submission-confirmation-item strong {
+  white-space: nowrap;
+}
+
+.project-submission-confirmation-item::before {
+  display: inline-block;
+  width: 20px;
+  flex-shrink: 0;
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.project-submission-confirmation-preview {
+  background: rgba(211, 47, 47, 0.05);
+  border: 1px solid rgba(211, 47, 47, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.project-submission-confirmation-label {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-submission-confirmation-url {
+  display: block;
+  margin: 0 0 12px 0;
+  padding: 12px;
+  background: white;
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--color-dark-blue, #004aad);
+  text-decoration: none;
+  word-break: break-all;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.project-submission-confirmation-url:hover {
+  background: rgba(0, 74, 173, 0.04);
+  border-color: var(--color-dark-blue, #004aad);
+  text-decoration: underline;
+}
+
+.project-submission-confirmation-platform {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+}
+
+.project-submission-confirmation-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.project-submission-confirmation-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.project-submission-confirmation-btn-cancel {
+  background: var(--color-background-disabled, #f5f5f5);
+  color: var(--color-text-secondary, #666);
+  border: 1px solid var(--color-border, #e0e0e0);
+}
+
+.project-submission-confirmation-btn-cancel:hover:not(:disabled) {
+  background: var(--color-border, #e0e0e0);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.project-submission-confirmation-btn-confirm {
+  background: var(--color-red, #d32f2f);
+  color: white;
+}
+
+.project-submission-confirmation-btn-confirm:hover:not(:disabled) {
+  background: #b71c1c;
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.24);
+  transform: translateY(-2px);
+}
+
+.project-submission-confirmation-btn-confirm:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.project-submission-confirmation-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Status Badge */
+.project-submission-item-status-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(211, 47, 47, 0.08);
+  flex-shrink: 0;
+  position: relative;
+  color: var(--color-red, #d32f2f);
+}
+
+.project-submission-item-status-badge-approved {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+}
+
+.project-submission-item-status-badge-rejected {
+  background: rgba(211, 47, 47, 0.12);
+  color: var(--color-red, #d32f2f);
+}
+
+.project-submission-item-status-badge-pending {
+  background: rgba(251, 188, 4, 0.08);
+  color: #f57c00;
+}
+
+.project-submission-item-status-icon {
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.project-submission-status-icon-img {
+  width: 44px;
+  height: 44px;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.project-submission-item[role="button"] {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.project-submission-item[role="button"]:hover {
+  background-color: rgba(46, 125, 50, 0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateX(4px);
+}
+
+.project-submission-item[role="button"]:focus {
+  outline: 2px solid var(--color-red, #d32f2f);
+  outline-offset: 2px;
+}
+
+.project-submission-item-status-label {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(211, 47, 47, 0.08);
+  color: var(--color-red, #d32f2f);
+}
+
+.project-submission-item-status-label-approved {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+}
+
+.project-submission-item-status-label-rejected {
+  background: rgba(211, 47, 47, 0.12);
+  color: var(--color-red, #d32f2f);
+}
+
+.project-submission-item-status-label-pending {
+  background: rgba(251, 188, 4, 0.08);
+  color: #f57c00;
+}
+
+/* Modal de Detalhes da Entrega */
+.project-submission-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+.project-submission-details-modal {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+}
+
+.project-submission-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  background: linear-gradient(135deg, rgba(211, 47, 47, 0.03) 0%, rgba(244, 67, 54, 0.02) 100%);
+}
+
+.project-submission-details-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.project-submission-details-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--color-text-secondary, #666);
+  transition: all 0.2s ease;
+}
+
+.project-submission-details-close:hover {
+  background: rgba(211, 47, 47, 0.08);
+  color: var(--color-red, #d32f2f);
+}
+
+.project-submission-details-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.project-submission-details-section {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(211, 47, 47, 0.08);
+}
+
+.project-submission-details-section:last-of-type {
+  border-bottom: none;
+}
+
+.project-submission-details-section-evaluation {
+  background: rgba(46, 125, 50, 0.04);
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+.project-submission-details-section-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary, #1a1a1a);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-submission-details-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(211, 47, 47, 0.04);
+  border-radius: 8px;
+  color: var(--color-red, #d32f2f);
+}
+
+.project-submission-details-status-approved {
+  background: rgba(46, 125, 50, 0.08);
+  color: #2e7d32;
+}
+
+.project-submission-details-status-rejected {
+  background: rgba(211, 47, 47, 0.08);
+  color: var(--color-red, #d32f2f);
+}
+
+.project-submission-details-status-pending {
+  background: rgba(251, 188, 4, 0.08);
+  color: #f57c00;
+}
+
+.project-submission-details-status-icon {
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.project-submission-details-status-icon .project-submission-status-icon-img {
+  width: 32px;
+  height: 32px;
+}
+
+.project-submission-details-status-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.project-submission-details-info {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(211, 47, 47, 0.04);
+}
+
+.project-submission-details-info:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.project-submission-details-info-label {
+  margin: 0 0 4px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary, #666);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.project-submission-details-info-value {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-primary, #1a1a1a);
+  word-break: break-word;
+}
+
+.project-submission-details-link {
+  display: block;
+  font-size: 13px;
+  color: var(--color-blue, #1976d2);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.2s ease;
+  padding: 8px 0;
+}
+
+.project-submission-details-link:hover {
+  color: var(--color-red, #d32f2f);
+  text-decoration: underline;
+}
+
+.project-submission-details-feedback {
+  margin: 0;
+  padding: 12px;
+  font-size: 14px;
+  color: var(--color-text-primary, #1a1a1a);
+  background: rgba(211, 47, 47, 0.04);
+  border-radius: 6px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.project-submission-details-feedback-evaluation {
+  background: rgba(46, 125, 50, 0.08);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.project-submission-details-evaluated-date {
+  margin: 12px 0 0 0;
+  font-size: 12px;
+  color: var(--color-text-secondary, #666);
+  font-style: italic;
+}
+
+.project-submission-details-pending-note {
+  padding: 12px 16px;
+  background: rgba(63, 81, 181, 0.08);
+  border-left: 4px solid #3f51b5;
+  border-radius: 6px;
+}
+
+.project-submission-details-pending-note p {
+  margin: 0;
+  font-size: 13px;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.project-submission-details-actions {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border, #e0e0e0);
+  background: var(--color-background-secondary, #fafafa);
+}
+
+.project-submission-details-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  background: var(--color-red, #d32f2f);
+  color: white;
+}
+
+.project-submission-details-btn:hover {
+  background: #b71c1c;
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.24);
+  transform: translateY(-2px);
+}
+
+.project-submission-details-btn:active {
+  transform: translateY(0);
+}
+
+.project-submission-details-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Checkboxes do Modal de Confirmação */
+.project-submission-confirmation-label-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  margin: 0 -12px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.project-submission-confirmation-label-checkbox:hover {
+  background: rgba(243, 76, 97, 0.08);
+  border-color: rgba(243, 76, 97, 0.3);
+}
+
+.project-submission-confirmation-checkbox {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--color-red, #F34C61);
+  border: 2px solid var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.project-submission-confirmation-checkbox:hover {
+  border-color: var(--color-red, #F34C61);
+  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.1);
+}
+
+.project-submission-confirmation-checkbox:checked:hover {
+  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.2);
+}
+
+.project-submission-confirmation-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(243, 76, 97, 0.1);
+}
+
+.project-submission-confirmation-label-checkbox span {
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-text-primary, #1a1a1a);
+  line-height: 1.5;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .project-submission-content {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .project-submission-title {
+    font-size: 16px;
+  }
+
+  .project-submission-description {
+    font-size: 13px;
+  }
+
+  .project-submission-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-submission-item-platform {
+    align-self: flex-start;
+  }
+
+  .project-submission-confirmation-modal {
+    width: 95%;
+    max-width: 100%;
+    padding: 24px;
+  }
+
+  .project-submission-confirmation-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .project-submission-confirmation-text {
+    font-size: 13px;
+  }
+
+  .project-submission-confirmation-item {
+    font-size: 13px;
+  }
+
+  .project-submission-confirmation-label-checkbox {
+    padding: 10px;
+    margin: 0 -10px;
+  }
+
+  .project-submission-confirmation-checkbox {
+    width: 18px;
+    height: 18px;
+  }
+
+  .project-submission-confirmation-url {
+    font-size: 12px;
+  }
+
+  .project-submission-confirmation-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .project-submission-details-modal {
+    width: 95%;
+    max-width: 100%;
+  }
+
+  .project-submission-details-header {
+    padding: 16px;
+  }
+
+  .project-submission-details-title {
+    font-size: 16px;
+  }
+
+  .project-submission-details-content {
+    padding: 16px;
+  }
+
+  .project-submission-details-section-title {
+    font-size: 13px;
+  }
+
+  .project-submission-details-info-label {
+    font-size: 11px;
+  }
+
+  .project-submission-details-info-value,
+  .project-submission-details-feedback {
+    font-size: 13px;
+  }
+
+  .project-submission-details-link {
+    font-size: 12px;
+  }
+
+  .project-submission-details-actions {
+    padding: 12px 16px;
+  }
+
+  .project-submission-details-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}

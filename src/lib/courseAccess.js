@@ -53,6 +53,8 @@ function getCourse(courseOrSlug) {
   return courseOrSlug;
 }
 
+export { getCourse };
+
 export function getCourseAccessType(courseOrSlug) {
   const course = getCourse(courseOrSlug);
 

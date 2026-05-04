@@ -2238,3 +2238,29 @@ a:active {
     gap: 1rem;
   }
 }
+
+/* Course Enrollment CTA Banner */
+.course-enrollment-cta-banner {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 32px;
+  border: 1px solid #ececec;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  transition: box-shadow 0.2s ease;
+}
+
+.course-enrollment-cta-banner:hover {
+  box-shadow: 0 6px 14px rgba(42, 40, 54, 0.08);
+}
+
+.course-enrollment-cta-text {
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
+}

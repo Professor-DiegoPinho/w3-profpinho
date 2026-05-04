@@ -8,6 +8,13 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 dias em segundos
 const SITE_ORIGIN = "https://hub.diegopinho.com.br";
 
 export default auth(function proxy(request) {
+  // Proteger rotas /admin e /api/admin
+  if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/api/admin")) {
+    if (request.auth?.user?.role !== "admin") {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
   const { searchParams } = request.nextUrl;
 
   const utmData = {};
