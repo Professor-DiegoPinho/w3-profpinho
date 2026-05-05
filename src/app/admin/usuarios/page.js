@@ -1,4 +1,7 @@
+import { auth } from "@/auth";
+import { isUserAdmin } from "@/lib/adminAuth";
 import { adminDb } from "@/lib/firebaseAdmin";
+import { redirect } from "next/navigation";
 import "./usuarios.css";
 
 export const dynamic = 'force-dynamic';
@@ -52,6 +55,17 @@ function formatDate(timestamp) {
 }
 
 export default async function UsuariosPage() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect("/");
+  }
+
+  const isAdmin = await isUserAdmin(session.user.id);
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const users = await getUsers();
 
   return (

@@ -1,5 +1,8 @@
+import { auth } from "@/auth";
+import { isUserAdmin } from "@/lib/adminAuth";
 import { adminDb } from "@/lib/firebaseAdmin";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import "../feedbacks.css";
 import { FeedbacksPageClient } from "./FeedbacksPageClient";
 
@@ -90,6 +93,17 @@ async function getCourseFeedbacks(courseSlug) {
 }
 
 export default async function CourseFeedbacksPage({ params }) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect("/");
+  }
+
+  const isAdmin = await isUserAdmin(session.user.id);
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const { courseSlug } = await params;
   const [courseTitle, feedbacks] = await Promise.all([
     getCourseTitle(courseSlug),

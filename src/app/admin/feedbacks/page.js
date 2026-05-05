@@ -1,5 +1,8 @@
+import { auth } from "@/auth";
+import { isUserAdmin } from "@/lib/adminAuth";
 import { adminDb } from "@/lib/firebaseAdmin";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import "./feedbacks-list.css";
 
 async function getFeedbacksStats() {
@@ -83,6 +86,17 @@ async function getCourses() {
 }
 
 export default async function FeedbacksListPage() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect("/");
+  }
+
+  const isAdmin = await isUserAdmin(session.user.id);
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const [statsData, coursesData] = await Promise.all([
     getFeedbacksStats(),
     getCourses(),
@@ -165,52 +179,10 @@ export default async function FeedbacksListPage() {
                 href={`/admin/feedbacks/${course.category}`}
                 className="admin-feedbacks-list-card"
               >
-                <div className="admin-feedbacks-list-card-header">
-                  <h3 className="admin-feedbacks-list-card-title">{course.title}</h3>
-                  <div className={`admin-feedbacks-list-nps-badge ${npsColor}`}>
-                    {courseStats.avgNps}
-                  </div>
+                <h3 className="admin-feedbacks-list-card-title">{course.title}</h3>
+                <div className={`admin-feedbacks-list-nps-badge ${npsColor}`}>
+                  {courseStats.avgNps}
                 </div>
-
-                <div className="admin-feedbacks-list-card-stats">
-                  <div className="admin-feedbacks-list-card-stat">
-                    <span className="admin-feedbacks-list-card-stat-label">
-                      Total
-                    </span>
-                    <span className="admin-feedbacks-list-card-stat-value">
-                      {courseStats.totalFeedbacks}
-                    </span>
-                  </div>
-
-                  <div className="admin-feedbacks-list-card-stat">
-                    <span className="admin-feedbacks-list-card-stat-label">
-                      Promotores
-                    </span>
-                    <span className="admin-feedbacks-list-card-stat-value promoter">
-                      {courseStats.totalByCategory.promoter}
-                    </span>
-                  </div>
-
-                  <div className="admin-feedbacks-list-card-stat">
-                    <span className="admin-feedbacks-list-card-stat-label">
-                      Neutros
-                    </span>
-                    <span className="admin-feedbacks-list-card-stat-value passive">
-                      {courseStats.totalByCategory.neutro}
-                    </span>
-                  </div>
-
-                  <div className="admin-feedbacks-list-card-stat">
-                    <span className="admin-feedbacks-list-card-stat-label">
-                      Detratores
-                    </span>
-                    <span className="admin-feedbacks-list-card-stat-value detractor">
-                      {courseStats.totalByCategory.detrator}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="admin-feedbacks-list-card-arrow">→</div>
               </Link>
             );
           })}
