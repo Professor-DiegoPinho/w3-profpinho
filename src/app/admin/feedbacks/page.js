@@ -1,184 +1,217 @@
-"use client";
+import { adminDb } from "@/lib/firebaseAdmin";
+import Link from "next/link";
+import "./feedbacks-list.css";
 
-import { FEEDBACK_QUESTIONS } from "@/lib/feedbackConfig";
-import { useEffect, useState } from "react";
-import "./feedbacks.css";
+async function getFeedbacksStats() {
+  try {
+    const feedbacksSnapshot = await adminDb.collection("courseFeedback").get();
 
-function formatDate(timestamp) {
-  if (!timestamp) return "—";
-  
-  let date;
-  if (typeof timestamp === "string") {
-    date = new Date(timestamp);
-  } else if (typeof timestamp?.toDate === "function") {
-    date = timestamp.toDate();
-  } else if (typeof timestamp === "number") {
-    date = new Date(timestamp);
-  } else {
-    return "—";
-  }
+    // Agrupar feedbacks por curso
+    const statsByCourse = {};
 
-  if (isNaN(date.getTime())) return "—";
+    feedbacksSnapshot.forEach((doc) => {
+      const feedbackData = doc.data();
+      const courseSlug = feedbackData.courseSlug;
 
-  return date.toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
+      if (!courseSlug) return;
 
-function getNpsColor(score) {
-  if (score >= 9) return "admin-nps-promoter";
-  if (score >= 7) return "admin-nps-passive";
-  return "admin-nps-detractor";
-}
-
-function getNpsLabel(score) {
-  if (score >= 9) return "Promotor";
-  if (score >= 7) return "Neutro";
-  return "Detrator";
-}
-
-function getAnswerLabel(questionId, answerValue) {
-  const question = FEEDBACK_QUESTIONS.find(q => q.id === questionId);
-  if (!question) return answerValue;
-  
-  const option = question.options?.find(opt => opt.value === answerValue);
-  return option?.label || answerValue;
-}
-
-export default function FeedbacksPage() {
-  const [feedbacks, setFeedbacks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [expandedFeedbackId, setExpandedFeedbackId] = useState(null);
-
-  useEffect(() => {
-    const fetchFeedbacks = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch("/api/admin/feedbacks");
-        
-        if (!response.ok) {
-          throw new Error("Erro ao buscar feedbacks");
-        }
-        
-        const data = await response.json();
-        setFeedbacks(data.data || []);
-        setError(null);
-      } catch (err) {
-        console.error("Erro ao buscar feedbacks:", err);
-        setError(err.message);
-        setFeedbacks([]);
-      } finally {
-        setLoading(false);
+      if (!statsByCourse[courseSlug]) {
+        statsByCourse[courseSlug] = {
+          courseSlug,
+          totalFeedbacks: 0,
+          npsScores: [],
+          totalByCategory: {
+            detrator: 0,
+            neutro: 0,
+            promoter: 0,
+          },
+        };
       }
-    };
 
-    fetchFeedbacks();
-  }, []);
+      statsByCourse[courseSlug].totalFeedbacks += 1;
+      statsByCourse[courseSlug].npsScores.push(feedbackData.npsScore || 0);
 
-  if (loading) {
-    return (
-      <div className="admin-feedbacks-container">
-        <h1 className="admin-feedbacks-title">Feedbacks dos Alunos</h1>
-        <div className="admin-feedbacks-loading">Carregando feedbacks...</div>
-      </div>
-    );
+      // Categorizar por NPS
+      const nps = feedbackData.npsScore || 0;
+      if (nps <= 6) {
+        statsByCourse[courseSlug].totalByCategory.detrator += 1;
+      } else if (nps <= 8) {
+        statsByCourse[courseSlug].totalByCategory.neutro += 1;
+      } else {
+        statsByCourse[courseSlug].totalByCategory.promoter += 1;
+      }
+    });
+
+    // Calcular NPS médio para cada curso
+    const stats = Object.values(statsByCourse).map((stat) => {
+      const avgNps =
+        stat.npsScores.length > 0
+          ? (stat.npsScores.reduce((a, b) => a + b, 0) / stat.npsScores.length).toFixed(1)
+          : 0;
+
+      return {
+        courseSlug: stat.courseSlug,
+        totalFeedbacks: stat.totalFeedbacks,
+        avgNps,
+        totalByCategory: stat.totalByCategory,
+      };
+    });
+
+    return { data: stats };
+  } catch (error) {
+    console.error("Erro ao buscar stats:", error);
+    return { data: [] };
   }
+}
 
-  if (error) {
-    return (
-      <div className="admin-feedbacks-container">
-        <h1 className="admin-feedbacks-title">Feedbacks dos Alunos</h1>
-        <div className="admin-feedbacks-error">Erro ao carregar feedbacks: {error}</div>
-      </div>
-    );
+async function getCourses() {
+  try {
+    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/sidebar`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar cursos");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Erro ao buscar cursos:", error);
+    return [];
   }
+}
+
+export default async function FeedbacksListPage() {
+  const [statsData, coursesData] = await Promise.all([
+    getFeedbacksStats(),
+    getCourses(),
+  ]);
+
+  // Mapear stats por courseSlug
+  const stats = {};
+  statsData.data?.forEach((stat) => {
+    stats[stat.courseSlug] = stat;
+  });
+
+  // Filtrar apenas cursos que têm feedbacks
+  const coursesWithFeedback = coursesData.filter((course) =>
+    stats[course.category]
+  );
+
+  // Calcular estatísticas gerais
+  const totalFeedbacks = Object.values(stats).reduce(
+    (sum, stat) => sum + (stat.totalFeedbacks || 0),
+    0
+  );
+
+  const allNpsScores = [];
+  Object.values(stats).forEach((stat) => {
+    for (let i = 0; i < stat.totalFeedbacks; i++) {
+      allNpsScores.push(parseFloat(stat.avgNps) || 0);
+    }
+  });
+  const overallNps =
+    allNpsScores.length > 0
+      ? (allNpsScores.reduce((a, b) => a + b, 0) / allNpsScores.length).toFixed(1)
+      : "N/A";
 
   return (
-    <div className="admin-feedbacks-container">
-      <h1 className="admin-feedbacks-title">Feedbacks dos Alunos</h1>
+    <div className="admin-feedbacks-list-container">
+      <div className="admin-feedbacks-list-header">
+        <h1 className="admin-feedbacks-list-title">Feedbacks dos Cursos</h1>
+      </div>
 
-      {feedbacks.length === 0 ? (
-        <div className="admin-feedbacks-empty">Nenhum feedback encontrado</div>
-      ) : (
-        <div className="admin-feedbacks-stats">
-          <div className="admin-feedbacks-stat-item">
-            <span className="admin-feedbacks-stat-label">Total de Feedbacks:</span>
-            <span className="admin-feedbacks-stat-value">{feedbacks.length}</span>
-          </div>
-          <div className="admin-feedbacks-stat-item">
-            <span className="admin-feedbacks-stat-label">NPS Médio:</span>
-            <span className="admin-feedbacks-stat-value">
-              {(feedbacks.reduce((sum, f) => sum + f.npsScore, 0) / feedbacks.length).toFixed(1)}
-            </span>
-          </div>
+      {/* Estatísticas Gerais */}
+      <div className="admin-feedbacks-list-stats">
+        <div className="admin-feedbacks-list-stat-card">
+          <div className="admin-feedbacks-list-stat-label">Total de Feedbacks</div>
+          <div className="admin-feedbacks-list-stat-value">{totalFeedbacks}</div>
         </div>
-      )}
+        <div className="admin-feedbacks-list-stat-card">
+          <div className="admin-feedbacks-list-stat-label">NPS Geral</div>
+          <div className="admin-feedbacks-list-stat-value">{overallNps}</div>
+        </div>
+        <div className="admin-feedbacks-list-stat-card">
+          <div className="admin-feedbacks-list-stat-label">Cursos com Feedback</div>
+          <div className="admin-feedbacks-list-stat-value">{coursesWithFeedback.length}</div>
+        </div>
+      </div>
 
-      {feedbacks.length > 0 && (
-        <div className="admin-feedbacks-list">
-          {feedbacks.map((feedback) => {
-            const isExpanded = expandedFeedbackId === feedback.id;
+      {/* Lista de Cursos */}
+      {coursesWithFeedback.length === 0 ? (
+        <div className="admin-feedbacks-list-empty">
+          Nenhum curso com feedbacks ainda
+        </div>
+      ) : (
+        <div className="admin-feedbacks-list-grid">
+          {coursesWithFeedback.map((course) => {
+            const courseStats = stats[course.category] || {
+              totalFeedbacks: 0,
+              avgNps: 0,
+              totalByCategory: { detrator: 0, neutro: 0, promoter: 0 },
+            };
+
+            const npsColor =
+              courseStats.avgNps >= 9
+                ? "promoter"
+                : courseStats.avgNps >= 7
+                ? "passive"
+                : "detractor";
+
             return (
-              <div key={feedback.id} className="admin-feedback-card">
-                <div 
-                  className="admin-feedback-header"
-                  onClick={() => setExpandedFeedbackId(isExpanded ? null : feedback.id)}
-                >
-                  <div className="admin-feedback-header-left">
-                    <h3 className="admin-feedback-user-name">{feedback.userName}</h3>
-                    <p className="admin-feedback-course">{feedback.courseSlug}</p>
+              <Link
+                key={course.category}
+                href={`/admin/feedbacks/${course.category}`}
+                className="admin-feedbacks-list-card"
+              >
+                <div className="admin-feedbacks-list-card-header">
+                  <h3 className="admin-feedbacks-list-card-title">{course.title}</h3>
+                  <div className={`admin-feedbacks-list-nps-badge ${npsColor}`}>
+                    {courseStats.avgNps}
                   </div>
-                  
-                  <div className="admin-feedback-header-right">
-                    <div className={`admin-nps-badge ${getNpsColor(feedback.npsScore)}`}>
-                      <span className="admin-nps-score">{feedback.npsScore}</span>
-                      <span className="admin-nps-label">{getNpsLabel(feedback.npsScore)}</span>
-                    </div>
-                    <span className="admin-feedback-date">{formatDate(feedback.respondedAt)}</span>
-                  </div>
-
-                  <button className="admin-feedback-toggle">
-                    {isExpanded ? "▼" : "▶"}
-                  </button>
                 </div>
 
-                {isExpanded && (
-                  <div className="admin-feedback-details">
-                    {feedback.answers && Object.keys(feedback.answers).length > 0 && (
-                      <div className="admin-feedback-section">
-                        <h4 className="admin-feedback-section-title">Respostas às Perguntas</h4>
-                        <div className="admin-feedback-answers">
-                          {Object.entries(feedback.answers).map(([questionId, answer]) => {
-                            const question = FEEDBACK_QUESTIONS.find(q => q.id === questionId);
-                            return (
-                              <div key={questionId} className="admin-feedback-answer-item">
-                                <strong>{question?.text || questionId}</strong>
-                                <p>{getAnswerLabel(questionId, answer)}</p>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="admin-feedback-section">
-                      <h4 className="admin-feedback-section-title">Comentário Adicional</h4>
-                      {feedback.comment ? (
-                        <p className="admin-feedback-comment">{feedback.comment}</p>
-                      ) : (
-                        <p className="admin-feedback-comment" style={{ color: "#999", fontStyle: "italic" }}>
-                          O usuário não escreveu nenhum comentário.
-                        </p>
-                      )}
-                    </div>
+                <div className="admin-feedbacks-list-card-stats">
+                  <div className="admin-feedbacks-list-card-stat">
+                    <span className="admin-feedbacks-list-card-stat-label">
+                      Total
+                    </span>
+                    <span className="admin-feedbacks-list-card-stat-value">
+                      {courseStats.totalFeedbacks}
+                    </span>
                   </div>
-                )}
-              </div>
+
+                  <div className="admin-feedbacks-list-card-stat">
+                    <span className="admin-feedbacks-list-card-stat-label">
+                      Promotores
+                    </span>
+                    <span className="admin-feedbacks-list-card-stat-value promoter">
+                      {courseStats.totalByCategory.promoter}
+                    </span>
+                  </div>
+
+                  <div className="admin-feedbacks-list-card-stat">
+                    <span className="admin-feedbacks-list-card-stat-label">
+                      Neutros
+                    </span>
+                    <span className="admin-feedbacks-list-card-stat-value passive">
+                      {courseStats.totalByCategory.neutro}
+                    </span>
+                  </div>
+
+                  <div className="admin-feedbacks-list-card-stat">
+                    <span className="admin-feedbacks-list-card-stat-label">
+                      Detratores
+                    </span>
+                    <span className="admin-feedbacks-list-card-stat-value detractor">
+                      {courseStats.totalByCategory.detrator}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="admin-feedbacks-list-card-arrow">→</div>
+              </Link>
             );
           })}
         </div>
@@ -186,3 +219,4 @@ export default function FeedbacksPage() {
     </div>
   );
 }
+

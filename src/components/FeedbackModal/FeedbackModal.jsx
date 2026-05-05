@@ -69,17 +69,6 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
       return;
     }
 
-    // Validar comentários específicos para piores respostas
-    for (const question of FEEDBACK_QUESTIONS) {
-      if (question.showTextareaIfWorst && isWorstAnswer(question.id, answers[question.id])) {
-        const comment = (questionComments[question.id] || "").trim();
-        if (!comment) {
-          setError(`Por favor, explique por que escolheu essa opção para: "${question.text}"`);
-          return;
-        }
-      }
-    }
-
     setIsSubmitting(true);
 
     try {

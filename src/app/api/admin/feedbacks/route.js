@@ -10,8 +10,23 @@ export async function GET(request) {
       return response;
     }
 
+    // Extrair courseSlug da query string
+    const { searchParams } = new URL(request.url);
+    const courseSlug = searchParams.get("courseSlug");
+
     const feedbacks = [];
-    const feedbacksSnapshot = await adminDb.collection("courseFeedback").get();
+    
+    let feedbacksSnapshot;
+    if (courseSlug) {
+      // Se courseSlug fornecido, filtrar por curso
+      feedbacksSnapshot = await adminDb
+        .collection("courseFeedback")
+        .where("courseSlug", "==", courseSlug)
+        .get();
+    } else {
+      // Se não, buscar todos
+      feedbacksSnapshot = await adminDb.collection("courseFeedback").get();
+    }
 
     // Buscar dados de usuários em paralelo para otimizar
     const userCache = {};
@@ -54,6 +69,7 @@ export async function GET(request) {
         courseSlug: feedbackData.courseSlug,
         npsScore: feedbackData.npsScore,
         answers: feedbackData.answers || {},
+        questionComments: feedbackData.questionComments || {},
         comment: feedbackData.comment || "",
         respondedAt: convertTimestamp(feedbackData.respondedAt),
       });
