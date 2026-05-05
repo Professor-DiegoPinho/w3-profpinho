@@ -69,25 +69,19 @@
   color: #1a1a1a;
 }
 
-/* Grid de Cursos */
-.admin-feedbacks-list-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
 .admin-feedbacks-list-card {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   background: #fff;
   border: 2px solid #e0e3e8;
   border-radius: 8px;
-  padding: 20px;
+  padding: 16px 20px;
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease;
   cursor: pointer;
-  position: relative;
+  gap: 16px;
 }
 
 .admin-feedbacks-list-card:hover {
@@ -96,16 +90,8 @@
   transform: translateY(-2px);
 }
 
-.admin-feedbacks-list-card-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
 .admin-feedbacks-list-card-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   color: #1a1a1a;
   margin: 0;
@@ -120,7 +106,7 @@
   height: 50px;
   border-radius: 6px;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   flex-shrink: 0;
 }
 
@@ -142,61 +128,13 @@
   border: 2px solid #dc3545;
 }
 
-/* Card Stats */
-.admin-feedbacks-list-card-stats {
+
+
+/* Grid de Cursos */
+.admin-feedbacks-list-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 12px;
-  margin-bottom: 16px;
-}
-
-.admin-feedbacks-list-card-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background: #f8f9fa;
-  padding: 12px;
-  border-radius: 6px;
-  border-left: 3px solid #d0d8e0;
-}
-
-.admin-feedbacks-list-card-stat-label {
-  font-size: 12px;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-}
-
-.admin-feedbacks-list-card-stat-value {
-  font-size: 18px;
-  font-weight: 700;
-  color: #333;
-}
-
-.admin-feedbacks-list-card-stat-value.promoter {
-  color: #28a745;
-}
-
-.admin-feedbacks-list-card-stat-value.passive {
-  color: #ffc107;
-}
-
-.admin-feedbacks-list-card-stat-value.detractor {
-  color: #dc3545;
-}
-
-/* Arrow Indicator */
-.admin-feedbacks-list-card-arrow {
-  align-self: flex-end;
-  font-size: 24px;
-  color: #a0b0c0;
-  transition: all 0.3s ease;
-}
-
-.admin-feedbacks-list-card:hover .admin-feedbacks-list-card-arrow {
-  color: #333;
-  transform: translateX(4px);
 }
 
 /* Responsive */
@@ -213,7 +151,7 @@
     font-size: 24px;
   }
 
-  .admin-feedbacks-list-card-header {
+  .admin-feedbacks-list-card {
     flex-direction: column;
     align-items: flex-start;
   }
