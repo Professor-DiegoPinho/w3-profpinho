@@ -28,7 +28,7 @@ export const resumes = [
     }
   },
   {
-    slug: "javascript",
+    slug: "javascript_resume",
     title: "JavaScript",
     description: "Aqui você encontrará um resumo completo dos conceitos mais importantes de JavaScript.",
     badge: "Resumo",

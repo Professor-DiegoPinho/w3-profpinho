@@ -74,5 +74,21 @@ export const tutorials = [
       metaDescription: "Aprenda CSS do zero com exemplos práticos.",
       ogImage: "/images/logo_css.png"
     }
+  },
+  {
+    slug: "javascript",
+    title: "JavaScript",
+    description: "Aprenda JavaScript para criar interatividade em páginas web.",
+    image: "/images/logo_javascript.png",
+    badge: "Tutorial",
+    accessType: "tutorial",
+    visibility: "public",
+    tags: ["javascript", "web", "front-end"],
+    order: 3,
+    seo: {
+      metaTitle: "Curso de JavaScript para Iniciantes",
+      metaDescription: "Aprenda JavaScript do zero com exemplos práticos.",
+      ogImage: "/images/logo_javascript.png"
+    }
   }
 ];
