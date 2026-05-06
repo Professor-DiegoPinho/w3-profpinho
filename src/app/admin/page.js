@@ -1,4 +1,7 @@
+import { auth } from "@/auth";
+import { isUserAdmin } from "@/lib/adminAuth";
 import { adminDb } from "@/lib/firebaseAdmin";
+import { redirect } from "next/navigation";
 import "./dashboard.css";
 
 export const dynamic = 'force-dynamic';
@@ -116,6 +119,17 @@ async function getRecentActivity() {
 }
 
 export default async function AdminDashboard() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect("/");
+  }
+
+  const isAdmin = await isUserAdmin(session.user.id);
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const totalUsers = await getTotalUsers();
   const submissionStats = await getSubmissionStats();
   const recentActivity = await getRecentActivity();

@@ -1,4 +1,7 @@
+import { auth } from "@/auth";
+import { isUserAdmin } from "@/lib/adminAuth";
 import { adminDb } from "@/lib/firebaseAdmin";
+import { redirect } from "next/navigation";
 import "./submissoes.css";
 
 export const dynamic = 'force-dynamic';
@@ -102,6 +105,17 @@ function formatOrdinal(num) {
 }
 
 export default async function SubmissoesPage() {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    redirect("/");
+  }
+
+  const isAdmin = await isUserAdmin(session.user.id);
+  if (!isAdmin) {
+    redirect("/");
+  }
+
   const allAttempts = await getSubmissions();
 
   return (

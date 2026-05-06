@@ -1,0 +1,162 @@
+/* Feedbacks List Page Styles */
+
+.admin-feedbacks-list-container {
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.admin-feedbacks-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.admin-feedbacks-list-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.admin-feedbacks-list-loading,
+.admin-feedbacks-list-error,
+.admin-feedbacks-list-empty {
+  padding: 40px;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  background: #f5f5f5;
+  border-radius: 6px;
+}
+
+.admin-feedbacks-list-error {
+  background: #fee;
+  color: #c33;
+  border: 1px solid #fcc;
+}
+
+/* Stats Section */
+.admin-feedbacks-list-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.admin-feedbacks-list-stat-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
+  border: 1px solid #e0e3e8;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-feedbacks-list-stat-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.admin-feedbacks-list-stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.admin-feedbacks-list-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 2px solid #e0e3e8;
+  border-radius: 8px;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  gap: 16px;
+}
+
+.admin-feedbacks-list-card:hover {
+  border-color: #a0b0c0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.admin-feedbacks-list-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  flex: 1;
+}
+
+.admin-feedbacks-list-nps-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.admin-feedbacks-list-nps-badge.promoter {
+  background: #d4edda;
+  color: #155724;
+  border: 2px solid #28a745;
+}
+
+.admin-feedbacks-list-nps-badge.passive {
+  background: #fff3cd;
+  color: #856404;
+  border: 2px solid #ffc107;
+}
+
+.admin-feedbacks-list-nps-badge.detractor {
+  background: #f8d7da;
+  color: #721c24;
+  border: 2px solid #dc3545;
+}
+
+
+
+/* Grid de Cursos */
+.admin-feedbacks-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-feedbacks-list-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-feedbacks-list-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-feedbacks-list-title {
+    font-size: 24px;
+  }
+
+  .admin-feedbacks-list-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-feedbacks-list-nps-badge {
+    align-self: flex-start;
+  }
+}
