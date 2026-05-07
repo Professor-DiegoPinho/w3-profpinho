@@ -1,7 +1,7 @@
 ---
 title: "Sintaxe Básica"
 description: "Os principais pontos sobre a sintaxe do Python"
-order: 3
+order: 4
 ---
 
 # Sintaxe do Python
