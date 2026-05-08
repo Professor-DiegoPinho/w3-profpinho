@@ -1,7 +1,7 @@
 ---
 title: "Tipos de dados"
 description: "Os principais tipos de dados em Python e como usá-los"
-order: 4
+order: 5
 ---
 
 # Tipos de dados

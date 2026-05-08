@@ -99,7 +99,9 @@ export function getPostsInCategory(category) {
     const fileContents = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(fileContents);
 
-    const slug = file.replace(/\.md$/, '');
+    const fileSlug = file.replace(/\.md$/, '');
+    // Remove prefixo numérico do slug para exibir nas URLs
+    const slug = fileSlug.replace(/^\d+-/, '');
 
     // Calcula o tempo de leitura
     const readingTime = calculateReadingTime(content);
@@ -127,14 +129,37 @@ export function getCourseLessonsCount(category) {
 }
 
 // Get a specific post by category and slug
+// Handles both slugs with and without numeric prefixes (e.g., "01-intro" or "intro")
 export function getPost(category, slug) {
-  const filePath = path.join(contentDirectory, category, `${slug}.md`);
+  let actualSlug = slug;
+  let filePath = path.join(contentDirectory, category, `${slug}.md`);
 
   // Protege contra path traversal
   const resolvedPath = path.resolve(filePath);
   const resolvedBase = path.resolve(contentDirectory);
   if (!resolvedPath.startsWith(resolvedBase + path.sep)) {
     return null;
+  }
+
+  // Se o arquivo não existe e o slug não tem prefixo, tenta encontrar com prefixo
+  if (!fs.existsSync(filePath) && !/^\d+-/.test(slug)) {
+    const categoryPath = path.join(contentDirectory, category);
+    if (fs.existsSync(categoryPath)) {
+      const files = fs.readdirSync(categoryPath)
+        .filter(file => file.endsWith('.md'));
+      
+      // Procura por um arquivo que, sem o prefixo, matches o slug
+      const matchedFile = files.find(file => {
+        const fileSlug = file.replace(/\.md$/, '');
+        const normalizedFileSlug = fileSlug.replace(/^\d+-/, '');
+        return normalizedFileSlug === slug;
+      });
+
+      if (matchedFile) {
+        actualSlug = matchedFile.replace(/\.md$/, '');
+        filePath = path.join(categoryPath, matchedFile);
+      }
+    }
   }
 
   if (!fs.existsSync(filePath)) {
@@ -150,8 +175,11 @@ export function getPost(category, slug) {
   // Calcula o tempo de leitura
   const readingTime = calculateReadingTime(content);
 
+  // Normaliza o slug removendo prefixo numérico para URLs
+  const normalizedSlug = actualSlug.replace(/^\d+-/, '');
+
   return {
-    slug,
+    slug: normalizedSlug,
     category,
     content: processedContent,
     title: data.title || slug,
@@ -163,6 +191,7 @@ export function getPost(category, slug) {
 }
 
 // Get all posts from all categories (with full content for search)
+// Normalizes slugs by removing numeric prefixes (internal organization only)
 export function getAllPosts() {
   const categories = getCategories();
   const allPosts = [];
@@ -182,7 +211,9 @@ export function getAllPosts() {
       const fileContents = fs.readFileSync(filePath, 'utf8');
       const { data, content } = matter(fileContents);
 
-      const slug = file.replace(/\.md$/, '');
+      // Remove prefixo numérico do slug para exibir nas URLs
+      const fileSlug = file.replace(/\.md$/, '');
+      const slug = fileSlug.replace(/^\d+-/, '');
 
       // Calcula o tempo de leitura
       const readingTime = calculateReadingTime(content);
