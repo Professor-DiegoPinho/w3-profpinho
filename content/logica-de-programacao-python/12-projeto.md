@@ -6,6 +6,9 @@ order: 13
 
 ## Projeto Final: Jogo da Forca
 
+# Videoaula
+{% embed https://www.youtube.com/embed/ph790Iig4Oo %}
+
 ### Descrição
 
 Neste projeto você vai criar o clássico jogo da forca no terminal usando Python. O programa sorteia uma palavra secreta de uma lista e o jogador tenta descobri-la letra por letra antes de perder todas as suas seis vidas. É um jogo simples de entender, mas que exige que você combine listas, laços de repetição e condicionais de forma inteligente para funcionar corretamente.
