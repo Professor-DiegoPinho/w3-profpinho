@@ -17,8 +17,8 @@
 
 | Campo | Valor |
 |---|---|
-| Cloud Functions location | `us-central1` |
-| BigQuery Dataset location | `United States (multi-regional)` |
+| Cloud Functions location | `southamerica-east1` |
+| BigQuery Dataset location | `southamerica-east1` |
 | BigQuery Project ID | `seu-project-id` |
 | Firestore Instance ID | `(default)` |
 | Firestore Instance Location | Região do seu Firestore (ex: `southamerica-east1`) |
@@ -122,3 +122,6 @@ A partir da instalação, a extensão captura automaticamente:
 | Importação manual (script) | `IMPORT` |
 
 > O BigQuery **nunca deleta registros** — ele acumula o histórico completo de operações. A View garante que você veja sempre o estado mais recente de cada documento.
+
+---
+

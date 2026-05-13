@@ -3,9 +3,12 @@
 ## Google
 
 1. Acesse [console.cloud.google.com](https://console.cloud.google.com/) e crie um projeto
-2. Vá em **APIs e Serviços** → **Tela de permissão OAuth** → **Público Alvo** → selecione **Externo** → preencha nome e e-mail → salve
-3. Vá em **APIs e Serviços** → **Credenciais** → **+ Criar credenciais** → **ID do cliente OAuth** → **Aplicativo da Web**
-4. Em **Origens JavaScript autorizadas**, adicione:
+2. Vá em **APIs e Serviços**
+3. **Tela de permissão OAuth**
+4. **Público Alvo** e inicie o aplicativo para receber requisição oAuth 
+5. Em "público", selecione **Externo** e preencha com seu e-mail. Pronto, a tela de permissão OAuth está criada. Agora, é necessário criar as credenciais para o NextAuth.
+6. Vá em **APIs e Serviços** → **Credenciais** → **+ Criar credenciais** → **ID do cliente OAuth** → **Aplicativo da Web**
+7. Em **Origens JavaScript autorizadas**, adicione:
    ```
    http://localhost:3000
    ```
