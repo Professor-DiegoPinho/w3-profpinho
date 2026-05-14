@@ -1,103 +1,95 @@
 ---
-title: "Primeiras impressões"
-description: "O interpretador interativo do Python e a impressão de suas primeiras linhas de código."
+title: "Primeiras Impressões"
+description: "Usar Python pela primeira vez"
 order: 3
 ---
 
-Se você já instalou o Python, agora é hora de vê-lo em ação! Nada melhor do que colocar a mão no teclado e usar seu primeiro comando.
+# Abrir o interpretador
 
-## Acessando o interpretador do Python
+**Windows**:
 
-O jeito mais rápido de começar a usar o Python é através da linha de comando (CLI — *Command Line Interface*). A CLI permite que você interaja com o Python diretamente do terminal.
-
-No **Windows**, abra o **Prompt de Comando** e digite:
+Abra o Prompt de Comando ou o PowerShell e digite:
 
 ```bash
 python
 ```
 
-Se esse comando não funcionar, tente com este:
+ou
 
 ```bash
 py
 ```
 
-No **macOS** ou **Linux**, o comando padrão geralmente é:
+**macOS/Linux**:
 
 ```bash
 python3
 ```
 
-Assim que o interpretador do Python abrir no seu terminal, você verá algo parecido com isto:
+Você verá:
 
-```bash
-Python 3.13.8 (main, Oct  8 2025, 08:53:24) [GCC 11.4.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
+```
+Python 3.x.x (...)
 >>>
 ```
+Esses símbolos `>>>` indicam que você está no interpretador interativo do Python, onde pode digitar comandos e ver os resultados imediatamente.
 
-Esses três sinais de `>>>` indicam que o Python está pronto para receber seus comandos. E é aqui que a mágica começa!
+# Seu primeiro programa
 
-
-## Como o print() funciona
-
-A função `print()` serve para **exibir informações na tela**, seja um texto, número ou até o resultado de uma conta. Tudo que estiver dentro dos parênteses será mostrado no terminal.
-
-Tradicionalmente, o primeiro programa que escrevemos em qualquer linguagem costuma ser o **Hello, World!**.
-
-Ele é uma forma simples (e simbólica) de testar se tudo está funcionando corretamente. É como se fosse o primeiro "olá" entre você e a linguagem, marcando o início da sua jornada como programador(a) nela.
-
-Digite no terminal:
+Digite:
 
 ```python
 print("Hello, world!")
-
-# Saída:
-# Hello, world!
 ```
 
-Parabéns! 🎉 Você acabou de rodar seu primeiro código Python!
+**Saída**:
 
+```
+Hello, world!
+```
 
-## Imprimindo em uma ou múltiplas linhas
-
-Você pode usar a função `print()` quantas vezes quiser para imprimir várias linhas. Cada vez que você usar essa função, uma nova linha será criada na saída.
-
-Por exemplo:
+# Imprimir várias linhas
 
 ```python
-print("Acabei de dar meu primeiro "Hello, world!" em Python!")
-print("Estou muito feliz!")
+print("Linha 1")
+print("Linha 2")
 
-# Saída:
-# Acabei de dar meu primeiro "Hello, world!" em Python!
-# Estou muito feliz!
+# Linha 1
+# Linha 2
 ```
 
-Se você quiser mudar esse comportamento padrão do `print()`, você pode usar o parâmetro `end` para manter as impressões na mesma linha. Veja só:
+# Manter na mesma linha
+
+Use `end`:
 
 ```python
 print("Olá,", end=" ")
 print("mundo!")
 
-# Saída:
 # Olá, mundo!
 ```
 
-O espaço dentro de `end=" "` garante que as palavras não fiquem grudadas.
+# Aspas simples vs duplas
 
-## Aspas simples ou duplas?
-
-Em Python, textos precisam estar entre aspas simples `' '` ou duplas `" "`. Ambas funcionam:
+Ambas funcionam:
 
 ```python
-print("Assim funciona!")
-print('Assim também funciona!')
+print("Texto com duplas")
+print('Texto com simples')
 
-# Saída:
-# Assim funciona!
-# Assim também funciona!
+# Texto com duplas
+# Texto com simples
 ```
+
+# Sair do interpretador
+
+Digite:
+
+```python
+exit()
+```
+
+ou pressione `Ctrl+D` (Linux/macOS) / `Ctrl+Z + Enter` (Windows)
 
 Agora, repare de novo nesse exemplo que usamos acima:
 
@@ -163,7 +155,3 @@ exit()
 ```
 
 ou usar o atalho **Ctrl + Z** (no Windows) ou **Ctrl + D** (no macOS/Linux).
-
-## Para além do terminal
-
-Por enquanto, todos os nossos testes estão sendo feitos diretamente no terminal, mas logo veremos como criar **arquivos Python (.py)** para guardar e executar os programas de forma mais organizada.

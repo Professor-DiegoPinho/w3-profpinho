@@ -1,253 +1,91 @@
 ---
-title: "Manipulando conjuntos"
-description: "Como manipular um conjunto em Python"
+title: "Manipulando Conjuntos"
+description: "Adicionar, remover e operar com conjuntos"
 order: 28
 ---
 
-Nesta lição, vamos aprender como realizar algumas ações, como adicionar e remover itens dos nossos conjuntos. Também vamos conhecer uma outra versão deles, o `frozenset`.
+# Adicionar um item
 
-## Alterando valores
-
-Como conjuntos não têm índices e não mantêm ordem, **não é possível alterar diretamente um valor específico** dentro deles através de operações como fazíamos com listas e tuplas:
-
-```python
-lista = ["item1", "item2"]
-conjunto = {"item1", "item 2"}
-
-print(lista[0])
-print(conjunto[0])
-
-# Saída:
-# item1
-# Traceback (most recent call last):
-#   File "<stdin>", line 1, in <module>
-#     print(conjunto[0])
-#           ~~~~~~~~^^^
-# TypeError: 'set' object is not subscriptable
-```
-
-Sempre que falamos em "alterar" um conjunto, estamos na verdade falando sobre **adicionar um novo item** ou **remover um item existente** e não sobre mudar um de seus elementos.
-
-## Adicionando itens
-
-Conjuntos são mutáveis, então é possível acrescentar novos valores depois que eles são criados.
-
-### `add()`
-
-Adiciona **um único valor** ao conjunto.
+## add()
 
 ```python
 frutas = {"maçã", "banana"}
-
 frutas.add("laranja")
-print(frutas)
 
-# Saída possível:
-# {'banana', 'laranja', 'maçã'}
+print(frutas)  # {'maçã', 'banana', 'laranja'}
 ```
 
-Se o valor já existir no conjunto, nada muda, já que os conjuntos não aceitam duplicados.
+Se item já existe, nada acontece (sem duplicatas).
 
-### `update()`
+## update()
 
-Adiciona **vários valores de uma vez** ao conjunto. Ele pode receber uma coleção, como o outro conjunto ou uma lista, por exemplo.
+Adicionar vários itens:
 
 ```python
 frutas = {"maçã", "banana"}
+frutas.update(["laranja", "limão"])
 
-citricas = {"laranja", "limão"}
-frutas.update(citricas)
-
-print(frutas)
-
-vermelhas = ["morango", "cereja"]
-frutas.update(vermelhas)
-
-print(frutas)
-
-# Saída possível:
-# {'banana', 'maçã', 'limão', 'laranja'}
-# {'banana', 'maçã', 'limão', 'laranja', 'morango', 'cereja'}
+print(frutas) # {'maçã', 'banana', 'laranja', 'limão'}
 ```
 
-## Removendo itens
+# Remover itens
 
-Cada método de remoção tem um comportamento diferente, principalmente quando o item que queremos remover não existe.
+## remove()
 
-### `remove()`
-
-Remove o item se ele existir. Senão, **um erro é gerado**.
+Remove o item. **Gera erro se não existir**:
 
 ```python
-frutas = {"maçã", "banana", "laranja"}
+frutas = {"maçã", "banana"}
 frutas.remove("banana")
 
-print(frutas)
+print(frutas)  # {'maçã'}
 
-frutas.remove("melão")  # "melão" não existe em frutas, gera erro
-
-# Saída possível:
-# {'laranja', 'maçã'}
-# Traceback (most recent call last):
-#   File "<stdin>", line 1, in <module>
-#     frutas.remove("melão")
-#     ~~~~~~~~~~~~~^^^^^^^^^
-# KeyError: 'melão'
+# frutas.remove("melão")  # ❌ KeyError
 ```
 
-### `discard()`
+## discard()
 
-Remove o item **se existir** e o **ignora** se ele não existir:
-
-```python
-frutas = {"maçã", "banana", "laranja"}
-
-frutas.discard("uva")      # não gera erro
-frutas.discard("banana")
-
-print(frutas)
-
-# Saída possível:
-# {'maçã', 'laranja'}
-```
-
-### `pop()`
-
-Remove **um item aleatório** e o retorna.
-
-```python
-frutas = {"maçã", "banana", "laranja"}
-removida = frutas.pop()
-
-print(removida)
-print(frutas)
-
-# Saída possível:
-# banana
-# {'maçã', 'laranja'}
-```
-
-Como conjuntos não têm ordem, não há como saber qual item será removido. Mas caso não haja elementos no conjunto, um erro é gerado:
-
-```python
-frutas = {}
-frutas.pop()
-
-# Saída:
-# Traceback (most recent call last):
-#   File "<stdin>", line 1, in <module>
-#     frutas.pop()
-#     ~~~~~~~~~~^^
-# TypeError: pop expected at least 1 argument, got 0
-```
-
-## Limpando o conjunto
-
-### `clear()`
-
-Remove **todos os itens**, mas a variável continua existindo.
-
-```python
-frutas = {"maçã", "banana", "laranja"}
-
-frutas.clear()
-print(frutas)
-
-# Saída:
-# set()        # ou seja, o conjunto está vazio
-```
-
-### `del`
-
-Apaga **a variável e seus elementos**, removendo o conjunto por inteiro da memória. Após usar o `del`, `frutas` deixa de existir completamente:
+Remove se existir. **Ignora se não existir**:
 
 ```python
 frutas = {"maçã", "banana"}
-del frutas
+frutas.discard("banana")
+frutas.discard("melão")  # Sem erro
 
-print(frutas)
-
-# Saída:
-# Traceback (most recent call last):
-#   File "<stdin>", line 1, in <module>
-#     print(frutas)
-#           ^^^^^^
-# NameError: name 'frutas' is not defined
+print(frutas)  # {'maçã'}
 ```
 
-## Extraindo informações do conjunto
+## pop()
 
-### `len()`
-
-Retorna a quantidade de itens do conjunto.
+Remove um item **aleatório**. Não tem como escolher qual item será removido, pois conjuntos não têm ordem:
 
 ```python
 frutas = {"maçã", "banana", "laranja"}
-print(len(frutas))
+removido = frutas.pop()
 
-# Saída:
-# 3
+print(removido)  # Um dos itens
+print(frutas)    # Dois itens restantes
 ```
 
-## Copiando conjuntos
+## clear()
 
-### `copy()`
-
-Cria uma **cópia** de um conjunto. Modificações no conjunto copiado não afetam o conjunto original.
+Remove tudo:
 
 ```python
-original = {1, 2, 3}
+frutas = {"maçã", "banana"}
+frutas.clear()
 
-copia = original.copy()
-print(copia)
-
-# Saída possível:
-# {1, 2, 3}
+print(frutas)  # set()
 ```
 
-## Frozenset
-
-O `frozenset` é a **versão imutável** de um conjunto. Ele funciona quase igual ao `set`, mas com uma diferença essencial: depois de criado, você não pode mais mudá-lo.
-
-Isso significa que você não pode adicionar, remover ou alterar valores dentro dele. É como se fosse um conjunto "congelado", como seu nome diz.
-
-Mesmo sendo imutável, ele mantém todas as características de um conjunto comum:
-
-- não tem ordem;
-- não aceita valores repetidos;
-- permite realizar operações com seus elementos, exceto as que os alteram.
-
-Observe:
+# Operações matemáticas
 
 ```python
-frutas = frozenset({"maçã", "banana", "laranja"})
+a = {1, 2, 3}
+b = {3, 4, 5}
 
-print(frutas)
-print(type(frutas))
-print(len(frutas))
-
-# Saída possível:
-# frozenset({'banana', 'laranja', 'maçã'})
-# <class 'frozenset'>
-# 3
+print(a | b)      # União: {1, 2, 3, 4, 5}
+print(a & b)      # Interseção: {3}
+print(a - b)      # Diferença: {1, 2}
+print(a ^ b)      # Diferença simétrica: {1, 2, 4, 5}
 ```
-
-Como o `frozenset` não muda, ele se torna útil em situações onde você precisa garantir que aquele conjunto não será modificado ao longo do programa.
-
-> Atenção: Sempre que você fizer uma operação entre um `frozenset` e outro conjunto, o resultado será um novo `frozenset`, preservando a característica da imutabilidade e protegendo os seus elementos.
-
-## Conjuntos `frozenset` vs. Conjuntos `set` vs. Tuplas vs. Listas
-
-Antes de avançar, vale recapitular as diferenças entre tuplas e listas, e resumir como os dois tipos de conjuntos diferem delas:
-
-| Característica         | **Listas**                         | **Tuplas**                           | **Conjuntos (`set`)**          | **Conjuntos (`frozenset`)**     |
-| ---------------------- | ---------------------------------- | ------------------------------------ | ------------------------------ | ------------------------------- |
-| **Mutabilidade**       | Mutáveis.                          | Imutáveis.                           | Mutáveis.                      | Imutáveis.                      |
-| **Ordem**              | Mantêm a ordem dos itens.          | Mantêm a ordem dos itens.            | Não têm ordem fixa.            | Não têm ordem fixa.             |
-| **Valores duplicados** | Permitidos.                        | Permitidos.                          | Não permitidos.                | Não permitidos.                 |
-| **Sintaxe de criação** | Colchetes `[]` ou função `list()`. | Parênteses `()` ou função `tuple()`. | Chaves `{}` ou função `set()`. | Criado apenas com`frozenset()`. |
-| **Acesso por índice**  | Sim (`lista[0]`).                  | Sim (`tupla[0]`).                    | Não possuem índices.           | Não possuem índices.            |
-
----
-
-Na próxima lição, vamos aprender a comparar conjuntos usando operações da matemática, como união e interseção. Elas são ferramentas essenciais para analisar coleções de dados.

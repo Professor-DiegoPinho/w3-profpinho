@@ -1,103 +1,67 @@
 ---
-title: "Operadores lógicos com truthy e falsy"
-description: "Como os operadores lógicos em Python interagem com valores truthy e falsy"
+title: "Truthy e Falsy"
+description: "Como valores são interpretados como verdadeiro ou falso"
 order: 17
 ---
 
-## Valores _truthy_ e _falsy_
+# Valores truthy (verdadeiros)
 
-Na lição anterior, aprendemos sobre os operadores lógicos. Mas você se lembra que quando falamos sobre Booleanos, vimos que alguns valores são considerados como verdadeiros ou falsos para o Python, mesmo sem serem do tipo `bool`?
-
-Agora vamos retomar essa ideia com mais clareza:
-
-### O que é valor _truthy_?
-
-Os valores que vimos que são considerados como `True` são chamados de _truthy_. Lembre-se de alguns deles:
-
-- Números diferentes de zero: 1, 2.5, -3
-- Strings não vazias: "Python", "0"
-- Coleções com pelo menos um elemento: [1], { "a": 1 }
-
-### O que é _falsy_?
-
-Já os valores que são considerados como `False` são chamados de _falsy_. Reveja quais são:
-
-- O número zero: 0
-- String vazia: ""
-- Coleções vazias ([], {}, ())
-
-#### None
-
-Existe um valor especial que ainda não vimos, o `None`. Ele representa a falta de um valor e é do tipo `NoneType`. Da mesma forma que podemos criar variáveis com _strings_ vazias, também podemos criar variáveis sem valor nenhum atribuído usando o `None`:
+Valores considerados `True` mesmo sem ser booleano:
 
 ```python
-x = None
+print(bool(1))              # True
+print(bool("texto"))        # True
+print(bool([1, 2, 3]))      # True (lista com itens)
+print(bool({"a": 1}))       # True (dicionário com itens)
+```
 
-print(x)
-print(type(x))
+# Valores falsy (falsos)
 
-# Saída:
+Valores considerados `False`:
+
+```python
+print(bool(0))              # False
+print(bool(""))             # False (string vazia)
+print(bool([]))             # False (lista vazia)
+print(bool({}))             # False (dicionário vazio)
+print(bool(None))           # False (nenhum valor)
+```
+
 # None
-# <class 'NoneType'>
-```
 
-Não precisa se preocupar com ele agora, basta saber que ele também é considerado como _falsy_.
+Um tipo especial que representa "ausência de valor", parecido com `null` em outras linguagens:
 
 ```python
 x = None
-print(bool(x))
-
-# Saída:
-# False
+print(x)            # None
+print(type(x))      # <class 'NoneType'>
+print(bool(x))      # False
 ```
 
-## Operadores lógicos com _truthy_ e _falsy_
+# and e or com truthy/falsy
 
-Agora que você já sabe que vários valores podem se comportar como `True` ou `False`, é importante entender como os operadores lógicos lidam com eles. O Python não converte automaticamente tudo para booleano. Na verdade, ele usa os valores _truthy_ e _falsy_ diretamente.
-
-### O `and` com valores _truthy_ e _falsy_
-
-O operador `and` retorna o primeiro valor _falsy_ encontrado. Se todos forem _truthy_, retorna o último valor.
+`and` retorna o primeiro valor falsy ou o último se todos forem truthy:
 
 ```python
-print(0 and 5)       # 0 é falsy
-print(3 and 7)       # ambos são truthy
-
-# Saída:
-# 0
-# 7
-
+print(0 and 5)              # 0 (primeiro falsy)
+print(3 and 7)              # 7 (último é truthy)
 ```
 
-Uma aplicação do `and` com valores _truthy_ e _falsy_ é quando queremos garantir que um arquivo existe E possui conteúdo antes de usá‑lo. Imagine que você está recebendo o nome de um arquivo e também o conteúdo dele. Só faz sentido processar o arquivo se ambos existirem:
+`or` retorna o primeiro valor truthy ou o último se todos forem falsy:
 
 ```python
-nome_arquivo = "relatorio.txt"   # truthy
-conteudo_arquivo = "Dados do relatório"   # truthy
+print("" or "Python")       # Python (primeiro truthy)
+print(0 or 5)               # 5 (primeiro truthy)
+print(0 or "")              # "" (todos falsy, retorna último)
+```
 
-resultado = nome_arquivo and conteudo_arquivo
+# Usando na prática
+
+```python
+nome = input("Seu nome: ")
+resultado = nome or "Usuário anônimo"
 print(resultado)
-
-# Saída:
-# Dados do relatório
 ```
-
-Se qualquer dos valores for _falsy_ (nome vazio e/ou conteúdo vazio), o `and` devolve esse valor, indicando que falta algo. Se ambos forem _truthy_, o `and` devolve o último valor: o conteúdo.
-
-### O `or` com valores _truthy_ e _falsy_
-
-O operador `or` retorna o primeiro valor _truthy_ encontrado. Se todos forem _falsy_, retorna o último.
-
-```python
-print("" or "Python")   # string vazia é falsy
-print(0 or 5)            # 0 é falsy, 5 é truthy
-
-# Saída:
-# Python
-# 5
-```
-
-Esses comportamentos tornam expressões como esta muito naturais em Python:
 
 ```python
 nome = input("Digite seu nome: ") or "Visitante"
