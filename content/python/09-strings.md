@@ -1,7 +1,7 @@
 ---
 title: "Strings"
 description: "Como trabalhar com textos em Python"
-order: 9
+order: 09
 ---
 
 # O que é uma string

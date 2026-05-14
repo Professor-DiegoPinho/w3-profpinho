@@ -1,7 +1,7 @@
 ---
 title: "Ranges"
 description: "Usar ranges para gerar sequências de números"
-order: 32
+order: 26
 ---
 
 # O que é um range

@@ -1,7 +1,7 @@
 ---
 title: "Tipos de Dados"
 description: "Os principais tipos de dados primitivos"
-order: 5
+order: 05
 ---
 
 # Números

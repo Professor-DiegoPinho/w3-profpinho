@@ -1,7 +1,7 @@
 ---
 title: "Como Instalar o Python"
 description: "Instalando Python no seu computador"
-order: 2
+order: 02
 ---
 
 # Verificar instalação

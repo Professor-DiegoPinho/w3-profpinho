@@ -1,7 +1,7 @@
 ---
 title: "Dicionários"
-description: "Usar chave-valor para organizar dados"
-order: 30
+description: "Usar chave-valor para organizar e manipular dados"
+order: 25
 ---
 
 # O que é um dicionário
@@ -17,9 +17,6 @@ professor = {
 }
 
 print(professor)
-
-# Saída:
-# {'nome': 'Maria', 'formação': 'Computação', 'ensina': 'Python', 'experiência': 4}
 ```
 
 # Acessar valores
@@ -31,7 +28,6 @@ professor = {"nome": "Maria", "ensina": "Python"}
 
 print(professor["nome"])    # Maria
 print(professor["ensina"])  # Python
-print(professor.nome)       # ERRO! Dicionários não suportam acesso por atributo
 ```
 
 # Adicionar itens
@@ -77,4 +73,63 @@ print(professor.get("idade", "Não informado"))   # Não informado
 ```python
 vazio = {}
 print(vazio)  # {}
+```
+
+---
+
+# Alterar valores
+
+Use a chave:
+
+```python
+pessoa = {"nome": "Diego", "idade": 30}
+pessoa["idade"] = 31
+
+print(pessoa)  # {'nome': 'Diego', 'idade': 31}
+```
+
+# update()
+
+Alterar e adicionar vários itens:
+
+```python
+pessoa = {"nome": "Diego"}
+pessoa.update({"idade": 30, "cidade": "São Paulo"})
+
+print(pessoa)  # {'nome': 'Diego', 'idade': 30, 'cidade': 'São Paulo'}
+```
+
+# pop()
+
+Remove e retorna o valor:
+
+```python
+pessoa = {"nome": "Diego", "idade": 30}
+idade = pessoa.pop("idade")
+
+print(idade)    # 30
+print(pessoa)   # {'nome': 'Diego'}
+```
+
+# clear()
+
+Remove tudo:
+
+```python
+pessoa = {"nome": "Diego", "idade": 30}
+pessoa.clear()
+
+print(pessoa)  # {}
+```
+
+# Iterar
+
+```python
+pessoa = {"nome": "Diego", "idade": 30}
+
+for chave in pessoa:
+    print(chave, pessoa[chave])
+
+# nome Diego
+# idade 30
 ```

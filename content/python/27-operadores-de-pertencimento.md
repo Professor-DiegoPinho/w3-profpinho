@@ -1,7 +1,7 @@
 ---
 title: "Operadores de Pertencimento"
 description: "Verificar se um item está em uma coleção"
-order: 33
+order: 27
 ---
 
 # Operador in

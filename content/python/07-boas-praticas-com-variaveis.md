@@ -1,7 +1,7 @@
 ---
 title: "Boas práticas com variáveis"
 description: "Como receber dados do usuário e nomear variáveis de forma clara"
-order: 7
+order: 07
 ---
 
 # Recebendo dados do usuário

@@ -1,7 +1,7 @@
 ---
 title: "Introdução ao Python"
 description: "O que é Python e para que serve"
-order: 1
+order: 01
 ---
 
 # O que é Python?

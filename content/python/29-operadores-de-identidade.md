@@ -1,7 +1,7 @@
 ---
 title: "Operadores de Identidade"
 description: "Verificar se variáveis apontam para o mesmo objeto"
-order: 35
+order: 29
 ---
 
 # Operador is

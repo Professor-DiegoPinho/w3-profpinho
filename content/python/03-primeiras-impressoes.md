@@ -1,7 +1,7 @@
 ---
 title: "Primeiras Impressões"
 description: "Usar Python pela primeira vez"
-order: 3
+order: 03
 ---
 
 # Abrir o interpretador

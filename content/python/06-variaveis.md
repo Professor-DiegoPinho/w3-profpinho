@@ -1,7 +1,7 @@
 ---
 title: "Variáveis"
 description: "Como criar e usar variáveis em Python"
-order: 6
+order: 06
 ---
 
 # Variáveis
