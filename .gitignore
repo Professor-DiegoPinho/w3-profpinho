@@ -43,3 +43,6 @@ next-env.d.ts
 
 # firebase service account keys
 learning-hub-firebase-chave.json
+
+# generated search index (created during build)
+/public/search-index.json
