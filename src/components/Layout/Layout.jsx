@@ -15,36 +15,12 @@ import ProfilePageSkeleton from '../Skeletons/ProfilePageSkeleton';
 
 const SIDEBAR_COLLAPSE_BREAKPOINT = 1100;
 
-export default function Layout({ children }) {
+export default function Layout({ children, sidebarData = [] }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isRouteLoading, setIsRouteLoading] = useState(false);
   const [pendingPath, setPendingPath] = useState(null);
-  const [sidebarData, setSidebarData] = useState([]);
   const pathname = usePathname();
-
-  useEffect(() => {
-    let isActive = true;
-
-    fetch('/api/sidebar')
-      .then((res) => res.json())
-      .then((data) => {
-        if (!isActive) {
-          return;
-        }
-
-        setSidebarData(Array.isArray(data) ? data : []);
-      })
-      .catch(() => {
-        if (isActive) {
-          setSidebarData([]);
-        }
-      });
-
-    return () => {
-      isActive = false;
-    };
-  }, []);
 
   // Detectar telas compactas para recolher a sidebar mais cedo
   useEffect(() => {

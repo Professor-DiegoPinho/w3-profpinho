@@ -1,10 +1,17 @@
+"use client";
+
 import { generateId } from '@/lib/generateId';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
+
+// Lazy load do syntax highlighter (componente pesado)
+const CodeHighlight = dynamic(() => import('@/components/CodeHighlight/CodeHighlight'), {
+  ssr: false,
+  loading: () => <code className="inline-code loading-placeholder">Carregando...</code>,
+});
 
 const sanitizeSchema = {
   ...defaultSchema,
@@ -55,17 +62,12 @@ export default function MarkdownContent({ content, title }) {
 
       if (!inline && language) {
         return (
-          <SyntaxHighlighter
-            style={tomorrow}
+          <CodeHighlight
             language={language}
-            PreTag="div"
-            className="code-block"
-            showLineNumbers={true}
-            wrapLines={true}
             {...props}
           >
             {String(children).replace(/\n$/, '')}
-          </SyntaxHighlighter>
+          </CodeHighlight>
         );
       }
 

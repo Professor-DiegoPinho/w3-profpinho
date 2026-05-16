@@ -18,7 +18,7 @@ import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
 import { getProjectSubmissions } from '@/lib/submissions';
 import { notFound, redirect } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
