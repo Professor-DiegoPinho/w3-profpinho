@@ -1,90 +1,116 @@
 ---
-title: "Tipos de dados"
-description: "Os principais tipos de dados em Python e como usá-los"
-order: 5
+title: "Tipos de Dados"
+description: "Os principais tipos de dados primitivos"
+order: 05
 ---
 
-# Tipos de dados
-Apesar de ser uma linguagem de tipagem dinâmica, ou seja, você não precisa declarar o tipo de uma variável ao criá-la (como vimos na lição anterior), o Python oferece uma variedade de tipos de dados embutidos (chamados de tipos primitivos) que permitem armazenar e manipular diferentes tipos de informações.
+# Números
 
-Estão alguns dos tipos de dados mais comuns (que inclusive também estão presentes em outras linguagens de programação):
-
-## Números
-
-O Python suporta vários tipos numéricos, incluindo inteiros (`int`), números de ponto flutuante (`float`) e números complexos (`complex`).
-
-Por exemplo:
+## Int (inteiro)
 
 ```python
-idade = 25  # Tipo int
-altura = 1.75  # Tipo float
-numero_complexo = 2 + 3j  # Tipo complex
+idade = 25
+print(type(idade))  # <class 'int'>
 ```
 
-## Strings
+## Float (decimal)
 
-As strings são sequências de caracteres (ou seja, textos) e podem ser definidas usando aspas simples (`'`) ou duplas (`"`). O Python oferece vários métodos para manipulação de strings, como concatenação, fatiamento e formatação.
+```python
+altura = 1.75
+print(type(altura))  # <class 'float'>
+```
 
-Por exemplo:
+## Complex (complexo)
+
+```python
+numero = 2 + 3j
+print(type(numero))  # <class 'complex'>
+```
+
+# Strings
+
+Textos entre aspas:
 
 ```python
 nome = "João"
-print('Olá, ' + nome + '!')  # Saída: Olá, João!
-print(f"Olá, {nome}!")  # Usando f-strings
+print(type(nome))  # <class 'str'>
 ```
 
-## Booleanos
+# Booleanos
 
-O tipo booleano (`bool`) representa valores verdadeiros ou falsos. Em Python, os valores booleanos são `True` e `False` (repare na letra maiúscula).
+Verdadeiro ou falso:
 
 ```python
-is_estudante = True
-is_empregado = False
+ativo = True
+presente = False
+print(type(ativo))  # <class 'bool'>
 ```
 
-## Outros tipos de dados
-Além dos números e strings, o Python possui outros tipos de dados embutidos, como:
-- **Listas (`list`)**: Coleções ordenadas e mutáveis de itens;
-- **Dicionários (`dict`)**: Coleções não ordenadas de pares chave-valor;
-- **Tuplas (`tuple`)**: Coleções ordenadas e imutáveis de itens;
-- **Conjuntos (`set`)**: Coleções não ordenadas de itens únicos.
-
-Por exemplo:
+# Coleções
 
 ```python
 # Lista
-frutas = ["maçã", "banana", "laranja"]
+frutas = ["maçã", "banana"]
+
 # Dicionário
 pessoa = {"nome": "Ana", "idade": 30}
+
 # Tupla
 coordenadas = (10.0, 20.0)
+
 # Conjunto
-numeros_unicos = {1, 2, 3, 4, 5}
+unicos = {1, 2, 3}
 ```
 
-## Como verificar o tipo de uma variável
-Como a tipagem no Python é dinâmica, muitas vezes não vamos ter certeza do tipo de uma variável. Podemos usar a função `type()` para verificar isso. Por exemplo:
+# Verificar tipo
+
+Use `type()`:
 
 ```python
-print(type(idade))  # Saída: <class 'int'>
-print(type(nome))  # Saída: <class 'str'>
+print(type(25))        # <class 'int'>
+print(type("texto"))   # <class 'str'>
+print(type(True))      # <class 'bool'>
+print(type([1, 2]))    # <class 'list'>
 ```
 
-## Casting (conversão de tipos)
-Na maior parte das vezes a tipagem dinâmica vai dar conta do recado, no entanto, as vezes precisaremos converter explicitamente entre tipos. Conseguimos fazer isso entre diferentes tipos de dados usando *funções de casting*, como `int()`, `float()`, `str()`, entre outras.
+# Conversão de tipos (casting)
 
-Olha só como é fácil:
+## Para int
 
 ```python
-# Convertendo float para int -> ou seja, queremos só a parte inteira
-altura = 1.75
-altura_inteira = int(altura)  # 1
+num = int("42")
+print(num)  # 42
 
-# Convertendo int para float
-idade = 25
-idade_float = float(idade)  # 25.0
+num2 = int(3.14)
+print(num2)  # 3
+```
 
-# Convertendo int para str
-numero = 42
-numero_str = str(numero)  # "42"
+## Para float
+
+```python
+num = float(25)
+print(num)  # 25.0
+
+num2 = float("3.14")
+print(num2)  # 3.14
+```
+
+## Para string
+
+```python
+texto = str(42)
+print(texto)  # "42"
+
+texto2 = str(True)
+print(texto2)  # "True"
+```
+
+## Para booleano
+
+```python
+resultado = bool(1)
+print(resultado)  # True
+
+resultado2 = bool(0)
+print(resultado2)  # False
 ```

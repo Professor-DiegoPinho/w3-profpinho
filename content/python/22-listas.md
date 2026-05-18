@@ -1,147 +1,136 @@
 ---
 title: "Listas"
-description: "A principal coleção do Python"
+description: "Criar, acessar e manipular listas"
 order: 22
 ---
 
-Depois de conhecer o que são coleções no Python, é hora de mergulhar na mais utilizada delas: a **lista**. Ela aparece em praticamente todo tipo de programa porque é simples, flexível e fácil de trabalhar.
+# O que é uma lista
 
-## O que é uma lista?
-
-Uma lista permite guardar **vários valores dentro de uma única variável**. Ela é uma coleção:
-
-- **ordenada**, que mantém a ordem dos itens dentro dela;
-- **mutável**, permitindo alterações a qualquer momento;
-- que pode armazenar **tipos variados**, como números, strings e até outras listas.
-
-Veja como funciona:
+Uma coleção ordenada, mutável de valores:
 
 ```python
 frutas = ["maçã", "banana", "uva"]
-print(frutas)
-
-# Saída:
-# ['maçã', 'banana', 'uva']
+print(frutas)  # ['maçã', 'banana', 'uva']
 ```
 
-Você também pode criar listas vazias:
+# Listas vazias
 
 ```python
 lista_vazia = []
-print(lista_vazia)
-
-# Saída:
-# []
+print(lista_vazia)  # []
 ```
 
-<!-- ## Tipos diferentes dentro da tupla
+# Acessar elementos
 
-Assim como as listas, tuplas podem guardar qualquer tipo de dado e até misturar tipos diferentes:
-
-```python
-t1 = ("texto", 42, True)
-print(t1)
-
-# Saída:
-# ('texto', 42, True)
-``` -->
-
-## O que é um índice?
-
-Algumas coleções guardam valores em sequência, e cada valor ocupa uma posição chamada **índice**.
-
-No dia a dia, costumamos contar a partir do 1 (primeiro item, primeira cadeira, primeiro capítulo). Mas em Python, e na maior parte das linguagens, a contagem começa no **0**.
-
-Isso significa que:
-
-- o **primeiro** item está na posição `0`
-- o **segundo** está na posição `1`
-- o **terceiro** está na posição `2`
-
-Pense no índice como o **número de uma casa em uma rua**: ele diz onde cada item está. Para acessar um item, usamos o número da posição dele na lista, ou seja, seu índice, dentro dos colchetes (`[]`):
+Use o **índice** (começa em 0):
 
 ```python
 cores = ["azul", "verde", "roxo"]
 
-print(cores)
-print(cores[0])
-print(cores[1])
-print(cores[2])
-
-# Saída:
-# ['azul', 'verde', 'roxo']
-# azul
-# verde
-# roxo
+print(cores[0])    # azul
+print(cores[1])    # verde
+print(cores[2])    # roxo
 ```
 
-Essa forma de contagem pode parecer estranha no começo, mas logo se torna natural.
+# Índices negativos
 
-### Índices negativos
-
-Python também permite contar de trás para frente usando índices negativos:
-
-- `-1` → último item
-- `-2` → penúltimo item
-- e assim em diante...
+Contar de trás para frente:
 
 ```python
 cores = ["azul", "verde", "roxo"]
 
-print(cores[-1])
-print(cores[-2])
-print(cores[-3])
-
-# Saída:
-# roxo
-# verde
-# azul
+print(cores[-1])   # roxo (último)
+print(cores[-2])   # verde (penúltimo)
+print(cores[-3])   # azul (antepenúltimo)
 ```
 
-### Fatiamento (_slicing_)
+# Tipos mistos
 
-Podemos também acessar **intervalos** da lista. Para isso, usamos o índice do início do intervalo e o índice do fim dentro dos colchetes, separados por dois pontos: `lista[início:fim]`.
-
-Mas tem um detalhe importante: o item de _início_ é incluído no intervalo e o de _fim_ **não** é. Observe como funciona:
+Listas podem conter qualquer tipo:
 
 ```python
-frutas = ["maçã", "banana", "uva", "laranja", "kiwi"]
-print(frutas[1:4])
-
-# Saída:
-# ['banana', 'uva', 'laranja']
+mistura = ["texto", 42, 3.14, True, None]
+print(mistura)
 ```
 
-Apenas os dados nas posições 1 ("banana"), 2 ("uva") e 3 ("laranja) são impressos. O que está na posição 4 ("kiwi") não é incluído.
-
-Também é possível usar índices negativos para selecionar itens. O intervalo `[-4:-1]` começa em "laranja" e vai até antes de "manga":
+# Comprimento
 
 ```python
-frutas = ["maçã", "banana", "cereja", "laranja", "kiwi", "melão", "manga"]
-print(frutas[-4:-1])
-
-
-# Saída:
-# ['laranja', 'kiwi', 'melão']
+frutas = ["maçã", "banana", "uva"]
+print(len(frutas))  # 3
 ```
 
-Algumas variações úteis:
+# Verificar se item existe
 
 ```python
-frutas = ["maçã", "banana", "uva", "laranja", "kiwi"]
-
-print(frutas[:3])   # do início até antes do índice 3
-print(frutas[2:])   # do índice 2 até o final
-print(frutas[::2])  # pulando de 2 em 2 (índices 0, 2 e 4)
-
-# Saída:
-# ['maçã', 'banana', 'uva']
-# ['uva', 'laranja', 'kiwi']
-# ['maçã', 'uva', 'kiwi']
+frutas = ["maçã", "banana"]
+print("maçã" in frutas)     # True
+print("laranja" in frutas)  # False
 ```
 
 ---
 
-Percebeu o poder das listas como ferramenta do nosso código?
+# Alterar valores
 
-Na próxima lição, vamos explorar como manipulá-las: adicionar, remover, reorganizar e modificar seus valores. Vamos usar os principais recursos que o Python oferece para trabalhar com esse tipo de estrutura.
+Use o índice:
+
+```python
+frutas = ["maçã", "banana", "uva"]
+frutas[1] = "morango"
+print(frutas)  # ['maçã', 'morango', 'uva']
+```
+
+# Adicionar itens
+
+## append() - no final
+
+```python
+frutas = ["maçã", "banana"]
+frutas.append("uva")
+print(frutas)  # ['maçã', 'banana', 'uva']
+```
+
+## insert() - em posição específica
+
+```python
+frutas = ["maçã", "banana", "uva"]
+frutas.insert(1, "laranja")
+print(frutas)  # ['maçã', 'laranja', 'banana', 'uva']
+```
+
+## extend() - adicionar vários
+
+```python
+frutas = ["maçã", "banana"]
+frutas.extend(["uva", "manga"])
+print(frutas)  # ['maçã', 'banana', 'uva', 'manga']
+```
+
+# Remover itens
+
+## remove() - por valor
+
+```python
+frutas = ["maçã", "banana", "uva"]
+frutas.remove("banana")
+print(frutas)  # ['maçã', 'uva']
+```
+
+## pop() - por índice
+
+```python
+frutas = ["maçã", "banana", "uva"]
+frutas.pop(1)
+print(frutas)  # ['maçã', 'uva']
+
+# Sem índice, remove o último
+frutas.pop()
+```
+
+## clear() - limpar tudo
+
+```python
+frutas = ["maçã", "banana"]
+frutas.clear()
+print(frutas)  # []
+```

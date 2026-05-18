@@ -1,102 +1,87 @@
 ---
 title: "Números"
-description: "Os tipos numéricos no Python"
-order: 8
+description: "Inteiros, floats e números complexos em Python"
+order: 08
 ---
 
-# Números
+# Inteiros (int)
 
-Os números estão por trás de quase tudo que o computador faz, mesmo quando não percebemos. Pense em qualquer programa: jogos, planilhas, apps de previsão do tempo… Todos têm algo em comum: usam números para funcionar.
-
-Na lição sobre "Tipos de dados", vimos que o Python possui três tipos numéricos: inteiros (`int`), de ponto flutuante (`float`) e complexos (`complex`).
-
-Agora, vamos entender melhor cada um deles, mas antes de seguir, vale um aviso rápido. Aqui aparecem alguns conceitos da matemática. Eles podem parecer difíceis, mas não precisa se preocupar! O Python lida com números de forma bem intuitiva e com os exemplos você vai perceber que é muito mais simples do que parece.
-
-## Inteiros (`int`)
-
-Os inteiros representam números **sem parte decimal**, podendo ser positivos ou negativos:
+Números sem parte decimal:
 
 ```python
-x = 1
-y = 35656222554887711
-z = -3255522
+x = 10
+y = -5
+z = 1000000
 
-print(type(x))
-print(type(y))
-print(type(z))
-
-# Saída:
-# <class 'int'>
-# <class 'int'>
-# <class 'int'>
+print(type(x))  # <class 'int'>
 ```
 
-O mais interessante: eles não têm limite de tamanho no Python! Você pode trabalhar com números gigantes se quiser.
+Python não tem limite de tamanho para inteiros.
 
-## Ponto flutuante (`float`)
+# Ponto flutuante (float)
 
-Os números de ponto flutuante, ou _floats_, são aqueles que **possuem casas decimais**. Eles também podem ser positivos ou negativos:
+Números com casas decimais:
 
 ```python
-x = 3.14159
-y = 1.0
-z = -35.59
+x = 3.14
+y = -2.5
+z = 0.1
 
-print(type(x))
-print(type(y))
-print(type(z))
-
-# Saída:
-# <class 'float'>
-# <class 'float'>
-# <class 'float'>
+print(type(x))  # <class 'float'>
 ```
 
-> Atenção: em português usamos a vírgula para separar as casas decimais da parte inteira do número. Já em Python (e em praticamente todas as linguagens de programação), esse separador é o **ponto**.
+**Nota:** use ponto (`.`), não vírgula.
 
-### Formato científico com `float`
+## Notação científica
 
-Em Python, a letra (`e`) ou (`E`) representa **números em notação científica**, um formato usado para escrever números muito grandes ou muito pequenos. O número que aparece antes do `e` é elevado à quantidade de potências de 10 que aparece logo depois dele.
-
-Veja como funciona:
+Use `e` para números muito grandes ou pequenos:
 
 ```python
-x = 1e2      # = 1 × 10²
-y = 35e3     # = 35 × 10³
-z = 2E10    # = 2 × 10¹⁰
+x = 1e2      # 1 × 10² = 100.0
+y = 35e3     # 35 × 10³ = 35000.0
+z = 2E-4     # 2 × 10⁻⁴ = 0.0002
 
-print(x)
-print(y)
-print(z)
-
-# Saída:
-# 100.0
-# 35000.0
-# 20000000000.0
+print(x, y, z)
 ```
 
-> Mesmo quando um número que possui essa letra pareça ser inteiro, ele sempre é do tipo _float_ em Python, pois seu resultado sempre será um número com ponto flutuante.
+# Números complexos (complex)
 
-Se esse conteúdo é novo para você e ficou um pouco confuso, não se preocupe! Por enquanto, não é necessário entender a fundo. O mais importante é você saber que a letra `e` (ou `E`) pode aparecer entre números nos códigos e que o tipo do dado não deixa de ser numérico por conta disso. Na dúvida, use sempre a função `type()` para conferir o tipo da variável.
-
-### Números complexos (`complex`)
-
-O Python também trabalha com números **complexos**, que têm uma parte real e uma parte imaginária.
-
-Vamos recapitular um pouco as aulas de matemática: talvez você se lembre de quando apareciam expressões como `2 + 3i`, que envolviam um número comum (a parte real) e uma parte com o símbolo `i`, chamada de parte imaginária.
-
-Esse tipo de número é usado para representar situações em que a matemática tradicional não dá conta, como quando tentamos tirar a raiz quadrada de um número negativo. Eles também aparecem em diversas áreas técnicas, como nas engenharias elétrica, eletrônica e mecânica, além da física e da computação gráfica.
-
-Em Python, usamos a letra `j` no lugar do `i` para indicar a parte imaginária:
+Números com parte real e imaginária (usa `j` em vez de `i`):
 
 ```python
-x = 3 + 5j   # 3 é a parte real, 5j é a parte imaginária
-y = 5j       # 0 é a parte real, 5j é a parte imaginária
-z = -5j      # 0 é a parte real, -5j é a parte imaginária
+x = 3 + 5j
+y = 2j
+z = 1 - 2j
 
-print(type(x))
-print(type(y))
-print(type(z))
+print(type(x))  # <class 'complex'>
+print(x.real)   # 3.0
+print(x.imag)   # 5.0
+```
+
+# Verificando o tipo
+
+Use `type()` para saber que tipo é:
+
+```python
+print(type(10))        # <class 'int'>
+print(type(10.5))      # <class 'float'>
+print(type(10 + 5j))   # <class 'complex'>
+```
+
+# Convertendo tipos
+
+Use `int()`, `float()` para converter:
+
+```python
+x = 10.9
+print(int(x))          # 10 (perde a parte decimal)
+
+y = 5
+print(float(y))        # 5.0
+
+z = "42"
+print(int(z))          # 42
+```
 
 # Saída:
 # <class 'complex'>

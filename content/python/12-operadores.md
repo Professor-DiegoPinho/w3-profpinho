@@ -1,41 +1,83 @@
 ---
 title: "Operadores"
-description: "Os tipos de Operadores em Python"
+description: "Os tipos de operadores em Python e como usá-los"
 order: 12
 ---
 
-# O que são os operadores
+# Operadores
 
-Quando você quer somar dois números, comparar valores ou até repetir uma palavra várias vezes, o Python precisa saber **como** fazer isso. É aí que entram os **operadores**. Eles são símbolos especiais que dizem à linguagem qual operação realizar.
+Operadores são símbolos que realizam ações em valores. Python oferece vários tipos.
 
-Eles são parte fundamental da programação, pois permitem que a gente manipule os dados de várias formas. Pense neles como as ferramentas que tornam o código realmente útil.
+## Operadores aritméticos
 
-Antes de conhecer todos, vale lembrar que alguns operadores já apareceram em lições anteriores:
+Usados para cálculos matemáticos:
 
-- O `+` foi usado para **juntar strings**;
-- O `*` apareceu quando **repetimos uma string** várias vezes;
-- E o `in` nos ajudou a **verificar se algo estava presente dentro de uma string**.
+```python
+print(10 + 5)      # 15 (adição)
+print(10 - 5)      # 5 (subtração)
+print(10 * 5)      # 50 (multiplicação)
+print(10 / 5)      # 2.0 (divisão)
+print(10 // 3)     # 3 (divisão inteira)
+print(10 % 3)      # 1 (resto/módulo)
+print(2 ** 3)      # 8 (potência)
+```
 
-Esses são só alguns exemplos. O Python oferece muitos outros, que veremos com calma ao longo das próximas lições.
+## Operadores de atribuição
 
-## Tipos de operadores
+Atribuem valores a variáveis:
 
-Podemos dividir os operadores do Python em diferentes grupos, de acordo com o tipo de operação que realizam:
+```python
+x = 10
+x += 5      # x = x + 5  (15)
+x -= 3      # x = x - 3  (12)
+x *= 2      # x = x * 2  (24)
+x /= 4      # x = x / 4  (6.0)
+```
 
-1. **Operadores aritméticos**: Realizam cálculos matemáticos como soma, subtração, multiplicação e divisão. Alguns também podem ser usados para fazermos alterações em nossas strings.
+## Operadores de comparação
 
-2. **Operadores de atribuição**: Servem para armazenar valores em variáveis.
+Comparam valores e retornam `True` ou `False`:
 
-3. **Operadores de comparação**: Comparam valores e dizem se a comparação é verdadeira (`True`) ou falsa (`False`).
+```python
+print(10 == 10)    # True (igual)
+print(10 != 5)     # True (diferente)
+print(10 > 5)      # True (maior)
+print(10 < 5)      # False (menor)
+print(10 >= 10)    # True (maior ou igual)
+print(10 <= 5)     # False (menor ou igual)
+```
 
-4. **Operadores lógicos**: Combinam expressões booleanas.
+## Operadores lógicos
 
-5. **Operadores de identidade**: Comparam objetos, verificando se um é exatamente o mesmo que o outro, ou seja, se ocupam o mesmo espaço na memória.
+Combinam condições:
 
-6. **Operadores de associação ou _membership_**: Verificam se um valor está presente dentro de uma sequência, como uma lista, string ou tupla.
+```python
+x = 5
+print(x > 3 and x < 10)   # True (ambas verdadeiras)
+print(x > 10 or x < 10)   # True (uma é verdadeira)
+print(not(x > 10))        # True (nega a condição)
+```
 
-7. **Operadores bit a bit (bitwise)**: Realizam operações diretamente nos números binários (`bits`).
+## Operadores de identidade
 
----
+Verificam se são o mesmo objeto na memória:
 
-Cada um desses grupos tem sua importância. Exceto pelos operadores bit a bit, que têm usos muito específicos, todos serão explorados nas próximas lições. Por enquanto, o principal é entender que os operadores são a base de muitas das ações que o Python executa.
+```python
+x = ["maçã", "banana"]
+y = ["maçã", "banana"]
+
+print(x is y)      # False (objetos diferentes)
+print(x == y)      # True (valores iguais)
+print(x is not y)  # True (não é o mesmo objeto)
+```
+
+## Operadores de associação
+
+Verificam se um valor está em uma sequência:
+
+```python
+x = ["maçã", "banana", "laranja"]
+print("maçã" in x)      # True
+print("uva" in x)       # False
+print("uva" not in x)   # True
+```
