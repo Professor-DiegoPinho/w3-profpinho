@@ -1,5 +1,8 @@
+import { auth } from "@/auth";
 import Layout from "@/components/Layout/Layout";
 import Providers from "@/components/Providers/Providers";
+import { getEnrolledCourseIds, mapSidebarWithAccess } from "@/lib/enrollment";
+import { getSidebarData } from "@/lib/markdown";
 import { JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -40,7 +43,19 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  // Buscar sessão do usuário
+  const session = await auth();
+  const userId = session?.user?.id;
+  
+  // Pegar cursos inscritos
+  const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
+    ? session.user.enrolledCourseIds
+    : await getEnrolledCourseIds(userId);
+  
+  // Mapear sidebar com controle de acesso
+  const sidebarData = mapSidebarWithAccess(getSidebarData(), enrolledCourseIds);
+  
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
@@ -75,7 +90,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${poppins.variable} ${jetbrainsMono.variable}`}>
         <Providers>
-          <Layout>{children}</Layout>
+          <Layout sidebarData={sidebarData}>{children}</Layout>
         </Providers>
       </body>
     </html>

@@ -3,9 +3,15 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import { processAllLiquidTags } from './liquidTags.js';
+import { CACHE_KEYS, getFromCache, initCacheWatcher, setInCache } from './markdown-cache.js';
 import { calculateReadingTime } from './readingTime.js';
 
 const contentDirectory = path.join(process.cwd(), 'content');
+
+// Inicializa o cache watcher em desenvolvimento
+if (process.env.NODE_ENV !== 'production') {
+  initCacheWatcher();
+}
 
 function normalizeCategorySlug(slug) {
   if (typeof slug !== 'string') {
@@ -85,6 +91,13 @@ export function getCategories() {
 
 // Get all markdown files in a category
 export function getPostsInCategory(category) {
+  // Tenta recuperar do cache
+  const cacheKey = CACHE_KEYS.POSTS_BY_CATEGORY(category);
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const categoryPath = path.join(contentDirectory, category);
 
   if (!fs.existsSync(categoryPath)) {
@@ -118,7 +131,12 @@ export function getPostsInCategory(category) {
   });
 
   // Sort by order
-  return posts.sort((a, b) => a.order - b.order);
+  const sorted = posts.sort((a, b) => a.order - b.order);
+  
+  // Armazena no cache
+  setInCache(cacheKey, sorted);
+  
+  return sorted;
 }
 
 // Conta o número de aulas de um curso, excluindo projeto.md
@@ -131,6 +149,13 @@ export function getCourseLessonsCount(category) {
 // Get a specific post by category and slug
 // Handles both slugs with and without numeric prefixes (e.g., "01-intro" or "intro")
 export function getPost(category, slug) {
+  // Tenta recuperar do cache
+  const cacheKey = CACHE_KEYS.POST_BY_SLUG(category, slug);
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   let actualSlug = slug;
   let filePath = path.join(contentDirectory, category, `${slug}.md`);
 
@@ -178,7 +203,7 @@ export function getPost(category, slug) {
   // Normaliza o slug removendo prefixo numérico para URLs
   const normalizedSlug = actualSlug.replace(/^\d+-/, '');
 
-  return {
+  const post = {
     slug: normalizedSlug,
     category,
     content: processedContent,
@@ -188,11 +213,23 @@ export function getPost(category, slug) {
     readingTime,
     ...data
   };
+
+  // Armazena no cache
+  setInCache(cacheKey, post);
+
+  return post;
 }
 
 // Get all posts from all categories (with full content for search)
 // Normalizes slugs by removing numeric prefixes (internal organization only)
 export function getAllPosts() {
+  // Tenta recuperar do cache
+  const cacheKey = CACHE_KEYS.ALL_POSTS;
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const categories = getCategories();
   const allPosts = [];
 
@@ -233,11 +270,21 @@ export function getAllPosts() {
     allPosts.push(...posts);
   });
 
+  // Armazena no cache
+  setInCache(cacheKey, allPosts);
+
   return allPosts;
 }
 
 // Generate sidebar structure
 export function getSidebarData() {
+  // Tenta recuperar do cache
+  const cacheKey = CACHE_KEYS.SIDEBAR_DATA;
+  const cached = getFromCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const categories = getCategories();
 
   const sidebarData = categories.map(category => {
@@ -250,6 +297,9 @@ export function getSidebarData() {
       posts
     };
   });
+
+  // Armazena no cache
+  setInCache(cacheKey, sidebarData);
 
   return sidebarData;
 }

@@ -28,7 +28,7 @@ import { getLessonProgress } from "@/lib/progress";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
 function getShortLink(url) {
   try {
