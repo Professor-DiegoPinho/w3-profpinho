@@ -1,0 +1,55 @@
+.discord-floating-button-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+}
+
+.discord-floating-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  background-color: #5865f2;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(88, 101, 242, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.discord-floating-button:hover {
+  box-shadow: 0 6px 16px rgba(88, 101, 242, 0.6);
+  transform: translateY(-4px);
+}
+
+.discord-floating-button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(88, 101, 242, 0.4);
+}
+
+.discord-button-icon {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 640px) {
+  .discord-floating-button-wrapper {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .discord-floating-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .discord-button-icon {
+    width: 24px;
+    height: 24px;
+  }
+}

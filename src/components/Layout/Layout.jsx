@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AuthButton from '../AuthButton/AuthButton';
 import CookieConsent from '../CookieConsent/CookieConsent';
+import DiscordFloatingButton from '../DiscordFloatingButton/DiscordFloatingButton';
 import DynamicSidebar from '../DynamicSidebar/DynamicSidebar';
 import Footer from '../Footer/Footer';
 import HeaderNav from '../HeaderNav/HeaderNav';
@@ -153,6 +154,7 @@ export default function Layout({ children, sidebarData = [] }) {
 
       <Footer />
       <CookieConsent />
+      <DiscordFloatingButton />
     </div>
   );
 }
