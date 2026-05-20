@@ -15,6 +15,9 @@ export default function ProjectSubmission({
   courseSlug,
   projectTitle = "Projeto",
   initialSubmissions = [],
+  userName,
+  userId,
+  submitMode = "full",
 }) {
   const [url, setUrl] = useState("");
   const [feedback, setFeedback] = useState("");
@@ -32,9 +35,14 @@ export default function ProjectSubmission({
   const [pendingSubmission, setPendingSubmission] = useState(null);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [displayUserName, setDisplayUserName] = useState(userName);
   
   const debouncedUrl = useDebounce(url, 300);
   const { platform } = validateUrl(debouncedUrl);
+
+  const handleNameChange = (newName) => {
+    setDisplayUserName(newName);
+  };
 
   // Verificar se há submissão pendente
   useEffect(() => {
@@ -215,51 +223,62 @@ export default function ProjectSubmission({
           </p>
         </div>
 
-        <WarningMessages
-          submitCheckLoading={submitCheckLoading}
-          canSubmit={canSubmit}
-          missingLessons={missingLessons}
-          hasPendingSubmission={hasPendingSubmission}
-        />
+        {submitMode === "simple" ? (
+          <a href={`/${courseSlug}/projeto/entrega`} className="project-submission-simple-btn">
+            Fazer sua entrega
+          </a>
+        ) : (
+          <>
+            <WarningMessages
+              submitCheckLoading={submitCheckLoading}
+              canSubmit={canSubmit}
+              missingLessons={missingLessons}
+              hasPendingSubmission={hasPendingSubmission}
+            />
 
-        {hasApprovedSubmission && (
-          <ApprovedMessage courseSlug={courseSlug} />
+            {hasApprovedSubmission && (
+              <ApprovedMessage courseSlug={courseSlug} />
+            )}
+
+            {!hasApprovedSubmission && (
+              <FormSection
+                url={url}
+                setUrl={setUrl}
+                feedback={feedback}
+                setFeedback={setFeedback}
+                error={error}
+                successMessage={successMessage}
+                loading={loading}
+                submitCheckLoading={submitCheckLoading}
+                canSubmit={canSubmit}
+                hasPendingSubmission={hasPendingSubmission}
+                onSubmit={handleSubmit}
+              />
+            )}
+
+            <SubmissionsHistory
+              submissions={submissions}
+              onOpenDetails={handleOpenDetails}
+            />
+
+            <ConfirmationModal
+              isOpen={showConfirmation}
+              pendingSubmission={pendingSubmission}
+              loading={loading}
+              onConfirm={handleConfirmSubmission}
+              onCancel={handleCancelSubmission}
+              userName={displayUserName}
+              userId={userId}
+              onNameChange={handleNameChange}
+            />
+
+            <DetailsModal
+              isOpen={showDetailsModal}
+              submission={selectedSubmission}
+              onClose={handleCloseDetails}
+            />
+          </>
         )}
-
-        {!hasApprovedSubmission && (
-          <FormSection
-            url={url}
-            setUrl={setUrl}
-            feedback={feedback}
-            setFeedback={setFeedback}
-            error={error}
-            successMessage={successMessage}
-            loading={loading}
-            submitCheckLoading={submitCheckLoading}
-            canSubmit={canSubmit}
-            hasPendingSubmission={hasPendingSubmission}
-            onSubmit={handleSubmit}
-          />
-        )}
-
-        <SubmissionsHistory
-          submissions={submissions}
-          onOpenDetails={handleOpenDetails}
-        />
-
-        <ConfirmationModal
-          isOpen={showConfirmation}
-          pendingSubmission={pendingSubmission}
-          loading={loading}
-          onConfirm={handleConfirmSubmission}
-          onCancel={handleCancelSubmission}
-        />
-
-        <DetailsModal
-          isOpen={showDetailsModal}
-          submission={selectedSubmission}
-          onClose={handleCloseDetails}
-        />
       </div>
     </div>
   );

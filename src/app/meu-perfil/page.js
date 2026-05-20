@@ -1,7 +1,4 @@
 import { auth } from "@/auth";
-import AvatarImage from "@/components/AvatarImage/AvatarImage";
-import CertificatesSection from "@/components/CertificatesSection";
-import ProfileConnectButton from "@/components/ProfileConnectButton/ProfileConnectButton";
 import { content } from "@/data";
 import {
   getCourseEnrollmentDate,
@@ -10,8 +7,8 @@ import {
 import { adminDb } from "@/lib/firebaseAdmin";
 import { getCategoryTitle, getCourseLessonsCount, getPostsInCategory } from "@/lib/markdown";
 import { getLessonProgress } from "@/lib/progress";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ProfileContent } from "./ProfileContent";
 
 export const dynamic = "force-dynamic";
 
@@ -45,6 +42,27 @@ function formatDate(value) {
     month: "2-digit",
     year: "numeric",
   }).format(parsedDate);
+}
+
+function serializeProgressData(progressData) {
+  if (!progressData) return null;
+  
+  return {
+    totalLessons: progressData.totalLessons,
+    completionPercentage: progressData.completionPercentage,
+    completedLessons: progressData.completedLessons || [],
+    feedbackResponded: progressData.feedbackResponded || false,
+    // Convert Firestore Timestamps to ISO strings or null
+    completedAt: progressData.completedAt?.toDate?.() 
+      ? progressData.completedAt.toDate().toISOString() 
+      : null,
+    lastUpdatedAt: progressData.lastUpdatedAt?.toDate?.()
+      ? progressData.lastUpdatedAt.toDate().toISOString()
+      : null,
+    feedbackRespondedAt: progressData.feedbackRespondedAt?.toDate?.()
+      ? progressData.feedbackRespondedAt.toDate().toISOString()
+      : null,
+  };
 }
 
 function resolveCourseLabel(courseId) {
@@ -113,11 +131,12 @@ export default async function MyProfilePage() {
         id: courseId,
         title: resolveCourseLabel(courseId),
         enrolledAt,
-        progress: {
+        enrolledAtLabel: formatDate(enrolledAt),
+        progress: serializeProgressData({
           ...progressData,
           totalLessons: correctTotalLessons,
           completionPercentage: correctPercentage,
-        },
+        }),
         nextLessonSlug,
       };
     }),
@@ -180,7 +199,10 @@ export default async function MyProfilePage() {
       providerConnection.providerAccountId.length > 0;
 
     return {
-      ...providerItem,
+      key: providerItem.key,
+      label: providerItem.label,
+      iconClassName: providerItem.iconClassName,
+      description: providerItem.description,
       isAvailable: Boolean(availableProviders[providerItem.key]),
       isConnected,
       connectedAtLabel: formatDate(providerConnection?.connectedAt),
@@ -189,152 +211,15 @@ export default async function MyProfilePage() {
   });
 
   return (
-    <section className="profile-page">
-      <header className="profile-header">
-        <div className="profile-header-content">
-          <AvatarImage
-            src={userImage}
-            alt={`Foto de ${userName}`}
-            width={72}
-            height={72}
-            className="profile-avatar"
-          />
-          <div>
-            <h1>Meu perfil</h1>
-            <p>Acompanhe seus cursos inscritos e os dados da sua conta.</p>
-          </div>
-        </div>
-      </header>
-
-      <div className="profile-summary-grid">
-        <div className="profile-summary-card">
-          <span className="profile-summary-label">Nome</span>
-          <strong>{userName}</strong>
-        </div>
-        <div className="profile-summary-card">
-          <span className="profile-summary-label">Email</span>
-          <strong>{userEmail}</strong>
-        </div>
-      </div>
-
-      <div className="profile-grid">
-        <article className="profile-card">
-          <div className="profile-courses-header">
-            <div>
-              <h2>Meus cursos</h2>
-              <p className="profile-courses-subtitle">
-                Acompanhe os cursos que já fazem parte da sua jornada.
-              </p>
-            </div>
-          </div>
-
-          {enrolledCourses.length > 0 ? (
-            <ul className="profile-course-list">
-              {enrolledCourses.map((course) => (
-                <li key={course.id} className="profile-course-item">
-                  <div className="profile-course-content">
-                    <h3 className="profile-course-title">{course.title}</h3>
-                    <p className="profile-course-meta">
-                      {course.enrolledAt
-                        ? `Inscrição em ${formatDate(course.enrolledAt)}`
-                        : "Data de inscrição indisponível"}
-                    </p>
-                    {course.progress && (
-                      <div className="profile-course-progress">
-                        <div className="profile-course-progress-bar">
-                          <div
-                            className="profile-course-progress-fill"
-                            style={{ width: `${course.progress.completionPercentage || 0}%` }}
-                          />
-                        </div>
-                        <span className="profile-course-progress-text">
-                          {course.progress.completionPercentage || 0}% completo
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <Link href={`/${course.id}${course.nextLessonSlug ? `/${course.nextLessonSlug}` : ''}`} className="profile-course-link" aria-label={`Acessar curso ${course.title}`}>
-                    {course.progress?.completionPercentage === 100 ? 'Acessar curso' : 'Continuar curso'}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <div className="profile-empty-state">
-              <p>Você ainda não possui inscrições em cursos.</p>
-              <Link href="/" className="profile-course-link">
-                Explorar cursos
-              </Link>
-            </div>
-          )}
-
-          <p className="profile-course-count-text" aria-label="Quantidade de cursos inscritos">
-            Total: <strong>{totalEnrolledCoursesLabel}</strong>
-          </p>
-        </article>
-
-        <article className="profile-card">
-          <CertificatesSection />
-        </article>
-
-        <article className="profile-card">
-          <h2>Contas conectadas</h2>
-          <p className="profile-connections-subtitle">
-            Visualize as opções de login vinculadas ao seu perfil.
-          </p>
-
-          <ul className="profile-connections-list" aria-label="Lista de contas conectadas">
-            {connectedAccounts.map((providerItem) => (
-              <li
-                key={providerItem.key}
-                className={`profile-connection-item ${providerItem.isConnected ? "is-connected" : "is-disconnected"}`}
-              >
-                <div className="profile-connection-main">
-                  <h3 className="profile-connection-title">
-                    <span
-                      className={`profile-connection-icon ${providerItem.iconClassName}`}
-                      aria-hidden="true"
-                    />
-                    {providerItem.label}
-                  </h3>
-                </div>
-
-                <div className="profile-connection-status">
-                  <span className="profile-connection-badge">
-                    {providerItem.isConnected ? "Conectada" : "Não conectada"}
-                  </span>
-                  {!providerItem.isConnected && providerItem.isAvailable && (
-                    <ProfileConnectButton
-                      provider={providerItem.key}
-                      providerLabel={providerItem.label}
-                    />
-                  )}
-                  {!providerItem.isConnected && !providerItem.isAvailable && (
-                    <p>Provider indisponível no ambiente atual</p>
-                  )}
-                  {providerItem.isConnected && (
-                    <p>
-                      {providerItem.connectedAtLabel
-                        ? `Conectada em ${providerItem.connectedAtLabel}`
-                        : "Conectada"}
-                    </p>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </article>
-
-        <aside className="profile-card">
-          <h2>Informações adicionais</h2>
-          <dl className="profile-info-list">
-            <div>
-              <dt>Conta criada em</dt>
-              <dd>{createdAtLabel || "Nao disponivel"}</dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
-    </section>
+    <ProfileContent
+      userImage={userImage}
+      userName={userName}
+      userEmail={userEmail}
+      enrolledCourses={enrolledCourses}
+      totalEnrolledCoursesLabel={totalEnrolledCoursesLabel}
+      createdAtLabel={createdAtLabel}
+      connectedAccounts={connectedAccounts}
+      userId={userId}
+    />
   );
 }

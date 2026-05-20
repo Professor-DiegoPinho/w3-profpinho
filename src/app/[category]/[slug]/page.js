@@ -39,6 +39,7 @@ export default async function PostPage({ params }) {
 
   const session = await auth();
   const userId = session?.user?.id;
+  const userName = session?.user?.name;
   const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
     ? session.user.enrolledCourseIds
     : await getEnrolledCourseIds(userId);
@@ -119,6 +120,9 @@ export default async function PostPage({ params }) {
             courseSlug={category}
             projectTitle={post.title}
             initialSubmissions={projectSubmissions}
+            userName={userName}
+            userId={userId}
+            submitMode="simple"
           />
         </div>
       ) : userId && hasLessonAccess && isCourseContent ? (
