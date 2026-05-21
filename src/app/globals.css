@@ -571,6 +571,7 @@ body.no-content-wrapper .content-wrapper {
   background: #fafafa;
   padding: 14px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
 .profile-summary-card:hover {
@@ -965,7 +966,7 @@ body.no-content-wrapper .content-wrapper {
 }
 
 .profile-name-edit-btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
@@ -980,6 +981,9 @@ body.no-content-wrapper .content-wrapper {
   font-size: 12px;
   font-weight: 500;
   font-family: inherit;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .profile-name-edit-btn:hover {
