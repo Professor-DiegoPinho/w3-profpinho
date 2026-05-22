@@ -12,7 +12,7 @@ export async function PATCH(request, { params }) {
     );
   }
 
-  const { userId } = params;
+  const { userId } = await params;
 
   // Verificar se o usuário está tentando atualizar seu próprio perfil
   if (session.user.id !== userId) {
@@ -60,6 +60,8 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({
       success: true,
       name: sanitizedName,
+      // Signal que o cliente deve atualizar a sessão
+      requireSessionUpdate: true,
     });
   } catch (error) {
     console.error("Erro ao atualizar nome do usuário:", error);

@@ -4,6 +4,7 @@ import AvatarImage from '@/components/AvatarImage/AvatarImage';
 import CertificatesSection from '@/components/CertificatesSection';
 import { NameEditModal } from '@/components/NameEditModal/NameEditModal';
 import ProfileConnectButton from '@/components/ProfileConnectButton/ProfileConnectButton';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -17,6 +18,7 @@ export function ProfileContent({
   connectedAccounts,
   userId,
 }) {
+  const { update: updateSession } = useSession();
   const [userName, setUserName] = useState(initialUserName);
   const [isNameEditOpen, setIsNameEditOpen] = useState(false);
   const [isLoadingNameEdit, setIsLoadingNameEdit] = useState(false);
@@ -43,6 +45,12 @@ export function ProfileContent({
 
       const data = await response.json();
       setUserName(data.name);
+      
+      // Sincronizar a sessão com o novo nome no JWT
+      await updateSession({ 
+        trigger: 'update',
+      });
+      
       setIsNameEditOpen(false);
     } catch (error) {
       throw error;
