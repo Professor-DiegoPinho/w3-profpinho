@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import './DiscordFloatingButton.css';
 
-const DISCORD_INVITE_LINK = '#';
+const DISCORD_INVITE_LINK = 'https://discord.gg/8CxSthBcjU';
 
 export default function DiscordFloatingButton() {
   return (
