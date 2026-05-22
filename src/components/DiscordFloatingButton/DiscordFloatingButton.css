@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 999;
+  z-index: 1105;
 }
 
 .discord-floating-button {
@@ -37,19 +37,15 @@
 }
 
 /* Responsivo para telas menores */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .discord-floating-button-wrapper {
-    bottom: 16px;
-    right: 16px;
+    bottom: 24px;
+    left: 18px;
   }
 
   .discord-floating-button {
-    width: 48px;
-    height: 48px;
-  }
+    width: 52px;
+    height: 52px;
 
-  .discord-button-icon {
-    width: 24px;
-    height: 24px;
   }
 }
