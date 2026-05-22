@@ -101,8 +101,9 @@ export function ProjectSubmissionPage({
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             courseSlug: category,
-            url: debouncedUrl,
+            submissionUrl: debouncedUrl,
             platform,
+            feedback,
           }),
         });
 
