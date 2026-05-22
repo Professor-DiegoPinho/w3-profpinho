@@ -5,10 +5,10 @@ import { ApprovedMessage } from '@/components/ProjectSubmission/components/Appro
 import { DetailsModal } from '@/components/ProjectSubmission/components/DetailsModal';
 import { FormSection } from '@/components/ProjectSubmission/components/FormSection';
 import { SubmissionsHistory } from '@/components/ProjectSubmission/components/SubmissionsHistory';
-import { WarningMessages } from '@/components/ProjectSubmission/components/WarningMessages';
 import { useDebounce } from '@/components/ProjectSubmission/hooks/useDebounce';
 import '@/components/ProjectSubmission/ProjectSubmission.css';
 import { validateUrl } from '@/lib/urlValidation';
+import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
 import './ProjectSubmissionPage.css';
 
@@ -19,6 +19,7 @@ export function ProjectSubmissionPage({
   userName,
   userId,
 }) {
+  const { update: updateSession } = useSession();
   const [url, setUrl] = useState('');
   const [feedback, setFeedback] = useState('');
   const [loading, setLoading] = useState(false);
@@ -36,9 +37,14 @@ export function ProjectSubmissionPage({
   const [displayUserName, setDisplayUserName] = useState(userName);
   const [isNameEditOpen, setIsNameEditOpen] = useState(false);
   const [isLoadingNameEdit, setIsLoadingNameEdit] = useState(false);
+  const [confirmedLink, setConfirmedLink] = useState(false);
+  const [confirmedPublic, setConfirmedPublic] = useState(false);
+  const [confirmedAnalysis, setConfirmedAnalysis] = useState(false);
+  const [confirmedName, setConfirmedName] = useState(false);
 
   const debouncedUrl = useDebounce(url, 300);
   const { platform } = validateUrl(debouncedUrl);
+  const allConfirmationsChecked = confirmedLink && confirmedPublic && confirmedAnalysis && confirmedName;
 
   // Verificar se há submissão pendente
   useEffect(() => {
@@ -154,6 +160,11 @@ export function ProjectSubmissionPage({
 
       const data = await response.json();
       setDisplayUserName(data.name);
+      
+      await updateSession({ 
+        trigger: 'update',
+      });
+      
       setIsNameEditOpen(false);
       handleNameChange(data.name);
     } catch (error) {
@@ -172,18 +183,8 @@ export function ProjectSubmissionPage({
       <div className="project-submission-page-container">
         <div className="project-submission-page-inner">
           <div className="project-submission-page-title-section">
-            <h1>Entregar {projectTitle}</h1>
-            <p className="project-submission-page-description">
-              Compartilhe o link da sua entrega. Lembre-se de deixar o projeto público para que possamos avaliar seu trabalho!
-            </p>
+            <h1>Formulário de Entrega</h1>
           </div>
-
-          <WarningMessages
-            submitCheckLoading={submitCheckLoading}
-            canSubmit={canSubmit}
-            missingLessons={missingLessons}
-            hasPendingSubmission={hasPendingSubmission}
-          />
 
           {hasApprovedSubmission && (
             <ApprovedMessage courseSlug={category} />
@@ -204,14 +205,12 @@ export function ProjectSubmissionPage({
                   canSubmit={canSubmit}
                   hasPendingSubmission={hasPendingSubmission}
                   onSubmit={handleSubmit}
+                  showSubmitButton={false}
                 />
               </div>
 
               <div className="project-submission-page-confirmation-section">
-                <h2>✓ Confirmar Entrega</h2>
-                <p className="project-submission-page-confirmation-intro">
-                  Antes de confirmar sua entrega, verifique os itens abaixo:
-                </p>
+                <h2>Antes de entregar, verifique os items abaixo:</h2>
 
                 <ul className="project-submission-page-confirmation-checklist">
                   <li className="project-submission-page-confirmation-item">
@@ -219,6 +218,8 @@ export function ProjectSubmissionPage({
                       type="checkbox"
                       id="check-link"
                       className="project-submission-page-confirmation-checkbox"
+                      checked={confirmedLink}
+                      onChange={(e) => setConfirmedLink(e.target.checked)}
                     />
                     <label htmlFor="check-link">
                       <strong>Link correto e acessível:</strong> verifiquei o endereço acima
@@ -229,6 +230,8 @@ export function ProjectSubmissionPage({
                       type="checkbox"
                       id="check-public"
                       className="project-submission-page-confirmation-checkbox"
+                      checked={confirmedPublic}
+                      onChange={(e) => setConfirmedPublic(e.target.checked)}
                     />
                     <label htmlFor="check-public">
                       <strong>Projeto público:</strong> meu projeto está visível para avaliação
@@ -239,6 +242,8 @@ export function ProjectSubmissionPage({
                       type="checkbox"
                       id="check-analysis"
                       className="project-submission-page-confirmation-checkbox"
+                      checked={confirmedAnalysis}
+                      onChange={(e) => setConfirmedAnalysis(e.target.checked)}
                     />
                     <label htmlFor="check-analysis">
                       <strong>Aguarde análise:</strong> entendo que não poderei enviar nova entrega até o professor avaliar
@@ -249,6 +254,8 @@ export function ProjectSubmissionPage({
                       type="checkbox"
                       id="check-name"
                       className="project-submission-page-confirmation-checkbox"
+                      checked={confirmedName}
+                      onChange={(e) => setConfirmedName(e.target.checked)}
                     />
                     <label htmlFor="check-name">
                       <div className="project-submission-page-name-check">
@@ -283,6 +290,39 @@ export function ProjectSubmissionPage({
                     </label>
                   </li>
                 </ul>
+              </div>
+
+              <div className="project-submission-page-submit-section">
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={loading || !url.trim() || submitCheckLoading || !canSubmit || hasPendingSubmission || !allConfirmationsChecked}
+                  className="project-submission-btn"
+                  aria-label="Enviar entrega do projeto"
+                  title={
+                    hasPendingSubmission
+                      ? "Aguarde a análise da submissão anterior"
+                      : !url.trim()
+                      ? "Preencha o link da entrega"
+                      : !allConfirmationsChecked
+                      ? "Confirme todos os itens antes de enviar"
+                      : "Enviar entrega do projeto"
+                  }
+                >
+                  {loading ? (
+                    <>
+                      <span className="project-submission-spinner" aria-hidden="true" />
+                      Enviando...
+                    </>
+                  ) : submitCheckLoading ? (
+                    <>
+                      <span className="project-submission-spinner" aria-hidden="true" />
+                      Verificando...
+                    </>
+                  ) : (
+                    "Enviar Entrega"
+                  )}
+                </button>
               </div>
             </>
           )}

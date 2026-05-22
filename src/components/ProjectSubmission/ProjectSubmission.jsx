@@ -217,16 +217,21 @@ export default function ProjectSubmission({
     <div className="project-submission-container">
       <div className="project-submission-content">
         <div className="project-submission-text-section">
-          <h3 className="project-submission-title">Entregar {projectTitle}</h3>
-          <p className="project-submission-description">
-            Compartilhe o link da sua entrega. Lembre-se de deixar o projeto público para que possamos avaliar seu trabalho! 
-          </p>
+          <h3 className="project-submission-title">Para entregar seu projeto, clique no botão abaixo:</h3>
+          
+          <WarningMessages
+            submitCheckLoading={submitCheckLoading}
+            canSubmit={canSubmit}
+            missingLessons={missingLessons}
+            hasPendingSubmission={hasPendingSubmission}
+          />
+          
         </div>
 
         {submitMode === "simple" ? (
-          <a href={`/${courseSlug}/projeto/entrega`} className="project-submission-simple-btn">
-            Fazer sua entrega
-          </a>
+          <button onClick={() => window.location.href = `/${courseSlug}/projeto/entrega`} className="project-submission-simple-btn" disabled={!canSubmit}>
+            Formulário de Entrega
+          </button>
         ) : (
           <>
             <WarningMessages
