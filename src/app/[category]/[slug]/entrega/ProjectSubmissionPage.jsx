@@ -7,6 +7,8 @@ import { FormSection } from '@/components/ProjectSubmission/components/FormSecti
 import { SubmissionsHistory } from '@/components/ProjectSubmission/components/SubmissionsHistory';
 import { useDebounce } from '@/components/ProjectSubmission/hooks/useDebounce';
 import '@/components/ProjectSubmission/ProjectSubmission.css';
+import { Toast } from '@/components/Toast/Toast';
+import { useToast } from '@/components/Toast/useToast';
 import { validateUrl } from '@/lib/urlValidation';
 import { useSession } from 'next-auth/react';
 import { useCallback, useEffect, useState } from 'react';
@@ -25,7 +27,6 @@ export function ProjectSubmissionPage({
   const [loading, setLoading] = useState(false);
   const [submissions, setSubmissions] = useState(initialSubmissions);
   const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [canSubmit, setCanSubmit] = useState(null);
   const [submitCheckLoading, setSubmitCheckLoading] = useState(true);
   const [missingLessons, setMissingLessons] = useState([]);
@@ -41,6 +42,8 @@ export function ProjectSubmissionPage({
   const [confirmedPublic, setConfirmedPublic] = useState(false);
   const [confirmedAnalysis, setConfirmedAnalysis] = useState(false);
   const [confirmedName, setConfirmedName] = useState(false);
+
+  const { toast, showToast } = useToast();
 
   const debouncedUrl = useDebounce(url, 300);
   const { platform } = validateUrl(debouncedUrl);
@@ -93,7 +96,6 @@ export function ProjectSubmissionPage({
 
       setLoading(true);
       setError('');
-      setSuccessMessage('');
 
       try {
         const response = await fetch('/api/submissions', {
@@ -115,14 +117,14 @@ export function ProjectSubmissionPage({
         const data = await response.json();
         setSubmissions(data.submissions?.attempts || []);
         setUrl('');
-        setSuccessMessage('Submissão realizada com sucesso! Aguarde a avaliação do professor.');
+        showToast('Projeto enviado com sucesso!', 'success', 3000);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     },
-    [canSubmit, debouncedUrl, platform, category]
+    [canSubmit, debouncedUrl, platform, category, showToast]
   );
 
   const handleOpenDetails = useCallback((submission) => {
@@ -181,6 +183,11 @@ export function ProjectSubmissionPage({
 
   return (
     <>
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+      />
       <div className="project-submission-page-container">
         <div className="project-submission-page-inner">
           <div className="project-submission-page-title-section">
@@ -200,7 +207,6 @@ export function ProjectSubmissionPage({
                   feedback={feedback}
                   setFeedback={setFeedback}
                   error={error}
-                  successMessage={successMessage}
                   loading={loading}
                   submitCheckLoading={submitCheckLoading}
                   canSubmit={canSubmit}

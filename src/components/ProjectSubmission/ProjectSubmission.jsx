@@ -1,5 +1,7 @@
 "use client";
 
+import { Toast } from "@/components/Toast/Toast";
+import { useToast } from "@/components/Toast/useToast";
 import { validateUrl } from "@/lib/urlValidation";
 import { useCallback, useEffect, useState } from "react";
 import { ApprovedMessage } from "./components/ApprovedMessage";
@@ -22,7 +24,6 @@ export default function ProjectSubmission({
   const [loading, setLoading] = useState(false);
   const [submissions, setSubmissions] = useState(initialSubmissions);
   const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
   const [canSubmit, setCanSubmit] = useState(null);
   const [submitCheckLoading, setSubmitCheckLoading] = useState(true);
   const [missingLessons, setMissingLessons] = useState([]);
@@ -34,6 +35,8 @@ export default function ProjectSubmission({
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [displayUserName, setDisplayUserName] = useState(userName);
+
+  const { toast, showToast } = useToast();
 
   const debouncedUrl = useDebounce(url, 300);
   const { platform } = validateUrl(debouncedUrl);
@@ -176,7 +179,6 @@ export default function ProjectSubmission({
 
     setLoading(true);
     setError("");
-    setSuccessMessage("");
 
     try {
       const res = await fetch("/api/submissions", {
@@ -201,17 +203,14 @@ export default function ProjectSubmission({
       setFeedback("");
       setShowConfirmation(false);
       setPendingSubmission(null);
-      setSuccessMessage("✓ Projeto enviado com sucesso!");
-
-      // Limpar mensagem após 3 segundos
-      setTimeout(() => setSuccessMessage(""), 3000);
+      showToast("Projeto enviado com sucesso!", "success", 3000);
     } catch (err) {
       console.error("Erro ao enviar projeto:", err);
       setError(err.message || "Erro ao enviar projeto. Tente novamente.");
     } finally {
       setLoading(false);
     }
-  }, [pendingSubmission, courseSlug]);
+  }, [pendingSubmission, courseSlug, showToast]);
 
   const handleCancelSubmission = useCallback(() => {
     setShowConfirmation(false);
@@ -229,44 +228,51 @@ export default function ProjectSubmission({
   }, []);
 
   return (
-    <div className="project-submission-container">
-      <div className="project-submission-content">
-        <div className="project-submission-text-section">
-          <h3 className="project-submission-title">
-            Para entregar seu projeto, clique no botão abaixo:
-          </h3>
+    <>
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+      />
+      <div className="project-submission-container">
+        <div className="project-submission-content">
+          <div className="project-submission-text-section">
+            <h3 className="project-submission-title">
+              Para entregar seu projeto, clique no botão abaixo:
+            </h3>
 
-          {hasApprovedSubmission && <ApprovedMessage courseSlug={courseSlug} />}
+            {hasApprovedSubmission && <ApprovedMessage courseSlug={courseSlug} />}
 
-          <WarningMessages
-            submitCheckLoading={submitCheckLoading}
-            canSubmit={canSubmit}
-            missingLessons={missingLessons}
-            hasPendingSubmission={hasPendingSubmission}
-          />
+            <WarningMessages
+              submitCheckLoading={submitCheckLoading}
+              canSubmit={canSubmit}
+              missingLessons={missingLessons}
+              hasPendingSubmission={hasPendingSubmission}
+            />
 
-          <SubmissionsHistory
-            submissions={submissions}
-            onOpenDetails={handleOpenDetails}
-          />
+            <SubmissionsHistory
+              submissions={submissions}
+              onOpenDetails={handleOpenDetails}
+            />
 
-          <DetailsModal
-            isOpen={showDetailsModal}
-            submission={selectedSubmission}
-            onClose={handleCloseDetails}
-          />
+            <DetailsModal
+              isOpen={showDetailsModal}
+              submission={selectedSubmission}
+              onClose={handleCloseDetails}
+            />
+          </div>
+
+          <button
+            onClick={() =>
+              (window.location.href = `/${courseSlug}/projeto/entrega`)
+            }
+            className="project-submission-simple-btn"
+            disabled={!canSubmit || hasPendingSubmission || hasApprovedSubmission}
+          >
+            Formulário de Entrega
+          </button>
         </div>
-
-        <button
-          onClick={() =>
-            (window.location.href = `/${courseSlug}/projeto/entrega`)
-          }
-          className="project-submission-simple-btn"
-          disabled={!canSubmit || hasPendingSubmission || hasApprovedSubmission}
-        >
-          Formulário de Entrega
-        </button>
       </div>
-    </div>
+    </>
   );
 }
