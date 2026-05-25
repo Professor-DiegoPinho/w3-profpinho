@@ -2,15 +2,12 @@
 
 import { NameEditModal } from '@/components/NameEditModal/NameEditModal';
 import { ApprovedMessage } from '@/components/ProjectSubmission/components/ApprovedMessage';
-import { DetailsModal } from '@/components/ProjectSubmission/components/DetailsModal';
 import { FormSection } from '@/components/ProjectSubmission/components/FormSection';
-import { SubmissionsHistory } from '@/components/ProjectSubmission/components/SubmissionsHistory';
 import { useDebounce } from '@/components/ProjectSubmission/hooks/useDebounce';
 import '@/components/ProjectSubmission/ProjectSubmission.css';
-import { Toast } from '@/components/Toast/Toast';
-import { useToast } from '@/components/Toast/useToast';
 import { validateUrl } from '@/lib/urlValidation';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import './ProjectSubmissionPage.css';
 
@@ -22,6 +19,7 @@ export function ProjectSubmissionPage({
   userId,
 }) {
   const { update: updateSession } = useSession();
+  const router = useRouter();
   const [url, setUrl] = useState('');
   const [feedback, setFeedback] = useState('');
   const [loading, setLoading] = useState(false);
@@ -42,8 +40,7 @@ export function ProjectSubmissionPage({
   const [confirmedPublic, setConfirmedPublic] = useState(false);
   const [confirmedAnalysis, setConfirmedAnalysis] = useState(false);
   const [confirmedName, setConfirmedName] = useState(false);
-
-  const { toast, showToast } = useToast();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const debouncedUrl = useDebounce(url, 300);
   const { platform } = validateUrl(debouncedUrl);
@@ -64,6 +61,13 @@ export function ProjectSubmissionPage({
     }
   }, [submissions]);
 
+  // Redirecionar se há submissão pendente
+  useEffect(() => {
+    if (hasPendingSubmission) {
+      router.push(`/${category}/projeto`);
+    }
+  }, [hasPendingSubmission, category, router]);
+
   // Buscar permissão de submissão
   useEffect(() => {
     const checkSubmitPermission = async () => {
@@ -78,7 +82,7 @@ export function ProjectSubmissionPage({
         const data = await response.json();
         setCanSubmit(data.canSubmit);
         setMissingLessons(data.missingLessons || []);
-        setSubmissions(data.submissions?.attempts || []);
+        setSubmissions(data.attempts || []);
       } catch (err) {
         console.error('Erro ao buscar dados:', err);
       } finally {
@@ -88,6 +92,10 @@ export function ProjectSubmissionPage({
 
     checkSubmitPermission();
   }, [category]);
+
+  const handleReturnToProject = useCallback(() => {
+    router.push(`/${category}/projeto`);
+  }, [category, router]);
 
   const handleSubmit = useCallback(
     async (e) => {
@@ -117,14 +125,14 @@ export function ProjectSubmissionPage({
         const data = await response.json();
         setSubmissions(data.submissions?.attempts || []);
         setUrl('');
-        showToast('Projeto enviado com sucesso!', 'success', 3000);
+        setShowSuccessModal(true);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     },
-    [canSubmit, debouncedUrl, platform, category, showToast]
+    [canSubmit, debouncedUrl, platform, category]
   );
 
   const handleOpenDetails = useCallback((submission) => {
@@ -183,11 +191,24 @@ export function ProjectSubmissionPage({
 
   return (
     <>
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        isVisible={toast.isVisible}
-      />
+      {showSuccessModal && (
+        <div className="project-submission-success-modal-overlay">
+          <div className="project-submission-success-modal">
+            <div className="project-submission-success-modal-icon">✓</div>
+            <h2 className="project-submission-success-modal-title">Projeto Enviado com Sucesso!</h2>
+            <p className="project-submission-success-modal-description">
+              Seu projeto foi enviado e está em análise. Você será notificado quando o professor avaliar.
+            </p>
+            <button
+              className="project-submission-success-modal-btn"
+              onClick={handleReturnToProject}
+            >
+              Retornar para a tela do projeto
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="project-submission-page-container">
         <div className="project-submission-page-inner">
           <div className="project-submission-page-title-section">
@@ -333,19 +354,8 @@ export function ProjectSubmissionPage({
               </div>
             </>
           )}
-
-          <SubmissionsHistory
-            submissions={submissions}
-            onOpenDetails={handleOpenDetails}
-          />
         </div>
       </div>
-
-      <DetailsModal
-        isOpen={showDetailsModal}
-        submission={selectedSubmission}
-        onClose={handleCloseDetails}
-      />
 
       <NameEditModal
         isOpen={isNameEditOpen}
