@@ -305,18 +305,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.enrolledCourseIds = await getEnrolledCourseIds(token.userId);
       }
 
-      // Buscar role do Firestore no momento do login (quando account estiver presente)
+      // Buscar role e nome do Firestore no momento do login (quando account estiver presente)
+      // Ou sempre, para sincronizar atualizações do nome
       if (account && token.userId) {
         try {
           const userDoc = await adminDb.collection("users").doc(token.userId).get();
           if (userDoc.exists) {
-            token.role = userDoc.data()?.role ?? null;
+            const userData = userDoc.data();
+            token.role = userData?.role ?? null;
+            token.name = userData?.name ?? null;
           } else {
             token.role = null;
+            token.name = null;
           }
         } catch (error) {
-          console.error("Erro ao buscar role do usuário:", error);
+          console.error("Erro ao buscar role e nome do usuário:", error);
           token.role = null;
+          token.name = null;
+        }
+      }
+
+      // Sincronizar nome quando atualização é disparada (ex: após atualizar perfil)
+      if (trigger === "update" && token.userId) {
+        try {
+          const userDoc = await adminDb.collection("users").doc(token.userId).get();
+          if (userDoc.exists) {
+            token.name = userDoc.data()?.name ?? null;
+          }
+        } catch (error) {
+          console.error("Erro ao sincronizar nome do usuário:", error);
         }
       }
 
@@ -329,6 +346,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           ? token.enrolledCourseIds
           : [];
         session.user.role = token.role ?? null;
+        session.user.name = token.name ?? null;
       }
 
       return session;

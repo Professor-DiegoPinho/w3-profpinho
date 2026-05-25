@@ -10,6 +10,7 @@ export function FormSection({
   canSubmit,
   hasPendingSubmission,
   onSubmit,
+  showSubmitButton = true,
 }) {
   return (
     <form onSubmit={onSubmit} className="project-submission-form">
@@ -19,7 +20,7 @@ export function FormSection({
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Cole o link da sua entrega (ex: https://github.com/seu-repo)"
+            placeholder="Cole o link do seu projeto (ex: https://github.com/seu-repo)"
             className="project-submission-input"
             disabled={loading || submitCheckLoading || !canSubmit || hasPendingSubmission}
             aria-label="URL de entrega do projeto"
@@ -51,35 +52,37 @@ export function FormSection({
         )}
       </div>
 
-      <button
-        type="submit"
-        disabled={loading || !url.trim() || submitCheckLoading || !canSubmit || hasPendingSubmission}
-        className="project-submission-btn"
-        aria-label="Enviar entrega do projeto"
-        title={
-          hasPendingSubmission
-            ? "Aguarde a análise da submissão anterior"
-            : !canSubmit
-            ? "Complete todas as aulas para enviar o projeto"
-            : "Enviar entrega do projeto"
-        }
-      >
-        {loading ? (
-          <>
-            <span className="project-submission-spinner" aria-hidden="true" />
-            Enviando...
-          </>
-        ) : submitCheckLoading ? (
-          <>
-            <span className="project-submission-spinner" aria-hidden="true" />
-            Verificando...
-          </>
-        ) : !canSubmit ? (
-          "Aulas incompletas"
-        ) : (
-          "Enviar Entrega"
-        )}
-      </button>
+      {showSubmitButton && (
+        <button
+          type="submit"
+          disabled={loading || !url.trim() || submitCheckLoading || !canSubmit || hasPendingSubmission}
+          className="project-submission-btn"
+          aria-label="Enviar entrega do projeto"
+          title={
+            hasPendingSubmission
+              ? "Aguarde a análise da submissão anterior"
+              : !canSubmit
+              ? "Complete todas as aulas para enviar o projeto"
+              : "Enviar entrega do projeto"
+          }
+        >
+          {loading ? (
+            <>
+              <span className="project-submission-spinner" aria-hidden="true" />
+              Enviando...
+            </>
+          ) : submitCheckLoading ? (
+            <>
+              <span className="project-submission-spinner" aria-hidden="true" />
+              Verificando...
+            </>
+          ) : !canSubmit ? (
+            "Aulas incompletas"
+          ) : (
+            "Enviar Entrega"
+          )}
+        </button>
+      )}
     </form>
   );
 }

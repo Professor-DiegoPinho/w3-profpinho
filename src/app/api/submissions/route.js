@@ -24,8 +24,45 @@ export async function GET(request) {
     );
   }
 
-  const submissions = await getProjectSubmissions(session.user.id, courseSlug);
-  return NextResponse.json(submissions);
+  try {
+    // Obter submissões
+    const submissions = await getProjectSubmissions(session.user.id, courseSlug);
+    
+    // Verificar se pode submeter
+    const userProgress = await getLessonProgress(session.user.id, courseSlug);
+    const allLessons = await getPostsInCategory(courseSlug);
+    
+    // Filtrar aulas excluindo a do projeto
+    const regularLessons = allLessons.filter((lesson) => lesson.slug !== "projeto");
+    
+    // Comparar aulas completadas com aulas do curso
+    const completedLessons = userProgress?.completedLessons || [];
+    const missingLessons = regularLessons.filter(
+      (lesson) => !completedLessons.includes(lesson.slug)
+    );
+    
+    const allCompleted = regularLessons.every((lesson) =>
+      completedLessons.includes(lesson.slug)
+    );
+
+    // Verificar se há uma submissão pendente
+    const attempts = Array.isArray(submissions?.attempts) ? submissions.attempts : [];
+    const hasPendingSubmission = attempts.some((attempt) => attempt.status === "pending");
+    
+    const canSubmit = allCompleted && !hasPendingSubmission;
+
+    return NextResponse.json({
+      ...submissions,
+      canSubmit,
+      missingLessons: missingLessons.map(lesson => lesson.slug),
+    });
+  } catch (error) {
+    console.error("Erro ao verificar permissão de submissão:", error);
+    return NextResponse.json(
+      { error: "Erro ao verificar permissão de submissão" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request) {
