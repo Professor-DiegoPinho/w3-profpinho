@@ -1,0 +1,255 @@
+/* ============================================================================
+   Home Page Styles - CSS Module
+   ============================================================================ */
+
+/* Home Page Container */
+.page {
+  /* Wrapper principal - não precisa de estilos */
+}
+
+/* Hero Section */
+.hero {
+  padding: 0;
+}
+
+.hero__title {
+  font-size: 2rem;
+  color: var(--color-text-black);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.hero__subtitle {
+  color: var(--color-text-light-black);
+  font-size: 1.05rem;
+}
+
+/* About Professor Section */
+.aboutProfessor {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  margin-top: 60px;
+}
+
+.aboutContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.aboutContent {
+  display: block;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.aboutText__title {
+  font-size: 2.5rem;
+  color: var(--color-text-black);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.aboutText__description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-text-light-black);
+  margin-bottom: 30px;
+}
+
+/* Credentials Grid */
+.credentials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 40px;
+  justify-items: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.credential__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: var(--color-text-black);
+}
+
+.credential__icon {
+  font-size: 1.2rem;
+}
+
+/* About Actions */
+.aboutActions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta {
+  display: inline-block;
+  padding: 16px 28px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-slow);
+  font-size: 1rem;
+}
+
+.cta--primary {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.cta--primary:hover {
+  background: var(--color-red-second);
+  transform: translateY(-2px);
+}
+
+.cta--secondary {
+  background: transparent;
+  color: var(--color-red);
+  border: 2px solid var(--color-red);
+}
+
+.cta--secondary:hover {
+  background: var(--color-red);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+/* Features Section */
+.features {
+  padding: 60px 40px;
+  background-color: var(--color-white);
+  margin-top: 0;
+}
+
+.features__title {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+  font-size: 2rem;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature {
+  text-align: center;
+  padding: 20px;
+}
+
+.feature__title {
+  color: var(--color-text-black);
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.feature__description {
+  color: #666;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 950px) {
+  .aboutProfessor {
+    padding: 50px 0;
+  }
+
+  .aboutContainer {
+    padding: 0 20px;
+  }
+
+  .aboutContent {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .aboutText__title {
+    font-size: 2rem;
+  }
+
+  .credentials {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .aboutActions {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  .features {
+    padding: 40px 20px;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutProfessor {
+    padding: 50px 0;
+  }
+
+  .aboutContainer {
+    padding: 0 20px;
+  }
+
+  .aboutText__title {
+    font-size: 2rem;
+  }
+
+  .credentials {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .aboutActions {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  .features {
+    padding: 40px 20px;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__title {
+    font-size: 2rem;
+  }
+}
