@@ -1,9 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import CopyIcon from '@/assets/icons/CopyIcon';
+import CheckmarkIcon from '@/assets/icons/CheckmarkIcon';
 
 export default function CodeHighlight({ language, children, ...props }) {
   const [copied, setCopied] = useState(false);
@@ -26,12 +27,11 @@ export default function CodeHighlight({ language, children, ...props }) {
         aria-label={copied ? 'Código copiado para a área de transferência' : 'Copiar código para a área de transferência'}
         disabled={copied}
       >
-        <Image
-          src={copied ? '/icons/ic_checkmark.svg' : '/icons/ic_copy.svg'}
-          alt=""
-          width={20}
-          height={20}
-        />
+        {copied ? (
+          <CheckmarkIcon />
+        ) : (
+          <CopyIcon />
+        )}
         {copied && <span>Copiado!</span>}
       </button>
       <SyntaxHighlighter

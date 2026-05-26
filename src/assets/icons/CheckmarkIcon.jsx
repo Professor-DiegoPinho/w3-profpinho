@@ -1,0 +1,24 @@
+export default function CheckmarkIcon({ className = '' }) {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 24 24" 
+      focusable="false" 
+      aria-hidden="true"
+      fill="currentColor"
+      className={className}
+      width="1em"
+      height="1em"
+    >
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15" />
+      <path
+        d="M7 12.5L10.5 16L17 9"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
