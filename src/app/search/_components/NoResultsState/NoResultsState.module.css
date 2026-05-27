@@ -1,0 +1,61 @@
+/* No Results State Styles - CSS Module */
+
+.noResultsState {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.noResultsIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.noResultsState h3 {
+  font-size: 1.5rem;
+  color: var(--color-text-black);
+  margin-bottom: 1rem;
+}
+
+.noResultsState p {
+  color: var(--color-text-light-black);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.suggestions {
+  background: var(--color-gray);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  text-align: left;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.suggestions h4 {
+  color: var(--color-text-black);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  padding: 0.5rem 0;
+  color: var(--color-text-light-black);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.suggestions li::before {
+  content: "•";
+  color: var(--color-green);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}

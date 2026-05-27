@@ -1,0 +1,22 @@
+/* Empty State Styles - CSS Module */
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.emptyStateIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  color: var(--color-text-black);
+  margin-bottom: 1rem;
+}
+
+.emptyState p {
+  color: var(--color-text-light-black);
+  font-size: 1.1rem;
+}

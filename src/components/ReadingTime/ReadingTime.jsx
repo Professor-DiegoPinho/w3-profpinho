@@ -1,7 +1,21 @@
 'use client';
-import './ReadingTime.css';
 
 import { formatReadingTime } from '@/lib/readingTime';
+import styles from './ReadingTime.module.css';
+
+const variantClassMap = {
+  compact: styles.readingTimeCompact,
+  detailed: styles.readingTimeDetailed,
+  inline: styles.readingTimeInline,
+  badge: styles.readingTimeBadge,
+  default: styles.readingTimeDefault
+};
+
+const categoryClassMap = {
+  quick: styles.readingTimeCategoryQuick,
+  medium: styles.readingTimeCategoryMedium,
+  long: styles.readingTimeCategoryLong
+};
 
 export default function ReadingTime({
   readingTime,
@@ -28,43 +42,27 @@ export default function ReadingTime({
   }
 
   const formatted = formatReadingTime(minutes);
-
-  // Different display variants
-  const getVariantClass = () => {
-    switch (variant) {
-      case 'compact':
-        return 'reading-time-compact';
-      case 'detailed':
-        return 'reading-time-detailed';
-      case 'inline':
-        return 'reading-time-inline';
-      case 'badge':
-        return 'reading-time-badge';
-      default:
-        return 'reading-time-default';
-    }
-  };
-
+  const variantClass = variantClassMap[variant] || variantClassMap.default;
   const displayText = showFullText ? formatted.fullText : formatted.text;
 
   return (
     <div
-      className={`reading-time ${getVariantClass()} ${className}`.trim()}
+      className={`${styles.readingTime} ${variantClass} ${className}`.trim()}
       style={{ '--reading-time-color': formatted.color, 'backgroundColor': formatted.background }}
       title={`${words} palavras • ${formatted.fullText}`}
     >
       {showIcon && (
-        <span className="reading-time-icon" role="img" aria-label="Tempo de leitura">
+        <span className={styles.readingTimeIcon} role="img" aria-label="Tempo de leitura">
           {formatted.icon}
         </span>
       )}
 
-      <span className="reading-time-text">
+      <span className={styles.readingTimeText}>
         {displayText}
       </span>
 
       {variant === 'badge' && (
-        <span className={`reading-time-category reading-time-category-${formatted.category}`}>
+        <span className={`${styles.readingTimeCategory} ${categoryClassMap[formatted.category] || ''}`}>
           {formatted.category === 'quick' && 'Leitura Rápida'}
           {formatted.category === 'medium' && 'Leitura Média'}
           {formatted.category === 'long' && 'Leitura Longa'}
@@ -80,7 +78,7 @@ export function ReadingTimeCompact({ readingTime, className = '' }) {
     <ReadingTime
       readingTime={readingTime}
       variant="compact"
-      showIcon={true}
+      showIcon
       className={className}
     />
   );
@@ -91,8 +89,8 @@ export function ReadingTimeDetailed({ readingTime, className = '' }) {
     <ReadingTime
       readingTime={readingTime}
       variant="detailed"
-      showIcon={true}
-      showFullText={true}
+      showIcon
+      showFullText
       className={className}
     />
   );

@@ -1,0 +1,105 @@
+/* Search Result Card Styles - CSS Module */
+
+.resultCard {
+  background: var(--color-white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid var(--color-light-gray);
+}
+
+.resultCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.resultLink {
+  display: block;
+  padding: 1.5rem;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+}
+
+.resultCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.resultCardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-black);
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.resultCardTitle mark {
+  background-color: var(--color-yellow-highlight);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.resultCardCategory {
+  font-size: 0.875rem;
+  color: var(--color-green);
+  background: rgba(4, 170, 109, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.resultCardDescription {
+  font-size: 1rem;
+  color: var(--color-text-light-black);
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+}
+
+.resultCardDescription mark {
+  background-color: var(--color-yellow-highlight);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.resultCardExcerpt {
+  font-size: 0.875rem;
+  color: var(--color-dark-gray);
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.resultCardExcerpt mark {
+  background-color: var(--color-yellow-highlight);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-style: normal;
+}
+
+.resultCardFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-gray);
+}
+
+.resultMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.resultScore {
+  font-size: 0.75rem;
+  color: var(--color-dark-gray);
+  font-weight: 500;
+}

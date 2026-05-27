@@ -1,5 +1,6 @@
-/* Reading Time Styles */
-.reading-time {
+/* Reading Time Styles - CSS Module */
+
+.readingTime {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -8,24 +9,24 @@
   transition: all 0.3s ease;
 }
 
-.reading-time-icon {
+.readingTimeIcon {
   font-size: 1em;
   line-height: 1;
 }
 
-.reading-time-text {
+.readingTimeText {
   font-weight: 500;
   white-space: nowrap;
 }
 
 /* Reading Time Variants */
-.reading-time-default {
+.readingTimeDefault {
   padding: 4px 8px;
   border-radius: 12px;
   color: var(--reading-time-color, var(--color-green));
 }
 
-.reading-time-compact {
+.readingTimeCompact {
   padding: 2px 6px;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
@@ -33,7 +34,7 @@
   color: var(--reading-time-color, var(--color-text-light-black));
 }
 
-.reading-time-detailed {
+.readingTimeDetailed {
   padding: 8px 12px;
   background: var(--color-gray);
   border-radius: 8px;
@@ -41,13 +42,13 @@
   gap: 8px;
 }
 
-.reading-time-detailed .reading-time-words {
+.readingTimeDetailedWords {
   font-size: 0.75rem;
   color: var(--color-dark-gray);
   font-weight: 400;
 }
 
-.reading-time-inline {
+.readingTimeInline {
   padding: 0;
   background: none;
   border-radius: 0;
@@ -55,7 +56,7 @@
   font-weight: 400;
 }
 
-.reading-time-badge {
+.readingTimeBadge {
   padding: 6px 12px;
   background: var(--reading-time-color, var(--color-green));
   color: var(--color-white);
@@ -66,7 +67,7 @@
   letter-spacing: 0.5px;
 }
 
-.reading-time-category {
+.readingTimeCategory {
   margin-left: 8px;
   padding: 2px 6px;
   border-radius: 4px;
@@ -76,99 +77,41 @@
   letter-spacing: 0.5px;
 }
 
-.reading-time-category-quick {
+.readingTimeCategoryQuick {
   background: rgba(4, 170, 109, 0.2);
   color: var(--color-green);
 }
 
-.reading-time-category-medium {
+.readingTimeCategoryMedium {
   background: rgba(255, 165, 0, 0.2);
   color: #FF8C00;
 }
 
-.reading-time-category-long {
+.readingTimeCategoryLong {
   background: rgba(255, 107, 107, 0.2);
   color: #FF6B6B;
 }
 
 /* Post Meta Styles */
-.post-meta {
+.postMeta {
   margin-top: 16px;
   padding-top: 16px;
-  /* border-top: 1px solid var(--color-light-gray); */
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* Category Stats Integration */
-.category-stats {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 8px;
   flex-wrap: wrap;
-}
-
-.category-stats span {
-  color: var(--color-text-light-black);
   font-size: 0.875rem;
+  color: var(--color-text-light-black);
 }
 
-/* Hover Effects */
-.reading-time-default:hover {
-  background: rgba(4, 170, 109, 0.15);
-  transform: translateY(-1px);
+.postMetaDivider {
+  width: 1px;
+  height: 16px;
+  background: var(--color-light-gray);
 }
 
-.reading-time-compact:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.reading-time-detailed:hover {
-  background: var(--color-white);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.reading-time-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-  .reading-time {
-    font-size: 0.8rem;
-    gap: 4px;
-  }
-
-  .reading-time-detailed {
-    padding: 6px 10px;
-    gap: 6px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .reading-time-detailed .reading-time-text {
-    font-size: 0.8rem;
-  }
-
-  .reading-time-detailed .reading-time-words {
-    font-size: 0.7rem;
-  }
-
-  .post-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .category-stats {
-    gap: 8px;
-  }
-
-  .reading-time-badge {
-    padding: 4px 8px;
-    font-size: 0.7rem;
-  }
+.postMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
