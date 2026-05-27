@@ -1,31 +1,5 @@
-/* ============================================================================
-   Home Page Styles - CSS Module
-   ============================================================================ */
-
-/* Home Page Container */
-.page {
-  /* Wrapper principal - não precisa de estilos */
-}
-
-/* Hero Section */
-.hero {
-  padding: 0;
-}
-
-.hero__title {
-  font-size: 2rem;
-  color: var(--color-text-black);
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-}
-
-.hero__subtitle {
-  color: var(--color-text-light-black);
-  font-size: 1.05rem;
-}
-
 /* About Professor Section */
-.aboutProfessor {
+.about {
   padding: var(--space-3xl) 0;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   margin-top: 60px;
@@ -122,49 +96,9 @@
   transform: translateY(-2px);
 }
 
-/* Features Section */
-.features {
-  padding: 60px 40px;
-  background-color: var(--color-white);
-  margin-top: 0;
-}
-
-.features__title {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #333;
-  font-size: 2rem;
-}
-
-.featuresGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.feature {
-  text-align: center;
-  padding: 20px;
-}
-
-.feature__title {
-  color: var(--color-text-black);
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-}
-
-.feature__description {
-  color: #666;
-}
-
-/* ============================================================================
-   RESPONSIVE
-   ============================================================================ */
-
+/* Responsive */
 @media (max-width: 950px) {
-  .aboutProfessor {
+  .about {
     padding: 50px 0;
   }
 
@@ -197,59 +131,19 @@
     max-width: 280px;
     text-align: center;
   }
-
-  .features {
-    padding: 40px 20px;
-  }
-
-  .featuresGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero__title {
-    font-size: 2rem;
-  }
 }
 
 @media (max-width: 768px) {
-  .aboutProfessor {
-    padding: 50px 0;
-  }
-
-  .aboutContainer {
-    padding: 0 20px;
-  }
-
   .aboutText__title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
-  .credentials {
-    grid-template-columns: 1fr;
-    gap: 12px;
+  .aboutText__description {
+    font-size: 1rem;
   }
 
   .aboutActions {
-    justify-content: center;
     flex-direction: column;
-    align-items: center;
-  }
-
-  .cta {
-    width: 100%;
-    max-width: 280px;
-    text-align: center;
-  }
-
-  .features {
-    padding: 40px 20px;
-  }
-
-  .featuresGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero__title {
-    font-size: 2rem;
+    gap: 15px;
   }
 }

@@ -1,0 +1,27 @@
+/* Hero Section */
+.hero {
+  padding: 0;
+}
+
+.hero__title {
+  font-size: 2rem;
+  color: var(--color-text-black);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.hero__subtitle {
+  color: var(--color-text-light-black);
+  font-size: 1.05rem;
+}
+
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero__subtitle {
+    font-size: 0.95rem;
+  }
+}
