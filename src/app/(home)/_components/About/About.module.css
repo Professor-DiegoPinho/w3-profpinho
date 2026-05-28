@@ -1,45 +1,45 @@
 /* About Professor Section */
 .about {
-  padding: var(--space-3xl) 0;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  margin-top: 60px;
+  padding: var(--space-12) 0;
+  background: var(--color-bg-subtle);
+  margin-top: var(--space-12);
 }
 
 .aboutContainer {
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 var(--space-10);
 }
 
 .aboutContent {
   display: block;
   text-align: center;
-  max-width: 800px;
+  max-width: 50rem;
   margin: 0 auto;
 }
 
 .aboutText__title {
-  font-size: 2.5rem;
-  color: var(--color-text-black);
-  margin-bottom: 20px;
-  font-weight: 700;
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-5);
+  font-weight: var(--font-weight-bold);
 }
 
 .aboutText__description {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--color-text-light-black);
-  margin-bottom: 30px;
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
 }
 
 /* Credentials Grid */
 .credentials {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  margin-bottom: 40px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
   justify-items: center;
-  max-width: 600px;
+  max-width: 37.5rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -47,63 +47,63 @@
 .credential__item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  color: var(--color-text-black);
+  gap: var(--space-2);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
 }
 
 .credential__icon {
-  font-size: 1.2rem;
+  font-size: var(--font-size-lg);
 }
 
 /* About Actions */
 .aboutActions {
   display: flex;
-  gap: 20px;
+  gap: var(--space-5);
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .cta {
   display: inline-block;
-  padding: 16px 28px;
+  padding: var(--space-4) var(--space-6);
   border-radius: var(--radius-md);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-decoration: none;
   transition: all var(--transition-slow);
-  font-size: 1rem;
+  font-size: var(--font-size-base);
 }
 
 .cta--primary {
-  background: var(--color-red);
-  color: var(--color-white);
+  background: var(--color-danger);
+  color: var(--color-text-on-brand);
 }
 
 .cta--primary:hover {
-  background: var(--color-red-second);
+  background: var(--color-danger-strong);
   transform: translateY(-2px);
 }
 
 .cta--secondary {
   background: transparent;
-  color: var(--color-red);
-  border: 2px solid var(--color-red);
+  color: var(--color-danger);
+  border: 2px solid var(--color-danger);
 }
 
 .cta--secondary:hover {
-  background: var(--color-red);
-  color: var(--color-white);
+  background: var(--color-danger);
+  color: var(--color-text-on-brand);
   transform: translateY(-2px);
 }
 
 /* Responsive */
 @media (max-width: 950px) {
   .about {
-    padding: 50px 0;
+    padding: var(--space-12) 0;
   }
 
   .aboutContainer {
-    padding: 0 20px;
+    padding: 0 var(--space-5);
   }
 
   .aboutContent {
@@ -112,12 +112,12 @@
   }
 
   .aboutText__title {
-    font-size: 2rem;
+    font-size: var(--font-size-2xl);
   }
 
   .credentials {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: var(--space-2);
   }
 
   .aboutActions {
@@ -128,22 +128,22 @@
 
   .cta {
     width: 100%;
-    max-width: 280px;
+    max-width: 17.5rem;
     text-align: center;
   }
 }
 
 @media (max-width: 768px) {
   .aboutText__title {
-    font-size: 1.8rem;
+    font-size: var(--font-size-xl);
   }
 
   .aboutText__description {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
   }
 
   .aboutActions {
     flex-direction: column;
-    gap: 15px;
+    gap: var(--space-3);
   }
 }

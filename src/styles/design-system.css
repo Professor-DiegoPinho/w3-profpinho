@@ -1,170 +1,323 @@
 /* ============================================================================
-   Design System - Centralized CSS Variables and Reusable Styles
+   Design System — Centralized CSS Variables and Reusable Styles
+   Marca: Diego Pinho | Educação e Tecnologia
+   ============================================================================ */
+
+/* ============================================================================
+   PRIMITIVE TOKENS — Valores fixos da paleta, nunca usados diretamente no UI
    ============================================================================ */
 
 :root {
-  /* ---- COLORS - Core Palette ---- */
-  --color-black: #2A2836;
-  --color-white: #fff;
-  --color-red: #F34C61;
-  --color-red-second: #ce3635;
-  --color-green: #04AA6D;
-  --color-light-blue: #7AC9FC;
-  --color-dark-blue: #004AAD;
-  --color-yellow-star: #FFBE15;
-  --color-yellow-highlight: #FFF176;
+  /* Brand */
+  --primitive-black:        #191919;
+  --primitive-light-blue:   #38b6ff;
+  --primitive-dark-blue:    #004aad;
+  --primitive-light-red:    #f34c61;
+  --primitive-dark-red:     #e1341e;
+  --primitive-green:        #04aa6d;
+  --primitive-yellow-star:  #ffbe15;
+  --primitive-yellow-hl:    #fff176;
 
-  /* ---- COLORS - Grays ---- */
-  --color-light-gray: #dcdce4;
-  --color-dark-gray: #b5b5ba;
-  --color-gray: #F6F6FD;
-  --color-text-black: #191919;
-  --color-text-light-black: #555;
-  --color-text-white: #ffffffea;
+  /* Grays */
+  --primitive-gray-50:  #f6f6fd;
+  --primitive-gray-100: #dcdce4;
+  --primitive-gray-200: #b5b5ba;
+  --primitive-gray-300: #888893;
+  --primitive-gray-400: #555555;
+  --primitive-gray-500: #333333;
 
-  /* ---- COLORS - White Tints ---- */
-  --color-white-baby-powder: #fefefa;
-  --color-white-floral-white: #fffcf5;
-  --color-white-seasalt: #f7f7f7;
-  --color-white-snow: #fffafe;
-  --color-white-mint-cream: #f7fffb;
-  --color-white-ivory: #fcfcf2;
-  --color-white-alabaster: #f2efe5;
-  --color-white-ghost-white: #fafaff;
-  --color-white-smoke: #f5f5f5;
+  /* White tints */
+  --primitive-white-pure:        #ffffff;
+  --primitive-white-baby-powder: #fefefa;
+  --primitive-white-floral:      #fffcf5;
+  --primitive-white-seasalt:     #f7f7f7;
+  --primitive-white-snow:        #fffafe;
+  --primitive-white-mint-cream:  #f7fffb;
+  --primitive-white-ivory:       #fcfcf2;
+  --primitive-white-alabaster:   #f2efe5;
+  --primitive-white-ghost:       #fafaff;
+  --primitive-white-smoke:       #f5f5f5;
 
-  /* ---- SPACING ---- */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 40px;
-  --space-3xl: 60px;
-
-  /* ---- TYPOGRAPHY ---- */
-  --font-poppins: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  --font-jetbrains-mono: "JetBrains Mono", "Monaco", "Consolas", "Lucida Console", monospace;
-  --font-size-base: 16px;
-  --line-height-base: 1.6;
-  --line-height-tight: 1.4;
-  --line-height-relaxed: 1.8;
-
-  /* ---- BREAKPOINTS (reference for media queries) ---- */
-  /* Mobile First:
-     sm: 640px (tablet)
-     md: 768px (larger tablet)
-     lg: 1100px (desktop)
-     xl: 1400px (large desktop)
-  */
-
-  /* ---- Z-INDEX System ---- */
-  /* Layer 1: Base (0-10) */
-  --z-base: 0;
-  --z-dropdown: 10;
-
-  /* Layer 2: Fixed/Sticky (100-200) */
-  --z-sticky: 100;
-  --z-fixed-header: 101;
-
-  /* Layer 3: Overlays & Modals (900-1000) */
-  --z-overlay: 900;
-  --z-sidebar: 1000;
-  --z-modal: 1001;
-
-  /* Layer 4: Top Level (9000+) */
-  --z-toast: 9999;
-  --z-cookie-consent: 10001;
-
-  /* ---- BORDER RADIUS ---- */
-  --radius-xs: 3px;
-  --radius-sm: 5px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-full: 999px;
-
-  /* ---- SHADOWS ---- */
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 12px rgba(42, 40, 54, 0.08);
-  --shadow-lg: 0 8px 20px rgba(42, 40, 54, 0.08);
-  --shadow-xl: 0 8px 25px rgba(0, 0, 0, 0.15);
-
-  /* ---- TRANSITIONS ---- */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.2s ease;
-  --transition-slow: 0.3s ease;
+  /* Dark surfaces (para dark mode) */
+  --primitive-dark-900: #111113;
+  --primitive-dark-800: #1a1a1f;
+  --primitive-dark-700: #22222a;
+  --primitive-dark-600: #2c2c36;
+  --primitive-dark-500: #38383f;
 }
 
 /* ============================================================================
-   ANIMATIONS - Keyframes for reusable animations
+   SEMANTIC TOKENS (LIGHT MODE — padrão)
+   Estas são as variáveis que o CSS de componentes deve usar.
+   ============================================================================ */
+
+:root,
+[data-theme="light"] {
+
+  /* --- Superfícies --- */
+  --color-bg-base:       var(--primitive-white-baby-powder);
+  --color-bg-subtle:     var(--primitive-gray-50);
+  --color-bg-muted:      var(--primitive-white-smoke);
+  --color-bg-elevated:   var(--primitive-white-pure);
+  --color-bg-overlay:    rgba(25, 25, 25, 0.45);
+
+  /* --- Bordas --- */
+  --color-border:        var(--primitive-gray-100);
+  --color-border-strong: var(--primitive-gray-200);
+
+  /* --- Textos --- */
+  --color-text-primary:   var(--primitive-black);
+  --color-text-secondary: var(--primitive-gray-400);
+  --color-text-muted:     var(--primitive-gray-200);
+  --color-text-on-brand:  var(--primitive-white-pure);
+  --color-text-link:      var(--primitive-dark-blue);
+  --color-text-link-hover: var(--primitive-light-blue);
+
+  /* --- Brand --- */
+  --color-brand-primary:       var(--primitive-dark-blue);
+  --color-brand-primary-hover: #003a8a;
+  --color-brand-accent:        var(--primitive-light-blue);
+  --color-brand-accent-hover:  #1aa3f0;
+
+  /* --- Feedback --- */
+  --color-danger:         var(--primitive-light-red);
+  --color-danger-strong:  var(--primitive-dark-red);
+  --color-success:        var(--primitive-green);
+  --color-warning:        var(--primitive-yellow-star);
+  --color-highlight:      var(--primitive-yellow-hl);
+
+  /* --- Sombras --- */
+  --shadow-sm:  0 2px 10px rgba(0, 0, 0, 0.07);
+  --shadow-md:  0 4px 12px rgba(25, 25, 25, 0.08);
+  --shadow-lg:  0 8px 20px rgba(25, 25, 25, 0.10);
+  --shadow-xl:  0 8px 25px rgba(0, 0, 0, 0.14);
+  --shadow-card: 0 2px 8px rgba(0, 74, 173, 0.08);
+}
+
+/* ============================================================================
+   SEMANTIC TOKENS (DARK MODE)
+   Ativado por: prefers-color-scheme ou [data-theme="dark"]
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* --- Superfícies --- */
+    --color-bg-base:       var(--primitive-dark-800);
+    --color-bg-subtle:     var(--primitive-dark-700);
+    --color-bg-muted:      var(--primitive-dark-600);
+    --color-bg-elevated:   var(--primitive-dark-900);
+    --color-bg-overlay:    rgba(0, 0, 0, 0.60);
+
+    /* --- Bordas --- */
+    --color-border:        var(--primitive-dark-500);
+    --color-border-strong: var(--primitive-gray-300);
+
+    /* --- Textos --- */
+    --color-text-primary:   #ededf0;
+    --color-text-secondary: var(--primitive-gray-200);
+    --color-text-muted:     var(--primitive-gray-300);
+    --color-text-on-brand:  var(--primitive-white-pure);
+    --color-text-link:      var(--primitive-light-blue);
+    --color-text-link-hover: #7dd4ff;
+
+    /* --- Brand (no dark, o accent fica mais vibrante como primário) --- */
+    --color-brand-primary:       var(--primitive-light-blue);
+    --color-brand-primary-hover: #7dd4ff;
+    --color-brand-accent:        var(--primitive-dark-blue);
+    --color-brand-accent-hover:  #005fdb;
+
+    /* --- Feedback --- */
+    --color-danger:         #ff6b7a;
+    --color-danger-strong:  var(--primitive-light-red);
+    --color-success:        #22d48b;
+    --color-warning:        var(--primitive-yellow-star);
+    --color-highlight:      rgba(255, 241, 118, 0.18);
+
+    /* --- Sombras (mais suaves no dark) --- */
+    --shadow-sm:  0 2px 10px rgba(0, 0, 0, 0.30);
+    --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.35);
+    --shadow-lg:  0 8px 20px rgba(0, 0, 0, 0.40);
+    --shadow-xl:  0 8px 25px rgba(0, 0, 0, 0.50);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.40);
+  }
+}
+
+/* Toggle manual: <html data-theme="dark"> sobrescreve prefers-color-scheme */
+[data-theme="dark"] {
+  --color-bg-base:       var(--primitive-dark-800);
+  --color-bg-subtle:     var(--primitive-dark-700);
+  --color-bg-muted:      var(--primitive-dark-600);
+  --color-bg-elevated:   var(--primitive-dark-900);
+  --color-bg-overlay:    rgba(0, 0, 0, 0.60);
+
+  --color-border:        var(--primitive-dark-500);
+  --color-border-strong: var(--primitive-gray-300);
+
+  --color-text-primary:   #ededf0;
+  --color-text-secondary: var(--primitive-gray-200);
+  --color-text-muted:     var(--primitive-gray-300);
+  --color-text-on-brand:  var(--primitive-white-pure);
+  --color-text-link:      var(--primitive-light-blue);
+  --color-text-link-hover: #7dd4ff;
+
+  --color-brand-primary:       var(--primitive-light-blue);
+  --color-brand-primary-hover: #7dd4ff;
+  --color-brand-accent:        var(--primitive-dark-blue);
+  --color-brand-accent-hover:  #005fdb;
+
+  --color-danger:         #ff6b7a;
+  --color-danger-strong:  var(--primitive-light-red);
+  --color-success:        #22d48b;
+  --color-warning:        var(--primitive-yellow-star);
+  --color-highlight:      rgba(255, 241, 118, 0.18);
+
+  --shadow-sm:  0 2px 10px rgba(0, 0, 0, 0.30);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg:  0 8px 20px rgba(0, 0, 0, 0.40);
+  --shadow-xl:  0 8px 25px rgba(0, 0, 0, 0.50);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.40);
+}
+
+/* ============================================================================
+   DESIGN TOKENS GLOBAIS — Não mudam entre temas
+   ============================================================================ */
+
+:root {
+  /* ---- Tipografia ---- */
+  --font-sans: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "Monaco", "Consolas", "Lucida Console", monospace;
+
+  --font-size-xs:   0.75rem;   /* 12px */
+  --font-size-sm:   0.875rem;  /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-md:   1.125rem;  /* 18px */
+  --font-size-lg:   1.25rem;   /* 20px */
+  --font-size-xl:   1.5rem;    /* 24px */
+  --font-size-2xl:  1.875rem;  /* 30px */
+  --font-size-3xl:  2.25rem;   /* 36px */
+  --font-size-4xl:  3rem;      /* 48px */
+
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:    700;
+
+  --line-height-tight:   1.3;
+  --line-height-base:    1.6;
+  --line-height-relaxed: 1.8;
+
+  /* ---- Espaçamento ---- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Aliases legíveis */
+  --space-xs:  var(--space-1);
+  --space-sm:  var(--space-2);
+  --space-md:  var(--space-4);
+  --space-lg:  var(--space-6);
+  --space-xl:  var(--space-8);
+  --space-2xl: var(--space-10);
+  --space-3xl: var(--space-16);
+
+  /* ---- Border Radius ---- */
+  --radius-xs:   3px;
+  --radius-sm:   5px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+
+  /* ---- Transitions ---- */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.2s ease;
+  --transition-slow:   0.3s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Z-Index ---- */
+  --z-base:          0;
+  --z-dropdown:      10;
+  --z-sticky:        100;
+  --z-fixed-header:  101;
+  --z-overlay:       900;
+  --z-sidebar:       1000;
+  --z-modal:         1001;
+  --z-toast:         9999;
+  --z-cookie-banner: 10001;
+
+  /* ---- Layout ---- */
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg:  1100px;
+  --container-xl:  1400px;
+  --container-max: 1200px;
+}
+
+/* ============================================================================
+   ANIMAÇÕES
    ============================================================================ */
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
 }
 
 @keyframes slideInLeft {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
 }
 
 @keyframes slideDown {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-10px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: translateY(10px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
 }
 
 @keyframes slideUpConsent {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
 }
 
 /* ============================================================================
-   COMMON UTILITY PATTERNS - Reusable style patterns (optional)
+   UTILITÁRIOS
    ============================================================================ */
 
 .visually-hidden {
@@ -197,4 +350,22 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-subtle) 25%,
+    var(--color-bg-muted)  50%,
+    var(--color-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeletonShimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
 }
