@@ -2,7 +2,6 @@
 .about {
   padding: var(--space-12) 0;
   background: var(--color-bg-subtle);
-  margin-top: var(--space-12);
 }
 
 .aboutContainer {

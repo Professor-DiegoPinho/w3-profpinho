@@ -39,11 +39,11 @@
   --primitive-white-smoke:       #f5f5f5;
 
   /* Dark surfaces (para dark mode) */
-  --primitive-dark-900: #111113;
-  --primitive-dark-800: #1a1a1f;
-  --primitive-dark-700: #22222a;
-  --primitive-dark-600: #2c2c36;
-  --primitive-dark-500: #38383f;
+  --primitive-dark-900: #1e1e21;
+  --primitive-dark-800: #27272f;
+  --primitive-dark-700: #2f2f39;
+  --primitive-dark-600: #393944;
+  --primitive-dark-500: #45454d;
 }
 
 /* ============================================================================
