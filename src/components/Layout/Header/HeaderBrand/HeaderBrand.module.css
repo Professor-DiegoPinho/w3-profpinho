@@ -1,0 +1,29 @@
+/* Header Brand Styles - CSS Module */
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity var(--transition-slow);
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.logoImage {
+  height: var(--space-10);
+  width: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logoImage {
+    height: var(--space-8);
+  }
+}

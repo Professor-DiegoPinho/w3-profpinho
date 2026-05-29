@@ -1,18 +1,15 @@
 "use client";
 
-import Link from 'next/link';
+import CookieConsent from '@/components/CookieConsent/CookieConsent';
+import DesktopSidebar from '@/components/Layout/Sidebar/Desktop/DesktopSidebar';
+import MobileSidebar from '@/components/Layout/Sidebar/Mobile/MobileSidebar';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import AuthButton from '../AuthButton/AuthButton';
-import CookieConsent from '../CookieConsent/CookieConsent';
 import DiscordFloatingButton from '../DiscordFloatingButton/DiscordFloatingButton';
-import DynamicSidebar from '../DynamicSidebar/DynamicSidebar';
-import Footer from '../Footer/Footer';
-import HeaderNav from '../HeaderNav/HeaderNav';
-import MobileSidebar from '../MobileSidebar/MobileSidebar';
-import SearchBox from '../SearchBox/SearchBox';
-import LessonContentSkeleton from '../Skeletons/LessonContentSkeleton';
-import ProfilePageSkeleton from '../Skeletons/ProfilePageSkeleton';
+import Footer from './Footer/Footer';
+import Header from './Header/Header';
+import MainContentWrapper from './MainContentWrapper/MainContentWrapper';
+import SidebarOverlay from './SidebarOverlay/SidebarOverlay';
 
 const SIDEBAR_COLLAPSE_BREAKPOINT = 1100;
 
@@ -76,47 +73,20 @@ export default function Layout({ children, sidebarData = [] }) {
 
   return (
     <div className="app-layout">
-      <header className="app-header">
-        <div className="header-content">
-          <button
-            className="hamburger-button"
-            onClick={toggleSidebar}
-            aria-label="Abrir menu"
-          >
-            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-          </button>
-
-          <div className="header-brand">
-            <Link href="/" className="header-logo">
-              <img
-                src="/diegopinho-learninghub-logo.svg"
-                alt="Learning Hub Logo"
-                className="header-logo-image"
-              />
-            </Link>
-          </div>
-
-          <HeaderNav
-            sidebarData={sidebarData}
-            currentCategory={resolvedCurrentCategory}
-            currentSlug={resolvedCurrentSlug}
-            onNavigateStart={handleNavigateStart}
-          />
-
-          <SearchBox className="header-search" />
-
-          <div className="header-auth">
-            <AuthButton onNavigateStart={handleNavigateStart} />
-          </div>
-        </div>
-      </header>
+      <Header
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        sidebarData={sidebarData}
+        resolvedCurrentCategory={resolvedCurrentCategory}
+        resolvedCurrentSlug={resolvedCurrentSlug}
+        handleNavigateStart={handleNavigateStart}
+      />
 
       <div className={`layout-body ${shouldShowSidebar ? 'has-sidebar' : 'no-sidebar'}`.trim()}>
-        {isSidebarOpen && (
-          <div className="sidebar-overlay" onClick={closeSidebar}></div>
-        )}
+        <SidebarOverlay
+          isSidebarOpen={isSidebarOpen}
+          closeSidebar={closeSidebar}
+        />
 
         {isMobile ? (
           <MobileSidebar
@@ -129,7 +99,7 @@ export default function Layout({ children, sidebarData = [] }) {
           />
         ) : (
           shouldShowSidebar && (
-            <DynamicSidebar
+            <DesktopSidebar
               sidebarData={sidebarData}
               currentCategory={resolvedCurrentCategory}
               currentSlug={resolvedCurrentSlug}
@@ -142,13 +112,12 @@ export default function Layout({ children, sidebarData = [] }) {
         )}
 
         <main className="main-content">
-          <div className={`content-wrapper ${isRouteLoading ? 'content-wrapper-loading' : ''}`}>
-            {isRouteLoading ? (
-              isProfileRouteLoading ? <ProfilePageSkeleton /> : <LessonContentSkeleton />
-            ) : (
-              children
-            )}
-          </div>
+          <MainContentWrapper
+            isRouteLoading={isRouteLoading}
+            isProfileRouteLoading={isProfileRouteLoading}
+          >
+            {children}
+          </MainContentWrapper>
         </main>
       </div>
 

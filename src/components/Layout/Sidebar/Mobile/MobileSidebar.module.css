@@ -1,0 +1,51 @@
+/* Mobile Sidebar Styles */
+.mobileSidebar {
+  position: fixed;
+  top: var(--space-16);
+  left: 0;
+  width: 100%;
+  height: calc(100vh - var(--space-16));
+  background-color: var(--color-bg-elevated);
+  z-index: var(--z-modal);
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileSidebar.sidebarOpen {
+  transform: translateX(0);
+}
+
+.mobileSidebarViewport {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mobileSidebarPages {
+  display: flex;
+  width: calc(100% * 3);
+  height: 100%;
+  transition: transform var(--transition-bounce);
+  will-change: transform;
+}
+
+.mobileSidebarNav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mobileSidebarNav::-webkit-scrollbar-track {
+  background: var(--color-bg-subtle);
+  border-radius: 999px;
+}
+
+.mobileSidebarNav::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-danger), var(--color-danger-strong));
+  border-radius: 999px;
+}
+
+.mobileSidebarNav::-webkit-scrollbar-thumb:hover {
+  background: var(--color-danger-strong);
+}

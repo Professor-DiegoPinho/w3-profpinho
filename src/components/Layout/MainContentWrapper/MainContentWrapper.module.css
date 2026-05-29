@@ -1,0 +1,18 @@
+/* Main Content Wrapper Styles - CSS Module */
+
+.wrapper {
+  width: var(--container-max);
+  margin: 0 auto;
+  background-color: var(--color-bg-base);
+  transition: opacity var(--transition-slow);
+}
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.wrapper :focus-visible {
+  outline: calc(var(--space-1) / 2) solid var(--color-success);
+  outline-offset: calc(var(--space-1) / 2);
+}

@@ -1,0 +1,74 @@
+.sidebarItems {
+  display: grid;
+  grid-template-rows: 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebarItemsInner {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  margin-bottom: var(--space-12);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-danger) var(--color-bg-subtle);
+}
+
+.sidebarItemsInner::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebarItemsInner::-webkit-scrollbar-track {
+  background: var(--color-bg-subtle);
+  border-radius: 999px;
+}
+
+.sidebarItemsInner::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-danger), var(--color-danger-strong));
+  border-radius: 999px;
+}
+
+.sidebarItemsInner::-webkit-scrollbar-thumb:hover {
+  background: var(--color-danger-strong);
+}
+
+.dynamicSidebarList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.dynamicSidebarLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dynamicSidebarLink:hover {
+  background-color: var(--color-bg-muted);
+  color: var(--color-text-primary);
+}
+
+.dynamicSidebarLink.active {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-danger);
+  font-weight: var(--font-weight-medium);
+}
+
+.lessonTitle {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
