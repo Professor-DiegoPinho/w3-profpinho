@@ -27,6 +27,7 @@ import {
 import { getLessonProgress } from "@/lib/progress";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
+import styles from "./page.module.css";
 
 export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
@@ -156,10 +157,10 @@ export default async function CategoryPage({ params }) {
   }
 
   return (
-    <section className="course-enrollment-page">
-      <header className="course-enrollment-header">
+    <section className={styles.page}>
+      <header className={styles.header}>
         {courseImage && (
-          <div className="course-enrollment-logo">
+          <div className={styles.logo}>
             <Image
               src={courseImage}
               alt={`Logo do curso ${courseTitle}`}
@@ -168,32 +169,32 @@ export default async function CategoryPage({ params }) {
             />
           </div>
         )}
-        <div className="course-enrollment-badges">
+        <div className={styles.badges}>
           {courseBadge && (
-            <span className="course-enrollment-badge">{courseBadge}</span>
+            <span className={styles.badge}>{courseBadge}</span>
           )}
           {showAccessBadge && (
-            <span className="course-enrollment-badge">{courseAccessLabel}</span>
+            <span className={styles.badge}>{courseAccessLabel}</span>
           )}
         </div>
         <h1>{courseTitle}</h1>
-        <p>{courseDescription}</p>
+        <p className={styles.description}>{courseDescription}</p>
       </header>
 
-      <div className="course-enrollment-summary">
-        <div className="course-summary-item">
+      <div className={styles.summary}>
+        <div className={styles.summaryItem}>
           <strong>
             {totalLessons} {totalLessons === 1 ? "Aula" : "Aulas"}
           </strong>
           <span>Conteúdo do curso</span>
         </div>
-        <div className="course-summary-item">
+        <div className={styles.summaryItem}>
           <strong>
             {"+"}{totalEnrolledStudents < 100 ? 100 : totalEnrolledStudents}{" Alunos"}
           </strong>
           <span>Comunidade ativa</span>
         </div>
-        <div className="course-summary-item">
+        <div className={styles.summaryItem}>
           <strong>
             {courseWorkloadHours}{" "}
             {courseWorkloadHours === 1 ? "Hora" : "Horas"}
@@ -212,8 +213,8 @@ export default async function CategoryPage({ params }) {
       )}
 
       {!isUserEnrolled && (
-        <div className="course-enrollment-cta-banner">
-          <p className="course-enrollment-cta-text">
+        <div className={styles.ctaBanner}>
+          <p className={styles.ctaText}>
             Quer acessar todas as aulas? Inscreva-se para começar a aprender!
           </p>
           <CourseEnrollmentButton
@@ -227,7 +228,7 @@ export default async function CategoryPage({ params }) {
         </div>
       )}
 
-      <div className="course-meta-block">
+      <div className={styles.metaBlock}>
         <h2>Aulas do curso</h2>
         <CourseLessonsList
           posts={posts}
@@ -249,54 +250,54 @@ export default async function CategoryPage({ params }) {
       {userId && isUserEnrolled ? (
         <CourseInfoToggle summary="Saiba mais">
           {coursePresentationVideoId && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Vídeo de apresentação</h2>
               <YouTubeEmbed videoId={coursePresentationVideoId} />
             </div>
           )}
 
           {hasCourseEbook && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Materiais do curso</h2>
               <a
                 href={courseEbookLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="course-ebook-card"
+                className={styles.ebookCard}
               >
                 {courseEbook.image ? (
                   <div
-                    className="course-ebook-card-image"
+                    className={styles.ebookImage}
                     style={{ backgroundImage: `url(${courseEbook.image})` }}
                     role="img"
                     aria-label={`Imagem do site ${courseEbook.siteName}`}
                   />
                 ) : (
-                  <div className="course-ebook-card-image-fallback">
+                  <div className={styles.ebookImageFallback}>
                     {courseEbook.siteName.slice(0, 1).toUpperCase()}
                   </div>
                 )}
-                <div className="course-ebook-card-content">
-                  <p className="course-ebook-card-site">{courseEbook.siteName}</p>
-                  <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
-                  <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
-                  <span className="course-ebook-card-cta">Abrir material completo ↗</span>
+                <div className={styles.ebookContent}>
+                  <p className={styles.ebookSite}>{courseEbook.siteName}</p>
+                  <h3 className={styles.ebookTitle}>{courseEbook.title}</h3>
+                  <p className={styles.ebookDomain}>{courseEbook.displayUrl}</p>
+                  <span className={styles.ebookCta}>Abrir material completo ↗</span>
                 </div>
               </a>
             </div>
           )}
 
           {hasCourseResources && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Recursos adicionais</h2>
-              <ul className="course-resource-list">
+              <ul className={styles.resourceList}>
                 {courseUsefulLinks.map((link) => (
                   <li key={link.url}>
                     <a
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="course-resource-link"
+                      className={styles.resourceLink}
                     >
                       {getShortLink(link.url)}
                     </a>
@@ -307,11 +308,11 @@ export default async function CategoryPage({ params }) {
           )}
 
           {courseTags.length > 0 && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Tags</h2>
-              <div className="course-tags-list">
+              <div className={styles.tagsList}>
                 {courseTags.map((tag) => (
-                  <span key={tag} className="course-tag-chip">
+                  <span key={tag} className={styles.tagChip}>
                     {tag}
                   </span>
                 ))}
@@ -320,9 +321,9 @@ export default async function CategoryPage({ params }) {
           )}
 
           {coursePrerequisites.length > 0 && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Pré-requisitos</h2>
-              <ul className="course-prerequisites-list">
+              <ul className={styles.prerequisitesList}>
                 {coursePrerequisites.map((prerequisite) => (
                   <li key={prerequisite}>{prerequisite}</li>
                 ))}
@@ -333,54 +334,54 @@ export default async function CategoryPage({ params }) {
       ) : (
         <>
           {coursePresentationVideoId && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Saiba mais sobre o curso</h2>
               <YouTubeEmbed videoId={coursePresentationVideoId} />
             </div>
           )}
 
           {hasCourseEbook && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Materiais do curso</h2>
               <a
                 href={courseEbookLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="course-ebook-card"
+                className={styles.ebookCard}
               >
                 {courseEbook.image ? (
                   <div
-                    className="course-ebook-card-image"
+                    className={styles.ebookImage}
                     style={{ backgroundImage: `url(${courseEbook.image})` }}
                     role="img"
                     aria-label={`Imagem do site ${courseEbook.siteName}`}
                   />
                 ) : (
-                  <div className="course-ebook-card-image-fallback">
+                  <div className={styles.ebookImageFallback}>
                     {courseEbook.siteName.slice(0, 1).toUpperCase()}
                   </div>
                 )}
-                <div className="course-ebook-card-content">
-                  <p className="course-ebook-card-site">{courseEbook.siteName}</p>
-                  <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
-                  <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
-                  <span className="course-ebook-card-cta">Abrir material completo ↗</span>
+                <div className={styles.ebookContent}>
+                  <p className={styles.ebookSite}>{courseEbook.siteName}</p>
+                  <h3 className={styles.ebookTitle}>{courseEbook.title}</h3>
+                  <p className={styles.ebookDomain}>{courseEbook.displayUrl}</p>
+                  <span className={styles.ebookCta}>Abrir material completo ↗</span>
                 </div>
               </a>
             </div>
           )}
 
           {hasCourseResources && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Recursos adicionais</h2>
-              <ul className="course-resource-list">
+              <ul className={styles.resourceList}>
                 {courseUsefulLinks.map((link) => (
                   <li key={link.url}>
                     <a
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="course-resource-link"
+                      className={styles.resourceLink}
                     >
                       {getShortLink(link.url)}
                     </a>
@@ -391,11 +392,11 @@ export default async function CategoryPage({ params }) {
           )}
 
           {courseTags.length > 0 && (
-            <div className="course-meta-block">
+            <div className={styles.metaBlock}>
               <h2>Tags</h2>
-              <div className="course-tags-list">
+              <div className={styles.tagsList}>
                 {courseTags.map((tag) => (
-                  <span key={tag} className="course-tag-chip">
+                  <span key={tag} className={styles.tagChip}>
                     {tag}
                   </span>
                 ))}
@@ -403,11 +404,11 @@ export default async function CategoryPage({ params }) {
             </div>
           )}
 
-          <div className="course-meta-block">
+          <div className={styles.metaBlock}>
             {coursePrerequisites.length > 0 && (
               <>
                 <h2>Pré-requisitos</h2>
-                <ul className="course-prerequisites-list">
+                <ul className={styles.prerequisitesList}>
                   {coursePrerequisites.map((prerequisite) => (
                     <li key={prerequisite}>{prerequisite}</li>
                   ))}
@@ -419,7 +420,7 @@ export default async function CategoryPage({ params }) {
       )}
 
       {!isUserEnrolled && (
-        <div className="course-enrollment-actions">
+        <div className={styles.actions}>
           <CourseEnrollmentButton
             category={category}
             firstPostSlug={firstPost.slug}

@@ -1,6 +1,6 @@
 /* ============================================================================
    Design System — Centralized CSS Variables and Reusable Styles
-   Marca: Diego Pinho | Educação e Tecnologia
+   Marca: diego.pinho | Fonte: Poppins
    ============================================================================ */
 
 /* ============================================================================
@@ -10,10 +10,16 @@
 :root {
   /* Brand */
   --primitive-black:        #191919;
+  --primitive-light-red:    #f34c61;  /* cor principal da marca */
+  --primitive-dark-red:     #d93a52; 
   --primitive-light-blue:   #38b6ff;
   --primitive-dark-blue:    #004aad;
-  --primitive-light-red:    #f34c61;
-  --primitive-dark-red:     #e1341e;
+
+  /* Feedback — danger*/
+  --primitive-danger:        #f97316;
+  --primitive-danger-strong: #c2410c;
+
+  /* Feedback — outros */
   --primitive-green:        #04aa6d;
   --primitive-yellow-star:  #ffbe15;
   --primitive-yellow-hl:    #fff176;
@@ -74,14 +80,14 @@
   --color-text-link-hover: var(--primitive-light-blue);
 
   /* --- Brand --- */
-  --color-brand-primary:       var(--primitive-dark-blue);
-  --color-brand-primary-hover: #003a8a;
-  --color-brand-accent:        var(--primitive-light-blue);
-  --color-brand-accent-hover:  #1aa3f0;
+  --color-brand-primary:       var(--primitive-light-red);
+  --color-brand-primary-hover: var(--primitive-dark-red);
+  --color-brand-accent:        var(--primitive-dark-blue);
+  --color-brand-accent-hover:  #003a8a;
 
   /* --- Feedback --- */
-  --color-danger:         var(--primitive-light-red);
-  --color-danger-strong:  var(--primitive-dark-red);
+  --color-danger:         var(--primitive-danger);
+  --color-danger-strong:  var(--primitive-danger-strong);
   --color-success:        var(--primitive-green);
   --color-warning:        var(--primitive-yellow-star);
   --color-highlight:      var(--primitive-yellow-hl);
@@ -120,15 +126,15 @@
     --color-text-link:      var(--primitive-light-blue);
     --color-text-link-hover: #7dd4ff;
 
-    /* --- Brand (no dark, o accent fica mais vibrante como primário) --- */
-    --color-brand-primary:       var(--primitive-light-blue);
-    --color-brand-primary-hover: #7dd4ff;
-    --color-brand-accent:        var(--primitive-dark-blue);
-    --color-brand-accent-hover:  #005fdb;
+    /* --- Brand (no dark, light red fica mais suave) --- */
+    --color-brand-primary:       #ff6b80;
+    --color-brand-primary-hover: var(--primitive-light-red);
+    --color-brand-accent:        var(--primitive-light-blue);
+    --color-brand-accent-hover:  #7dd4ff;
 
     /* --- Feedback --- */
-    --color-danger:         #ff6b7a;
-    --color-danger-strong:  var(--primitive-light-red);
+    --color-danger:         #fb923c;
+    --color-danger-strong:  var(--primitive-danger);
     --color-success:        #22d48b;
     --color-warning:        var(--primitive-yellow-star);
     --color-highlight:      rgba(255, 241, 118, 0.18);
@@ -160,13 +166,13 @@
   --color-text-link:      var(--primitive-light-blue);
   --color-text-link-hover: #7dd4ff;
 
-  --color-brand-primary:       var(--primitive-light-blue);
-  --color-brand-primary-hover: #7dd4ff;
-  --color-brand-accent:        var(--primitive-dark-blue);
-  --color-brand-accent-hover:  #005fdb;
+  --color-brand-primary:       #ff6b80;
+  --color-brand-primary-hover: var(--primitive-light-red);
+  --color-brand-accent:        var(--primitive-light-blue);
+  --color-brand-accent-hover:  #7dd4ff;
 
-  --color-danger:         #ff6b7a;
-  --color-danger-strong:  var(--primitive-light-red);
+  --color-danger:         #fb923c;
+  --color-danger-strong:  var(--primitive-danger);
   --color-success:        #22d48b;
   --color-warning:        var(--primitive-yellow-star);
   --color-highlight:      rgba(255, 241, 118, 0.18);
@@ -261,7 +267,7 @@
   --container-lg:  1100px;
   --container-xl:  1400px;
   --container-max: 1200px;
-  --sidebar-width: 280px;
+  --header-height: 70px;
 }
 
 /* ============================================================================

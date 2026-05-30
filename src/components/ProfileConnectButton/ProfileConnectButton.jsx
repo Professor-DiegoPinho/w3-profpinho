@@ -2,7 +2,7 @@
 
 import { signIn } from "next-auth/react";
 
-export default function ProfileConnectButton({ provider, providerLabel }) {
+export default function ProfileConnectButton({ provider, providerLabel, className }) {
   const handleConnect = () => {
     signIn(provider, { callbackUrl: "/meu-perfil" });
   };
@@ -10,7 +10,7 @@ export default function ProfileConnectButton({ provider, providerLabel }) {
   return (
     <button
       type="button"
-      className="profile-connect-link"
+      className={className ?? "profile-connect-link"}
       onClick={handleConnect}
       aria-label={`Conectar conta ${providerLabel}`}
     >

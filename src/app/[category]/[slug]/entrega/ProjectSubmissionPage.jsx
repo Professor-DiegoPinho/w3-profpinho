@@ -9,7 +9,7 @@ import { validateUrl } from '@/lib/urlValidation';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import './ProjectSubmissionPage.css';
+import styles from './ProjectSubmissionPage.module.css';
 
 export function ProjectSubmissionPage({
   category,
@@ -192,15 +192,15 @@ export function ProjectSubmissionPage({
   return (
     <>
       {showSuccessModal && (
-        <div className="project-submission-success-modal-overlay">
-          <div className="project-submission-success-modal">
-            <div className="project-submission-success-modal-icon">✓</div>
-            <h2 className="project-submission-success-modal-title">Projeto Enviado com Sucesso!</h2>
-            <p className="project-submission-success-modal-description">
+        <div className={styles.successModalOverlay}>
+          <div className={styles.successModal}>
+            <div className={styles.successIcon}>✓</div>
+            <h2 className={styles.successTitle}>Projeto Enviado com Sucesso!</h2>
+            <p className={styles.successDescription}>
               Seu projeto foi enviado e está em análise. Você será notificado quando o professor avaliar.
             </p>
             <button
-              className="project-submission-success-modal-btn"
+              className={styles.successButton}
               onClick={handleReturnToProject}
             >
               Retornar para a tela do projeto
@@ -209,9 +209,9 @@ export function ProjectSubmissionPage({
         </div>
       )}
 
-      <div className="project-submission-page-container">
-        <div className="project-submission-page-inner">
-          <div className="project-submission-page-title-section">
+      <div className={styles.container}>
+        <div className={styles.inner}>
+          <div className={styles.titleSection}>
             <h1>Formulário de Entrega</h1>
           </div>
 
@@ -221,7 +221,7 @@ export function ProjectSubmissionPage({
 
           {!hasApprovedSubmission && (
             <>
-              <div className="project-submission-page-form-section">
+              <div className={styles.formSection}>
                 <FormSection
                   url={url}
                   setUrl={setUrl}
@@ -237,15 +237,15 @@ export function ProjectSubmissionPage({
                 />
               </div>
 
-              <div className="project-submission-page-confirmation-section">
+              <div className={styles.confirmationSection}>
                 <h2>Antes de entregar, verifique os items abaixo:</h2>
 
-                <ul className="project-submission-page-confirmation-checklist">
-                  <li className="project-submission-page-confirmation-item">
+                <ul className={styles.checklist}>
+                  <li className={styles.item}>
                     <input
                       type="checkbox"
                       id="check-link"
-                      className="project-submission-page-confirmation-checkbox"
+                      className={styles.checkbox}
                       checked={confirmedLink}
                       onChange={(e) => setConfirmedLink(e.target.checked)}
                     />
@@ -253,11 +253,11 @@ export function ProjectSubmissionPage({
                       <strong>Link correto e acessível:</strong> verifiquei o endereço acima
                     </label>
                   </li>
-                  <li className="project-submission-page-confirmation-item">
+                  <li className={styles.item}>
                     <input
                       type="checkbox"
                       id="check-public"
-                      className="project-submission-page-confirmation-checkbox"
+                      className={styles.checkbox}
                       checked={confirmedPublic}
                       onChange={(e) => setConfirmedPublic(e.target.checked)}
                     />
@@ -265,11 +265,11 @@ export function ProjectSubmissionPage({
                       <strong>Projeto público:</strong> meu projeto está visível para avaliação
                     </label>
                   </li>
-                  <li className="project-submission-page-confirmation-item">
+                  <li className={styles.item}>
                     <input
                       type="checkbox"
                       id="check-analysis"
-                      className="project-submission-page-confirmation-checkbox"
+                      className={styles.checkbox}
                       checked={confirmedAnalysis}
                       onChange={(e) => setConfirmedAnalysis(e.target.checked)}
                     />
@@ -277,28 +277,28 @@ export function ProjectSubmissionPage({
                       <strong>Aguarde análise:</strong> entendo que não poderei enviar nova entrega até o professor avaliar
                     </label>
                   </li>
-                  <li className="project-submission-page-confirmation-item">
+                  <li className={styles.item}>
                     <input
                       type="checkbox"
                       id="check-name"
-                      className="project-submission-page-confirmation-checkbox"
+                      className={styles.checkbox}
                       checked={confirmedName}
                       onChange={(e) => setConfirmedName(e.target.checked)}
                     />
                     <label htmlFor="check-name">
-                      <div className="project-submission-page-name-check">
+                      <div className={styles.nameCheck}>
                         <span><strong>Verificar nome no certificado:</strong> confirmo que meu nome está completo e correto</span>
-                        <p className="project-submission-page-name-warning">
+                        <p className={styles.nameWarning}>
                           ⚠️ Após a entrega, o nome não poderá ser alterado. Verifique se está completo e correto.
                         </p>
-                        <div className="project-submission-page-name-display">
-                          <span className="project-submission-page-name-label">Seu nome no certificado:</span>
-                          <div className="project-submission-page-name-value">
+                        <div className={styles.nameDisplay}>
+                          <span className={styles.nameLabel}>Seu nome no certificado:</span>
+                          <div className={styles.nameValue}>
                             <strong>{displayUserName}</strong>
                             <button
                               type="button"
                               onClick={handleOpenNameEdit}
-                              className="project-submission-page-name-edit-btn"
+                              className={styles.nameEditButton}
                               title="Clique para editar seu nome"
                               aria-label="Editar nome para o certificado"
                             >
@@ -320,12 +320,12 @@ export function ProjectSubmissionPage({
                 </ul>
               </div>
 
-              <div className="project-submission-page-submit-section">
+              <div className={styles.submitSection}>
                 <button
                   type="button"
                   onClick={handleSubmit}
                   disabled={loading || !url.trim() || submitCheckLoading || !canSubmit || hasPendingSubmission || !allConfirmationsChecked}
-                  className="project-submission-btn"
+                  className={styles.submitButton}
                   aria-label="Enviar entrega do projeto"
                   title={
                     hasPendingSubmission
@@ -339,12 +339,12 @@ export function ProjectSubmissionPage({
                 >
                   {loading ? (
                     <>
-                      <span className="project-submission-spinner" aria-hidden="true" />
+                      <span className={styles.spinner} aria-hidden="true" />
                       Enviando...
                     </>
                   ) : submitCheckLoading ? (
                     <>
-                      <span className="project-submission-spinner" aria-hidden="true" />
+                      <span className={styles.spinner} aria-hidden="true" />
                       Verificando...
                     </>
                   ) : (

@@ -4,44 +4,28 @@
 }
 
 .title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #333;
-  display: flex;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  .certificateInfo {
+    margin-bottom: var(--space-4);
+  }
   align-items: center;
-  gap: 0.5rem;
-}
-
-.title::before {
-  content: "🎓";
-  font-size: 1.5rem;
-}
-
-.loading,
-.empty {
-  font-size: 1rem;
-  color: #666;
-  text-align: center;
-  padding: 2rem;
-  background: white;
-  border-radius: 8px;
-  border-left: 4px solid #f39c12;
+  gap: var(--space-2);
 }
 
 .certificatesList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  gap: 1.5rem;
-}
-
-.certificateCard {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid #ececec;
+  .courseDetails {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2);
+  }
+  .courseDetails strong {
+    color: var(--color-danger);
+    font-weight: var(--font-weight-semibold);
+  }
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -49,7 +33,7 @@
 
 .certificateCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-xl);
 }
 
 .certificateInfo {
@@ -75,34 +59,34 @@
 }
 
 .generatedDate {
-  font-size: 0.95rem;
-  color: #666;
-  margin-bottom: 0.75rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
 }
 
 .generatedDate strong {
-  color: #333;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 .certificateId {
-  font-size: 0.85rem;
-  color: #999;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
   word-break: break-all;
 }
 
 .certificateId code {
-  background: #f5f5f5;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  background: var(--color-bg-subtle);
+  padding: calc(var(--space-1) / 2) var(--space-2);
+  border-radius: var(--radius-sm);
   font-family: "Courier New", monospace;
-  color: #333;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 .actions {
   display: flex;
-  gap: 0.75rem;
+  gap: var(--space-3);
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -111,25 +95,25 @@
 .copyBtn {
   flex: 1;
   min-width: 150px;
-  padding: 0.75rem 1rem;
+  padding: var(--space-3) var(--space-4);
   border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-base);
   white-space: nowrap;
   text-align: center;
 }
 
 .downloadBtn {
-  background: #F34C61;
-  color: white;
+  background: var(--color-danger);
+  color: var(--color-white);
 }
 
 .downloadBtn:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+  box-shadow: var(--shadow-lg);
 }
 
 .downloadBtn:active {
@@ -137,27 +121,27 @@
 }
 
 .copyBtn {
-  background: #ecf0f1;
-  color: #333;
-  border: 1px solid #bdc3c7;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
 }
 
 .copyBtn:hover {
-  background: #d5dbdb;
-  border-color: #95a5a6;
+  background: var(--color-bg-muted);
+  border-color: var(--color-border-strong);
 }
 
 .copyBtn.copied {
-  background: #27ae60;
-  color: white;
-  border-color: #27ae60;
+  background: var(--color-success);
+  color: var(--color-white);
+  border-color: var(--color-success);
 }
 
 .buttonIcon {
-  width: 18px;
-  height: 18px;
+  width: var(--space-4);
+  height: var(--space-4);
   display: inline-block;
-  margin-right: 0.5rem;
+  margin-right: var(--space-2);
   vertical-align: middle;
   color: currentColor;
 }
@@ -177,6 +161,6 @@
   }
 
   .title {
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
   }
 }

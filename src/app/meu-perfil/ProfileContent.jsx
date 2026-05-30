@@ -7,6 +7,7 @@ import ProfileConnectButton from '@/components/ProfileConnectButton/ProfileConne
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
+import styles from './ProfileContent.module.css';
 
 export function ProfileContent({
   userImage,
@@ -65,15 +66,15 @@ export function ProfileContent({
 
   return (
     <>
-      <section className="profile-page">
-        <header className="profile-header">
-          <div className="profile-header-content">
+      <section className={styles.page}>
+        <header className={styles.header}>
+          <div className={styles.headerContent}>
             <AvatarImage
               src={userImage}
               alt={`Foto de ${userName}`}
               width={72}
               height={72}
-              className="profile-avatar"
+              className={styles.avatar}
             />
             <div>
               <h1>Meu perfil</h1>
@@ -82,15 +83,15 @@ export function ProfileContent({
           </div>
         </header>
 
-        <div className="profile-summary-grid">
-          <div className="profile-summary-card">
-            <span className="profile-summary-label">Nome</span>
-          <div className="profile-name-container">
+        <div className={styles.summaryGrid}>
+          <div className={styles.summaryCard}>
+            <span className={styles.summaryLabel}>Nome</span>
+            <div className={styles.nameContainer}>
               <strong>{userName}</strong>
               <button
                 type="button"
                 onClick={handleOpenNameEdit}
-                className="profile-name-edit-btn"
+                className={styles.nameEditButton}
                 title="Clique para editar seu nome"
                 aria-label="Editar nome"
               >
@@ -100,7 +101,7 @@ export function ProfileContent({
                   viewBox="0 -960 960 960"
                   width="18px"
                   fill="currentColor"
-                  className="profile-name-edit-icon"
+                  className={styles.nameEditIcon}
                 >
                   <path d="M160-120q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l505-504q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L313-143q-11 11-25.5 17t-30.5 6h-97Zm544-528 56-56-56-56-56 56 56 56Z" />
                 </svg>
@@ -108,45 +109,45 @@ export function ProfileContent({
               </button>
             </div>
           </div>
-          <div className="profile-summary-card">
-            <span className="profile-summary-label">Email</span>
+          <div className={styles.summaryCard}>
+            <span className={styles.summaryLabel}>Email</span>
             <strong>{userEmail}</strong>
           </div>
         </div>
 
-        <div className="profile-grid">
-          <article className="profile-card">
-            <div className="profile-courses-header">
+        <div className={styles.grid}>
+          <article className={styles.card}>
+            <div className={styles.coursesHeader}>
               <div>
                 <h2>Meus cursos</h2>
-                <p className="profile-courses-subtitle">
+                <p className={styles.subtitle}>
                   Acompanhe os cursos que já fazem parte da sua jornada.
                 </p>
               </div>
             </div>
 
             {enrolledCourses.length > 0 ? (
-              <ul className="profile-course-list">
+              <ul className={styles.courseList}>
                 {enrolledCourses.map((course) => (
-                  <li key={course.id} className="profile-course-item">
-                    <div className="profile-course-content">
-                      <h3 className="profile-course-title">{course.title}</h3>
-                      <p className="profile-course-meta">
+                  <li key={course.id} className={styles.courseItem}>
+                    <div className={styles.courseContent}>
+                      <h3 className={styles.courseTitle}>{course.title}</h3>
+                      <p className={styles.courseMeta}>
                         {course.enrolledAt
                           ? `Inscrição em ${course.enrolledAtLabel}`
                           : 'Data de inscrição indisponível'}
                       </p>
                       {course.progress && (
-                        <div className="profile-course-progress">
-                          <div className="profile-course-progress-bar">
+                        <div className={styles.progress}>
+                          <div className={styles.progressBar}>
                             <div
-                              className="profile-course-progress-fill"
+                              className={styles.progressFill}
                               style={{
                                 width: `${course.progress.completionPercentage || 0}%`,
                               }}
                             />
                           </div>
-                          <span className="profile-course-progress-text">
+                          <span className={styles.progressText}>
                             {course.progress.completionPercentage || 0}% completo
                           </span>
                         </div>
@@ -154,7 +155,7 @@ export function ProfileContent({
                     </div>
                     <Link
                       href={`/${course.id}${course.nextLessonSlug ? `/${course.nextLessonSlug}` : ''}`}
-                      className="profile-course-link"
+                      className={styles.courseLink}
                       aria-label={`Acessar curso ${course.title}`}
                     >
                       {course.progress?.completionPercentage === 100 ? 'Acessar curso' : 'Continuar curso'}
@@ -163,55 +164,58 @@ export function ProfileContent({
                 ))}
               </ul>
             ) : (
-              <div className="profile-empty-state">
+              <div className={styles.emptyState}>
                 <p>Você ainda não possui inscrições em cursos.</p>
-                <Link href="/" className="profile-course-link">
+                <Link href="/" className={styles.courseLink}>
                   Explorar cursos
                 </Link>
               </div>
             )}
 
-            <p className="profile-course-count-text" aria-label="Quantidade de cursos inscritos">
+            <p className={styles.countText} aria-label="Quantidade de cursos inscritos">
               Total: <strong>{totalEnrolledCoursesLabel}</strong>
             </p>
           </article>
 
-          <article className="profile-card">
+          <article className={styles.card}>
             <CertificatesSection />
           </article>
 
-          <article className="profile-card">
+          <article className={styles.card}>
             <h2>Contas conectadas</h2>
-            <p className="profile-connections-subtitle">
+            <p className={styles.connectionsSubtitle}>
               Visualize as opções de login vinculadas ao seu perfil.
             </p>
 
-            <ul className="profile-connections-list" aria-label="Lista de contas conectadas">
+            <ul className={styles.connectionsList} aria-label="Lista de contas conectadas">
               {connectedAccounts.map((providerItem) => (
                 <li
                   key={providerItem.key}
-                  className={`profile-connection-item ${
-                    providerItem.isConnected ? 'is-connected' : 'is-disconnected'
+                  className={`${styles.connectionItem} ${
+                    providerItem.isConnected ? styles.connected : styles.disconnected
                   }`}
                 >
-                  <div className="profile-connection-main">
-                    <h3 className="profile-connection-title">
+                  <div className={styles.connectionMain}>
+                    <h3 className={styles.connectionTitle}>
                       <span
-                        className={`profile-connection-icon ${providerItem.iconClassName}`}
+                        className={`${styles.connectionIcon} ${
+                          providerItem.key === 'google' ? styles.googleIcon : styles.githubIcon
+                        }`}
                         aria-hidden="true"
                       />
                       {providerItem.label}
                     </h3>
                   </div>
 
-                  <div className="profile-connection-status">
-                    <span className="profile-connection-badge">
+                  <div className={styles.connectionStatus}>
+                    <span className={styles.connectionBadge}>
                       {providerItem.isConnected ? 'Conectada' : 'Não conectada'}
                     </span>
                     {!providerItem.isConnected && providerItem.isAvailable && (
                       <ProfileConnectButton
                         provider={providerItem.key}
                         providerLabel={providerItem.label}
+                        className={styles.connectButton}
                       />
                     )}
                     {!providerItem.isConnected && !providerItem.isAvailable && (
@@ -230,10 +234,10 @@ export function ProfileContent({
             </ul>
           </article>
 
-          <aside className="profile-card">
+          <aside className={styles.card}>
             <h2>Informações adicionais</h2>
-            <dl className="profile-info-list">
-              <div>
+            <dl className={styles.infoList}>
+              <div className={styles.infoRow}>
                 <dt>Conta criada em</dt>
                 <dd>{createdAtLabel || 'Nao disponivel'}</dd>
               </div>

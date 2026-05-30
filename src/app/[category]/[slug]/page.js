@@ -17,6 +17,7 @@ import { getAllPosts, getCategoryTitle, getCourseLessonsCount, getPost, getPostN
 import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
 import { getProjectSubmissions } from '@/lib/submissions';
 import { notFound, redirect } from 'next/navigation';
+import styles from './page.module.css';
 
 export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
@@ -78,35 +79,35 @@ export default async function PostPage({ params }) {
   }
 
   return (
-    <article className="post-content">
-      <header className="post-header">
-        <div className="breadcrumb">
-          <span className="category-name">
+    <article className={styles.page}>
+      <header className={styles.header}>
+        <div className={styles.breadcrumb}>
+          <span className={styles.categoryName}>
             {categoryTitle}
           </span>
-          <span className="separator">›</span>
-          <span className="post-title">{post.title}</span>
+          <span className={styles.separator}>›</span>
+          <span>{post.title}</span>
         </div>
         <h1 id={generateId(post.title)}>{post.title}</h1>
         {post.description && (
-          <p className="post-description">{post.description}</p>
+          <p className={styles.description}>{post.description}</p>
         )}
         {post.readingTime && (
-          <div className="post-meta">
+          <div className={styles.meta}>
             <ReadingTime readingTime={post.readingTime} showFullText={true} />
           </div>
         )}
       </header>
 
-      <div className="post-body">
+      <div className={styles.body}>
         <TableOfContents content={post.content} title={post.title} />
         {hasLessonAccess ? (
           <MarkdownContent content={post.content} title={post.title} />
         ) : (
-          <div style={{ padding: '20px 0', textAlign: 'center', color: '#666' }}>
+          <div className={styles.lockedNotice}>
             <p>Esta aula está disponível apenas para alunos inscritos no curso.</p>
             <p>
-              <a href={`/${category}`} style={{ color: 'var(--color-red)', textDecoration: 'none' }}>
+              <a href={`/${category}`} className={styles.lockedLink}>
                 Volte para a página do curso para se inscrever
               </a>
             </p>
@@ -115,7 +116,7 @@ export default async function PostPage({ params }) {
       </div>
 
       {userId && hasLessonAccess && isCourseContent && slug === 'projeto' ? (
-        <div className="lesson-completion">
+        <div className={styles.completion}>
           <ProjectSubmission
             courseSlug={category}
             projectTitle={post.title}
@@ -126,7 +127,7 @@ export default async function PostPage({ params }) {
           />
         </div>
       ) : userId && hasLessonAccess && isCourseContent ? (
-        <div className="lesson-completion">
+        <div className={styles.completion}>
           <MarkLesson
             courseSlug={category}
             lessonSlug={slug}

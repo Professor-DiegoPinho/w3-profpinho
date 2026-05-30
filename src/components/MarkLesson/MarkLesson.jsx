@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import "./MarkLesson.css";
+import styles from './MarkLesson.module.css';
 
 export default function MarkLesson({
   courseSlug,
@@ -37,21 +37,21 @@ export default function MarkLesson({
   }
 
   const btnClass = [
-    "mark-lesson-btn",
-    isDone ? "mark-lesson-done" : "mark-lesson-pending",
-    loading ? "mark-lesson-loading" : "",
+    styles.markLessonBtn,
+    isDone ? styles.markLessonDone : styles.markLessonPending,
+    loading ? styles.markLessonLoading : "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
-    <div className="mark-lesson-container">
-      <div className="mark-lesson-content">
-        <div className="mark-lesson-text-section">
-          <h3 className="mark-lesson-title">
+    <div className={styles.markLessonContainer}>
+      <div className={styles.markLessonContent}>
+        <div className={styles.markLessonTextSection}>
+          <h3 className={styles.markLessonTitle}>
             {isDone ? "✓ Aula Concluída!" : "Marcar como Concluída"}
           </h3>
-          <p className="mark-lesson-description">
+          <p className={styles.markLessonDescription}>
             {isDone 
               ? "Você já concluiu esta aula. Clique para desmarcar se necessário." 
               : "Marque esta aula como concluída para rastrear seu progresso."}
@@ -63,7 +63,7 @@ export default function MarkLesson({
           className={btnClass}
           aria-label={isDone ? "Desmarcar aula como concluída" : "Marcar aula como concluída"}
         >
-          <span className="mark-lesson-icon" aria-hidden="true">
+          <span className={styles.markLessonIcon} aria-hidden="true">
             {loading ? (
               <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
                 <circle
@@ -72,7 +72,7 @@ export default function MarkLesson({
                   strokeWidth="2"
                   strokeDasharray="28"
                   strokeDashoffset="10"
-                  className="mark-lesson-spinner"
+                  className={styles.markLessonSpinner}
                 />
               </svg>
             ) : isDone ? (
@@ -91,7 +91,7 @@ export default function MarkLesson({
               </svg>
             )}
           </span>
-          <span className="mark-lesson-label">
+          <span className={styles.markLessonLabel}>
             {loading ? "Salvando..." : isDone ? "Desmarcar" : "Marcar"}
           </span>
         </button>
