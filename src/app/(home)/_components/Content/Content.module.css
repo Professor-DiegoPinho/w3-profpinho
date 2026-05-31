@@ -94,7 +94,7 @@
 
 .btn {
   display: inline-block;
-  background-color: var(--color-danger);
+  background-color: var(--color-brand-primary);
   color: var(--color-text-on-brand);
   padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-sm);
@@ -103,7 +103,7 @@
 }
 
 .btn:hover {
-  background-color: var(--color-danger-strong);
+  background-color: var(--color-brand-primary-hover);
 }
 
 /* Responsive */

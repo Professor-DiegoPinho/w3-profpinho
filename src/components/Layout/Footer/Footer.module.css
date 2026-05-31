@@ -35,7 +35,7 @@
 
 .footerMainSiteBtn {
   display: inline-block;
-  background: var(--color-danger);
+  background: var(--color-brand-primary);
   color: var(--color-text-on-brand);
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-sm);
@@ -46,7 +46,7 @@
 }
 
 .footerMainSiteBtn:hover {
-  background: var(--color-danger-strong);
+  background: var(--color-brand-primary-hover);
   transform: translateY(-1px);
 }
 
@@ -55,7 +55,7 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-3);
-  border-bottom: 2px solid var(--color-danger);
+  border-bottom: 2px solid var(--color-brand-primary);
   padding-bottom: var(--space-2);
   display: inline-block;
   min-width: fit-content;
@@ -103,7 +103,7 @@
 }
 
 .footerLinks a:hover {
-  color: var(--color-danger);
+  color: var(--color-brand-primary);
   transform: translateX(5px);
   transition: all var(--transition-slow);
 }
