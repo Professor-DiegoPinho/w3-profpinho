@@ -4,7 +4,7 @@ import styles from './Connections.module.css';
 function ProfileConnectionItem({ providerItem }) {
   return (
     <li
-      className={`${styles.connectionItem} ${providerItem.isConnected ? styles.connected : styles.disconnected}`}
+      className={styles.connectionItem}
     >
       <div className={styles.connectionMain}>
         <h3 className={styles.connectionTitle}>
@@ -19,7 +19,7 @@ function ProfileConnectionItem({ providerItem }) {
       </div>
 
       <div className={styles.connectionStatus}>
-        <span className={styles.connectionBadge}>
+        <span className={`${styles.connectionBadge} ${providerItem.isConnected ? styles.connected : styles.disconnected}`}>
           {providerItem.isConnected ? 'Conectada' : 'Não conectada'}
         </span>
         {!providerItem.isConnected && providerItem.isAvailable && (

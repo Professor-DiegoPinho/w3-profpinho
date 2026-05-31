@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
-import CertificatesSection from '@/components/CertificatesSection';
-import { NameEditModal } from '@/components/NameEditModal/NameEditModal';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
-import { AdditionalInfo } from '../AdditionalInfo/AdditionalInfo';
-import { Connections } from '../Connections/Connections';
-import { Courses } from '../Courses/Courses';
-import { Header } from '../Header/Header';
-import { Summary } from '../Summary/Summary';
-import styles from './Content.module.css';
+import Certificates from "@/app/meu-perfil/_components/Certificates/Certificates";
+import { NameEditModal } from "@/components/NameEditModal/NameEditModal";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { Connections } from "../Connections/Connections";
+import { Courses } from "../Courses/Courses";
+import { Header } from "../Header/Header";
+import { Summary } from "../Summary/Summary";
+import styles from "./Content.module.css";
 
 export function Content({
   userImage,
@@ -35,23 +34,23 @@ export function Content({
 
     try {
       const response = await fetch(`/api/users/${userId}/name`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name: newName }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Erro ao atualizar nome');
+        throw new Error(errorData.error || "Erro ao atualizar nome");
       }
 
       const data = await response.json();
       setUserName(data.name);
 
       await updateSession({
-        trigger: 'update',
+        trigger: "update",
       });
 
       setIsNameEditOpen(false);
@@ -71,7 +70,11 @@ export function Content({
       <section className={styles.page}>
         <Header userImage={userImage} userName={userName} />
 
-        <Summary userName={userName} userEmail={userEmail} onEditName={handleOpenNameEdit} />
+        <Summary
+          userName={userName}
+          userEmail={userEmail}
+          onEditName={handleOpenNameEdit}
+        />
 
         <div className={styles.grid}>
           <Courses
@@ -79,13 +82,11 @@ export function Content({
             totalEnrolledCoursesLabel={totalEnrolledCoursesLabel}
           />
 
-          <article className={styles.card}>
-            <CertificatesSection />
-          </article>
+          <Certificates />
 
           <Connections connectedAccounts={connectedAccounts} />
 
-          <AdditionalInfo createdAtLabel={createdAtLabel} />
+          {/* <AdditionalInfo createdAtLabel={createdAtLabel} /> Sem motivo para adicionar esta parte no momento */}
         </div>
       </section>
 

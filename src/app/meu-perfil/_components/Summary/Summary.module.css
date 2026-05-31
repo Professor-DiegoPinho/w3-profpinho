@@ -10,13 +10,12 @@
   padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg-subtle) 100%);
+  background: var(--color-bg-base);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
 .summaryCard:hover {
-  transform: translateY(-2px);
   border-color: var(--color-border-strong);
   box-shadow: var(--shadow-md);
 }
@@ -62,14 +61,12 @@
   font-family: inherit;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 }
 
 .nameEditButton:hover {
-  border-color: rgba(0, 74, 173, 0.14);
-  background: rgba(0, 74, 173, 0.08);
+  border-color: var(--color-brand-primary-hover);
   color: var(--color-brand-primary);
-  transform: translateY(-1px);
 }
 
 .nameEditButton:focus-visible {

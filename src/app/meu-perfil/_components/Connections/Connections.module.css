@@ -2,14 +2,14 @@
   padding: var(--space-5);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  background: var(--color-bg-elevated);
+  background: var(--color-bg-base);
   box-shadow: var(--shadow-sm);
 }
 
 .card > h2 {
   margin: 0 0 var(--space-2);
   color: var(--color-text-primary);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -21,7 +21,7 @@
 }
 
 .connectionsList {
-  display: grid;
+  display: flex;
   gap: var(--space-3);
   margin: 0;
   padding: 0;
@@ -30,6 +30,7 @@
 
 .connectionItem {
   position: relative;
+  flex: 1;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -37,29 +38,8 @@
   padding: var(--space-4);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg-subtle) 100%);
-}
-
-.connectionItem::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
-  background: var(--color-border-strong);
-}
-
-.connected {
-  border-color: rgba(4, 170, 109, 0.28);
-  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, rgba(4, 170, 109, 0.06) 100%);
-}
-
-.connected::before {
-  background: var(--color-success);
-}
-
-.disconnected::before {
-  background: var(--color-border-strong);
+  background: var(--color-bg-elevated);
+  height: var(--space-24);
 }
 
 .connectionMain {
@@ -72,15 +52,15 @@
   gap: var(--space-2);
   margin: 0;
   color: var(--color-text-primary);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
 }
 
 .connectionIcon {
   display: inline-block;
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 
 .googleIcon {
@@ -104,10 +84,11 @@
 
 .connectionStatus {
   display: flex;
+  height: 100%;
   min-width: 11rem;
   flex-direction: column;
   align-items: flex-end;
-  gap: var(--space-2);
+  justify-content: space-between;
 }
 
 .connectionStatus p {
@@ -129,6 +110,12 @@
   color: var(--color-text-secondary);
   font-size: 0.75rem;
   font-weight: var(--font-weight-bold);
+}
+
+.connected {
+  color: var(--color-success);
+  background: rgba(4, 170, 109, 0.06);
+  border-color: var(--color-success);
 }
 
 .connectButton {
