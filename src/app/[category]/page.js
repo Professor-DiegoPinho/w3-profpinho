@@ -67,6 +67,15 @@ export default async function CategoryPage({ params }) {
         />
       )}
 
+      {userId && isUserEnrolled && (
+        <FeedbackCard
+          courseSlug={category}
+          completionPercentage={data.completionPercentage}
+          projectApproved={data.projectApproved}
+          feedbackResponded={data.feedbackResponded}
+        />
+      )}
+
       {!isUserEnrolled && (
         <CTABanner {...data.enrollmentProps} />
       )}
@@ -78,14 +87,7 @@ export default async function CategoryPage({ params }) {
         isEnrolled={isUserEnrolled}
       />
 
-      {userId && isUserEnrolled && (
-        <FeedbackCard
-          courseSlug={category}
-          completionPercentage={data.completionPercentage}
-          projectApproved={data.projectApproved}
-          feedbackResponded={data.feedbackResponded}
-        />
-      )}
+
 
       <AdditionalInfo
         isUserEnrolled={isUserEnrolled}
