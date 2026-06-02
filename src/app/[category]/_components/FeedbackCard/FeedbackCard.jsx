@@ -3,6 +3,7 @@
 import FeedbackModal from "@/components/FeedbackModal/FeedbackModal";
 import { useState } from "react";
 import styles from "./FeedbackCard.module.css";
+import { Feedback } from "@/assets/icons";
 
 /**
  * Componente que exibe um card de feedback
@@ -41,7 +42,7 @@ export default function FeedbackCard({
     <>
       <div className={styles.card}>
         <div className={styles.content}>
-          <div className={styles.icon}>📝</div>
+          <Feedback className={styles.icon} />
           <div className={styles.text}>
             <h3 className={styles.title}>Sua opinião é importante!</h3>
             <p className={styles.description}>

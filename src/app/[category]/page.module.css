@@ -1,7 +1,6 @@
 .page {
   width: 100%;
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-10);
+  padding: var(--space-10) 0;
+  max-width: var(--container-max);
+  margin: 0 auto;
 }

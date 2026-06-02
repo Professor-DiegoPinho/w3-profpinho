@@ -1,6 +1,6 @@
-import styles from "./CourseEbookSection.module.css";
+import styles from "./EbookSection.module.css";
 
-export default function CourseEbookSection({ courseEbook }) {
+export default function EbookSection({ courseEbook }) {
   if (!courseEbook || Object.keys(courseEbook).length === 0) return null;
 
   const { url, image, siteName, title, displayUrl } = courseEbook;

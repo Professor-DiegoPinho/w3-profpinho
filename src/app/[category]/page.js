@@ -1,8 +1,8 @@
-import CourseAdditionalInfo from "@/app/[category]/_components/CourseAdditionalInfo/CourseAdditionalInfo";
-import CourseEnrollmentActions from "@/app/[category]/_components/CourseEnrollmentActions/CourseEnrollmentActions";
-import CourseHeader from "@/app/[category]/_components/CourseHeader/CourseHeader";
-import CourseLessonsSection from "@/app/[category]/_components/CourseLessonsSection/CourseLessonsSection";
-import CourseSummary from "@/app/[category]/_components/CourseSummary/CourseSummary";
+import AdditionalInfo from "@/app/[category]/_components/AdditionalInfo/AdditionalInfo";
+import EnrollmentActions from "@/app/[category]/_components/EnrollmentActions/EnrollmentActions";
+import Header from "@/app/[category]/_components/Header/Header";
+import LessonsSection from "@/app/[category]/_components/LessonsSection/LessonsSection";
+import Summary from "@/app/[category]/_components/Summary/Summary";
 import CTABanner from "@/app/[category]/_components/CTABanner/CTABanner";
 import FeedbackCard from "@/app/[category]/_components/FeedbackCard/FeedbackCard";
 import Progress from "@/app/[category]/_components/Progress/Progress";
@@ -43,7 +43,7 @@ export default async function CategoryPage({ params }) {
 
   return (
     <section className={styles.page}>
-      <CourseHeader
+      <Header
         courseImage={data.courseImage}
         courseBadge={data.courseBadge}
         showAccessBadge={data.showAccessBadge}
@@ -52,7 +52,7 @@ export default async function CategoryPage({ params }) {
         courseDescription={data.courseDescription}
       />
 
-      <CourseSummary
+      <Summary
         totalLessons={data.totalLessons}
         totalEnrolledStudents={data.totalEnrolledStudents}
         courseWorkloadHours={data.courseWorkloadHours}
@@ -71,7 +71,7 @@ export default async function CategoryPage({ params }) {
         <CTABanner {...data.enrollmentProps} />
       )}
 
-      <CourseLessonsSection
+      <LessonsSection
         posts={data.posts}
         category={category}
         completedLessons={data.completedLessons}
@@ -87,7 +87,7 @@ export default async function CategoryPage({ params }) {
         />
       )}
 
-      <CourseAdditionalInfo
+      <AdditionalInfo
         isUserEnrolled={isUserEnrolled}
         coursePresentationVideoId={data.coursePresentationVideoId}
         courseEbook={data.courseEbook}
@@ -97,7 +97,7 @@ export default async function CategoryPage({ params }) {
       />
 
       {!isUserEnrolled && (
-        <CourseEnrollmentActions {...data.enrollmentProps} />
+        <EnrollmentActions {...data.enrollmentProps} />
       )}
     </section>
   );

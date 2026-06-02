@@ -121,7 +121,7 @@ export async function getCoursePageData(category, session) {
     }
     : null;
 
-  // Props comuns para CTABanner e CourseEnrollmentActions
+  // Props comuns para CTABanner e EnrollmentActions
   const enrollmentProps = {
     category,
     firstPostSlug: firstPost?.slug,

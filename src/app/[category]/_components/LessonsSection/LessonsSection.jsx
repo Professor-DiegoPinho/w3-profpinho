@@ -1,7 +1,7 @@
 import LessonsList from "@/app/[category]/_components/LessonsList/LessonsList";
-import styles from "./CourseLessonsSection.module.css";
+import styles from "./LessonsSection.module.css";
 
-export default function CourseLessonsSection({
+export default function LessonsSection({
   posts,
   category,
   completedLessons,

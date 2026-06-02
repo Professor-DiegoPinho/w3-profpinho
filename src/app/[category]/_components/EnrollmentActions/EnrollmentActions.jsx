@@ -1,7 +1,7 @@
 import EnrollmentButton from "@/app/[category]/_components/EnrollmentButton/EnrollmentButton";
-import styles from "./CourseEnrollmentActions.module.css";
+import styles from "./EnrollmentActions.module.css";
 
-export default function CourseEnrollmentActions({
+export default function EnrollmentActions({
   category,
   firstPostSlug,
   accessType,

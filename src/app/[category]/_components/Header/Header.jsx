@@ -1,7 +1,7 @@
 import Image from "next/image";
-import styles from "./CourseHeader.module.css";
+import styles from "./Header.module.css";
 
-export default function CourseHeader({
+export default function Header({
   courseImage,
   courseBadge,
   showAccessBadge,

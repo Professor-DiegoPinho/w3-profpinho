@@ -1,4 +1,4 @@
-import styles from "./CourseResourcesSection.module.css";
+import styles from "./ResourcesSection.module.css";
 
 function getShortLink(url) {
   try {
@@ -12,7 +12,7 @@ function getShortLink(url) {
   }
 }
 
-export default function CourseResourcesSection({ usefulLinks = [] }) {
+export default function ResourcesSection({ usefulLinks = [] }) {
   if (!usefulLinks || usefulLinks.length === 0) return null;
 
   return (

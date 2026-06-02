@@ -1,5 +1,5 @@
 .ctaBanner {
-  background: var(--color-bg-subtle);
+  background: var(--color-bg-base);
   border-radius: var(--radius-md);
   padding: var(--space-6);
   margin-bottom: var(--space-8);

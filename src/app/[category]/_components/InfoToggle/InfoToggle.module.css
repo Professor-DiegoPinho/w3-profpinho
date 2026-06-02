@@ -1,8 +1,8 @@
 .toggle {
   margin: var(--space-6) 0;
-  border: 2px solid var(--color-border);
-  background: linear-gradient(135deg, var(--color-bg-muted) 0%, var(--color-bg-elevated) 100%);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -21,7 +21,7 @@
 .toggle.open {
   max-height: 1500px;
   box-shadow: var(--shadow-lg);
-  background: linear-gradient(135deg, var(--color-bg-muted) 0%, var(--color-bg-subtle) 100%);
+  background: var(--color-bg-elevated);
   border-color: var(--color-border-strong);
 }
 
@@ -75,16 +75,16 @@
   transition: opacity 0.3s ease 0.05s, transform 0.3s ease 0.05s;
 }
 
-.content > * {
+.content>* {
   opacity: 1;
   transform: translateY(0);
 }
 
-.content > *:first-child {
+.content>*:first-child {
   padding-top: var(--space-1);
 }
 
-.content > *:last-child {
+.content>*:last-child {
   margin-bottom: 0;
   padding-bottom: var(--space-5);
 }

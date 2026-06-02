@@ -3,13 +3,7 @@
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   background-color: var(--color-bg-subtle);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
   margin-bottom: var(--space-8);
-}
-
-.wrapper:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
 }
 
 .wrapper.complete {
@@ -59,16 +53,7 @@
 }
 
 .completeIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  background: var(--color-success);
-  color: var(--color-text-on-brand);
-  border-radius: 50%;
-  font-size: 10px;
-  font-weight: var(--font-weight-bold);
+  color: var(--color-success);
 }
 
 .statsDesktop {

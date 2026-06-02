@@ -1,6 +1,6 @@
-import styles from "./CourseTagsSection.module.css";
+import styles from "./TagsSection.module.css";
 
-export default function CourseTagsSection({ tags = [] }) {
+export default function TagsSection({ tags = [] }) {
   if (!tags || tags.length === 0) return null;
 
   return (

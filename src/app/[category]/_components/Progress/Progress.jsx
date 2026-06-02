@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import styles from "./Progress.module.css";
+import { Checkmark } from "@/assets/icons";
 
 /**
  * Barra de progresso de um curso.
@@ -52,7 +53,7 @@ export default function Progress({
           <span className={styles.label}>
             {isCourseComplete ? (
               <>
-                <span className={styles.completeIcon} aria-hidden="true">✓</span>
+                <Checkmark className={styles.completeIcon} />
                 Curso concluído!
               </>
             ) : (

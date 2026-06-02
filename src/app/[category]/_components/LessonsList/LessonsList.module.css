@@ -8,7 +8,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
 .item {
@@ -16,11 +16,14 @@
   align-items: center;
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-base);
   transition: background-color var(--transition-base);
 }
 
 .item:hover {
   background-color: var(--color-bg-subtle);
+  border-color: var(--color-border-hover);
 }
 
 .item.done {
@@ -38,6 +41,7 @@
     opacity: 0;
     transform: translateX(-12px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -175,18 +179,15 @@
 
 /* Project Section Styles */
 .projectSection {
-  margin-top: var(--space-6);
-  padding-top: var(--space-6);
+  margin-top: var(--space-4);
 }
 
 .projectDivider {
   height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-border),
-    transparent
-  );
+  background: linear-gradient(to right,
+      transparent,
+      var(--color-border),
+      transparent);
   margin-bottom: var(--space-4);
 }
 
@@ -214,14 +215,14 @@
   align-items: center;
   padding: var(--space-4);
   border-radius: var(--radius-md);
-  border: 2px solid var(--color-brand-primary);
-  background: rgba(243, 76, 97, 0.04);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-base);
   transition: all var(--transition-base);
 }
 
 .projectItem:hover {
-  background: rgba(243, 76, 97, 0.08);
-  border-color: var(--color-brand-primary-hover);
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-border-hover);
 }
 
 .projectIcon {
@@ -243,22 +244,22 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  margin-left: var(--space-3);
+  margin-left: var(--space-4);
   flex: 1;
   min-width: 0;
 }
 
 .projectTitle {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-base);
-  color: var(--color-brand-primary);
+  color: var(--color-text-primary);
   word-break: break-word;
 }
 
 .projectDescription {
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   line-height: var(--line-height-base);
 }
@@ -273,7 +274,7 @@
 
 .projectArrow {
   margin-left: auto;
-  font-size: 18px;
+  font-size: var(--font-size-base);
   color: var(--color-brand-primary);
   flex-shrink: 0;
   transition: transform var(--transition-fast);

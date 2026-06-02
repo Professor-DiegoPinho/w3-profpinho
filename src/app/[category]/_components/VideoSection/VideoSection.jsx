@@ -1,7 +1,7 @@
 import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
-import styles from "./CourseVideoSection.module.css";
+import styles from "./VideoSection.module.css";
 
-export default function CourseVideoSection({ videoId, title = "Vídeo de apresentação" }) {
+export default function VideoSection({ videoId, title = "Vídeo de apresentação" }) {
   if (!videoId) return null;
 
   return (

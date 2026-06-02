@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { ClosedBook, OpenBook, Code } from "@/assets/icons";
 
 const PREVIEW_LESSONS_COUNT = 3;
 
@@ -16,61 +17,7 @@ function getLessonReadingTimeLabel(minutes) {
   return `${minutes} min de leitura`;
 }
 
-function CheckmarkIcon() {
-  return (
-    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15" />
-      <path
-        d="M7 12.5L10.5 16L17 9"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
-
-function BookIcon() {
-  return (
-    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-      <path
-        d="M8.5 6.5A2.5 2.5 0 0 1 11 4h7.5v14H11A2.5 2.5 0 0 0 8.5 20V6.5Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8.5 6.5H5.5V20"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function CheckpointIcon() {
-  return (
-    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path
-        d="M7 12l3 3 7-7"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export default function LessonsList({
   posts = [],
@@ -89,7 +36,7 @@ export default function LessonsList({
   // Separar o projeto das outras aulas
   const projectPost = posts.find(post => post.slug === 'projeto');
   const regularLessons = posts.filter(post => post.slug !== 'projeto');
-  
+
   const hasMoreLessons = regularLessons.length > PREVIEW_LESSONS_COUNT;
   const hiddenLessonsCount = Math.max(0, regularLessons.length - PREVIEW_LESSONS_COUNT);
 
@@ -115,7 +62,7 @@ export default function LessonsList({
 
   const handleEnrollFromModal = async () => {
     if (isEnrolling) return;
-    
+
     setIsEnrolling(true);
     try {
       const response = await fetch("/api/enrollment", {
@@ -169,7 +116,7 @@ export default function LessonsList({
                 className={`${styles.icon} ${isDone ? styles.done : ""}`}
                 aria-hidden="true"
               >
-                {isDone ? <CheckmarkIcon /> : <BookIcon />}
+                {isDone ? <OpenBook /> : <ClosedBook />}
               </span>
               <div className={styles.content}>
                 <p className={styles.title}>{post.title}</p>
@@ -269,7 +216,6 @@ export default function LessonsList({
       {projectPost && isEnrolled && (
         <div className={styles.projectSection}>
           <div className={styles.projectDivider}></div>
-          <div className={styles.projectLabel}>PROJETO</div>
           <ul className={styles.projectList}>
             <li className={styles.projectItem}>
               <Link
@@ -277,7 +223,7 @@ export default function LessonsList({
                 className={styles.projectLink}
               >
                 <span className={styles.projectIcon} aria-hidden="true">
-                  <CheckpointIcon />
+                  <Code />
                 </span>
                 <div className={styles.projectContent}>
                   <p className={styles.projectTitle}>{projectPost.title}</p>

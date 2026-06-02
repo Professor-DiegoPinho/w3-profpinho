@@ -99,7 +99,7 @@ export default function EnrollmentButton({
         onClick={handleEnrollment}
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Processando..." : "Começar agora"}
+        {isSubmitting ? "Processando..." : "Inscreva-se"}
       </button>
 
       {errorMessage && (

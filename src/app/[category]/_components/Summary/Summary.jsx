@@ -1,6 +1,6 @@
-import styles from "./CourseSummary.module.css";
+import styles from "./Summary.module.css";
 
-export default function CourseSummary({
+export default function Summary({
   totalLessons,
   totalEnrolledStudents,
   courseWorkloadHours,

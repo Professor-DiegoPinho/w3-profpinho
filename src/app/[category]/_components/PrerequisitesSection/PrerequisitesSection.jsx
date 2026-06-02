@@ -1,6 +1,6 @@
-import styles from "./CoursePrerequisitesSection.module.css";
+import styles from "./PrerequisitesSection.module.css";
 
-export default function CoursePrerequisitesSection({ prerequisites = [] }) {
+export default function PrerequisitesSection({ prerequisites = [] }) {
   if (!prerequisites || prerequisites.length === 0) return null;
 
   return (
