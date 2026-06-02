@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import CopyIcon from '@/assets/icons/CopyIcon';
-import CheckmarkIcon from '@/assets/icons/CheckmarkIcon';
+import styles from './CodeHighlight.module.css';
 
 export default function CodeHighlight({ language, children, ...props }) {
   const [copied, setCopied] = useState(false);

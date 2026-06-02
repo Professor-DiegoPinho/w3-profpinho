@@ -1,5 +1,5 @@
 "use client";
-import './CourseLessonsList.css';
+import styles from './LessonsList.module.css';
 
 import AuthEnrollmentModal from "@/components/AuthEnrollmentModal/AuthEnrollmentModal";
 import EnrollmentConfirmModal from "@/components/EnrollmentConfirmModal/EnrollmentConfirmModal";
@@ -72,7 +72,7 @@ function CheckpointIcon() {
   );
 }
 
-export default function CourseLessonsList({
+export default function LessonsList({
   posts = [],
   category = "",
   completedLessons = [],
@@ -154,8 +154,8 @@ export default function CourseLessonsList({
   };
 
   return (
-    <div className="course-lessons-block">
-      <ul className="course-lesson-list">
+    <div className={styles.block}>
+      <ul className={styles.list}>
         {visibleLessons.map((post, index) => {
           const isAnimatedLesson = showAllLessons && index >= PREVIEW_LESSONS_COUNT;
           const animationDelay = isAnimatedLesson
@@ -166,19 +166,19 @@ export default function CourseLessonsList({
           const lessonContent = (
             <>
               <span
-                className={`course-lesson-icon ${isDone ? "course-lesson-icon-done" : ""}`}
+                className={`${styles.icon} ${isDone ? styles.done : ""}`}
                 aria-hidden="true"
               >
                 {isDone ? <CheckmarkIcon /> : <BookIcon />}
               </span>
-              <div className="course-lesson-content">
-                <p className="course-lesson-title">{post.title}</p>
-                <span className="course-lesson-reading-time">
+              <div className={styles.content}>
+                <p className={styles.title}>{post.title}</p>
+                <span className={styles.readingTime}>
                   {getLessonReadingTimeLabel(post.readingTime?.minutes || 0)}
                 </span>
               </div>
               {isEnrolled && (
-                <span className="course-lesson-arrow" aria-hidden="true">›</span>
+                <span className={styles.arrow} aria-hidden="true">›</span>
               )}
             </>
           );
@@ -186,20 +186,20 @@ export default function CourseLessonsList({
           return (
             <li
               key={post.slug}
-              className={`course-lesson-item ${isAnimatedLesson ? "course-lesson-item-reveal" : ""} ${isDone ? "course-lesson-item-done" : ""}`}
+              className={`${styles.item} ${isAnimatedLesson ? styles.reveal : ""} ${isDone ? styles.done : ""}`}
               style={animationDelay}
             >
               {isEnrolled ? (
                 <Link
                   href={`/${category}/${post.slug}`}
-                  className="course-lesson-link"
+                  className={styles.link}
                 >
                   {lessonContent}
                 </Link>
               ) : (
                 <button
                   type="button"
-                  className="course-lesson-link course-lesson-button"
+                  className={`${styles.link} ${styles.button}`}
                   onClick={() => handleLessonClick(post.slug)}
                 >
                   {lessonContent}
@@ -210,13 +210,13 @@ export default function CourseLessonsList({
         })}
 
         {!showAllLessons && hasMoreLessons && !isEnrolled && (
-          <li className="course-lesson-action-item">
+          <li className={styles.actionItem}>
             <button
               type="button"
-              className="course-lesson-action-btn"
+              className={styles.actionBtn}
               onClick={() => setShowAllLessons(true)}
             >
-              <span className="course-lesson-icon course-lesson-icon-action" aria-hidden="true">
+              <span className={`${styles.icon} ${styles.action}`} aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
                   <path
                     d="M12 7v10M7 12h10"
@@ -228,9 +228,9 @@ export default function CourseLessonsList({
                   />
                 </svg>
               </span>
-              <div className="course-lesson-content">
-                <p className="course-lesson-title">Ver mais</p>
-                <span className="course-lesson-reading-time">
+              <div className={styles.content}>
+                <p className={styles.title}>Ver mais</p>
+                <span className={styles.readingTime}>
                   Mostrar mais {hiddenLessonsCount}{" "}
                   {hiddenLessonsCount === 1 ? "aula" : "aulas"}
                 </span>
@@ -240,13 +240,13 @@ export default function CourseLessonsList({
         )}
 
         {showAllLessons && hasMoreLessons && !isEnrolled && (
-          <li className="course-lesson-action-item">
+          <li className={styles.actionItem}>
             <button
               type="button"
-              className="course-lesson-action-btn course-lesson-action-btn-close"
+              className={styles.actionBtn}
               onClick={() => setShowAllLessons(false)}
             >
-              <span className="course-lesson-icon course-lesson-icon-action" aria-hidden="true">
+              <span className={`${styles.icon} ${styles.action}`} aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
                   <path
                     d="M7 12h10"
@@ -258,8 +258,8 @@ export default function CourseLessonsList({
                   />
                 </svg>
               </span>
-              <div className="course-lesson-content">
-                <p className="course-lesson-title">Ver menos</p>
+              <div className={styles.content}>
+                <p className={styles.title}>Ver menos</p>
               </div>
             </button>
           </li>
@@ -267,25 +267,25 @@ export default function CourseLessonsList({
       </ul>
 
       {projectPost && isEnrolled && (
-        <div className="course-project-section">
-          <div className="course-project-divider"></div>
-          <div className="course-project-label">PROJETO</div>
-          <ul className="course-project-list">
-            <li className="course-project-item">
+        <div className={styles.projectSection}>
+          <div className={styles.projectDivider}></div>
+          <div className={styles.projectLabel}>PROJETO</div>
+          <ul className={styles.projectList}>
+            <li className={styles.projectItem}>
               <Link
                 href={`/${category}/${projectPost.slug}`}
-                className="course-project-link"
+                className={styles.projectLink}
               >
-                <span className="course-project-icon" aria-hidden="true">
+                <span className={styles.projectIcon} aria-hidden="true">
                   <CheckpointIcon />
                 </span>
-                <div className="course-project-content">
-                  <p className="course-project-title">{projectPost.title}</p>
-                  <span className="course-project-description">
+                <div className={styles.projectContent}>
+                  <p className={styles.projectTitle}>{projectPost.title}</p>
+                  <span className={styles.projectDescription}>
                     Aplique os conhecimentos adquiridos
                   </span>
                 </div>
-                <span className="course-project-arrow" aria-hidden="true">›</span>
+                <span className={styles.projectArrow} aria-hidden="true">›</span>
               </Link>
             </li>
           </ul>

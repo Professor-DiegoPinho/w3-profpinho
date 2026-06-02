@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import "./CourseProgress.css";
+import styles from "./Progress.module.css";
 
 /**
  * Barra de progresso de um curso.
@@ -14,7 +14,7 @@ import "./CourseProgress.css";
  *    { completedLessons: [], completionPercentage: 0, totalLessons: 0 }
  *  - enrollmentDateLabel: string (ex: "15/03/2026")
  */
-export default function CourseProgress({
+export default function Progress({
   courseSlug,
   totalLessons,
   initialProgress = null,
@@ -46,13 +46,13 @@ export default function CourseProgress({
   if (total === 0) return null;
 
   return (
-    <div className={`course-progress-wrapper${isCourseComplete ? " course-progress-complete" : ""}`}>
-      <div className="course-progress-header">
-        <div className="course-progress-header-left">
-          <span className="course-progress-label">
+    <div className={`${styles.wrapper}${isCourseComplete ? ` ${styles.complete}` : ""}`}>
+      <div className={styles.header}>
+        <div className={styles.headerLeft}>
+          <span className={styles.label}>
             {isCourseComplete ? (
               <>
-                <span className="course-progress-complete-icon" aria-hidden="true">✓</span>
+                <span className={styles.completeIcon} aria-hidden="true">✓</span>
                 Curso concluído!
               </>
             ) : (
@@ -61,21 +61,21 @@ export default function CourseProgress({
           </span>
           {enrollmentDateLabel && (
             <>
-              <span className="course-progress-separator" aria-hidden="true">•</span>
-              <span className="course-progress-enrollment-info">
+              <span className={styles.separator} aria-hidden="true">•</span>
+              <span className={styles.enrollmentInfo}>
                 Inscreveu-se em {enrollmentDateLabel}
               </span>
             </>
           )}
         </div>
-        <span className="course-progress-stats-desktop">
+        <span className={styles.statsDesktop}>
           <strong>{completed}</strong> de <strong>{total}</strong> aulas
-          <span className="course-progress-percentage">{percentage}%</span>
+          <span className={styles.percentage}>{percentage}%</span>
         </span>
       </div>
 
       <div
-        className="course-progress-track"
+        className={styles.track}
         role="progressbar"
         aria-valuenow={percentage}
         aria-valuemin={0}
@@ -83,14 +83,14 @@ export default function CourseProgress({
         aria-label={`${percentage}% do curso concluído`}
       >
         <div
-          className="course-progress-fill"
+          className={styles.fill}
           style={{ width: `${percentage}%` }}
         />
       </div>
 
-      <div className="course-progress-stats-mobile">
+      <div className={styles.statsMobile}>
         <strong>{completed}</strong> de <strong>{total}</strong> aulas
-        <span className="course-progress-percentage-mobile">{percentage}%</span>
+        <span className={styles.percentageMobile}>{percentage}%</span>
       </div>
     </div>
   );

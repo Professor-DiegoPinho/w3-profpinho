@@ -2,13 +2,13 @@
 
 import FeedbackModal from "@/components/FeedbackModal/FeedbackModal";
 import { useState } from "react";
-import "./CourseFeedbackCard.css";
+import styles from "./FeedbackCard.module.css";
 
 /**
  * Componente que exibe um card de feedback
  * Aparece apenas quando: 100% completo + projeto aprovado + não respondeu
  */
-export default function CourseFeedbackCard({
+export default function FeedbackCard({
   courseSlug,
   completionPercentage,
   projectApproved,
@@ -39,18 +39,18 @@ export default function CourseFeedbackCard({
 
   return (
     <>
-      <div className="course-feedback-card">
-        <div className="feedback-card-content">
-          <div className="feedback-card-icon">📝</div>
-          <div className="feedback-card-text">
-            <h3 className="feedback-card-title">Sua opinião é importante!</h3>
-            <p className="feedback-card-description">
+      <div className={styles.card}>
+        <div className={styles.content}>
+          <div className={styles.icon}>📝</div>
+          <div className={styles.text}>
+            <h3 className={styles.title}>Sua opinião é importante!</h3>
+            <p className={styles.description}>
               Ajude-nos a melhorar este curso compartilhando sua experiência de aprendizado.
             </p>
           </div>
         </div>
         <button
-          className="feedback-card-button"
+          className={styles.button}
           onClick={handleOpenModal}
           aria-label="Abrir formulário de feedback"
         >

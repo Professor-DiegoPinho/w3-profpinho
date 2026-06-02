@@ -1,12 +1,12 @@
 "use client";
-import './CourseEnrollmentButton.css';
+import styles from './EnrollmentButton.module.css';
 
 import AuthEnrollmentModal from "@/components/AuthEnrollmentModal/AuthEnrollmentModal";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CourseEnrollmentButton({
+export default function EnrollmentButton({
   category,
   firstPostSlug,
   accessType,
@@ -95,22 +95,16 @@ export default function CourseEnrollmentButton({
     <div>
       <button
         type="button"
-        className="course-enroll-button"
+        className={styles.button}
         onClick={handleEnrollment}
         disabled={isSubmitting}
       >
-        {isSubmitting
-          ? "Acessando conteúdo..."
-          : isEnrolled
-            ? "Acessar aulas"
-            : requiresEnrollment
-              ? accessType === "paid-course"
-                ? "Comprar curso"
-                : "Inscreva-se gratuitamente"
-              : "Acessar tutorial"}
+        {isSubmitting ? "Processando..." : "Começar agora"}
       </button>
 
-      {errorMessage && <p className="course-enroll-error">{errorMessage}</p>}
+      {errorMessage && (
+        <p className={styles.error}>{errorMessage}</p>
+      )}
 
       <AuthEnrollmentModal
         isOpen={isAuthModalOpen}

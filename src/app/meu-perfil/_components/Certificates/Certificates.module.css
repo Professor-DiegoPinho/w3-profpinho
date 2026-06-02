@@ -39,7 +39,9 @@
   border-radius: var(--radius-xl);
   background: var(--color-bg-elevated);
   box-shadow: var(--shadow-card);
-  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+  transition:
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
 }
 
 .certificateCard:hover {
@@ -116,7 +118,11 @@
   line-height: 1;
   text-align: center;
   white-space: nowrap;
-  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 .downloadBtn {
@@ -126,11 +132,6 @@
 
 .downloadBtn:hover {
   box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
-}
-
-.downloadBtn:active {
-  transform: translateY(0);
 }
 
 .copyBtn {
@@ -143,13 +144,10 @@
   border-color: var(--color-brand-primary);
   background: var(--color-bg-subtle);
   box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
 }
 
 .copied {
   border-color: var(--color-success);
-  background: var(--color-success);
-  color: var(--color-text-on-brand);
 }
 
 .buttonIcon {

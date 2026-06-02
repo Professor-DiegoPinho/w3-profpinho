@@ -1,15 +1,14 @@
 "use client";
 
-import CookieConsent from '@/components/CookieConsent/CookieConsent';
-import DesktopSidebar from '@/components/Layout/Sidebar/Desktop/DesktopSidebar';
-import MobileSidebar from '@/components/Layout/Sidebar/Mobile/MobileSidebar';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import DiscordFloatingButton from '../DiscordFloatingButton/DiscordFloatingButton';
-import Footer from './Footer/Footer';
-import Header from './Header/Header';
-import MainContentWrapper from './MainContentWrapper/MainContentWrapper';
-import SidebarOverlay from './SidebarOverlay/SidebarOverlay';
+import CookieConsent from "@/components/CookieConsent/CookieConsent";
+import DesktopSidebar from "@/components/Layout/Sidebar/Desktop/DesktopSidebar";
+import MobileSidebar from "@/components/Layout/Sidebar/Mobile/MobileSidebar";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import DiscordFloatingButton from "../DiscordFloatingButton/DiscordFloatingButton";
+import Footer from "./Footer/Footer";
+import Header from "./Header/Header";
+import SidebarOverlay from "./SidebarOverlay/SidebarOverlay";
 
 const SIDEBAR_COLLAPSE_BREAKPOINT = 1100;
 
@@ -27,9 +26,9 @@ export default function Layout({ children, sidebarData = [] }) {
     };
 
     checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
+    window.addEventListener("resize", checkIfMobile);
 
-    return () => window.removeEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
   // Fechar sidebar ao mudar de rota em mobile
@@ -50,11 +49,20 @@ export default function Layout({ children, sidebarData = [] }) {
     }
   }, [pathname, pendingPath]);
 
-  const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
-  const resolvedCurrentSlug = pathname.split('/').filter(Boolean)[1];
+  const resolvedCurrentCategory = pathname.split("/").filter(Boolean)[0];
+  const resolvedCurrentSlug = pathname.split("/").filter(Boolean)[1];
   const hasSidebarContent = Boolean(resolvedCurrentCategory);
-  const routesWithoutSidebar = ['validar-certificado', 'meu-perfil', 'search', 'admin'];
-  const shouldShowSidebar = Boolean(resolvedCurrentCategory && resolvedCurrentSlug && !routesWithoutSidebar.includes(resolvedCurrentCategory));
+  const routesWithoutSidebar = [
+    "validar-certificado",
+    "meu-perfil",
+    "search",
+    "admin",
+  ];
+  const shouldShowSidebar = Boolean(
+    resolvedCurrentCategory &&
+    resolvedCurrentSlug &&
+    !routesWithoutSidebar.includes(resolvedCurrentCategory),
+  );
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -69,8 +77,6 @@ export default function Layout({ children, sidebarData = [] }) {
     setIsRouteLoading(true);
   };
 
-  const isProfileRouteLoading = pendingPath === '/meu-perfil';
-
   return (
     <div className="app-layout">
       <Header
@@ -82,7 +88,9 @@ export default function Layout({ children, sidebarData = [] }) {
         handleNavigateStart={handleNavigateStart}
       />
 
-      <div className={`layout-body ${shouldShowSidebar ? 'has-sidebar' : 'no-sidebar'}`.trim()}>
+      <div
+        className={`layout-body ${shouldShowSidebar ? "has-sidebar" : "no-sidebar"}`.trim()}
+      >
         <SidebarOverlay
           isSidebarOpen={isSidebarOpen}
           closeSidebar={closeSidebar}
@@ -111,14 +119,7 @@ export default function Layout({ children, sidebarData = [] }) {
           )
         )}
 
-        <main className="main-content">
-          <MainContentWrapper
-            isRouteLoading={isRouteLoading}
-            isProfileRouteLoading={isProfileRouteLoading}
-          >
-            {children}
-          </MainContentWrapper>
-        </main>
+        <main className="main-content">{children}</main>
       </div>
 
       <Footer />

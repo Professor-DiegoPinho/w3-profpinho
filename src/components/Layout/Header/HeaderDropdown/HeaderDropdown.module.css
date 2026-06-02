@@ -69,7 +69,7 @@
   overscroll-behavior: contain;
   padding: var(--space-2) 0;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-danger) var(--color-bg-subtle);
+  scrollbar-color: var(--color-brand-primary) var(--color-bg-subtle);
 }
 
 .dropdownCategoryLink {
@@ -91,7 +91,7 @@
 }
 
 .dropdownCategoryLink.active {
-  color: var(--color-danger);
+  color: var(--color-brand-primary);
   background-color: var(--color-bg-subtle);
 }
 
@@ -110,10 +110,10 @@
 }
 
 .headerDropdownContent::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-danger), var(--color-danger-strong));
+  background: linear-gradient(180deg, var(--color-brand-primary), var(--color-brand-primary));
   border-radius: 999px;
 }
 
 .headerDropdownContent::-webkit-scrollbar-thumb:hover {
-  background: var(--color-danger-strong);
+  background: var(--color-brand-primary-hover);
 }

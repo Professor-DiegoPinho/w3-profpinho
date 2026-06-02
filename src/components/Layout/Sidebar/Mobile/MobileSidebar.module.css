@@ -42,10 +42,10 @@
 }
 
 .mobileSidebarNav::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-danger), var(--color-danger-strong));
+  background: linear-gradient(180deg, var(--color-brand-primary), var(--color-brand-primary));
   border-radius: 999px;
 }
 
 .mobileSidebarNav::-webkit-scrollbar-thumb:hover {
-  background: var(--color-danger-strong);
+  background: var(--color-brand-primary);
 }

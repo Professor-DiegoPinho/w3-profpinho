@@ -2,7 +2,7 @@
 
 import { generateId } from '@/lib/generateId';
 import { useEffect, useRef, useState } from 'react';
-import './TableOfContents.css';
+import styles from './TableOfContents.module.css';
 
 export default function TableOfContents({ content, title }) {
   const [headings, setHeadings] = useState([]);
@@ -144,13 +144,13 @@ export default function TableOfContents({ content, title }) {
       {/* Mobile Toggle Button */}
       <button
         ref={toggleButtonRef}
-        className={`toc-mobile-toggle ${isOpen ? 'open' : ''}`}
+        className={`${styles.tocMobileToggle} ${isOpen ? styles.open : ''}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Alternar Tabela de Conteúdos"
         aria-expanded={isOpen}
       >
         <svg
-          className="toc-toggle-icon"
+          className={styles.tocToggleIcon}
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -167,21 +167,22 @@ export default function TableOfContents({ content, title }) {
       {/* TOC Container with Slide Animation */}
       <nav
         ref={tocRef}
-        className={`table-of-contents ${isOpen ? 'open' : ''}`}
+        className={`${styles.tableOfContents} ${isOpen ? styles.open : ''}`}
         aria-label="Tabela de conteúdos"
       >
-        <div className="toc-container">
-          <h3 className="toc-title">Nesta página</h3>
-          <ul className="toc-list">
+        <div className={styles.tocContainer}>
+          <h3 className={styles.tocTitle}>Nesta página</h3>
+          <ul className={styles.tocList}>
             {headings.map((heading, index) => (
               <li
                 key={heading.id + '-' + index}
-                className={`toc-item toc-level-${heading.level} ${activeId === heading.id ? 'active' : ''
-                  }`}
+                className={`${styles.tocItem} ${styles[`level${heading.level}`]} ${
+                  activeId === heading.id ? styles.active : ''
+                }`}
               >
                 <button
                   onClick={() => handleLinkClick(heading.id)}
-                  className="toc-link"
+                  className={styles.tocLink}
                 >
                   {heading.text}
                 </button>

@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import styles from './Certificates.module.css';
+import { Checkmark, Copy } from "@/assets/icons";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import styles from "./Certificates.module.css";
 
 export default function Certificates() {
   const { data: session } = useSession();
@@ -15,7 +16,7 @@ export default function Certificates() {
 
     const fetchCertificates = async () => {
       try {
-        const response = await fetch('/api/certificates/list');
+        const response = await fetch("/api/certificates/list");
         if (!response.ok) {
           const error = await response.text();
           throw new Error(`Status ${response.status}: ${error}`);
@@ -24,7 +25,7 @@ export default function Certificates() {
         const data = await response.json();
         setCertificates(data);
       } catch (error) {
-        console.error('Erro ao buscar certificados:', error);
+        console.error("Erro ao buscar certificados:", error);
       } finally {
         setLoading(false);
       }
@@ -35,15 +36,19 @@ export default function Certificates() {
 
   const handleDownload = async (certificateId) => {
     try {
-      const response = await fetch(`/api/certificates/download/${certificateId}`);
+      const response = await fetch(
+        `/api/certificates/download/${certificateId}`,
+      );
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.details || error.error || 'Erro ao baixar certificado');
+        throw new Error(
+          error.details || error.error || "Erro ao baixar certificado",
+        );
       }
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = `certificado-${certificateId}.pdf`;
       document.body.appendChild(a);
@@ -51,7 +56,7 @@ export default function Certificates() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (error) {
-      console.error('Erro ao baixar certificado:', error);
+      console.error("Erro ao baixar certificado:", error);
       alert(`Erro ao baixar o certificado: ${error.message}`);
     }
   };
@@ -77,7 +82,8 @@ export default function Certificates() {
       <div className={styles.container}>
         <h2 className={styles.title}>Certificados</h2>
         <p className={styles.empty}>
-          Nenhum certificado ainda. Complete um curso e envie o projeto de conclusão para obter seu certificado!
+          Nenhum certificado ainda. Complete um curso e envie o projeto de
+          conclusão para obter seu certificado!
         </p>
       </div>
     );
@@ -89,65 +95,54 @@ export default function Certificates() {
       <div className={styles.certificatesList}>
         {certificates.map((cert) => (
           <div key={cert.id} className={styles.certificateCard}>
+            <h3 className={styles.courseName}>{cert.courseName}</h3>
             <div className={styles.certificateInfo}>
-              <h3 className={styles.courseName}>{cert.courseName}</h3>
               <p className={styles.courseDetails}>
                 Carga horária: <strong>{cert.workloadHours} horas</strong>
               </p>
               <p className={styles.generatedDate}>
-                Gerado em: {' '}
+                Gerado em:{" "}
                 <strong>
                   {new Date(
-                    cert.generatedAt?.toDate?.() || cert.generatedAt
-                  ).toLocaleDateString('pt-BR')}
+                    cert.generatedAt?.toDate?.() || cert.generatedAt,
+                  ).toLocaleDateString("pt-BR")}
                 </strong>
               </p>
               <p className={styles.certificateId}>
                 ID: <code>{cert.certificateId}</code>
               </p>
-            </div>
-
-            <div className={styles.actions}>
-              <button
-                className={styles.downloadBtn}
-                onClick={() => handleDownload(cert.id)}
-                title='Baixar certificado em PDF'
-              >
-                <img
-                  src='/icons/ic_download.svg'
-                  alt='Baixar'
-                  className={styles.buttonIcon}
-                  aria-hidden='true'
-                />
-                Baixar PDF
-              </button>
-              <button
-                className={`${styles.copyBtn} ${copiedId === cert.id ? styles.copied : ''}`}
-                onClick={() => handleCopyLink(cert.id)}
-                title='Copiar link de validação'
-              >
-                {copiedId === cert.id ? (
-                  <>
-                    <img
-                      src='/icons/ic_checkmark.svg'
-                      alt='Copiado'
-                      className={styles.buttonIcon}
-                      aria-hidden='true'
-                    />
-                    Copiado!
-                  </>
-                ) : (
-                  <>
-                    <img
-                      src='/icons/ic_copy.svg'
-                      alt='Copiar'
-                      className={styles.buttonIcon}
-                      aria-hidden='true'
-                    />
-                    Copiar Link
-                  </>
-                )}
-              </button>
+              <div className={styles.actions}>
+                <button
+                  className={styles.downloadBtn}
+                  onClick={() => handleDownload(cert.id)}
+                  title="Baixar certificado em PDF"
+                >
+                  <img
+                    src="/icons/ic_download.svg"
+                    alt="Baixar"
+                    className={styles.buttonIcon}
+                    aria-hidden="true"
+                  />
+                  Baixar PDF
+                </button>
+                <button
+                  className={`${styles.copyBtn} ${copiedId === cert.id ? styles.copied : ""}`}
+                  onClick={() => handleCopyLink(cert.id)}
+                  title="Copiar link de validação"
+                >
+                  {copiedId === cert.id ? (
+                    <>
+                      <Checkmark size={20} className={styles.buttonIcon} />
+                      Copiado!
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={20} className={styles.buttonIcon} />
+                      Copiar Link
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         ))}

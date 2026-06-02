@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import {
-    canUserAccessCourseLessons,
-    isCourseVisibleToUser
+  canUserAccessCourseLessons,
+  isCourseVisibleToUser
 } from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { getCategoryTitle, getPost } from '@/lib/markdown';
@@ -9,7 +9,6 @@ import { getProjectSubmissions } from '@/lib/submissions';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { ProjectSubmissionPage } from './ProjectSubmissionPage';
-import styles from './page.module.css';
 
 export const dynamic = 'force-dynamic';
 

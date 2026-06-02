@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
+import styles from './MarkdownContent.module.css';
 
 // Lazy load do syntax highlighter (componente pesado)
 const CodeHighlight = dynamic(() => import('@/components/CodeHighlight/CodeHighlight'), {
@@ -72,7 +73,7 @@ export default function MarkdownContent({ content, title }) {
       }
 
       return (
-        <code className={`inline-code ${className || ''}`.trim()} {...props}>
+        <code className={`${styles.inlineCode} ${className || ''}`.trim()} {...props}>
           {children}
         </code>
       );
@@ -80,48 +81,48 @@ export default function MarkdownContent({ content, title }) {
 
     h1: ({ children }) => {
       const id = generateId(getTextFromChildren(children));
-      return <h1 id={id} className="content-h1">{children}</h1>;
+      return <h1 id={id} className={styles.h1}>{children}</h1>;
     },
     h2: ({ children }) => {
       const id = generateId(getTextFromChildren(children));
-      return <h2 id={id} className="content-h2">{children}</h2>;
+      return <h2 id={id} className={styles.h2}>{children}</h2>;
     },
     h3: ({ children }) => {
       const id = generateId(getTextFromChildren(children));
-      return <h3 id={id} className="content-h3">{children}</h3>;
+      return <h3 id={id} className={styles.h3}>{children}</h3>;
     },
     h4: ({ children }) => {
       const id = generateId(getTextFromChildren(children));
-      return <h4 id={id} className="content-h4">{children}</h4>;
+      return <h4 id={id} className={styles.h4}>{children}</h4>;
     },
 
-    p: ({ children }) => <p className="content-paragraph">{children}</p>,
+    p: ({ children }) => <p className={styles.paragraph}>{children}</p>,
 
-    ul: ({ children }) => <ul className="content-list">{children}</ul>,
-    ol: ({ children }) => <ol className="content-ordered-list">{children}</ol>,
-    li: ({ children }) => <li className="content-list-item">{children}</li>,
+    ul: ({ children }) => <ul className={styles.list}>{children}</ul>,
+    ol: ({ children }) => <ol className={styles.orderedList}>{children}</ol>,
+    li: ({ children }) => <li className={styles.listItem}>{children}</li>,
 
     blockquote: ({ children }) => (
-      <blockquote className="content-blockquote">{children}</blockquote>
+      <blockquote className={styles.blockquote}>{children}</blockquote>
     ),
 
     table: ({ children }) => (
-      <div className="table-wrapper">
-        <table className="content-table">{children}</table>
+      <div className={styles.tableWrapper}>
+        <table className={styles.table}>{children}</table>
       </div>
     ),
 
-    th: ({ children }) => <th className="table-header">{children}</th>,
-    td: ({ children }) => <td className="table-cell">{children}</td>,
+    th: ({ children }) => <th className={styles.tableHeader}>{children}</th>,
+    td: ({ children }) => <td className={styles.tableCell}>{children}</td>,
 
     a: ({ href, children }) => (
-      <a href={href} className="content-link" target="_blank" rel="noopener noreferrer">
+      <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">
         {children}
       </a>
     ),
 
-    strong: ({ children }) => <strong className="content-bold">{children}</strong>,
-    em: ({ children }) => <em className="content-italic">{children}</em>,
+    strong: ({ children }) => <strong className={styles.bold}>{children}</strong>,
+    em: ({ children }) => <em className={styles.italic}>{children}</em>,
 
     img: ({ src, alt, ...props }) => {
       if (!src) {
@@ -132,7 +133,7 @@ export default function MarkdownContent({ content, title }) {
   };
 
   return (
-    <div className="markdown-content">
+    <div className={styles.markdown}>
       <ReactMarkdown
         components={components}
         remarkPlugins={[remarkGfm]}

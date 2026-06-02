@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import './CourseInfoToggle.css';
+import styles from './InfoToggle.module.css';
 
-export default function CourseInfoToggle({ summary, children }) {
+export default function InfoToggle({ summary, children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -29,9 +29,9 @@ export default function CourseInfoToggle({ summary, children }) {
   };
 
   return (
-    <div className={`course-info-toggle ${isOpen ? 'open' : 'closed'}`}>
+    <div className={`${styles.toggle} ${isOpen ? styles.open : styles.closed}`}>
       <button
-        className="course-info-toggle-summary"
+        className={styles.summary}
         onClick={handleToggle}
         aria-expanded={isOpen}
         type="button"
@@ -40,11 +40,10 @@ export default function CourseInfoToggle({ summary, children }) {
       </button>
       
       {(isOpen || isAnimating) && (
-        <div className="course-info-toggle-content">
+        <div className={styles.content}>
           {children}
         </div>
       )}
     </div>
   );
 }
-

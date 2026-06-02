@@ -1,5 +1,8 @@
 .page {
-  padding: var(--space-10);
+  padding: var(--space-10) 0;
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
 }
 
 .grid {

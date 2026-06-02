@@ -9,7 +9,7 @@
   overflow-x: hidden;
   overscroll-behavior: contain;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-danger) var(--color-bg-subtle);
+  scrollbar-color: var(--color-brand-primary) var(--color-bg-subtle);
 }
 
 .mobileSidebarPage {
@@ -22,7 +22,7 @@
   color: var(--color-text-primary);
   margin: 0 0 var(--space-6) 0;
   padding-bottom: var(--space-4);
-  border-bottom: 2px solid var(--color-danger);
+  border-bottom: 2px solid var(--color-brand-primary);
 }
 
 .mobileCategoriesList {

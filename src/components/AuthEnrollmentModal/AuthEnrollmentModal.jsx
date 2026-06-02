@@ -1,5 +1,5 @@
 "use client";
-import './AuthEnrollmentModal.css';
+import styles from './AuthEnrollmentModal.module.css';
 
 import { signIn } from "next-auth/react";
 import { useEffect, useRef } from "react";
@@ -40,7 +40,7 @@ export default function AuthEnrollmentModal({
 
   return (
     <div
-      className="auth-modal-overlay"
+      className={styles.authModalOverlay}
       role="dialog"
       aria-modal="true"
       aria-labelledby="auth-modal-title"
@@ -50,25 +50,25 @@ export default function AuthEnrollmentModal({
         }
       }}
     >
-      <div className="auth-modal-content" ref={modalContentRef}>
-        <span className="auth-modal-badge">Acesso ao curso</span>
+      <div className={styles.authModalContent} ref={modalContentRef}>
+        <span className={styles.authModalBadge}>Acesso ao curso</span>
         <h3 id="auth-modal-title">Entre para liberar seu aprendizado</h3>
         <p>
           Crie sua conta gratuita com Google ou GitHub para começar a aprender e desbloquear todo o conteúdo do curso.
         </p>
 
-        <div className="auth-modal-actions">
-          <div className="auth-modal-provider-actions">
+        <div className={styles.authModalActions}>
+          <div className={styles.authModalProviderActions}>
             <button
               type="button"
-              className="auth-modal-provider auth-modal-provider--google"
+              className={styles.authModalProviderGoogle}
               onClick={() => handleProviderSignIn("google")}
             >
               Continuar com Google
             </button>
             <button
               type="button"
-              className="auth-modal-provider auth-modal-provider--github"
+              className={styles.authModalProviderGithub}
               onClick={() => handleProviderSignIn("github")}
             >
               Continuar com GitHub
@@ -76,7 +76,7 @@ export default function AuthEnrollmentModal({
           </div>
           <button
             type="button"
-            className="auth-modal-cancel"
+            className={styles.authModalCancel}
             onClick={onClose}
           >
             Agora não
