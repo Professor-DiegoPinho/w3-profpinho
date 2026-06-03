@@ -1,10 +1,8 @@
 import { auth } from '@/auth';
-import MarkdownContent from '@/components/MarkdownContent/MarkdownContent';
-import MarkLesson from '@/components/MarkLesson/MarkLesson';
-import PostNavigation from '@/components/PostNavigation/PostNavigation';
-import ProjectSubmission from '@/components/ProjectSubmission/ProjectSubmission';
-import ReadingTime from '@/components/ReadingTime/ReadingTime';
-import TableOfContents from '@/app/[category]/[slug]/_components/TableOfContents/TableOfContents';
+import PostNavigation from '@/app/[category]/[slug]/_components/PostNavigation/PostNavigation';
+import Header from '@/app/[category]/[slug]/_components/Header/Header';
+import Content from '@/app/[category]/[slug]/_components/Content/Content';
+import Completion from '@/app/[category]/[slug]/_components/Completion/Completion';
 import { CONTENT_TYPE } from '@/data';
 import {
   canUserAccessCourseLessons,
@@ -12,7 +10,6 @@ import {
   isCourseVisibleToUser,
 } from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
-import { generateId } from '@/lib/generateId';
 import { getAllPosts, getCategoryTitle, getCourseLessonsCount, getPost, getPostNavigation, getPostsInCategory } from '@/lib/markdown';
 import { getLessonProgress, isLessonCompleted } from '@/lib/progress';
 import { getProjectSubmissions } from '@/lib/submissions';
@@ -62,7 +59,6 @@ export default async function PostPage({ params }) {
     contentAccessType === CONTENT_TYPE.FREE_COURSE ||
     contentAccessType === CONTENT_TYPE.PAID_COURSE;
 
-  const allLessons = getPostsInCategory(category);
   const totalLessons = getCourseLessonsCount(category);
 
   const progressData = userId
@@ -80,62 +76,35 @@ export default async function PostPage({ params }) {
 
   return (
     <article className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.breadcrumb}>
-          <span className={styles.categoryName}>
-            {categoryTitle}
-          </span>
-          <span className={styles.separator}>›</span>
-          <span>{post.title}</span>
-        </div>
-        <h1 id={generateId(post.title)}>{post.title}</h1>
-        {post.description && (
-          <p className={styles.description}>{post.description}</p>
-        )}
-        {post.readingTime && (
-          <div className={styles.meta}>
-            <ReadingTime readingTime={post.readingTime} showFullText={true} />
-          </div>
-        )}
-      </header>
+      <Header
+        categoryTitle={categoryTitle}
+        title={post.title}
+        description={post.description}
+        readingTime={post.readingTime}
+        navigation={navigation}
+        category={category}
+        isCourseContent={isCourseContent}
+      />
 
-      <div className={styles.body}>
-        <TableOfContents content={post.content} title={post.title} />
-        {hasLessonAccess ? (
-          <MarkdownContent content={post.content} title={post.title} />
-        ) : (
-          <div className={styles.lockedNotice}>
-            <p>Esta aula está disponível apenas para alunos inscritos no curso.</p>
-            <p>
-              <a href={`/${category}`} className={styles.lockedLink}>
-                Volte para a página do curso para se inscrever
-              </a>
-            </p>
-          </div>
-        )}
-      </div>
+      <Content
+        content={post.content}
+        title={post.title}
+        hasLessonAccess={hasLessonAccess}
+        category={category}
+      />
 
-      {userId && hasLessonAccess && isCourseContent && slug === 'projeto' ? (
-        <div className={styles.completion}>
-          <ProjectSubmission
-            courseSlug={category}
-            projectTitle={post.title}
-            initialSubmissions={projectSubmissions}
-            userName={userName}
-            userId={userId}
-            submitMode="simple"
-          />
-        </div>
-      ) : userId && hasLessonAccess && isCourseContent ? (
-        <div className={styles.completion}>
-          <MarkLesson
-            courseSlug={category}
-            lessonSlug={slug}
-            totalLessons={totalLessons}
-            initialDone={isDone}
-          />
-        </div>
-      ) : null}
+      <Completion
+        userId={userId}
+        hasLessonAccess={hasLessonAccess}
+        isCourseContent={isCourseContent}
+        slug={slug}
+        category={category}
+        title={post.title}
+        projectSubmissions={projectSubmissions}
+        userName={userName}
+        totalLessons={totalLessons}
+        isDone={isDone}
+      />
 
       <PostNavigation
         previous={navigation.previous}

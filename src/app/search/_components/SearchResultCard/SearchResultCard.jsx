@@ -1,6 +1,6 @@
 'use client';
 
-import { ReadingTimeCompact } from '@/components/ReadingTime/ReadingTime';
+import { ReadingTimeCompact } from '@/app/[category]/[slug]/_components/ReadingTime/ReadingTime';
 import Link from 'next/link';
 import styles from './SearchResultCard.module.css';
 

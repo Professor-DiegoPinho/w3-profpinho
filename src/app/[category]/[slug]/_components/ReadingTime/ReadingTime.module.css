@@ -1,0 +1,37 @@
+.readingTime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-1) var(--space-5);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  transition: opacity var(--transition-fast);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  height: var(--space-12);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.text {
+  line-height: 1;
+}
+
+/* ---- Category colors ---- */
+
+.quick {
+  color: var(--color-success);
+}
+
+.medium {
+  color: var(--color-warning);
+}
+
+.long {
+  color: var(--color-danger);
+}

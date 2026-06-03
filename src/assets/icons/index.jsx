@@ -48,8 +48,11 @@ export function ArrowLeft({ size, className }) {
   return (
     <Icon size={size} className={className}>
       <path
-        d="m313-440 196 196q12 12 11.5 28T508-188q-12 11-28 11.5T452-188L188-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l264-264q11-11 27.5-11t28.5 11q12 12 12 28.5T508-715L313-520h447q17 0 28.5 11.5T800-480q0 17-11.5 28.5T760-440H313Z"
-        fill="currentColor"
+        d="M19 12H5M11 18L5 12L11 6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Icon>
   );
@@ -116,6 +119,36 @@ export function Book({ size, className }) {
   );
 }
 
+export function Bookmark({ size, className }) {
+  return (
+    <Icon size={size} className={className}>
+      <path
+        d="M5 5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21L12 17.5L5 21V5Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Icon>
+  );
+}
+
+export function ChevronRight({ size, className }) {
+  return (
+    <Icon size={size} className={className}>
+      <path
+        d="M9 6L15 12L9 18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Icon>
+  );
+}
+
 export function Checkmark({ size, className }) {
   return (
     <Icon size={size} className={className}>
@@ -128,6 +161,14 @@ export function Checkmark({ size, className }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </Icon>
+  );
+}
+
+export function Clock({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path d="M520-496v-144q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640v159q0 8 3 15.5t9 13.5l132 132q11 11 28 11t28-11q11-11 11-28t-11-28L520-496ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" fill="currentColor" />
     </Icon>
   );
 }
