@@ -1,13 +1,13 @@
 "use client";
 import styles from './LessonsList.module.css';
 
-import AuthEnrollmentModal from "@/components/AuthEnrollmentModal/AuthEnrollmentModal";
+import AuthEnrollmentModal from "@/app/[category]/_components/AuthEnrollmentModal/AuthEnrollmentModal";
 import EnrollmentConfirmModal from "@/components/EnrollmentConfirmModal/EnrollmentConfirmModal";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { ClosedBook, OpenBook, Code } from "@/assets/icons";
+import { ClosedBook, OpenBook, Code, Plus, Minus } from "@/assets/icons";
 
 const PREVIEW_LESSONS_COUNT = 3;
 
@@ -163,18 +163,7 @@ export default function LessonsList({
               className={styles.actionBtn}
               onClick={() => setShowAllLessons(true)}
             >
-              <span className={`${styles.icon} ${styles.action}`} aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path
-                    d="M12 7v10M7 12h10"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
+              <Plus size={20} className={`${styles.icon} ${styles.action}`} aria-hidden="true" />
               <div className={styles.content}>
                 <p className={styles.title}>Ver mais</p>
                 <span className={styles.readingTime}>
@@ -193,18 +182,7 @@ export default function LessonsList({
               className={styles.actionBtn}
               onClick={() => setShowAllLessons(false)}
             >
-              <span className={`${styles.icon} ${styles.action}`} aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path
-                    d="M7 12h10"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
+              <Minus size={20} className={`${styles.icon} ${styles.action}`} aria-hidden="true" />
               <div className={styles.content}>
                 <p className={styles.title}>Ver menos</p>
               </div>

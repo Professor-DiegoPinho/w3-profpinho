@@ -1,7 +1,7 @@
 "use client";
 import styles from './EnrollmentButton.module.css';
 
-import AuthEnrollmentModal from "@/components/AuthEnrollmentModal/AuthEnrollmentModal";
+import AuthEnrollmentModal from "@/app/[category]/_components/AuthEnrollmentModal/AuthEnrollmentModal";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

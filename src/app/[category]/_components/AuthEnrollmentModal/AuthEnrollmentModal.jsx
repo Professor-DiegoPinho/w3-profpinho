@@ -1,4 +1,5 @@
 "use client";
+import { Github, Google } from '@/assets/icons';
 import styles from './AuthEnrollmentModal.module.css';
 
 import { signIn } from "next-auth/react";
@@ -61,16 +62,18 @@ export default function AuthEnrollmentModal({
           <div className={styles.authModalProviderActions}>
             <button
               type="button"
-              className={styles.authModalProviderGoogle}
+              className={styles.actionButton}
               onClick={() => handleProviderSignIn("google")}
             >
+              <Google size={16} />
               Continuar com Google
             </button>
             <button
               type="button"
-              className={styles.authModalProviderGithub}
+              className={styles.actionButton}
               onClick={() => handleProviderSignIn("github")}
             >
+              <Github size={16} />
               Continuar com GitHub
             </button>
           </div>
