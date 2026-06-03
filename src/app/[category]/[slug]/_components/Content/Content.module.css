@@ -1,6 +1,6 @@
 .body {
   padding: 0;
-  max-width: var(--container-lg);
+  width: 100%;
 }
 
 .lockedNotice {

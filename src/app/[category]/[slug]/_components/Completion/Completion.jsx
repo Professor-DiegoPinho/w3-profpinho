@@ -1,5 +1,5 @@
 import ProjectSubmission from '@/components/ProjectSubmission/ProjectSubmission';
-import MarkLesson from '@/components/MarkLesson/MarkLesson';
+import MarkLesson from '@/app/[category]/[slug]/_components/MarkLesson/MarkLesson';
 import styles from './Completion.module.css';
 
 export default function Completion({

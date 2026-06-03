@@ -88,6 +88,14 @@ export function Code({ size, className }) {
   )
 }
 
+export function Circle({ size, className }) {
+  return (
+    <Icon className={className} size={size} viewBox="0 0 16 16">
+      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
+    </Icon>
+  )
+}
+
 export function OpenBook({ size, className }) {
   return (
     <Icon size={size} className={className} viewBox="0 -960 960 960">
@@ -149,6 +157,21 @@ export function ChevronRight({ size, className }) {
   );
 }
 
+export function ChevronLeft({ size, className }) {
+  return (
+    <Icon size={size} className={className}>
+      <path
+        d="M15 6L9 12L15 18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Icon>
+  );
+}
+
 export function Checkmark({ size, className }) {
   return (
     <Icon size={size} className={className}>
@@ -162,6 +185,15 @@ export function Checkmark({ size, className }) {
         strokeLinejoin="round"
       />
     </Icon>
+  );
+}
+
+export function Check({ size, className }) {
+  return (
+    <Icon size={size} className={className}>
+      <path d="M4 12L10 18L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </Icon>
+
   );
 }
 
@@ -330,10 +362,25 @@ export function Google({ size, className }) {
   );
 }
 
-export function IconList({ size, className }) {
+export function List({ size, className }) {
   return (
     <Icon size={size} className={className} viewBox="0 -960 960 960">
       <path d="M348.5-291.5Q360-303 360-320t-11.5-28.5Q337-360 320-360t-28.5 11.5Q280-337 280-320t11.5 28.5Q303-280 320-280t28.5-11.5Zm0-160Q360-463 360-480t-11.5-28.5Q337-520 320-520t-28.5 11.5Q280-497 280-480t11.5 28.5Q303-440 320-440t28.5-11.5Zm0-160Q360-623 360-640t-11.5-28.5Q337-680 320-680t-28.5 11.5Q280-657 280-640t11.5 28.5Q303-600 320-600t28.5-11.5ZM440-280h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" fill="currentColor" />
+    </Icon>
+  );
+}
+
+export function Loading({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 0 16 16">
+      <circle
+        cx="8" cy="8" r="6"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeDasharray="28"
+        strokeDashoffset="10"
+        className={className}
+      />
     </Icon>
   );
 }

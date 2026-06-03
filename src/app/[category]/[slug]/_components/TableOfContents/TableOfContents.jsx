@@ -3,7 +3,7 @@
 import { generateId } from '@/lib/generateId';
 import { useEffect, useRef, useState } from 'react';
 import styles from './TableOfContents.module.css';
-import { IconList } from '@/assets/icons';
+import { List } from '@/assets/icons';
 
 export default function TableOfContents({ content, title }) {
   const [headings, setHeadings] = useState([]);
@@ -173,7 +173,7 @@ export default function TableOfContents({ content, title }) {
       >
         <div className={styles.tocContainer}>
           <header className={styles.tocHeader}>
-            <IconList size={20} className={styles.tocTitleIcon} />
+            <List size={20} className={styles.tocTitleIcon} />
             <h3 className={styles.tocTitle}>Nesta página</h3>
           </header>
           <ul className={styles.tocList}>
