@@ -58,15 +58,6 @@ a:active {
   flex-direction: column;
 }
 
-.layout-body.has-sidebar .main-content {
-  margin-left: 280px;
-  width: calc(100% - 280px);
-}
-
-.layout-body.no-sidebar .main-content {
-  margin-left: 0;
-  width: 100%;
-}
 
 .layout-body.has-sidebar~.app-footer {
   margin-left: 280px;

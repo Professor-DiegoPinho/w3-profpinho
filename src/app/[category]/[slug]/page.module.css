@@ -1,5 +1,14 @@
 .page {
-  max-width: none;
+  width: 100%;
+  max-width: calc(var(--container-lg) + 2 * var(--sidebar-width));
+  margin: 0 auto;
+  padding: var(--space-10) var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
 }
 
 .header {
@@ -54,7 +63,7 @@
   color: var(--color-text-secondary);
 }
 
-.lockedNotice p + p {
+.lockedNotice p+p {
   margin-top: var(--space-2);
 }
 
@@ -67,7 +76,17 @@
   color: var(--color-text-link-hover);
 }
 
+@media (max-width: 1100px) {
+  .page {
+    padding: 0 var(--space-8);
+  }
+}
+
 @media (max-width: 768px) {
+  .page {
+    padding: 0 var(--space-4);
+  }
+
   .header {
     margin-bottom: var(--space-6);
     padding-bottom: var(--space-4);
