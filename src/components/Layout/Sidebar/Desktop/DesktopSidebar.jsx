@@ -6,6 +6,7 @@ import { useSidebarContextData } from '@/components/Layout/Sidebar/hooks/useSide
 import { useSidebarNavigation } from '@/components/Layout/Sidebar/hooks/useSidebarNavigation';
 import { useSession } from 'next-auth/react';
 import styles from './DesktopSidebar.module.css';
+import { Courses, Resumes, Tutorials } from '@/assets/icons';
 
 export default function DesktopSidebar({
   sidebarData,
@@ -28,19 +29,19 @@ export default function DesktopSidebar({
     return null;
   }
 
-  const contextIcon =
+  const IconComponent =
     currentContext === 'course'
-      ? '/icons/ic_courses.svg'
+      ? Courses
       : currentContext === 'tutorial'
-        ? '/icons/ic_tutorials.svg'
-        : '/icons/ic_resumes.svg';
+        ? Tutorials
+        : Resumes;
 
   return (
     <aside
       className={`${styles.dynamicSidebar} ${isOpen ? styles.sidebarOpen : ''} ${isMobile ? styles.dynamicSidebarMobile : ''}`.trim()}
     >
       <nav className={styles.dynamicSidebarNav}>
-        <SidebarHeader icon={contextIcon} title={categoryTitle} />
+        <SidebarHeader Icon={IconComponent} title={categoryTitle} />
         <SidebarList
           context={currentContext}
           items={contextItems}

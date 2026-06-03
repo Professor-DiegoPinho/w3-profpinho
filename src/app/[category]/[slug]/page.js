@@ -4,12 +4,12 @@ import MarkLesson from '@/components/MarkLesson/MarkLesson';
 import PostNavigation from '@/components/PostNavigation/PostNavigation';
 import ProjectSubmission from '@/components/ProjectSubmission/ProjectSubmission';
 import ReadingTime from '@/components/ReadingTime/ReadingTime';
-import TableOfContents from '@/components/TableOfContents/TableOfContents';
+import TableOfContents from '@/app/[category]/[slug]/_components/TableOfContents/TableOfContents';
 import { CONTENT_TYPE } from '@/data';
 import {
-    canUserAccessCourseLessons,
-    getCourseAccessType,
-    isCourseVisibleToUser,
+  canUserAccessCourseLessons,
+  getCourseAccessType,
+  isCourseVisibleToUser,
 } from '@/lib/courseAccess';
 import { getEnrolledCourseIds } from '@/lib/enrollment';
 import { generateId } from '@/lib/generateId';
@@ -58,8 +58,8 @@ export default async function PostPage({ params }) {
   const navigation = getPostNavigation(category, slug);
   const categoryTitle = getCategoryTitle(category);
   const contentAccessType = getCourseAccessType(category);
-  const isCourseContent = 
-    contentAccessType === CONTENT_TYPE.FREE_COURSE || 
+  const isCourseContent =
+    contentAccessType === CONTENT_TYPE.FREE_COURSE ||
     contentAccessType === CONTENT_TYPE.PAID_COURSE;
 
   const allLessons = getPostsInCategory(category);

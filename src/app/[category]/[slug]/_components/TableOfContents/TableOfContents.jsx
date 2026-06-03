@@ -3,6 +3,7 @@
 import { generateId } from '@/lib/generateId';
 import { useEffect, useRef, useState } from 'react';
 import styles from './TableOfContents.module.css';
+import { IconList } from '@/assets/icons';
 
 export default function TableOfContents({ content, title }) {
   const [headings, setHeadings] = useState([]);
@@ -171,14 +172,16 @@ export default function TableOfContents({ content, title }) {
         aria-label="Tabela de conteúdos"
       >
         <div className={styles.tocContainer}>
-          <h3 className={styles.tocTitle}>Nesta página</h3>
+          <header className={styles.tocHeader}>
+            <IconList size={20} className={styles.tocTitleIcon} />
+            <h3 className={styles.tocTitle}>Nesta página</h3>
+          </header>
           <ul className={styles.tocList}>
             {headings.map((heading, index) => (
               <li
                 key={heading.id + '-' + index}
-                className={`${styles.tocItem} ${styles[`level${heading.level}`]} ${
-                  activeId === heading.id ? styles.active : ''
-                }`}
+                className={`${styles.tocItem} ${styles[`level${heading.level}`]} ${activeId === heading.id ? styles.active : ''
+                  }`}
               >
                 <button
                   onClick={() => handleLinkClick(heading.id)}

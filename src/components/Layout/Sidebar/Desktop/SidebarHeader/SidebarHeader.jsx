@@ -1,9 +1,9 @@
 import styles from './SidebarHeader.module.css';
 
-function SidebarHeader({ icon, title }) {
+function SidebarHeader({ Icon, title }) {
   return (
     <div className={styles.sidebarHeader}>
-      <img src={icon} alt="" className={styles.sidebarHeaderIcon} />
+      <Icon size={20} className={styles.sidebarHeaderIcon} />
       <span className={styles.sidebarHeaderTitle}>{title}</span>
     </div>
   );

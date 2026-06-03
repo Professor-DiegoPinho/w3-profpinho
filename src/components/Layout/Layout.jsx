@@ -51,7 +51,6 @@ export default function Layout({ children, sidebarData = [] }) {
 
   const resolvedCurrentCategory = pathname.split("/").filter(Boolean)[0];
   const resolvedCurrentSlug = pathname.split("/").filter(Boolean)[1];
-  const hasSidebarContent = Boolean(resolvedCurrentCategory);
   const routesWithoutSidebar = [
     "validar-certificado",
     "meu-perfil",
