@@ -8,7 +8,9 @@ import { getCategoryTitle, getPost } from '@/lib/markdown';
 import { getProjectSubmissions } from '@/lib/submissions';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
-import { ProjectSubmissionPage } from './ProjectSubmissionPage';
+import { Content } from './_components/Content/Content';
+import styles from './page.module.css';
+import * as Icons from '@/assets/icons';
 
 export const dynamic = 'force-dynamic';
 
@@ -68,39 +70,26 @@ export default async function ProjectSubmissionPageRoute({ params }) {
 
   return (
     <>
-      <style>{`
-        body {
-          --custom-page-layout: true;
-        }
-      `}</style>
       <div className={styles.page}>
-        <Link
-          href={`/${category}/${slug}`}
-          className={styles.backButton}
-          aria-label="Voltar para a página do projeto"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="currentColor"
-            className={styles.backIcon}
-            aria-hidden="true"
+        <div className={styles.pageContainer}>
+          <Link
+            href={`/${category}/${slug}`}
+            className={styles.backButton}
+            aria-label="Voltar para a página do projeto"
           >
-            <path d="m313-440 196 196q12 12 11.5 28T508-188q-12 11-28 11.5T452-188L188-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l264-264q11-11 27.5-11t28.5 11q12 12 12 28.5T508-715L313-520h447q17 0 28.5 11.5T800-480q0 17-11.5 28.5T760-440H313Z" />
-          </svg>
-          Voltar para o projeto
-        </Link>
+            <Icons.ChevronLeft size={24} />
+            Voltar
+          </Link>
 
-        <div className={styles.content}>
-          <ProjectSubmissionPage
-            category={category}
-            projectTitle={post.title}
-            initialSubmissions={projectSubmissions}
-            userName={userName}
-            userId={userId}
-          />
+          <div className={styles.content}>
+            <Content
+              category={category}
+              projectTitle={post.title}
+              initialSubmissions={projectSubmissions}
+              userName={userName}
+              userId={userId}
+            />
+          </div>
         </div>
       </div>
     </>
