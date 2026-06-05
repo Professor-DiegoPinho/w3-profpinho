@@ -1,4 +1,4 @@
-import ProjectSubmission from '@/components/ProjectSubmission/ProjectSubmission';
+import ProjectSection from '../ProjectSection/ProjectSection';
 import MarkLesson from '@/app/[category]/[slug]/_components/MarkLesson/MarkLesson';
 import styles from './Completion.module.css';
 
@@ -21,13 +21,11 @@ export default function Completion({
   if (slug === 'projeto') {
     return (
       <div className={styles.completion}>
-        <ProjectSubmission
+        <ProjectSection
           courseSlug={category}
-          projectTitle={title}
           initialSubmissions={projectSubmissions}
           userName={userName}
           userId={userId}
-          submitMode="simple"
         />
       </div>
     );

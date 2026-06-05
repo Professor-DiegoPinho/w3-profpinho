@@ -1,0 +1,191 @@
+.history {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(211, 47, 47, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.historyTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--color-bg-base, #fafafa);
+  border: 1px solid var(--color-border, #e0e0e0);
+  transition: all 0.2s ease;
+}
+
+.item:hover {
+  border-color: var(--color-border-strong);
+}
+
+.item[role="button"] {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.item[role="button"]:focus {
+  outline: 2px solid var(--color-brand-accent, #d32f2f);
+  outline-offset: 2px;
+}
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(211, 47, 47, 0.08);
+  flex-shrink: 0;
+  position: relative;
+  color: var(--color-red, #d32f2f);
+}
+
+.statusBadgeApproved {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+}
+
+.statusBadgeRejected {
+  background: rgba(211, 47, 47, 0.12);
+  color: var(--color-red, #d32f2f);
+}
+
+.statusBadgePending {
+  background: rgba(251, 188, 4, 0.08);
+  color: #f57c00;
+}
+
+.statusIcon {
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.statusIconImg {
+  width: 44px;
+  height: 44px;
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.platform {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.date {
+  font-size: 12px;
+  color: var(--color-text-tertiary, #999);
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.link {
+  width: fit-content;
+  font-size: 13px;
+  color: var(--color-text-link);
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--color-text-link-hover);
+  text-decoration: underline;
+}
+
+.feedback {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--color-bg-subtle);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--color-text-secondary, #666);
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.statusLabel {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(211, 47, 47, 0.08);
+  color: var(--color-red, #d32f2f);
+}
+
+.statusLabelApproved {
+  background: rgba(46, 125, 50, 0.12);
+  color: #2e7d32;
+}
+
+.statusLabelRejected {
+  background: rgba(211, 47, 47, 0.12);
+  color: var(--color-red, #d32f2f);
+}
+
+.statusLabelPending {
+  background: rgba(251, 188, 4, 0.08);
+  color: #f57c00;
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .platform {
+    align-self: flex-start;
+  }
+}
