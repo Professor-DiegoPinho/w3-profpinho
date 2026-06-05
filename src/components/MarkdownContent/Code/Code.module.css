@@ -1,0 +1,28 @@
+/* ============================================================================
+   Code — Inline code styles for markdown content
+   ============================================================================ */
+
+.inlineCode {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-brand-primary);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  border: 1px solid var(--color-border);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .inlineCode {
+    font-size: 0.85em;
+    padding: var(--space-1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}

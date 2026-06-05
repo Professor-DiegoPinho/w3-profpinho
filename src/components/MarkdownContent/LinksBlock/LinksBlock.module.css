@@ -1,0 +1,128 @@
+/* ============================================================================
+   LinksBlock — Card-style links section for liquid tag {% links %}
+   ============================================================================ */
+
+.linksBlock {
+  margin: var(--space-6) 0 var(--space-2) 0;
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  padding: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.linksHeading {
+  margin: var(--space-1) 0 var(--space-4);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-brand-primary);
+}
+
+.linksGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+/* ============================================================================
+   LINK CARD
+   ============================================================================ */
+
+.linkCard {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  gap: var(--space-2);
+  min-height: 82px;
+  border: 2px solid var(--color-border);
+  border-left: 6px solid var(--color-brand-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  background: var(--color-bg-subtle);
+  position: relative;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  color: inherit;
+}
+
+.linkCard:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  background: var(--color-bg-muted);
+}
+
+
+
+/* ============================================================================
+   LINK CARD — INTERNALS
+   ============================================================================ */
+
+.linkCardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-right: var(--space-5);
+}
+
+.linkCardIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.linkCardTitle {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: 0.96rem;
+  line-height: var(--line-height-base);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.linkCardDomain {
+  display: inline-block;
+  color: var(--color-text-secondary);
+  font-size: 0.86rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
+  opacity: 0.9;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .linksBlock {
+    margin: var(--space-5) 0 var(--space-2);
+    padding: var(--space-3);
+  }
+
+  .linksHeading {
+    font-size: var(--font-size-md);
+  }
+
+  .linksGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .linkCard {
+    padding: var(--space-2);
+    min-height: 72px;
+  }
+
+  .linkCardHeader {
+    padding-right: var(--space-4);
+  }
+}

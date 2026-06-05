@@ -1,0 +1,30 @@
+/* ============================================================================
+   Lists — Unordered, ordered lists and list items
+   ============================================================================ */
+
+.list {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-5);
+}
+
+.orderedList {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-5);
+}
+
+.listItem {
+  margin-bottom: var(--space-2);
+  color: var(--color-text-primary);
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .list,
+  .orderedList {
+    margin: var(--space-3) 0;
+    padding-left: var(--space-4);
+  }
+}

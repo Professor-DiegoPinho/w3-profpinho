@@ -1,4 +1,4 @@
-import MarkdownContent from '@/app/[category]/[slug]/_components/MarkdownContent/MarkdownContent';
+import MarkdownContent from '@/components/MarkdownContent';
 import TableOfContents from '@/app/[category]/[slug]/_components/TableOfContents/TableOfContents';
 import styles from './Content.module.css';
 

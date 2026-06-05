@@ -1,0 +1,30 @@
+/* ============================================================================
+   Paragraph — Paragraphs and inline text styles
+   ============================================================================ */
+
+.paragraph {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-primary);
+}
+
+.bold {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .paragraph {
+    margin-bottom: var(--space-3);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}

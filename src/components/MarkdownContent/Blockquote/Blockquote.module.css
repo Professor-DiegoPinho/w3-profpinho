@@ -1,0 +1,26 @@
+/* ============================================================================
+   Blockquote — Styled blockquote for markdown content
+   ============================================================================ */
+
+.blockquote {
+  margin: var(--space-5) 0;
+  padding: var(--space-4) var(--space-5);
+  border-left: 4px solid var(--color-success);
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .blockquote {
+    margin: var(--space-4) 0;
+    padding: var(--space-3) var(--space-4);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}

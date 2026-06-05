@@ -473,3 +473,19 @@ export function User({ size, className }) {
     </Icon>
   );
 }
+
+export function ToggleArrow({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path d="M420-308q-8 0-14-5.5t-6-14.5v-304q0-9 6-14.5t14-5.5q2 0 14 6l145 145q5 5 7 10t2 11q0 6-2 11t-7 10L434-314q-3 3-6.5 4.5T420-308Z" fill="currentColor" />
+    </Icon>
+  );
+}
+
+export function Redirect({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h560v-240q0-17 11.5-28.5T800-480q17 0 28.5 11.5T840-440v240q0 33-23.5 56.5T760-120H200Zm560-584L416-360q-11 11-28 11t-28-11q-11-11-11-28t11-28l344-344H600q-17 0-28.5-11.5T560-800q0-17 11.5-28.5T600-840h200q17 0 28.5 11.5T840-800v200q0 17-11.5 28.5T800-560q-17 0-28.5-11.5T760-600v-104Z" fill="currentColor" />
+    </Icon>
+  );
+}
