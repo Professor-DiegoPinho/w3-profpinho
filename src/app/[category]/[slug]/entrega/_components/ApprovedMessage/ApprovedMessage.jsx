@@ -1,20 +1,22 @@
-import ApprovedCertificateSection from "@/components/ApprovedCertificateSection";
+import React from "react";
+import ApprovedCertificateSection from "@/components/ApprovedCertificateSection/ApprovedCertificateSection";
+import styles from "./ApprovedMessage.module.css";
 
 export function ApprovedMessage({ courseSlug }) {
   return (
     <>
-      <div className="project-submission-success-message">
-        <div className="project-submission-success-message-header">
+      <div className={styles.successMessage}>
+        <div className={styles.header}>
           <img
             src="/icons/ic_approved.svg"
             alt="Aprovado"
-            className="project-submission-success-message-icon"
+            className={styles.icon}
           />
-          <p className="project-submission-success-message-title">
+          <p className={styles.title}>
             Projeto Aprovado
           </p>
         </div>
-        <p className="project-submission-success-message-description">
+        <p className={styles.description}>
           Parabéns! Seu projeto foi aprovado. Você não pode mais enviar novas versões.
         </p>
       </div>

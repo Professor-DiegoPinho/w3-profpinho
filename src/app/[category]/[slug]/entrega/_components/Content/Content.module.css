@@ -1,52 +1,9 @@
-.page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-.backButton {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-5) var(--space-6);
-  color: var(--color-brand-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-  border-radius: var(--radius-lg);
-  transition: background-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
-  cursor: pointer;
-  top: 0;
-  z-index: 50;
-  width: fit-content;
-}
-
-.backButton:hover {
-  background-color: var(--color-bg-elevated);
-}
-
-.backIcon {
-  width: var(--space-6);
-  height: var(--space-6);
-}
-
-.content {
-  flex: 1;
-  padding: 0;
-  background: var(--color-bg-subtle);
-  display: flex;
-  justify-content: center;
-}
-
 .container {
   width: 100%;
+  max-width: var(--container-max);
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-  padding: var(--space-10) var(--space-6);
 }
 
 .inner {
@@ -163,9 +120,12 @@
   padding: var(--space-2);
   background: var(--color-bg-subtle);
   font-size: var(--font-size-xs);
-  color: var(--color-danger);
+  color: var(--color-text-secondary);
   line-height: 1.5;
-  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-style: italic;
 }
 
 .nameDisplay {
@@ -243,12 +203,11 @@
   cursor: pointer;
   background: var(--color-brand-primary);
   color: var(--color-text-on-brand);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), opacity var(--transition-base);
+  transition: background-color var(--transition-base);
 }
 
 .submitButton:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-lg);
+  background-color: var(--color-brand-primary-hover);
 }
 
 .submitButton:disabled {
@@ -266,71 +225,10 @@
   animation: spin 0.8s linear infinite;
 }
 
-.successModalOverlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-6);
-  background: var(--color-bg-overlay);
-  z-index: var(--z-modal);
-}
-
-.successModal {
-  width: 100%;
-  max-width: 460px;
-  background: var(--color-bg-elevated);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  text-align: center;
-  box-shadow: var(--shadow-xl);
-}
-
-.successIcon {
-  width: var(--space-16);
-  height: var(--space-16);
-  margin: 0 auto var(--space-4);
-  border-radius: var(--radius-full);
-  display: grid;
-  place-items: center;
-  background: var(--color-bg-subtle);
-  color: var(--color-success);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-}
-
-.successTitle {
-  margin: 0 0 10px;
-  font-size: var(--font-size-xl);
-  color: var(--color-text-primary);
-}
-
-.successDescription {
-  margin: 0 0 var(--space-6);
-  font-size: var(--font-size-sm);
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-}
-
-.successButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: var(--space-2) var(--space-4);
-  border: none;
-  border-radius: var(--radius-full);
-  background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
-  font-weight: var(--font-weight-bold);
-  cursor: pointer;
-  transition: background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
-}
-
-.successButton:hover {
-  background: var(--color-brand-primary-hover);
-  box-shadow: var(--shadow-md);
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 720px) {
@@ -355,13 +253,5 @@
 
   .submitButton {
     width: 100%;
-  }
-
-  .successModal {
-    padding: var(--space-6);
-  }
-
-  .successTitle {
-    font-size: var(--font-size-lg);
   }
 }

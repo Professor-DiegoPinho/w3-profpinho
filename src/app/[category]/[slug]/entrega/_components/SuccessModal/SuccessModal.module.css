@@ -1,0 +1,76 @@
+.successModalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: var(--color-bg-overlay);
+  z-index: var(--z-modal);
+}
+
+.successModal {
+  width: 100%;
+  max-width: 460px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+}
+
+.successIcon {
+  width: var(--space-16);
+  height: var(--space-16);
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-full);
+  display: grid;
+  place-items: center;
+  background: var(--color-bg-subtle);
+  color: var(--color-success);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.successTitle {
+  margin: 0 0 10px;
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+}
+
+.successDescription {
+  margin: 0 0 var(--space-6);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.successButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.successButton:hover {
+  background: var(--color-brand-primary-hover);
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 720px) {
+  .successModal {
+    padding: var(--space-6);
+  }
+
+  .successTitle {
+    font-size: var(--font-size-lg);
+  }
+}

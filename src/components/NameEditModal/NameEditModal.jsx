@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import './NameEditModal.css';
+import styles from './NameEditModal.module.css';
+import * as Icons from '@/assets/icons';
 
 export function NameEditModal({
   isOpen,
@@ -55,17 +56,19 @@ export function NameEditModal({
   if (!isOpen) return null;
 
   return (
-    <div className="name-edit-overlay">
-      <div className="name-edit-modal">
-        <h3 className="name-edit-title">✏️ Editar Nome</h3>
+    <div className={styles.overlay}>
+      <div className={styles.modal}>
+        <h3 className={styles.title}>
+          <Icons.Edit size={20} /> Editar Nome
+        </h3>
 
-        <div className="name-edit-content">
-          <p className="name-edit-hint">
+        <div className={styles.content}>
+          <p className={styles.hint}>
             Este é o nome que aparecerá no seu certificado. Use seu nome completo.
           </p>
 
-          <div className="name-edit-form-group">
-            <label htmlFor="name-input" className="name-edit-label">
+          <div className={styles.formGroup}>
+            <label htmlFor="name-input" className={styles.label}>
               Seu nome completo
             </label>
             <input
@@ -74,35 +77,35 @@ export function NameEditModal({
               value={editedName}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              className={`name-edit-input ${error ? 'name-edit-input--error' : ''}`}
+              className={`${styles.input} ${error ? styles.inputError : ''}`}
               placeholder="Digite seu nome"
               disabled={loading}
               autoFocus
             />
             {error && (
-              <p className="name-edit-error">{error}</p>
+              <p className={styles.error}>{error}</p>
             )}
             {!error && editedName && (
-              <p className="name-edit-char-count">
+              <p className={styles.charCount}>
                 {trimmedName.length} caracteres
               </p>
             )}
           </div>
 
-          <div className="name-edit-preview">
-            <p className="name-edit-preview-label">Prévia no certificado:</p>
-            <p className="name-edit-preview-text">
+          <div className={styles.preview}>
+            <p className={styles.previewLabel}>Prévia no certificado:</p>
+            <p className={styles.previewText}>
               {trimmedName || '(seu nome aqui)'}
             </p>
           </div>
         </div>
 
-        <div className="name-edit-actions">
+        <div className={styles.actions}>
           <button
             type="button"
             onClick={handleCancel}
             disabled={loading}
-            className="name-edit-btn name-edit-btn-cancel"
+            className={`${styles.btn} ${styles.btnCancel}`}
           >
             Cancelar
           </button>
@@ -110,12 +113,12 @@ export function NameEditModal({
             type="button"
             onClick={handleConfirm}
             disabled={isSubmitDisabled}
-            className="name-edit-btn name-edit-btn-confirm"
+            className={`${styles.btn} ${styles.btnConfirm}`}
             title={!isNameValid ? 'Nome deve ter no mínimo 3 caracteres' : !isNameChanged ? 'Nenhuma alteração no nome' : 'Salvar novo nome'}
           >
             {loading ? (
               <>
-                <span className="name-edit-spinner" aria-hidden="true" />
+                <span className={styles.spinner} aria-hidden="true" />
                 Salvando...
               </>
             ) : (

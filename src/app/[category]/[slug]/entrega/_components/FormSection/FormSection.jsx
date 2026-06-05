@@ -1,3 +1,6 @@
+import React from "react";
+import styles from "./FormSection.module.css";
+
 export function FormSection({
   url,
   setUrl,
@@ -13,26 +16,26 @@ export function FormSection({
   showSubmitButton = true,
 }) {
   return (
-    <form onSubmit={onSubmit} className="project-submission-form">
-      <div className="project-submission-form-group">
-        <div className="project-submission-input-wrapper">
+    <form onSubmit={onSubmit} className={styles.form}>
+      <div className={styles.formGroup}>
+        <div className={styles.inputWrapper}>
           <input
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="Cole o link do seu projeto (ex: https://github.com/seu-repo)"
-            className="project-submission-input"
+            className={styles.input}
             disabled={loading || submitCheckLoading || !canSubmit || hasPendingSubmission}
             aria-label="URL de entrega do projeto"
           />
         </div>
 
-        <div className="project-submission-input-wrapper">
+        <div className={styles.inputWrapper}>
           <textarea
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             placeholder="Adicione comentários ou feedback sobre o projeto (opcional)"
-            className="project-submission-textarea"
+            className={styles.textarea}
             disabled={loading || submitCheckLoading || !canSubmit || hasPendingSubmission}
             rows="4"
             aria-label="Feedback ou comentários sobre o projeto"
@@ -40,13 +43,13 @@ export function FormSection({
         </div>
 
         {error && (
-          <p className="project-submission-error" role="alert">
+          <p className={styles.error} role="alert">
             {error}
           </p>
         )}
 
         {successMessage && (
-          <p className="project-submission-success" role="status">
+          <p className={styles.success} role="status">
             {successMessage}
           </p>
         )}
@@ -56,7 +59,7 @@ export function FormSection({
         <button
           type="submit"
           disabled={loading || !url.trim() || submitCheckLoading || !canSubmit || hasPendingSubmission}
-          className="project-submission-btn"
+          className={styles.btn}
           aria-label="Enviar entrega do projeto"
           title={
             hasPendingSubmission
@@ -68,12 +71,12 @@ export function FormSection({
         >
           {loading ? (
             <>
-              <span className="project-submission-spinner" aria-hidden="true" />
+              <span className={styles.spinner} aria-hidden="true" />
               Enviando...
             </>
           ) : submitCheckLoading ? (
             <>
-              <span className="project-submission-spinner" aria-hidden="true" />
+              <span className={styles.spinner} aria-hidden="true" />
               Verificando...
             </>
           ) : !canSubmit ? (

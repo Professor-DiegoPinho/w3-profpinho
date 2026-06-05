@@ -2,7 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import "./ApprovedCertificateSection.css";
+import styles from "./ApprovedCertificateSection.module.css";
+import * as Icons from '@/assets/icons';
 
 export default function ApprovedCertificateSection({ courseSlug, courseName = "", workloadHours = 0 }) {
   const { data: session } = useSession();
@@ -79,50 +80,55 @@ export default function ApprovedCertificateSection({ courseSlug, courseName = ""
   }
 
   return (
-    <div className="approved-certificate-section">
-      <div className="approved-certificate-container">
-        <div className="approved-certificate-header">
-          <span className="approved-certificate-icon">🎓</span>
+    <div className={styles.approvedCertificateSection}>
+      <div className={styles.approvedCertificateContainer}>
+        <div className={styles.approvedCertificateHeader}>
+          <Icons.Diploma size={48} className={styles.approvedCertificateIcon} />
           <div>
-            <h4 className="approved-certificate-title">Seu Certificado</h4>
-            <p className="approved-certificate-subtitle">
+            <h4 className={styles.approvedCertificateTitle}>Seu Certificado</h4>
+            <p className={styles.approvedCertificateSubtitle}>
               Baixe seu certificado ou compartilhe o link de validação
             </p>
           </div>
         </div>
 
-        <div className="approved-certificate-info">
-          <div className="approved-certificate-detail">
-            <span className="approved-certificate-label">ID do Certificado:</span>
-            <code className="approved-certificate-code">{certificate.certificateId}</code>
+        <div className={styles.approvedCertificateInfo}>
+          <div className={styles.approvedCertificateDetail}>
+            <span className={styles.approvedCertificateLabel}>ID do Certificado:</span>
+            <code className={styles.approvedCertificateCode}>{certificate.certificateId}</code>
           </div>
-          <div className="approved-certificate-detail">
-            <span className="approved-certificate-label">Emitido em:</span>
+          <div className={styles.approvedCertificateDetail}>
+            <span className={styles.approvedCertificateLabel}>Emitido em:</span>
             <span>{new Date(certificate.generatedAt).toLocaleDateString("pt-BR")}</span>
           </div>
         </div>
 
-        <div className="approved-certificate-actions">
+        <div className={styles.approvedCertificateActions}>
           <button
-            className="approved-certificate-btn approved-certificate-btn-download"
+            className={`${styles.approvedCertificateBtn} ${styles.approvedCertificateBtnDownload}`}
             onClick={handleDownload}
             disabled={downloading}
             title="Baixar certificado em PDF"
           >
-            📥 {downloading ? "Baixando..." : "Baixar PDF"}
+            <Icons.Download size={24} /> {downloading ? "Baixando..." : "Baixar PDF"}
           </button>
           <button
-            className={`approved-certificate-btn approved-certificate-btn-copy ${
-              copiedValidationUrl ? "approved-certificate-btn-copied" : ""
-            }`}
+            className={`${styles.approvedCertificateBtn} ${styles.approvedCertificateBtnCopy} ${copiedValidationUrl ? styles.approvedCertificateBtnCopied : ""
+              }`}
             onClick={handleCopyValidationUrl}
             title="Copiar link de validação"
           >
-            {copiedValidationUrl ? "✓ Link Copiado!" : "🔗 Compartilhar Link"}
+            {copiedValidationUrl ?
+              <>
+                <Icons.Check size={24} /> Link Copiado!
+              </>
+              : <>
+                <Icons.Copy size={24} /> Compartilhar Link
+              </>}
           </button>
         </div>
 
-        <p className="approved-certificate-hint">
+        <p className={styles.approvedCertificateHint}>
           Compartilhe o link no LinkedIn ou em sua rede profissional para validar seu certificado
         </p>
       </div>

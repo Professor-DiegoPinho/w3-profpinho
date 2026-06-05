@@ -1,17 +1,18 @@
 'use client';
 
-import { NameEditModal } from '@/components/NameEditModal/NameEditModal';
-import { ApprovedMessage } from '@/components/ProjectSubmission/components/ApprovedMessage';
-import { FormSection } from '@/components/ProjectSubmission/components/FormSection';
-import { useDebounce } from '@/components/ProjectSubmission/hooks/useDebounce';
-import '@/components/ProjectSubmission/ProjectSubmission.css';
-import { validateUrl } from '@/lib/urlValidation';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import styles from './ProjectSubmissionPage.module.css';
+import { NameEditModal } from '@/components/NameEditModal/NameEditModal';
+import { ApprovedMessage } from '../ApprovedMessage/ApprovedMessage';
+import { FormSection } from '../FormSection/FormSection';
+import { useDebounce } from '../useDebounce';
+import { SuccessModal } from '../SuccessModal/SuccessModal';
+import { validateUrl } from '@/lib/urlValidation';
+import styles from './Content.module.css';
+import * as Icons from '@/assets/icons';
 
-export function ProjectSubmissionPage({
+export function Content({
   category,
   projectTitle = 'Projeto',
   initialSubmissions = [],
@@ -30,9 +31,6 @@ export function ProjectSubmissionPage({
   const [missingLessons, setMissingLessons] = useState([]);
   const [hasPendingSubmission, setHasPendingSubmission] = useState(false);
   const [hasApprovedSubmission, setHasApprovedSubmission] = useState(false);
-  const [approvedSubmission, setApprovedSubmission] = useState(null);
-  const [selectedSubmission, setSelectedSubmission] = useState(null);
-  const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [displayUserName, setDisplayUserName] = useState(userName);
   const [isNameEditOpen, setIsNameEditOpen] = useState(false);
   const [isLoadingNameEdit, setIsLoadingNameEdit] = useState(false);
@@ -56,9 +54,6 @@ export function ProjectSubmissionPage({
   useEffect(() => {
     const approved = Array.isArray(submissions) && submissions.find((sub) => sub.status === 'approved');
     setHasApprovedSubmission(!!approved);
-    if (approved) {
-      setApprovedSubmission(approved);
-    }
   }, [submissions]);
 
   // Redirecionar se há submissão pendente
@@ -132,18 +127,8 @@ export function ProjectSubmissionPage({
         setLoading(false);
       }
     },
-    [canSubmit, debouncedUrl, platform, category]
+    [canSubmit, debouncedUrl, platform, category, feedback]
   );
-
-  const handleOpenDetails = useCallback((submission) => {
-    setSelectedSubmission(submission);
-    setShowDetailsModal(true);
-  }, []);
-
-  const handleCloseDetails = useCallback(() => {
-    setShowDetailsModal(false);
-    setSelectedSubmission(null);
-  }, []);
 
   const handleNameChange = (newName) => {
     setDisplayUserName(newName);
@@ -171,11 +156,11 @@ export function ProjectSubmissionPage({
 
       const data = await response.json();
       setDisplayUserName(data.name);
-      
-      await updateSession({ 
+
+      await updateSession({
         trigger: 'update',
       });
-      
+
       setIsNameEditOpen(false);
       handleNameChange(data.name);
     } catch (error) {
@@ -191,23 +176,7 @@ export function ProjectSubmissionPage({
 
   return (
     <>
-      {showSuccessModal && (
-        <div className={styles.successModalOverlay}>
-          <div className={styles.successModal}>
-            <div className={styles.successIcon}>✓</div>
-            <h2 className={styles.successTitle}>Projeto Enviado com Sucesso!</h2>
-            <p className={styles.successDescription}>
-              Seu projeto foi enviado e está em análise. Você será notificado quando o professor avaliar.
-            </p>
-            <button
-              className={styles.successButton}
-              onClick={handleReturnToProject}
-            >
-              Retornar para a tela do projeto
-            </button>
-          </div>
-        </div>
-      )}
+      <SuccessModal show={showSuccessModal} onReturn={handleReturnToProject} />
 
       <div className={styles.container}>
         <div className={styles.inner}>
@@ -289,7 +258,7 @@ export function ProjectSubmissionPage({
                       <div className={styles.nameCheck}>
                         <span><strong>Verificar nome no certificado:</strong> confirmo que meu nome está completo e correto</span>
                         <p className={styles.nameWarning}>
-                          ⚠️ Após a entrega, o nome não poderá ser alterado. Verifique se está completo e correto.
+                          <Icons.Warning size={14} /> Após a entrega, o nome não poderá ser alterado. Verifique se está completo e correto.
                         </p>
                         <div className={styles.nameDisplay}>
                           <span className={styles.nameLabel}>Seu nome no certificado:</span>
@@ -331,10 +300,10 @@ export function ProjectSubmissionPage({
                     hasPendingSubmission
                       ? "Aguarde a análise da submissão anterior"
                       : !url.trim()
-                      ? "Preencha o link da entrega"
-                      : !allConfirmationsChecked
-                      ? "Confirme todos os itens antes de enviar"
-                      : "Enviar entrega do projeto"
+                        ? "Preencha o link da entrega"
+                        : !allConfirmationsChecked
+                          ? "Confirme todos os itens antes de enviar"
+                          : "Enviar entrega do projeto"
                   }
                 >
                   {loading ? (
