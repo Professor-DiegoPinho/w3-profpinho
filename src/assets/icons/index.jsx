@@ -220,7 +220,7 @@ export function Close({ size, className }) {
 
 export function Copy({ size, className }) {
   return (
-    <Icon size={size} className={className}>
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
       <path
         d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Z"
         fill="currentColor"
@@ -242,7 +242,7 @@ export function Courses({ size, className }) {
 
 export function Download({ size, className }) {
   return (
-    <Icon size={size} className={className}>
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
       <path
         d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM160-160v-200h80v120h480v-120h80v200H160Z"
         fill="currentColor"
@@ -253,7 +253,7 @@ export function Download({ size, className }) {
 
 export function Edit({ size, className }) {
   return (
-    <Icon size={size} className={className}>
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
       <path
         d="M160-120q-17 0-28.5-11.5T120-160v-97q0-16 6-30.5t17-25.5l505-504q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L313-143q-11 11-25.5 17t-30.5 6h-97Zm544-528 56-56-56-56-56 56 56 56Z"
         fill="currentColor"
@@ -486,6 +486,38 @@ export function Redirect({ size, className }) {
   return (
     <Icon size={size} className={className} viewBox="0 -960 960 960">
       <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h560v-240q0-17 11.5-28.5T800-480q17 0 28.5 11.5T840-440v240q0 33-23.5 56.5T760-120H200Zm560-584L416-360q-11 11-28 11t-28-11q-11-11-11-28t11-28l344-344H600q-17 0-28.5-11.5T560-800q0-17 11.5-28.5T600-840h200q17 0 28.5 11.5T840-800v200q0 17-11.5 28.5T800-560q-17 0-28.5-11.5T760-600v-104Z" fill="currentColor" />
+    </Icon>
+  );
+}
+
+export function Warning({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path d="M109-120q-11 0-20-5.5T75-140q-5-9-5.5-19.5T75-180l370-640q6-10 15.5-15t19.5-5q10 0 19.5 5t15.5 15l370 640q6 10 5.5 20.5T885-140q-5 9-14 14.5t-20 5.5H109Zm69-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5Zm0-120Q520-383 520-400v-120q0-17-11.5-28.5T480-560q-17 0-28.5 11.5T440-520v120q0 17 11.5 28.5T480-360q17 0 28.5-11.5ZM480-460Z" fill="currentColor" />
+    </Icon>
+  );
+}
+
+export function Hourglass({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path fill="currentColor" d="M320-160h320v-120q0-66-47-113t-113-47q-66 0-113 47t-47 113v120Zm273-407q47-47 47-113v-120H320v120q0 66 47 113t113 47q66 0 113-47ZM200-80q-17 0-28.5-11.5T160-120q0-17 11.5-28.5T200-160h40v-120q0-61 28.5-114.5T348-480q-51-32-79.5-85.5T240-680v-120h-40q-17 0-28.5-11.5T160-840q0-17 11.5-28.5T200-880h560q17 0 28.5 11.5T800-840q0 17-11.5 28.5T760-800h-40v120q0 61-28.5 114.5T612-480q51 32 79.5 85.5T720-280v120h40q17 0 28.5 11.5T800-120q0 17-11.5 28.5T760-80H200Zm280-80Zm0-640Z" />
+    </Icon>
+  );
+}
+
+export function Denied({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path fill="currentColor" d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
+    </Icon>
+  );
+}
+
+export function Diploma({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path fill="currentColor" d="M242-249q-20-11-31-29.5T200-320v-192l-96-53q-11-6-16-15t-5-20q0-11 5-20t16-15l338-184q9-5 18.5-7.5T480-829q10 0 19.5 2.5T518-819l381 208q10 5 15.5 14.5T920-576v256q0 17-11.5 28.5T880-280q-17 0-28.5-11.5T840-320v-236l-80 44v192q0 23-11 41.5T718-249L518-141q-9 5-18.5 7.5T480-131q-10 0-19.5-2.5T442-141L242-249Zm238-203 274-148-274-148-274 148 274 148Zm0 241 200-108v-151l-161 89q-9 5-19 7.5t-20 2.5q-10 0-20-2.5t-19-7.5l-161-89v151l200 108Zm0-241Zm0 121Zm0 0Z" />
     </Icon>
   );
 }
