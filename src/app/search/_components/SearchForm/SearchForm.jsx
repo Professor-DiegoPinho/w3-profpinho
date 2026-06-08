@@ -14,7 +14,7 @@ export default function SearchForm({
   return (
     <form onSubmit={handleSearch} className={styles.form}>
       <div className={styles.formRow}>
-        <div className={styles.formGroup}>
+        <div className={`${styles.formGroup} ${styles.inputGroup}`}>
           <input
             type="text"
             value={query}

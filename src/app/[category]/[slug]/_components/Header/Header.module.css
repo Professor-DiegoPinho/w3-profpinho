@@ -28,12 +28,9 @@
   text-decoration: none;
   white-space: nowrap;
   transition: color var(--transition-fast);
-  background-color: var(--color-bg-elevated);
   height: inherit;
   line-height: var(--space-12);
   padding: 0 var(--space-2);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-border);
 }
 
 .categoryLink:hover {
@@ -50,12 +47,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background-color: var(--color-bg-elevated);
   height: inherit;
   line-height: var(--space-12);
   padding: 0 var(--space-2);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-border);
 }
 
 /* ---- Action buttons (nav + bookmark) ---- */
@@ -110,19 +104,14 @@
 .titleGroup {
   flex: 1;
   min-width: 0;
-  background-color: var(--color-bg-elevated);
-  padding: var(--space-3);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-border);
 }
 
 .header h1 {
   color: var(--color-text-primary);
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-4xl);
   margin-bottom: var(--space-2);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
-  border-bottom: 2px solid var(--color-brand-primary);
 }
 
 .description {

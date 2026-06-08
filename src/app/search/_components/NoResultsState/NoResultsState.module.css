@@ -2,31 +2,31 @@
 
 .noResultsState {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: var(--space-16) var(--space-8);
 }
 
 .noResultsIcon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--space-4);
 }
 
 .noResultsState h3 {
-  font-size: 1.5rem;
-  color: var(--color-text-black);
-  margin-bottom: 1rem;
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
 }
 
 .noResultsState p {
-  color: var(--color-text-light-black);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--space-8);
 }
 
 .suggestions {
-  background: var(--color-gray);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-top: 2rem;
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  margin-top: var(--space-8);
   text-align: left;
   max-width: 400px;
   margin-left: auto;
@@ -34,9 +34,9 @@
 }
 
 .suggestions h4 {
-  color: var(--color-text-black);
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-md);
 }
 
 .suggestions ul {
@@ -46,15 +46,15 @@
 }
 
 .suggestions li {
-  padding: 0.5rem 0;
-  color: var(--color-text-light-black);
+  padding: var(--space-2) 0;
+  color: var(--color-text-secondary);
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: var(--space-6);
 }
 
 .suggestions li::before {
   content: "•";
-  color: var(--color-green);
+  color: var(--color-success);
   font-weight: bold;
   position: absolute;
   left: 0;

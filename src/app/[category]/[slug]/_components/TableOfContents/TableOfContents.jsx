@@ -3,7 +3,7 @@
 import { generateId } from '@/lib/generateId';
 import { useEffect, useRef, useState } from 'react';
 import styles from './TableOfContents.module.css';
-import { List } from '@/assets/icons';
+import * as Icons from '@/assets/icons';
 
 export default function TableOfContents({ content, title }) {
   const [headings, setHeadings] = useState([]);
@@ -150,19 +150,7 @@ export default function TableOfContents({ content, title }) {
         aria-label="Alternar Tabela de Conteúdos"
         aria-expanded={isOpen}
       >
-        <svg
-          className={styles.tocToggleIcon}
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
+        <Icons.ChevronLeft size={20} className={styles.tocToggleIcon} />
       </button>
 
       {/* TOC Container with Slide Animation */}
@@ -173,7 +161,7 @@ export default function TableOfContents({ content, title }) {
       >
         <div className={styles.tocContainer}>
           <header className={styles.tocHeader}>
-            <List size={20} className={styles.tocTitleIcon} />
+            <Icons.List size={20} className={styles.tocTitleIcon} />
             <h3 className={styles.tocTitle}>Nesta página</h3>
           </header>
           <ul className={styles.tocList}>

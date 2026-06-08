@@ -1,4 +1,6 @@
 .completion {
-  margin-top: var(--space-6);
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
   width: 100%;
 }

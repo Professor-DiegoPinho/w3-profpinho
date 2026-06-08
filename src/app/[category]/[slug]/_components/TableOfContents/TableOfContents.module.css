@@ -4,21 +4,22 @@
   position: fixed;
   right: 0;
   top: var(--header-height);
-  width: var(--sidebar-width);
-  height: calc(100vh - var(--header-height));
+  width: fit-content;
+  max-width: var(--sidebar-width);
+  height: fit-content;
+  max-height: calc(100vh - var(--header-height));
   overflow-y: auto;
-  background-color: var(--color-bg-elevated);
-  border-left: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
   z-index: var(--z-sidebar);
+  padding-right: var(--space-2);
 }
 
 .tocHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: var(--space-3);
-  padding: var(--space-4) var(--space-3);
-  border-bottom: 2px solid var(--color-brand-primary);
+  padding: var(--space-4) 0;
 }
 
 .tocTitleIcon {
@@ -90,7 +91,9 @@
   color: var(--color-brand-primary);
   border-left-color: var(--color-brand-primary);
   background-color: var(--color-bg-subtle);
-  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  /* font-weight: var(--font-weight-semibold); */
 }
 
 /* Scrollbar styling for TOC */
@@ -121,11 +124,11 @@
     bottom: 0;
     width: 320px;
     max-width: 320px;
+    height: 100vh;
     max-height: 100vh;
     margin: 0;
     padding: 0;
     background: transparent;
-    border: none !important;
     transform: translateX(100%);
     transition: transform var(--transition-base);
     z-index: var(--z-overlay);
@@ -141,8 +144,6 @@
     background: linear-gradient(135deg, var(--color-bg-elevated) 0%, var(--color-bg-base) 100%);
     border-left: 1px solid var(--color-border);
     border-radius: 0;
-    padding: var(--space-8) var(--space-5);
-    padding-top: 80px;
     height: 100%;
     box-shadow: var(--shadow-md);
     display: flex;
@@ -155,11 +156,11 @@
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     color: var(--color-text-primary);
-    margin-bottom: var(--space-6);
     letter-spacing: 0.7px;
-    margin-top: 0;
-    padding-bottom: var(--space-4);
-    border-bottom: 2px solid var(--color-border);
+  }
+
+  .tocHeader {
+    padding: var(--space-6) var(--space-4);
   }
 
   .tocList {
@@ -171,16 +172,11 @@
     margin: 0;
   }
 
-  .tocItem.level2 .tocLink,
-  .tocItem.level3 .tocLink,
-  .tocItem.level4 .tocLink {
-    font-size: var(--font-size-sm);
-    padding-left: 0;
-  }
+
 
   .tocLink {
     display: block;
-    padding: 0.65rem var(--space-4) 0.65rem var(--space-6);
+    padding: var(--space-4) var(--space-2);
     color: var(--color-text-secondary);
     background: none;
     border: none;
@@ -190,24 +186,15 @@
     border-left: 2px solid transparent;
     margin: 0.35rem 0;
     font-size: 0.95rem;
-    border-radius: var(--radius-sm);
     border-bottom: none;
-  }
-
-  .tocLink:hover {
-    background-color: rgba(4, 170, 109, 0.12);
-    color: var(--color-success);
-    transform: translateX(-4px);
   }
 
   .tocItem.active .tocLink {
-    background-color: rgba(4, 170, 109, 0.18);
-    color: var(--color-success);
-    border-left: 2px solid var(--color-success);
-    font-weight: var(--font-weight-semibold);
-    box-shadow: inset 0 0 0 1px rgba(4, 170, 109, 0.2);
+    border-bottom: 2px solid var(--color-brand-primary);
+    border-left: none;
+    font-weight: var(--font-weight-normal);
+    text-decoration: none;
     padding-left: var(--space-4);
-    border-bottom: none;
   }
 
   /* Mobile Toggle Button - visible on tablet and smaller */
@@ -231,16 +218,8 @@
     box-shadow: var(--shadow-lg);
   }
 
-  .tocMobileToggle:hover {
-    background: var(--color-success);
-    color: var(--color-bg-elevated);
-    box-shadow: 0 6px 16px rgba(4, 170, 109, 0.3);
-    transform: scale(1.05);
-  }
-
   .tocMobileToggle.open {
-    background: var(--color-success);
-    color: var(--color-bg-elevated);
+    color: var(--color-success);
     width: 50px;
     height: 50px;
   }
@@ -250,7 +229,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-bg-elevated);
   }
 
   .tocMobileToggle.open .tocToggleIcon {

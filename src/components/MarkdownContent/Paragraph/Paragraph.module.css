@@ -5,6 +5,7 @@
 .paragraph {
   margin-bottom: var(--space-4);
   color: var(--color-text-primary);
+  font-size: var(--font-size-base);
 }
 
 .bold {

@@ -2,40 +2,40 @@
 /* This module only contains styles for the page layout and grid */
 
 .page {
-  max-width: 1100px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--space-4);
 }
 
 .header {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-6);
 }
 
 .header h1 {
-  font-size: 2.5rem;
-  color: var(--color-text-black);
-  margin-bottom: 1.5rem;
-  font-weight: 700;
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-weight-bold);
 }
 
 .resultsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
 }
 
 @media (max-width: 768px) {
   .page {
-    padding: 1rem;
+    padding: var(--space-2);
   }
 
   .header h1 {
-    font-size: 2rem;
+    font-size: var(--font-size-2xl);
   }
 
   .resultsGrid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 }
