@@ -1,4 +1,5 @@
 import { adminDb } from "@/lib/firebaseAdmin";
+import { convertTimestamp } from "./format";
 
 export async function getUsers() {
   try {
@@ -11,14 +12,14 @@ export async function getUsers() {
         userId: doc.id,
         name: data.name || "N/A",
         email: data.email || "N/A",
-        createdAt: data.createdAt,
-        lastLoginAt: data.lastLoginAt,
+        createdAt: convertTimestamp(data.createdAt),
+        lastLoginAt: convertTimestamp(data.lastLoginAt),
       });
     }
 
     return users.sort((a, b) => {
-      const aTime = a.createdAt?.toMillis?.() ?? 0;
-      const bTime = b.createdAt?.toMillis?.() ?? 0;
+      const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
       return bTime - aTime;
     });
   } catch (error) {
