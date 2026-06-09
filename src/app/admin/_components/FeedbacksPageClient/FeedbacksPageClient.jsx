@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { FeedbackCard } from "../FeedbackCard";
-import { FeedbackInfoModal } from "../FeedbackInfoModal";
+import { FeedbackCard } from "../FeedbackCard/FeedbackCard";
+import { FeedbackInfoModal } from "../FeedbackInfoModal/FeedbackInfoModal";
+import styles from "./FeedbacksPageClient.module.css";
 
 export function FeedbacksPageClient({ feedbacks }) {
   const [expandedFeedbackId, setExpandedFeedbackId] = useState(null);
@@ -10,9 +11,9 @@ export function FeedbacksPageClient({ feedbacks }) {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "20px" }}>
+      <div className={styles.infoWrapper}>
         <button
-          className="admin-feedbacks-info-button"
+          className={styles.infoButton}
           onClick={() => setShowInfoModal(true)}
           title="Ver informações sobre o feedback"
         >

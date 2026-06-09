@@ -1,0 +1,19 @@
+.dashboardContainer {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.dashboardTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .dashboardTitle {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-6);
+  }
+}

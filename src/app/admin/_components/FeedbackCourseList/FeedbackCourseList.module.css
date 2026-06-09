@@ -1,0 +1,118 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.statCard {
+  background: linear-gradient(135deg, var(--color-bg-base) 0%, var(--color-bg-subtle) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.statLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statValue {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-3);
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-bg-elevated);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  text-decoration: none;
+  color: inherit;
+  transition: all var(--transition-slow);
+  cursor: pointer;
+  gap: var(--space-4);
+}
+
+.card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.cardTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+  flex: 1;
+}
+
+.npsBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  flex-shrink: 0;
+}
+
+.promoter {
+  background-color: rgba(4, 170, 109, 0.1);
+  color: var(--color-success);
+  border: 2px solid var(--color-success);
+}
+
+.passive {
+  background-color: rgba(255, 190, 21, 0.1);
+  color: #856404;
+  border: 2px solid var(--color-warning);
+}
+
+:global([data-theme="dark"]) .passive {
+  color: var(--color-warning);
+}
+
+.detractor {
+  background-color: rgba(243, 76, 97, 0.1);
+  color: var(--color-brand-primary);
+  border: 2px solid var(--color-brand-primary);
+}
+
+@media (max-width: 768px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .npsBadge {
+    align-self: flex-start;
+  }
+}

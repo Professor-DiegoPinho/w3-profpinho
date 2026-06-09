@@ -1,0 +1,29 @@
+.container {
+  padding: var(--space-5);
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.empty {
+  padding: var(--space-10);
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-sm);
+}

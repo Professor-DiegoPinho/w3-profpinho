@@ -1,0 +1,25 @@
+.usuariosContainer {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.usuariosTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-6);
+}
+
+.usuariosInfo {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .usuariosTitle {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-4);
+  }
+}
