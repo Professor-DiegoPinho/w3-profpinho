@@ -124,93 +124,112 @@ export default function SearchBox({ className = '' }) {
 
   return (
     <div className={`search-container ${className}`.trim()} ref={searchRef}>
-      <div className="search-input-wrapper">
-        <input
-          type="text"
-          placeholder="Buscar no conteúdo..."
-          value={query}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          onFocus={handleInputFocus}
-          className="search-input"
-          autoComplete="off"
-        />
+      <button
+        className="search-mobile-button"
+        onClick={() => router.push('/search')}
+        aria-label="Buscar"
+        title="Buscar"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
 
-        <div className="search-icon">
-          {isLoading ? (
-            <div className="search-loading">
-              <div className="loading-spinner"></div>
-            </div>
-          ) : (
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          )}
-        </div>
-      </div>
+      <div className="search-desktop-wrapper">
+        <div className="search-input-wrapper">
+          <input
+            type="text"
+            placeholder="Buscar no conteúdo..."
+            value={query}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            onFocus={handleInputFocus}
+            className="search-input"
+            autoComplete="off"
+          />
 
-      {isOpen && (
-        <div className="search-results" ref={resultsRef}>
-          {results.length > 0 ? (
-            <>
-              <div className="search-results-list">
-                {results.map((result, index) => (
-                  <div
-                    key={`${result.category}-${result.slug}`}
-                    className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`.trim()}
-                    onClick={() => handleResultClick(result)}
-                  >
-                    <div className="search-result-content">
-                      <div className="search-result-header">
-                        <h4 className="search-result-title">
-                          <span dangerouslySetInnerHTML={{ __html: result.matches?.find(m => m.type === 'title')?.text || result.title }} />
-                        </h4>
-                        <span className="search-result-category">{result.category}</span>
-                      </div>
-
-                      {result.description && (
-                        <p className="search-result-description">
-                          <span dangerouslySetInnerHTML={{
-                            __html: result.matches?.find(m => m.type === 'description')?.text || result.description
-                          }} />
-                        </p>
-                      )}
-
-                      {result.excerpt && (
-                        <p className="search-result-excerpt">
-                          <span dangerouslySetInnerHTML={{ __html: result.excerpt }} />
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ))}
+          <div className="search-icon">
+            {isLoading ? (
+              <div className="search-loading">
+                <div className="loading-spinner"></div>
               </div>
-
-              {results.length >= 8 && (
-                <div className="search-results-footer">
-                  <button
-                    onClick={handleViewAllResults}
-                    className="view-all-button"
-                  >
-                    Ver todos os resultados para &quot;{query}&quot;
-                  </button>
-                </div>
-              )}
-            </>
-          ) : query.trim().length >= 2 && !isLoading ? (
-            <div className="search-no-results">
-              <p>Nenhum resultado encontrado para &quot;{query}&quot;</p>
-              <p className="search-suggestion">Tente usar palavras-chave diferentes</p>
-            </div>
-          ) : null}
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M21 21L16.514 16.506L21 21ZM19 10.5C19 15.194 15.194 19 10.5 19C5.806 19 2 15.194 2 10.5C2 5.806 5.806 2 10.5 2C15.194 2 19 5.806 19 10.5Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </div>
         </div>
-      )}
+
+        {isOpen && (
+          <div className="search-results" ref={resultsRef}>
+            {results.length > 0 ? (
+              <>
+                <div className="search-results-list">
+                  {results.map((result, index) => (
+                    <div
+                      key={`${result.category}-${result.slug}`}
+                      className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`.trim()}
+                      onClick={() => handleResultClick(result)}
+                    >
+                      <div className="search-result-content">
+                        <div className="search-result-header">
+                          <h4 className="search-result-title">
+                            <span dangerouslySetInnerHTML={{ __html: result.matches?.find(m => m.type === 'title')?.text || result.title }} />
+                          </h4>
+                          <span className="search-result-category">{result.category}</span>
+                        </div>
+
+                        {result.description && (
+                          <p className="search-result-description">
+                            <span dangerouslySetInnerHTML={{
+                              __html: result.matches?.find(m => m.type === 'description')?.text || result.description
+                            }} />
+                          </p>
+                        )}
+
+                        {result.excerpt && (
+                          <p className="search-result-excerpt">
+                            <span dangerouslySetInnerHTML={{ __html: result.excerpt }} />
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {results.length >= 8 && (
+                  <div className="search-results-footer">
+                    <button
+                      onClick={handleViewAllResults}
+                      className="view-all-button"
+                    >
+                      Ver todos os resultados para &quot;{query}&quot;
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : query.trim().length >= 2 && !isLoading ? (
+              <div className="search-no-results">
+                <p>Nenhum resultado encontrado para &quot;{query}&quot;</p>
+                <p className="search-suggestion">Tente usar palavras-chave diferentes</p>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

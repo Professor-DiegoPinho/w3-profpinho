@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import styles from './SearchForm.module.css';
 
 export default function SearchForm({
@@ -11,11 +12,23 @@ export default function SearchForm({
   isLoading,
   handleSearch
 }) {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <form onSubmit={handleSearch} className={styles.form}>
       <div className={styles.formRow}>
         <div className={`${styles.formGroup} ${styles.inputGroup}`}>
           <input
+            ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}

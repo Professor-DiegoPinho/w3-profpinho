@@ -1,6 +1,7 @@
 "use client";
 import SignInModal from '../SignInModal/SignInModal';
 import './AuthButton.css';
+import * as Icons from '@/assets/icons';
 
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -104,8 +105,8 @@ export default function AuthButton({ onNavigateStart }) {
         : userImageWithVersion;
 
     return (
-      <div 
-        className="user-menu" 
+      <div
+        className="user-menu"
         ref={menuRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -173,9 +174,9 @@ export default function AuthButton({ onNavigateStart }) {
               >
                 <span className="user-dropdown-item-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L4 5V11C4 16.55 8.07 21.2 12 22.97C15.93 21.2 20 16.55 20 11V5L12 2Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M12 10V14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M9 11H15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 2L4 5V11C4 16.55 8.07 21.2 12 22.97C15.93 21.2 20 16.55 20 11V5L12 2Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 10V14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M9 11H15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
                 <span className="user-dropdown-item-label">Admin</span>
@@ -213,15 +214,7 @@ export default function AuthButton({ onNavigateStart }) {
       >
         <span className="auth-button-text">Entrar</span>
         <span className="auth-button-icon" aria-hidden="true">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          fill="currentColor"
-        >
-          <path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80ZM247-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q440-607 440-640t-23.5-56.5Q393-720 360-720t-56.5 23.5Q280-673 280-640t23.5 56.5Q327-560 360-560t56.5-23.5ZM360-640Zm0 400Z" />
-        </svg>
+          <Icons.Login className="auth-button-icon" size={20} />
         </span>
       </button>
       <SignInModal

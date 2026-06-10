@@ -1,7 +1,7 @@
 .page {
-  padding: var(--space-10) 0;
+  padding: var(--space-10) var(--space-4);
   width: 100%;
-  max-width: var(--container-max);
+  max-width: calc(var(--container-max) + 2 * var(--space-4));
   margin: 0 auto;
 }
 
@@ -21,6 +21,6 @@
 
 @media (max-width: 640px) {
   .page {
-    padding: var(--space-6);
+    padding: var(--space-6) var(--space-4);
   }
 }

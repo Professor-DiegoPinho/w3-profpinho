@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './MobilePostsView.module.css';
+import * as Icons from '@/assets/icons';
 
 function MobilePostsView({
   selectedCategory,
@@ -13,7 +14,7 @@ function MobilePostsView({
     <nav className={`${styles.mobileSidebarNav} ${styles.mobileSidebarPage}`}>
       <div className={styles.mobileSidebarHeader}>
         <button className={styles.mobileBackBtn} onClick={onBack}>
-          <span className={styles.mobileBackArrow}>←</span>
+          <Icons.ArrowLeft className={styles.mobileBackArrow} size={24} />
           <span>Voltar</span>
         </button>
         {selectedSubCategoryData && (

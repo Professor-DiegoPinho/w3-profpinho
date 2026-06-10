@@ -3,6 +3,7 @@
 import AuthButton from '@/components/AuthButton/AuthButton';
 import HeaderNav from '@/components/Layout/Header/HeaderNav/HeaderNav';
 import SearchBox from '@/components/Layout/Header/SearchBox/SearchBox';
+import ToggleTheme from '@/components/ToggleTheme/ToggleTheme';
 import HamburgerButton from './HamburgerButton/HamburgerButton';
 import styles from './Header.module.css';
 import HeaderBrand from './HeaderBrand/HeaderBrand';
@@ -32,9 +33,10 @@ export default function Header({
           onNavigateStart={handleNavigateStart}
         />
 
-        <SearchBox className={styles.search} />
 
         <div className={styles.auth}>
+          <SearchBox className={styles.search} />
+          <ToggleTheme />
           <AuthButton onNavigateStart={handleNavigateStart} />
         </div>
       </div>

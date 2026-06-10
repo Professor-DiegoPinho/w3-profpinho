@@ -124,6 +124,7 @@ export default function MobileSidebar({
             resumes={resumes}
             onCategorySelect={handleCategorySelect}
             getCategoryIcon={getCategoryIcon}
+            onClose={onLinkClick}
           />
 
           <MobileContentView

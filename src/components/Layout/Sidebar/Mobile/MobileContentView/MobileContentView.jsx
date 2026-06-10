@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './MobileContentView.module.css';
+import * as Icons from '@/assets/icons';
 
 function MobileContentView({
   selectedCategory,
@@ -17,7 +18,7 @@ function MobileContentView({
     <nav className={`${styles.mobileSidebarNav} ${styles.mobileSidebarPage}`}>
       <div className={styles.mobileSidebarHeader}>
         <button className={styles.mobileBackBtn} onClick={onBack}>
-          <span className={styles.mobileBackArrow}>←</span>
+          <Icons.ArrowLeft className={styles.mobileBackArrow} size={24} />
           <span>Voltar</span>
         </button>
         <h2 className={styles.mobileContentTitle}>

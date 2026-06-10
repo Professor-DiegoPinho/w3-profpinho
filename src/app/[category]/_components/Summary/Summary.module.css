@@ -4,6 +4,12 @@
   margin-bottom: var(--space-6);
 }
 
+@media (max-width: 768px) {
+  .summary {
+    flex-direction: column;
+  }
+}
+
 .summaryItem {
   flex: 1;
   border: 1px solid var(--color-border);

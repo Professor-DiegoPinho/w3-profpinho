@@ -9,7 +9,7 @@
   overflow-x: hidden;
   overscroll-behavior: contain;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-danger) var(--color-bg-subtle);
+  scrollbar-color: var(--color-brand-primary) var(--color-bg-subtle);
 }
 
 .mobileSidebarPage {
@@ -21,7 +21,7 @@
   flex-direction: column;
   gap: var(--space-3);
   padding-bottom: var(--space-4);
-  border-bottom: 2px solid var(--color-danger);
+  border-bottom: 2px solid var(--color-brand-primary);
   margin-bottom: var(--space-5);
 }
 
@@ -82,11 +82,11 @@
 
 .mobileContentLink:active {
   background-color: var(--color-bg-subtle);
-  color: var(--color-danger);
+  color: var(--color-brand-primary);
 }
 
 .mobileContentLink.active {
   background-color: var(--color-bg-subtle);
-  color: var(--color-danger);
+  color: var(--color-brand-primary);
   font-weight: var(--font-weight-bold);
 }
