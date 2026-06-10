@@ -2,7 +2,7 @@
 
 import { DEFAULT_COMMENT_PLACEHOLDER, FEEDBACK_QUESTIONS } from "@/lib/feedbackConfig";
 import { useEffect, useRef, useState } from "react";
-import "./FeedbackModal.css";
+import styles from "./FeedbackModal.module.css";
 
 /**
  * Modal para coletar feedback do curso
@@ -104,61 +104,61 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
   };
 
   return (
-    <div className="feedback-modal-overlay" onClick={handleBackdropClick}>
-      <div className="feedback-modal" ref={modalRef}>
+    <div className={styles.feedbackModalOverlay} onClick={handleBackdropClick}>
+      <div className={styles.feedbackModal} ref={modalRef}>
         <button
-          className="feedback-modal-close"
+          className={styles.feedbackModalClose}
           onClick={onClose}
           aria-label="Fechar modal"
         >
           ✕
         </button>
 
-        <form onSubmit={handleSubmit} className="feedback-form">
-          <h2 className="feedback-form-title">Avalie sua experiência</h2>
-          <p className="feedback-form-subtitle">
+        <form onSubmit={handleSubmit} className={styles.feedbackForm}>
+          <h2 className={styles.feedbackFormTitle}>Avalie sua experiência</h2>
+          <p className={styles.feedbackFormSubtitle}>
             Sua opinião nos ajuda a melhorar continuamente
           </p>
 
           {/* NPS Section */}
-          <div className="feedback-section">
-            <label className="feedback-section-label">
+          <div className={styles.feedbackSection}>
+            <label className={styles.feedbackSectionLabel}>
               Você recomendaria este curso a um amigo?
             </label>
-            <p className="feedback-section-sublabel">
+            <p className={styles.feedbackSectionSublabel}>
               De 0 (não recomendaria) a 10 (recomendaria muito)
             </p>
 
-            <div className="nps-container">
-              <div className="nps-slider-wrapper">
+            <div className={styles.npsContainer}>
+              <div className={styles.npsSliderWrapper}>
                 <input
                   type="range"
                   min="0"
                   max="10"
                   value={npsScore}
                   onChange={(e) => setNpsScore(parseInt(e.target.value))}
-                  className="nps-slider"
+                  className={styles.npsSlider}
                   aria-label="NPS score"
                 />
               </div>
 
-              <div className="nps-labels">
-                <span className="nps-label-start">Não recomendaria</span>
-                <span className="nps-score">{npsScore}</span>
-                <span className="nps-label-end">Recomendaria muito</span>
+              <div className={styles.npsLabels}>
+                <span className={styles.npsLabelStart}>Não recomendaria</span>
+                <span className={styles.npsScore}>{npsScore}</span>
+                <span className={styles.npsLabelEnd}>Recomendaria muito</span>
               </div>
             </div>
           </div>
 
           {/* Questions Section */}
           {FEEDBACK_QUESTIONS.map((question) => (
-            <div key={question.id} className="feedback-section">
-              <label className="feedback-section-label">{question.text}</label>
+            <div key={question.id} className={styles.feedbackSection}>
+              <label className={styles.feedbackSectionLabel}>{question.text}</label>
 
               {question.type === "multiple-choice" && (
-                <div className="feedback-options">
+                <div className={styles.feedbackOptions}>
                   {question.options.map((option) => (
-                    <label key={option.value} className="feedback-option">
+                    <label key={option.value} className={styles.feedbackOption}>
                       <input
                         type="radio"
                         name={question.id}
@@ -169,7 +169,7 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
                         }
                         required
                       />
-                      <span className="feedback-option-label">
+                      <span className={styles.feedbackOptionLabel}>
                         {option.label}
                       </span>
                     </label>
@@ -179,20 +179,20 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
 
               {/* Conditional textarea for worst answers */}
               {question.showTextareaIfWorst && isWorstAnswer(question.id, answers[question.id]) && (
-                <div className="feedback-question-comment">
-                  <label htmlFor={`comment-${question.id}`} className="feedback-question-comment-label">
+                <div className={styles.feedbackQuestionComment}>
+                  <label htmlFor={`comment-${question.id}`} className={styles.feedbackQuestionCommentLabel}>
                     Por que você escolheu essa opção?
                   </label>
                   <textarea
                     id={`comment-${question.id}`}
-                    className="feedback-question-textarea"
+                    className={styles.feedbackQuestionTextarea}
                     placeholder="Nos ajude a entender melhor sua experiência..."
                     value={questionComments[question.id] || ""}
                     onChange={(e) => handleQuestionCommentChange(question.id, e.target.value)}
                     maxLength={500}
                     rows={3}
                   />
-                  <span className="feedback-char-count">
+                  <span className={styles.feedbackCharCount}>
                     {(questionComments[question.id] || "").length}/500
                   </span>
                 </div>
@@ -201,51 +201,51 @@ export default function FeedbackModal({ courseSlug, onClose, onSubmitted }) {
           ))}
 
           {/* Comment Section */}
-          <div className="feedback-section">
-            <label htmlFor="feedback-comment" className="feedback-section-label">
+          <div className={styles.feedbackSection}>
+            <label htmlFor="feedback-comment" className={styles.feedbackSectionLabel}>
               Observações adicionais (opcional)
             </label>
             <textarea
               id="feedback-comment"
-              className="feedback-textarea"
+              className={styles.feedbackTextarea}
               placeholder={DEFAULT_COMMENT_PLACEHOLDER}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               maxLength={1000}
               rows={4}
             />
-            <span className="feedback-char-count">
+            <span className={styles.feedbackCharCount}>
               {comment.length}/1000
             </span>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="feedback-message feedback-message-error" role="alert">
+            <div className={`${styles.feedbackMessage} ${styles.feedbackMessageError}`} role="alert">
               {error}
             </div>
           )}
 
           {/* Success Message */}
           {successMessage && (
-            <div className="feedback-message feedback-message-success" role="status">
+            <div className={`${styles.feedbackMessage} ${styles.feedbackMessageSuccess}`} role="status">
               {successMessage}
             </div>
           )}
 
           {/* Submit Button */}
-          <div className="feedback-actions">
+          <div className={styles.feedbackActions}>
             <button
               type="button"
               onClick={onClose}
-              className="feedback-button feedback-button-secondary"
+              className={`${styles.feedbackButton} ${styles.feedbackButtonSecondary}`}
               disabled={isSubmitting}
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="feedback-button feedback-button-primary"
+              className={`${styles.feedbackButton} ${styles.feedbackButtonPrimary}`}
               disabled={isSubmitting}
             >
               {isSubmitting ? "Enviando..." : "Enviar feedback"}
