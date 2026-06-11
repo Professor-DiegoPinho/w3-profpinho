@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import * as Icons from '@/assets/icons';
 import styles from './CodeHighlight.module.css';
 
 export default function CodeHighlight({ language, children, ...props }) {
@@ -18,18 +19,18 @@ export default function CodeHighlight({ language, children, ...props }) {
   const codeContent = String(children).replace(/\n$/, '');
 
   return (
-    <div className="code-block-wrapper">
+    <div className={styles.codeBlockWrapper}>
       <button
         onClick={handleCopy}
-        className="copy-code-btn"
+        className={styles.copyCodeBtn}
         title={copied ? 'Copiado!' : 'Copiar código'}
         aria-label={copied ? 'Código copiado para a área de transferência' : 'Copiar código para a área de transferência'}
         disabled={copied}
       >
         {copied ? (
-          <CheckmarkIcon />
+          <Icons.CheckmarkIcon />
         ) : (
-          <CopyIcon />
+          <Icons.CopyIcon />
         )}
         {copied && <span>Copiado!</span>}
       </button>
@@ -37,7 +38,7 @@ export default function CodeHighlight({ language, children, ...props }) {
         style={tomorrow}
         language={language}
         PreTag="div"
-        className="code-block"
+        className={styles.codeBlock}
         showLineNumbers={true}
         wrapLines={true}
         {...props}

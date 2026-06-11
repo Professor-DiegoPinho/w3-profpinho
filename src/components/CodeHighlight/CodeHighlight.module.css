@@ -37,3 +37,45 @@
     font-size: var(--font-size-xs);
   }
 }
+
+.codeBlockWrapper {
+  position: relative;
+}
+
+.copyCodeBtn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: var(--z-dropdown);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 6px var(--space-3);
+  background-color: transparent;
+  border: 1px solid var(--primitive-gray-100);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--primitive-gray-100);
+  transition: all var(--transition-base);
+  height: 32px;
+}
+
+.copyCodeBtn:hover:not(:disabled) {
+  border-color: var(--primitive-white-pure);
+  color: var(--primitive-white-pure);
+}
+
+.copyCodeBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.copyCodeBtn:disabled {
+  cursor: default;
+}
+
+.copyCodeBtn span {
+  display: inline;
+}
