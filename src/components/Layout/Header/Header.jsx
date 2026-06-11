@@ -1,12 +1,12 @@
 'use client';
 
-import AuthButton from '@/components/AuthButton/AuthButton';
 import HeaderNav from '@/components/Layout/Header/HeaderNav/HeaderNav';
 import SearchBox from '@/components/Layout/Header/SearchBox/SearchBox';
 import ToggleTheme from '@/components/ToggleTheme/ToggleTheme';
 import HamburgerButton from './HamburgerButton/HamburgerButton';
 import styles from './Header.module.css';
 import HeaderBrand from './HeaderBrand/HeaderBrand';
+import Menu from '@/components/Layout/Header/Menu/Menu';
 
 export default function Header({
   isSidebarOpen,
@@ -37,7 +37,7 @@ export default function Header({
         <div className={styles.auth}>
           <SearchBox className={styles.search} />
           <ToggleTheme />
-          <AuthButton onNavigateStart={handleNavigateStart} />
+          <Menu onNavigateStart={handleNavigateStart} />
         </div>
       </div>
     </header>
