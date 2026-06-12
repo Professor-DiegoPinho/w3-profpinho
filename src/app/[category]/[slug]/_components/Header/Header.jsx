@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import ReadingTime from '@/app/[category]/[slug]/_components/ReadingTime/ReadingTime';
-import { ArrowLeft, ArrowRight, Bookmark, ChevronRight } from '@/assets/icons/index';
+import { ArrowLeft, ArrowRight, ChevronRight } from '@/assets/icons/index';
 import { generateId } from '@/lib/generateId';
+import BookmarkButton from './BookmarkButton/BookmarkButton';
 import styles from './Header.module.css';
 
-export default function Header({ categoryTitle, title, description, readingTime, navigation, category, isCourseContent }) {
+export default function Header({ categoryTitle, title, description, readingTime, navigation, category, isCourseContent, lessonId, isBookmarked }) {
   const { previous, next } = navigation || {};
 
   return (
@@ -42,15 +43,16 @@ export default function Header({ categoryTitle, title, description, readingTime,
               <ArrowRight size={22} />
             </Link>
           )}
-          {isCourseContent && (
-            <button
-              className={styles.bookmarkButton}
-              title="Salvar nos favoritos"
-              aria-label="Salvar nos favoritos"
-              type="button"
-            >
-              <Bookmark size={18} />
-            </button>
+          {isCourseContent && lessonId && (
+            <BookmarkButton
+              lessonId={lessonId}
+              category={category}
+              slug={navigation?.current?.slug || ''}
+              title={title}
+              description={description}
+              categoryTitle={categoryTitle}
+              initialIsBookmarked={isBookmarked}
+            />
           )}
         </div>
       </div>
@@ -66,3 +68,4 @@ export default function Header({ categoryTitle, title, description, readingTime,
     </header>
   );
 }
+

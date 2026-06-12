@@ -157,6 +157,19 @@ export default function Menu({ onNavigateStart }) {
               <span className={styles.dropdownItemLabel}>Meu perfil</span>
             </Link>
 
+            <Link
+              href="/favoritos"
+              className={styles.dropdownItem}
+              onClick={() => {
+                onNavigateStart?.("/favoritos");
+                handleMenuItemClick();
+              }}
+              role="menuitem"
+            >
+              <Icons.Bookmark className={styles.dropdownItemIcon} aria-hidden="true" />
+              <span className={styles.dropdownItemLabel}>Favoritos</span>
+            </Link>
+
             <button
               type="button"
               className={styles.dropdownItem}

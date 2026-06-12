@@ -1,0 +1,136 @@
+.page {
+  padding: var(--space-10) var(--space-4);
+  width: 100%;
+  max-width: calc(var(--container-max) + 2 * var(--space-4));
+  margin: 0 auto;
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ---- Skeleton base ---- */
+
+.skeletonLine {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-md);
+}
+
+.skeletonLine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(var(--space-1) * -37.5);
+  width: calc(var(--space-1) * 30);
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-bg-subtle),
+    transparent
+  );
+  animation: shimmer 1.3s infinite;
+}
+
+/* ---- Header skeleton ---- */
+
+.header {
+  margin-bottom: var(--space-8);
+}
+
+.skeletonTitle {
+  width: calc(var(--space-1) * 60);
+  height: calc(var(--space-1) * 9);
+  margin-bottom: var(--space-3);
+}
+
+.skeletonSubtitle {
+  width: calc(var(--space-1) * 40);
+  height: var(--space-4);
+}
+
+/* ---- Grid ---- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* ---- Card skeleton ---- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-elevated);
+  padding: var(--space-5);
+}
+
+.cardHeader {
+  margin-bottom: var(--space-3);
+}
+
+.skeletonBadge {
+  width: calc(var(--space-1) * 28);
+  height: calc(var(--space-1) * 6);
+  border-radius: var(--radius-full);
+}
+
+.cardBody {
+  flex: 1;
+  margin-bottom: var(--space-3);
+}
+
+.skeletonCardTitle {
+  width: 85%;
+  height: calc(var(--space-1) * 5);
+  margin-bottom: var(--space-2);
+}
+
+.skeletonCardDesc {
+  width: 100%;
+  height: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+
+.skeletonCardDescShort {
+  width: 65%;
+  height: var(--space-3);
+}
+
+.cardFooter {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+}
+
+.skeletonDate {
+  width: calc(var(--space-1) * 35);
+  height: var(--space-3);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Shimmer animation ---- */
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(calc(var(--space-1) * 105));
+  }
+}

@@ -142,6 +142,21 @@ export function Bookmark({ size, className }) {
   );
 }
 
+export function BookmarkChecked({ size, className }) {
+  return (
+    <Icon size={size} className={className}>
+      <path
+        d="M5 5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21L12 17.5L5 21V5Z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Icon>
+  );
+}
+
 export function ChevronRight({ size, className }) {
   return (
     <Icon size={size} className={className}>
