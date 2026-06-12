@@ -1,4 +1,5 @@
 ---
+id: "50b07ca56ded"
 title: "Funções agregadoras"
 description: "Aprenda a utilizar funções agregadoras no SQL para resumir e analisar dados."
 order: 10

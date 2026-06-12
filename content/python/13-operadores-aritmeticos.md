@@ -1,4 +1,5 @@
 ---
+id: "692efff6adf4"
 title: "Operadores aritméticos"
 description: "Operações matemáticas com Python"
 order: 13

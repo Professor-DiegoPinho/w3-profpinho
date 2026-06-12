@@ -1,4 +1,5 @@
 ---
+id: "558fb3208ee7"
 title: "Switch"
 description: "Como usar o switch para comparar um valor com múltiplas opções"
 order: 9

@@ -1,4 +1,5 @@
 ---
+id: "e6a47958dfb9"
 title: "Display no CSS"
 description: "Como a propriedade display controla o comportamento e o fluxo dos elementos na página"
 order: 15

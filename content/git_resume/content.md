@@ -1,4 +1,5 @@
 ---
+id: "cbfecffda9ef"
 title: "Resumo Prático de Git"
 description: "Guia essencial de Git em português para iniciantes. Conceitos fundamentais com comandos práticos para controle de versão."
 order: 1

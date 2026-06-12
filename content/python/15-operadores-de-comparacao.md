@@ -1,4 +1,5 @@
 ---
+id: "ea5a45b6ee98"
 title: "Operadores de Comparação"
 description: "Comparar valores e obter True ou False"
 order: 15

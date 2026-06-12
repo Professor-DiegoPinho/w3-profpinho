@@ -1,4 +1,5 @@
 ---
+id: "ff207a0291fe"
 title: "SQL NOT"
 description: "Como negar condições no WHERE com o operador NOT"
 order: 7

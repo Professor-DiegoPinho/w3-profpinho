@@ -1,4 +1,5 @@
 ---
+id: "5e7ea72f2068"
 title: "Elementos Block e Inline"
 description: "Entenda a diferença entre elementos que ocupam a linha toda e os que ficam no fluxo do texto"
 order: 18

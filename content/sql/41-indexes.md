@@ -1,4 +1,5 @@
 ---
+id: "93437cd21137"
 title: "SQL Indexes"
 description: "Como usar índices para acelerar consultas no banco de dados"
 order: 41

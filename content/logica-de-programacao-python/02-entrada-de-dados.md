@@ -1,4 +1,5 @@
 ---
+id: "2ee6bd7521a3"
 title: "Entrada de Dados"
 description: "Aprenda a capturar dados do usuário com input(), montar mensagens dinâmicas e tornar seus programas interativos."
 order: 2

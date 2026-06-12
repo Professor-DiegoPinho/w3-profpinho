@@ -1,4 +1,5 @@
 ---
+id: "e85f6ce9f90a"
 title: "Saída de Dados"
 description: "As principais formas de exibir informações com JavaScript: console.log, alert e innerHTML"
 order: 3

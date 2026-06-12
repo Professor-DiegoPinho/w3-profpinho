@@ -1,4 +1,5 @@
 ---
+id: "5142a73fca49"
 title: "Strings"
 description: "Como trabalhar com textos em Python"
 order: 09

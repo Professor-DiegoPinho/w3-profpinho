@@ -1,4 +1,5 @@
 ---
+id: "be7900dd2401"
 title: "Opacity e Transparência"
 description: "Como controlar a transparência de elementos com opacity e cores com canal alpha"
 order: 23

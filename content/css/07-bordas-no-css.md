@@ -1,4 +1,5 @@
 ---
+id: "90e21d3d56c8"
 title: "Bordas no CSS"
 description: "Como definir bordas em elementos HTML com CSS: estilo, largura, cor e arredondamento"
 order: 7

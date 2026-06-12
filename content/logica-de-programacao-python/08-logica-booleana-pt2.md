@@ -1,4 +1,5 @@
 ---
+id: "df3fd1ec583d"
 title: "Lógica Booleana - Parte 2"
 description: "Aprofunde o uso de not e expressões booleanas para inverter condições e escrever validações com semântica clara."
 order: 8

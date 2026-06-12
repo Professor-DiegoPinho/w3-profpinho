@@ -1,4 +1,5 @@
 ---
+id: "1143be3e57a8"
 title: "LocalStorage e SessionStorage"
 description: "Como salvar e recuperar dados no navegador com localStorage e sessionStorage"
 order: 36

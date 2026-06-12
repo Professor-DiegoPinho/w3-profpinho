@@ -1,4 +1,5 @@
 ---
+id: "502ddb1f6d16"
 title: "Operações destrutivas"
 description: "Aprenda a atualizar e deletar dados em tabelas de um banco de dados relacional utilizando SQL."
 order: 5

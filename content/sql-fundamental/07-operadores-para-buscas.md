@@ -1,4 +1,5 @@
 ---
+id: "927fd3c2ef63"
 title: "Operadores para buscas"
 description: "Aprenda a utilizar operadores de busca em consultas SQL para filtrar e refinar os resultados retornados por uma consulta."
 order: 7

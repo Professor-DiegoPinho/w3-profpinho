@@ -1,4 +1,5 @@
 ---
+id: "d392583d4d1b"
 title: "SQL Operadores e Funções Numéricas"
 description: "Como realizar cálculos e operações matemáticas no SQL"
 order: 46

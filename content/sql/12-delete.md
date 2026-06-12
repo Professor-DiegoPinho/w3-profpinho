@@ -1,4 +1,5 @@
 ---
+id: "16e9e8f3b376"
 title: "SQL DELETE"
 description: "Como remover registros de uma tabela com segurança usando o DELETE"
 order: 12

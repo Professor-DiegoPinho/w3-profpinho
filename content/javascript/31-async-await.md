@@ -1,4 +1,5 @@
 ---
+id: "0e1289e0aa60"
 title: "Async/Await"
 description: "Como usar async e await para escrever código assíncrono de forma síncrona e legível"
 order: 31

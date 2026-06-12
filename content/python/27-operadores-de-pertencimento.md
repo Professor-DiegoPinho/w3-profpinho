@@ -1,4 +1,5 @@
 ---
+id: "623283f25caf"
 title: "Operadores de Pertencimento"
 description: "Verificar se um item está em uma coleção"
 order: 27

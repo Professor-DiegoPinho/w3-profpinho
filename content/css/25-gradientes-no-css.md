@@ -1,4 +1,5 @@
 ---
+id: "8280fed7cff2"
 title: "Gradientes no CSS"
 description: "Como criar gradientes lineares e radiais como plano de fundo com CSS"
 order: 25

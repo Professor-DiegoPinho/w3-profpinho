@@ -1,4 +1,5 @@
 ---
+id: "8b3abccc45a8"
 title: "Resumo Prático de SQL"
 description: "Guia essencial de SQL em português para iniciantes. Conceitos fundamentais com exemplos práticos de banco de dados."
 order: 1

@@ -1,4 +1,5 @@
 ---
+id: "dc2a297b7dfa"
 title: "Laço de Repetição While"
 description: "Use o while para repetições condicionais, validação de entrada, menus e controle de loops com break e contador."
 order: 11

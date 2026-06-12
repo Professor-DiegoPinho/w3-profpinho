@@ -1,4 +1,5 @@
 ---
+id: "b55d172b9ceb"
 title: "Padding no CSS"
 description: "Como usar padding para controlar o espaço interno entre o conteúdo e a borda de um elemento"
 order: 9

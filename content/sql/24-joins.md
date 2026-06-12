@@ -1,4 +1,5 @@
 ---
+id: "ace5034e2831"
 title: "SQL Joins"
 description: "Como combinar dados de múltiplas tabelas em uma única consulta"
 order: 24

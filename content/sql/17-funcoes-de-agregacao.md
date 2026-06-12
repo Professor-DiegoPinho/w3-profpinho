@@ -1,4 +1,5 @@
 ---
+id: "390849ba7b4a"
 title: "SQL Funções de Agregação"
 description: "Como resumir dados com as funções COUNT, SUM, AVG, MIN e MAX"
 order: 17

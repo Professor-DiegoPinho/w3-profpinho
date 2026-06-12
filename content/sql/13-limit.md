@@ -1,4 +1,5 @@
 ---
+id: "cafc2c38f281"
 title: "SQL LIMIT"
 description: "Como limitar o número de registros retornados e implementar paginação"
 order: 13

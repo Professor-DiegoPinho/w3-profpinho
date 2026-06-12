@@ -1,4 +1,5 @@
 ---
+id: "80726fa8d422"
 title: "Operações de busca"
 description: "Aprenda a buscar e filtrar dados em tabelas de um banco de dados relacional utilizando SQL."
 order: 6

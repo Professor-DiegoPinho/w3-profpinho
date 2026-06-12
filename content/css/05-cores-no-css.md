@@ -1,4 +1,5 @@
 ---
+id: "d166e322855a"
 title: "Cores no CSS"
 description: "As diferentes formas de definir cores no CSS: nome, hex, RGB e HSL"
 order: 5

@@ -1,4 +1,5 @@
 ---
+id: "0dd45fc9d223"
 title: "Gráficos no HTML"
 description: "Uma visão rápida sobre Canvas e SVG para desenhar gráficos e formas"
 order: 36

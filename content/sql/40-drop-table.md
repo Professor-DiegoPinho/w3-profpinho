@@ -1,4 +1,5 @@
 ---
+id: "ebdb29fd5fa9"
 title: "SQL DROP TABLE"
 description: "Como remover uma tabela do banco de dados com o DROP TABLE"
 order: 40

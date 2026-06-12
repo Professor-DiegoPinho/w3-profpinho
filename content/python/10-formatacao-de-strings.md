@@ -1,4 +1,5 @@
 ---
+id: "56fa9c1ff06d"
 title: "Formatação de Strings"
 description: "Como deixar seus textos exatamente como quer"
 order: 10

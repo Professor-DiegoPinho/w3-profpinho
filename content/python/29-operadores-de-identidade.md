@@ -1,4 +1,5 @@
 ---
+id: "8f92beaf581c"
 title: "Operadores de Identidade"
 description: "Verificar se variáveis apontam para o mesmo objeto"
 order: 29

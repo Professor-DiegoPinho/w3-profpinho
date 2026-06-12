@@ -1,4 +1,5 @@
 ---
+id: "489a14bc8ad6"
 title: "SQL INSERT INTO"
 description: "Como inserir novos registros em uma tabela com o comando INSERT INTO"
 order: 9

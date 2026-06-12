@@ -1,4 +1,5 @@
 ---
+id: "ef8846b4be00"
 title: "SQL RIGHT JOIN"
 description: "Como trazer todos os registros da tabela da direita com o RIGHT JOIN"
 order: 27

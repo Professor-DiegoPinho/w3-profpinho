@@ -1,4 +1,5 @@
 ---
+id: "ba3eef2efdcd"
 title: "SQL Subconsultas"
 description: "Como usar queries dentro de queries para resolver problemas mais complexos"
 order: 42

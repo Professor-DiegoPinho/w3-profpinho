@@ -1,4 +1,5 @@
 ---
+id: "e5747602c297"
 title: "SQL PRIMARY KEY"
 description: "Como definir a chave primária de uma tabela com a constraint PRIMARY KEY"
 order: 36

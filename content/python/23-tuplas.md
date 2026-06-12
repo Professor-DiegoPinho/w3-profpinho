@@ -1,4 +1,5 @@
 ---
+id: "eaee4a2ff942"
 title: "Tuplas"
 description: "Criar, acessar e manipular tuplas imutáveis"
 order: 23

@@ -1,4 +1,5 @@
 ---
+id: "2a151d439304"
 title: "SQL FULL OUTER JOIN"
 description: "Como retornar todos os registros de ambas as tabelas com o FULL OUTER JOIN"
 order: 28

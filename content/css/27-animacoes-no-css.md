@@ -1,4 +1,5 @@
 ---
+id: "4b889c0a9731"
 title: "Animações no CSS"
 description: "Como criar animações mais complexas com @keyframes e a propriedade animation"
 order: 27

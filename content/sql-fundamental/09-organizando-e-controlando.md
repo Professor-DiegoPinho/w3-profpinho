@@ -1,4 +1,5 @@
 ---
+id: "71b4be36f477"
 title: "Organizando e controlando os resultados"
 description: "Aprenda a organizar e controlar os resultados das suas consultas SQL utilizando operadores ORDER BY, LIMIT e OFFSET."
 order: 9

@@ -1,4 +1,5 @@
 ---
+id: "68991264809e"
 title: "Relacionamentos entre tabelas"
 description: "Como conectar tabelas com chaves primárias e estrangeiras"
 order: 31

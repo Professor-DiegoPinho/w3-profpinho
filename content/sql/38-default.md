@@ -1,4 +1,5 @@
 ---
+id: "7601aec44b00"
 title: "SQL DEFAULT"
 description: "Como definir valores padrão para colunas com a constraint DEFAULT"
 order: 38

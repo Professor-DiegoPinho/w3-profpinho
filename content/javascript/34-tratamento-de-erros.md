@@ -1,4 +1,5 @@
 ---
+id: "1537f1ff7ab6"
 title: "Tratamento de Erros"
 description: "Como capturar e tratar erros em JavaScript com try, catch e finally"
 order: 34

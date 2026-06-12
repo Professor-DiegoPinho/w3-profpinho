@@ -1,4 +1,5 @@
 ---
+id: "24799634eb62"
 title: "Variáveis"
 description: "Como criar e usar variáveis em Python"
 order: 06

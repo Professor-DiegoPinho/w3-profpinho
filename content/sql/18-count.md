@@ -1,4 +1,5 @@
 ---
+id: "ac28284ca17f"
 title: "SQL COUNT"
 description: "Como contar registros em uma tabela com a função COUNT"
 order: 18

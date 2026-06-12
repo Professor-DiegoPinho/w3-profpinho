@@ -1,4 +1,5 @@
 ---
+id: "ce16d3941a6c"
 title: "Truthy e Falsy"
 description: "Como valores são interpretados como verdadeiro ou falso"
 order: 17

@@ -1,4 +1,5 @@
 ---
+id: "bee1a247ca47"
 title: "SQL AND"
 description: "Como combinar condições no WHERE exigindo que todas sejam verdadeiras"
 order: 5

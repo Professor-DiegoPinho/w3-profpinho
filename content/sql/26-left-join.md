@@ -1,4 +1,5 @@
 ---
+id: "a30b6a1e157d"
 title: "SQL LEFT JOIN"
 description: "Como trazer todos os registros da tabela da esquerda, mesmo sem correspondência"
 order: 26

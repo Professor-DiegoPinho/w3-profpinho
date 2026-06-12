@@ -1,4 +1,5 @@
 ---
+id: "c99ec9a07bc6"
 title: "Loop: for"
 description: "Como usar o loop for para repetir blocos de código em JavaScript"
 order: 10

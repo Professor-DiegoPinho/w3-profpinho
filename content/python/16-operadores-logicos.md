@@ -1,4 +1,5 @@
 ---
+id: "93135d268824"
 title: "Operadores Lógicos"
 description: "Combinar múltiplas condições com and, or, not"
 order: 16

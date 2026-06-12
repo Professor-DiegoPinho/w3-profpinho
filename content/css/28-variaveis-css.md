@@ -1,4 +1,5 @@
 ---
+id: "595e27ab53a4"
 title: "Variáveis CSS"
 description: "Como usar custom properties para armazenar e reutilizar valores em todo o CSS"
 order: 28

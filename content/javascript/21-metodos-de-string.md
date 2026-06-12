@@ -1,4 +1,5 @@
 ---
+id: "09f090e6581f"
 title: "Métodos de String"
 description: "Os principais métodos para manipular e consultar strings em JavaScript"
 order: 21

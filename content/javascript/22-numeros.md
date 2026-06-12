@@ -1,4 +1,5 @@
 ---
+id: "67eea61debb8"
 title: "Números"
 description: "Como trabalhar com números em JavaScript: inteiros, decimais, NaN, Infinity e conversões"
 order: 22

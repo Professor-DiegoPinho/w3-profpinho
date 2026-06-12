@@ -1,4 +1,5 @@
 ---
+id: "aa74ccce4335"
 title: "Lógica Booleana"
 description: "Combine condições com and e or para criar validações mais completas e regras de acesso em programas Python."
 order: 7

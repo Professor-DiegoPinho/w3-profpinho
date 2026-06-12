@@ -1,4 +1,5 @@
 ---
+id: "0ce0052180af"
 title: "Operadores de Atribuição"
 description: "Atribuição simples e composta em Python"
 order: 14

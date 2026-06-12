@@ -1,4 +1,5 @@
 ---
+id: "b37f287fdc3d"
 title: "Ranges"
 description: "Usar ranges para gerar sequências de números"
 order: 26

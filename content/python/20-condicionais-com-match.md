@@ -1,4 +1,5 @@
 ---
+id: "bf8674400949"
 title: "Condicionais com Match"
 description: "Usar match para organizar múltiplas condições"
 order: 20

@@ -1,4 +1,5 @@
 ---
+id: "eb573216df24"
 title: "Operadores"
 description: "Operadores aritméticos, de atribuição e de string no JavaScript"
 order: 6

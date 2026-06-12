@@ -1,4 +1,5 @@
 ---
+id: "f8068e932aab"
 title: "Charsets, URL Encode e XHTML"
 description: "Noções básicas sobre codificação de caracteres, URLs e a diferença entre HTML e XHTML"
 order: 33

@@ -1,4 +1,5 @@
 ---
+id: "336f21ab10c4"
 title: "SQL MIN e MAX"
 description: "Como encontrar o menor e o maior valor de uma coluna com MIN e MAX"
 order: 21

@@ -1,4 +1,5 @@
 ---
+id: "283c8f5742bc"
 title: "Alterando HTML e CSS com JavaScript"
 description: "Como modificar conteúdo, atributos, classes e estilos de elementos com JavaScript"
 order: 27

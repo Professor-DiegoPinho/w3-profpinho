@@ -1,4 +1,5 @@
 ---
+id: "3c6008cf06a5"
 title: "SQL SUM"
 description: "Como somar valores numéricos com a função agregadora SUM"
 order: 19

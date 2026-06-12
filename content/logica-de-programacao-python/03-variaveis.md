@@ -1,4 +1,5 @@
 ---
+id: "f187e7d768f4"
 title: "Variáveis"
 description: "Aprenda a armazenar entradas em variáveis, reutilizar valores e refatorar códigos para mais clareza em Python."
 order: 3

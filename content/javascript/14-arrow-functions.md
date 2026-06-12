@@ -1,4 +1,5 @@
 ---
+id: "067fa339cb81"
 title: "Arrow Functions"
 description: "Como escrever funções de forma mais concisa com a sintaxe de arrow function"
 order: 14

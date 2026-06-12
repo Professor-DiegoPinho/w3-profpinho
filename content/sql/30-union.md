@@ -1,4 +1,5 @@
 ---
+id: "4a55c809574d"
 title: "SQL UNION"
 description: "Como combinar o resultado de duas ou mais queries com o UNION"
 order: 30

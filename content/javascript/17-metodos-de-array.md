@@ -1,4 +1,5 @@
 ---
+id: "d7df235c3bee"
 title: "Métodos de Array"
 description: "Os principais métodos de array do JavaScript: map, filter, find, reduce, forEach e outros"
 order: 17

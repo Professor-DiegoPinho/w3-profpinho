@@ -1,4 +1,5 @@
 ---
+id: "86406e36c146"
 title: "SQL Self Join"
 description: "Como unir uma tabela com ela mesma para encontrar relações internas"
 order: 29

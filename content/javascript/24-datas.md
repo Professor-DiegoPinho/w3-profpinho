@@ -1,4 +1,5 @@
 ---
+id: "32f587c7c723"
 title: "Datas"
 description: "Como criar e manipular datas em JavaScript com o objeto Date"
 order: 24
