@@ -1,0 +1,73 @@
+/* Search Form Styles - CSS Module */
+
+.form {
+  background: var(--color-bg-elevated);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+}
+
+.formRow {
+  display: flex;
+  gap: var(--space-4);
+  align-items: end;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.input,
+.select {
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-base);
+  background: var(--color-bg-base);
+  transition: border-color var(--transition-slow);
+  color: var(--color-text-primary);
+}
+
+.inputGroup {
+  flex: 1;
+}
+
+.input {
+  width: 100%;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--color-border-strong);
+}
+
+.button {
+  padding: var(--space-3);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-slow);
+  white-space: nowrap;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--color-brand-primary-hover);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}

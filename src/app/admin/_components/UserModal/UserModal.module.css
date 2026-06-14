@@ -1,0 +1,346 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  animation: fadeIn var(--transition-slow);
+}
+
+.modalBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-overlay);
+  z-index: 999;
+}
+
+.modalContent {
+  position: relative;
+  z-index: 1001;
+  width: 90%;
+  max-width: 540px;
+  padding: var(--space-6);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  animation: slideUp var(--transition-slow);
+}
+
+.modalTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-5);
+  margin-top: 0;
+}
+
+.modalInfo {
+  background-color: var(--color-bg-subtle);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-5);
+  font-size: var(--font-size-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.modalInfo p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+.modalInfo p strong {
+  color: var(--color-text-primary);
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  word-break: break-all;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-2);
+}
+
+.coursesSection {
+  max-height: 280px;
+  overflow-y: auto;
+  margin-bottom: var(--space-6);
+  padding-right: var(--space-1);
+}
+
+/* Custom scrollbar for coursesSection */
+.coursesSection::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coursesSection::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coursesSection::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  gap: var(--space-3);
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-brand-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.courseList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.courseCard {
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.courseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.courseName {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-heading);
+}
+
+.badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.badgeEnrolled {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--color-success);
+}
+
+.badgeNotEnrolled {
+  background-color: rgba(107, 114, 128, 0.15);
+  color: var(--color-text-secondary);
+}
+
+.courseMeta {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.progressWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-bg-muted);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background-color: var(--color-brand-accent);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow) ease-in-out;
+}
+
+.progressDetails {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.percentageText {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-accent);
+}
+
+.completedMeta {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-success);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.courseFooterActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-2);
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.downloadCertBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-bg-elevated);
+  color: var(--primitive-white-pure);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.downloadCertBtn:hover {
+  color: var(--color-success);
+  border-color: var(--color-border-strong);
+}
+
+.downloadCertBtn:active {
+  transform: translateY(0);
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-6) 0;
+  font-size: var(--font-size-sm);
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeBtn {
+  padding: var(--space-2) var(--space-5);
+  background-color: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.closeBtn:hover {
+  background-color: var(--color-bg-muted);
+  border-color: var(--color-border-strong);
+}
+
+.modalClose {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-base);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+}
+
+.modalClose:hover {
+  background-color: var(--color-bg-muted);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    padding: var(--space-5);
+  }
+
+  .modalTitle {
+    font-size: var(--font-size-lg);
+  }
+}

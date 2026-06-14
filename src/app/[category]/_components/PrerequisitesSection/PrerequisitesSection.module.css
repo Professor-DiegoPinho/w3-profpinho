@@ -1,0 +1,19 @@
+.metaBlock {
+  margin-bottom: var(--space-6);
+}
+
+.metaBlock h2 {
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.prerequisitesList {
+  margin: 0;
+  padding-left: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+.prerequisitesList li {
+  margin-bottom: var(--space-1);
+}

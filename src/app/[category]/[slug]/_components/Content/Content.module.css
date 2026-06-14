@@ -1,0 +1,23 @@
+.body {
+  padding: 0;
+  width: 100%;
+}
+
+.lockedNotice {
+  padding: var(--space-5) 0;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.lockedNotice p+p {
+  margin-top: var(--space-2);
+}
+
+.lockedLink {
+  color: var(--color-text-link);
+  text-decoration: none;
+}
+
+.lockedLink:hover {
+  color: var(--color-text-link-hover);
+}

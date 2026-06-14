@@ -1,0 +1,249 @@
+/* Table of Contents - Desktop-first (base = desktop) */
+
+.tableOfContents {
+  position: fixed;
+  right: 0;
+  top: var(--header-height);
+  width: fit-content;
+  max-width: var(--sidebar-width);
+  height: fit-content;
+  max-height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  background-color: var(--color-bg-subtle);
+  z-index: var(--z-sidebar);
+  padding-right: var(--space-2);
+}
+
+.tocHeader {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+}
+
+.tocTitleIcon {
+  color: var(--color-text-primary);
+}
+
+.tocTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  letter-spacing: 0.5px;
+  margin-top: 0;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.tocList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tocItem {
+  margin: var(--space-2) 0;
+}
+
+.tocItem.level2 .tocLink {
+  padding-left: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.tocItem.level3 .tocLink {
+  padding-left: var(--space-6);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-normal);
+}
+
+.tocItem.level4 .tocLink {
+  padding-left: var(--space-10);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-normal);
+}
+
+.tocLink {
+  display: block;
+  padding: var(--space-2);
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: var(--transition-base);
+  border-left: 3px solid transparent;
+  margin-left: 0;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-sans);
+}
+
+.tocLink:hover {
+  color: var(--color-brand-primary);
+  background-color: var(--color-bg-base);
+}
+
+.tocItem.active .tocLink {
+  color: var(--color-brand-primary);
+  border-left-color: var(--color-brand-primary);
+  background-color: var(--color-bg-subtle);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  /* font-weight: var(--font-weight-semibold); */
+}
+
+/* Scrollbar styling for TOC */
+.tableOfContents::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tableOfContents::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tableOfContents::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.tableOfContents::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Responsive design - Tablet and smaller: Drawer */
+@media (max-width: 1199px) {
+  .tableOfContents {
+    position: fixed;
+    right: 0;
+    left: auto;
+    top: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 320px;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    transform: translateX(100%);
+    transition: transform var(--transition-base);
+    z-index: var(--z-overlay);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .tableOfContents.open {
+    transform: translateX(0);
+  }
+
+  .tocContainer {
+    background: linear-gradient(135deg, var(--color-bg-elevated) 0%, var(--color-bg-base) 100%);
+    border-left: 1px solid var(--color-border);
+    border-radius: 0;
+    height: 100%;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    border-top: none;
+  }
+
+  .tocTitle {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    letter-spacing: 0.7px;
+  }
+
+  .tocHeader {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .tocList {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .tocItem {
+    margin: 0;
+  }
+
+
+
+  .tocLink {
+    display: block;
+    padding: var(--space-4) var(--space-2);
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition-base);
+    border-left: 2px solid transparent;
+    margin: 0.35rem 0;
+    font-size: 0.95rem;
+    border-bottom: none;
+  }
+
+  .tocItem.active .tocLink {
+    border-bottom: 2px solid var(--color-brand-primary);
+    border-left: none;
+    font-weight: var(--font-weight-normal);
+    text-decoration: none;
+    padding-left: var(--space-4);
+  }
+
+  /* Mobile Toggle Button - visible on tablet and smaller */
+  .tocMobileToggle {
+    display: flex;
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+    z-index: var(--z-overlay);
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-elevated);
+    border: 2px solid var(--color-success);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-base);
+    color: var(--color-success);
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .tocMobileToggle.open {
+    color: var(--color-success);
+    width: 50px;
+    height: 50px;
+  }
+
+  .tocToggleIcon {
+    transition: transform var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tocMobileToggle.open .tocToggleIcon {
+    transform: scaleX(-1);
+  }
+
+  /* Backdrop overlay when TOC is open */
+  :global(body.toc-open) {
+    overflow: hidden;
+  }
+}
+
+/* Desktop (1200px and above) - hide mobile toggle */
+@media (min-width: 1200px) {
+  .tocMobileToggle {
+    display: none;
+  }
+}

@@ -1,0 +1,25 @@
+.metaBlock {
+  margin-bottom: var(--space-6);
+}
+
+.metaBlock h2 {
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.resourceList {
+  margin: 0;
+  padding-left: var(--space-4);
+  color: var(--color-text-secondary);
+}
+
+.resourceLink {
+  color: var(--color-text-link);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-base);
+}
+
+.resourceLink:hover {
+  color: var(--color-text-link-hover);
+}

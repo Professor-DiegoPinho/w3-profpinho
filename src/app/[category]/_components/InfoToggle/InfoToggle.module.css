@@ -1,0 +1,110 @@
+.toggle {
+  margin: var(--space-6) 0;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle.closed {
+  max-height: 48px;
+  box-shadow: none;
+  border-color: var(--color-border);
+}
+
+.toggle:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.toggle.open {
+  max-height: 1500px;
+  box-shadow: var(--shadow-lg);
+  background: var(--color-bg-elevated);
+  border-color: var(--color-border-strong);
+}
+
+.summary {
+  all: unset;
+  list-style: none;
+  cursor: pointer;
+  padding: 0 var(--space-5);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-3);
+  height: 48px;
+  transition: all var(--transition-base);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  position: relative;
+  font-family: var(--font-sans);
+}
+
+.summary:hover {
+  color: var(--color-brand-primary);
+}
+
+.summary::before {
+  content: "+";
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.toggle.open .summary::before {
+  transform: rotate(45deg);
+}
+
+.content {
+  padding: 0 var(--space-5);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease 0.05s, transform 0.3s ease 0.05s;
+}
+
+.content>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content>*:first-child {
+  padding-top: var(--space-1);
+}
+
+.content>*:last-child {
+  margin-bottom: 0;
+  padding-bottom: var(--space-5);
+}
+
+.toggle.closed .content {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.toggle.open .content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Responsive adjustments for content links */
+@media (max-width: 768px) {
+  .content {
+    margin: var(--space-3) 0 var(--space-2);
+    padding: var(--space-3);
+  }
+}

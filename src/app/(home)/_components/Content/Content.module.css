@@ -1,0 +1,131 @@
+/* Home Page Styles */
+.homePage {
+  padding: 0;
+}
+
+.homeHeader {
+  text-align: center;
+  padding: var(--space-12) 0;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-12);
+}
+
+.homeHeader h1 {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--space-3);
+  font-weight: var(--font-weight-bold);
+}
+
+.homeHeader p {
+  font-size: var(--font-size-md);
+  opacity: 0.9;
+}
+
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  padding: 0 var(--space-10);
+}
+
+.catalogSection {
+  padding: var(--space-4) 0;
+  background: var(--color-bg-subtle)
+}
+
+.catalogTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 var(--space-10) var(--space-5);
+}
+
+.card {
+  background: var(--color-bg-base);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border: 1px solid var(--color-border);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.freeBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  background: #e7f9f0;
+  border: 1px solid #bfead3;
+  color: #0c7a4d;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card h2 {
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-xl);
+}
+
+.card p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-5);
+}
+
+.stats {
+  margin-bottom: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color var(--transition-slow);
+}
+
+.btn:hover {
+  background-color: var(--color-brand-primary-hover);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .categoriesGrid {
+    grid-template-columns: 1fr;
+    padding: 0 var(--space-5);
+  }
+
+  .catalogTitle {
+    margin: 0 var(--space-5) var(--space-5);
+  }
+
+  .card {
+    padding: var(--space-5);
+  }
+
+  .homeHeader h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .catalogTitle {
+    font-size: var(--font-size-xl);
+  }
+}

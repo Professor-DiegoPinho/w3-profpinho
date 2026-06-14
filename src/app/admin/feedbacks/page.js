@@ -1,89 +1,11 @@
 import { auth } from "@/auth";
 import { isUserAdmin } from "@/lib/adminAuth";
-import { adminDb } from "@/lib/firebaseAdmin";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import "./feedbacks-list.css";
+import { getFeedbacksStats, getCourses } from "../_utils/feedbacks";
+import { FeedbackCourseList } from "../_components/FeedbackCourseList/FeedbackCourseList";
+import styles from "./page.module.css";
 
-async function getFeedbacksStats() {
-  try {
-    const feedbacksSnapshot = await adminDb.collection("courseFeedback").get();
-
-    // Agrupar feedbacks por curso
-    const statsByCourse = {};
-
-    feedbacksSnapshot.forEach((doc) => {
-      const feedbackData = doc.data();
-      const courseSlug = feedbackData.courseSlug;
-
-      if (!courseSlug) return;
-
-      if (!statsByCourse[courseSlug]) {
-        statsByCourse[courseSlug] = {
-          courseSlug,
-          totalFeedbacks: 0,
-          npsScores: [],
-          totalByCategory: {
-            detrator: 0,
-            neutro: 0,
-            promoter: 0,
-          },
-        };
-      }
-
-      statsByCourse[courseSlug].totalFeedbacks += 1;
-      statsByCourse[courseSlug].npsScores.push(feedbackData.npsScore || 0);
-
-      // Categorizar por NPS
-      const nps = feedbackData.npsScore || 0;
-      if (nps <= 6) {
-        statsByCourse[courseSlug].totalByCategory.detrator += 1;
-      } else if (nps <= 8) {
-        statsByCourse[courseSlug].totalByCategory.neutro += 1;
-      } else {
-        statsByCourse[courseSlug].totalByCategory.promoter += 1;
-      }
-    });
-
-    // Calcular NPS médio para cada curso
-    const stats = Object.values(statsByCourse).map((stat) => {
-      const avgNps =
-        stat.npsScores.length > 0
-          ? (stat.npsScores.reduce((a, b) => a + b, 0) / stat.npsScores.length).toFixed(1)
-          : 0;
-
-      return {
-        courseSlug: stat.courseSlug,
-        totalFeedbacks: stat.totalFeedbacks,
-        avgNps,
-        totalByCategory: stat.totalByCategory,
-      };
-    });
-
-    return { data: stats };
-  } catch (error) {
-    console.error("Erro ao buscar stats:", error);
-    return { data: [] };
-  }
-}
-
-async function getCourses() {
-  try {
-    const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
-    const response = await fetch(`${baseUrl}/api/sidebar`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      throw new Error("Erro ao buscar cursos");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Erro ao buscar cursos:", error);
-    return [];
-  }
-}
+export const dynamic = 'force-dynamic';
 
 export default async function FeedbacksListPage() {
   const session = await auth();
@@ -131,64 +53,23 @@ export default async function FeedbacksListPage() {
       : "N/A";
 
   return (
-    <div className="admin-feedbacks-list-container">
-      <div className="admin-feedbacks-list-header">
-        <h1 className="admin-feedbacks-list-title">Feedbacks dos Cursos</h1>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>Feedbacks dos Cursos</h1>
       </div>
 
-      {/* Estatísticas Gerais */}
-      <div className="admin-feedbacks-list-stats">
-        <div className="admin-feedbacks-list-stat-card">
-          <div className="admin-feedbacks-list-stat-label">Total de Feedbacks</div>
-          <div className="admin-feedbacks-list-stat-value">{totalFeedbacks}</div>
-        </div>
-        <div className="admin-feedbacks-list-stat-card">
-          <div className="admin-feedbacks-list-stat-label">NPS Geral</div>
-          <div className="admin-feedbacks-list-stat-value">{overallNps}</div>
-        </div>
-        <div className="admin-feedbacks-list-stat-card">
-          <div className="admin-feedbacks-list-stat-label">Cursos com Feedback</div>
-          <div className="admin-feedbacks-list-stat-value">{coursesWithFeedback.length}</div>
-        </div>
-      </div>
-
-      {/* Lista de Cursos */}
       {coursesWithFeedback.length === 0 ? (
-        <div className="admin-feedbacks-list-empty">
+        <div className={styles.empty}>
           Nenhum curso com feedbacks ainda
         </div>
       ) : (
-        <div className="admin-feedbacks-list-grid">
-          {coursesWithFeedback.map((course) => {
-            const courseStats = stats[course.category] || {
-              totalFeedbacks: 0,
-              avgNps: 0,
-              totalByCategory: { detrator: 0, neutro: 0, promoter: 0 },
-            };
-
-            const npsColor =
-              courseStats.avgNps >= 9
-                ? "promoter"
-                : courseStats.avgNps >= 7
-                ? "passive"
-                : "detractor";
-
-            return (
-              <Link
-                key={course.category}
-                href={`/admin/feedbacks/${course.category}`}
-                className="admin-feedbacks-list-card"
-              >
-                <h3 className="admin-feedbacks-list-card-title">{course.title}</h3>
-                <div className={`admin-feedbacks-list-nps-badge ${npsColor}`}>
-                  {courseStats.avgNps}
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+        <FeedbackCourseList
+          coursesWithFeedback={coursesWithFeedback}
+          stats={stats}
+          totalFeedbacks={totalFeedbacks}
+          overallNps={overallNps}
+        />
       )}
     </div>
   );
 }
-

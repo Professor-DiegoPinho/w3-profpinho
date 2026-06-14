@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
-import { adminDb } from "@/lib/firebaseAdmin";
+import { isUserAdmin } from "@/lib/adminAuth";
+import { adminDb, adminStorage } from "@/lib/firebaseAdmin";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
@@ -50,8 +51,10 @@ export async function GET(request, { params }) {
 
     const certificate = certSnap.data();
 
-    // Verificar permissão: o usuário só pode baixar seu próprio certificado (ou admin)
-    if (session?.user?.id !== certificateOwnerId && session?.user?.role !== "admin") {
+    // Verificar permissão usando banco de dados para admin (mais seguro que a sessão NextAuth expirada)
+    const isAdmin = session?.user?.id ? await isUserAdmin(session.user.id) : false;
+
+    if (session?.user?.id !== certificateOwnerId && !isAdmin) {
       return NextResponse.json(
         { error: "Sem permissão para acessar este certificado" },
         { status: 403 }
@@ -66,18 +69,21 @@ export async function GET(request, { params }) {
       );
     }
 
-    // Fazer proxy do PDF do Firebase Storage para evitar CORS
+    // Fazer download do PDF do Firebase Storage diretamente via SDK
     try {
-      const pdfResponse = await fetch(certificate.pdfUrl);
-      
-      if (!pdfResponse.ok) {
+      const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
+      const bucket = adminStorage.bucket(bucketName);
+      const file = bucket.file(`certificates/${certificateId}.pdf`);
+
+      const [exists] = await file.exists();
+      if (!exists) {
         return NextResponse.json(
-          { error: "Erro ao buscar PDF do Storage" },
-          { status: pdfResponse.status }
+          { error: "Arquivo do certificado não encontrado no Storage" },
+          { status: 404 }
         );
       }
 
-      const pdfBuffer = await pdfResponse.arrayBuffer();
+      const [pdfBuffer] = await file.download();
 
       // Retornar PDF com headers corretos para download
       return new NextResponse(pdfBuffer, {
@@ -88,10 +94,10 @@ export async function GET(request, { params }) {
           "Cache-Control": "private, no-store",
         },
       });
-    } catch (fetchError) {
-      console.error("Erro ao fazer fetch do PDF:", fetchError);
+    } catch (storageError) {
+      console.error("Erro ao baixar PDF do Storage:", storageError);
       return NextResponse.json(
-        { error: "Erro ao buscar PDF do Storage", details: fetchError.message },
+        { error: "Erro ao buscar PDF do Storage", details: storageError.message },
         { status: 500 }
       );
     }

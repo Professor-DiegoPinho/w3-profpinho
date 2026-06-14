@@ -1,0 +1,148 @@
+/* About Professor Section */
+.about {
+  padding: var(--space-12) 0;
+  background: var(--color-bg-subtle);
+}
+
+.aboutContainer {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-10);
+}
+
+.aboutContent {
+  display: block;
+  text-align: center;
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.aboutText__title {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-5);
+  font-weight: var(--font-weight-bold);
+}
+
+.aboutText__description {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+/* Credentials Grid */
+.credentials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  justify-items: center;
+  max-width: 37.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.credential__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+.credential__icon {
+  font-size: var(--font-size-lg);
+}
+
+/* About Actions */
+.aboutActions {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta {
+  display: inline-block;
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: all var(--transition-slow);
+  font-size: var(--font-size-base);
+}
+
+.cta--primary {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.cta--primary:hover {
+  background: var(--color-brand-primary-hover);
+  transform: translateY(-2px);
+}
+
+.cta--secondary {
+  background: transparent;
+  color: var(--color-brand-primary);
+  border: 2px solid var(--color-brand-primary);
+}
+
+.cta--secondary:hover {
+  background: var(--color-brand-primary-hover);
+  color: var(--color-text-on-brand);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+  .about {
+    padding: var(--space-12) 0;
+  }
+
+  .aboutContainer {
+    padding: 0 var(--space-5);
+  }
+
+  .aboutContent {
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .aboutText__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .credentials {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .aboutActions {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta {
+    width: 100%;
+    max-width: 17.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .aboutText__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .aboutText__description {
+    font-size: var(--font-size-base);
+  }
+
+  .aboutActions {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+}

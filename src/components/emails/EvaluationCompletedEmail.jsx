@@ -36,7 +36,7 @@ export default function EvaluationCompletedEmail({
             <Text style={greeting}>Olá {studentName},</Text>
 
             <Text style={paragraph}>
-              A avaliação de <strong>{courseName}</strong> foi finalizada! 
+              A avaliação de <strong>{courseName}</strong> foi finalizada!
               O resultado já está disponível em sua conta na plataforma.
             </Text>
 

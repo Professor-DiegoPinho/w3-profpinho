@@ -1,0 +1,37 @@
+.button {
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  transition: background-color var(--transition-base);
+  font-size: var(--font-size-base);
+  font-family: var(--font-sans);
+}
+
+.button:hover {
+  background-color: var(--color-brand-primary-hover);
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-brand-primary-hover);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.error {
+  margin-top: var(--space-2);
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+}

@@ -1,0 +1,104 @@
+/* Search Result Card Styles - CSS Module */
+
+.resultCard {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-slow);
+  border: 1px solid var(--color-border);
+}
+
+.resultCard:hover {
+  border-color: var(--color-border-strong);
+}
+
+.resultLink {
+  display: block;
+  padding: var(--space-6);
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+}
+
+.resultCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.resultCardTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.resultCardTitle mark {
+  background-color: var(--color-highlight);
+  padding: calc(var(--space-1) / 2) var(--space-1);
+  border-radius: var(--radius-xs);
+}
+
+.resultCardCategory {
+  font-size: var(--font-size-sm);
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 10%, transparent);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.resultCardDescription {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-4) 0;
+  line-height: 1.6;
+}
+
+.resultCardDescription mark {
+  background-color: var(--color-highlight);
+  padding: calc(var(--space-1) / 2) var(--space-1);
+  border-radius: var(--radius-xs);
+}
+
+.resultCardExcerpt {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-4) 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.resultCardExcerpt mark {
+  background-color: var(--color-highlight);
+  padding: calc(var(--space-1) / 2) var(--space-1);
+  border-radius: var(--radius-xs);
+  font-style: normal;
+}
+
+.resultCardFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.resultMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  justify-content: space-between;
+  width: 100%;
+}
+
+.resultScore {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}

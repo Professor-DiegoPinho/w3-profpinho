@@ -1,0 +1,92 @@
+.mobileSidebarNav {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 calc(100% / 3);
+  width: calc(100% / 3);
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-primary) var(--color-bg-subtle);
+}
+
+.mobileSidebarPage {
+  box-sizing: border-box;
+}
+
+.mobileSidebarHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-brand-primary);
+  margin-bottom: var(--space-5);
+}
+
+.mobileBackBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-muted);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  width: fit-content;
+}
+
+.mobileBackBtn:active {
+  background-color: var(--color-bg-muted);
+}
+
+.mobileBackArrow {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+.mobileContentTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+.mobileContentList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mobileContentLink {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-muted);
+  transition: background-color var(--transition-fast), color var(--transition-fast), font-weight var(--transition-fast);
+}
+
+.mobileContentLink:active {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-brand-primary);
+}
+
+.mobileContentLink.active {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-bold);
+}

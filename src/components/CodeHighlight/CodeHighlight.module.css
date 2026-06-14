@@ -1,0 +1,81 @@
+.codeBlock {
+  background-color: var(--color-bg-secondary, #1e1e1e);
+  color: var(--color-text-primary, #e8e8e8);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  border: 1px solid var(--color-border-light, #333333);
+}
+
+/* Estilos para syntax highlighting do Prism */
+.codeBlock pre {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.codeBlock code {
+  font-family: 'Courier New', monospace;
+  background: transparent;
+  padding: 0;
+}
+
+/* Line numbers styling */
+.codeBlock .linenumber {
+  color: var(--color-text-secondary, #858585);
+  margin-right: var(--space-3);
+  user-select: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .codeBlock {
+    padding: var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+}
+
+.codeBlockWrapper {
+  position: relative;
+}
+
+.copyCodeBtn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: var(--z-dropdown);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 6px var(--space-3);
+  background-color: transparent;
+  border: 1px solid var(--primitive-gray-100);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--primitive-gray-100);
+  transition: all var(--transition-base);
+  height: 32px;
+}
+
+.copyCodeBtn:hover:not(:disabled) {
+  border-color: var(--primitive-white-pure);
+  color: var(--primitive-white-pure);
+}
+
+.copyCodeBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.copyCodeBtn:disabled {
+  cursor: default;
+}
+
+.copyCodeBtn span {
+  display: inline;
+}

@@ -1,0 +1,13 @@
+/* Header Navigation Styles */
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 0 1 auto;
+}
+
+@media (max-width: 1100px) {
+  .headerNav {
+    display: none;
+  }
+}

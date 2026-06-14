@@ -1,0 +1,29 @@
+.metaBlock {
+  margin-bottom: var(--space-6);
+}
+
+.metaBlock h2 {
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tagChip {
+  background-color: var(--color-bg-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-1) var(--space-3);
+}
+
+.tagChip:hover {
+  background-color: var(--color-bg-muted-hover);
+}

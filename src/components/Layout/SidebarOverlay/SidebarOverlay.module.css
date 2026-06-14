@@ -1,0 +1,28 @@
+/* Sidebar Overlay Styles - CSS Module */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg-overlay);
+  z-index: var(--z-overlay);
+  animation: fadeIn var(--transition-slow) ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1101px) {
+  .overlay {
+    display: none;
+  }
+}

@@ -1,46 +1,20 @@
+import AdditionalInfo from "@/app/[category]/_components/AdditionalInfo/AdditionalInfo";
+import EnrollmentActions from "@/app/[category]/_components/EnrollmentActions/EnrollmentActions";
+import Header from "@/app/[category]/_components/Header/Header";
+import LessonsSection from "@/app/[category]/_components/LessonsSection/LessonsSection";
+import Summary from "@/app/[category]/_components/Summary/Summary";
+import CTABanner from "@/app/[category]/_components/CTABanner/CTABanner";
+import FeedbackCard from "@/app/[category]/_components/FeedbackCard/FeedbackCard";
+import Progress from "@/app/[category]/_components/Progress/Progress";
 import { auth } from "@/auth";
-import CourseEnrollmentButton from "@/components/CourseEnrollmentButton/CourseEnrollmentButton";
-import CourseFeedbackCard from "@/components/CourseFeedbackCard/CourseFeedbackCard";
-import CourseInfoToggle from "@/components/CourseInfoToggle/CourseInfoToggle";
-import CourseLessonsList from "@/components/CourseLessonsList/CourseLessonsList";
-import CourseProgress from "@/components/CourseProgress/CourseProgress";
-import YouTubeEmbed from "@/components/YouTubeEmbed/YouTubeEmbed";
 import { content } from "@/data";
-import {
-    courseRequiresEnrollment,
-    getCourseAccessLabel,
-    getCourseAccessType,
-    isCourseVisibleToUser,
-    isPaidCourse,
-} from "@/lib/courseAccess";
-import {
-    getCourseEnrollmentCount,
-    getCourseEnrollmentDate,
-    getEnrolledCourseIds,
-} from "@/lib/enrollment";
-import { isProjectApproved } from "@/lib/feedback";
-import {
-    getCategories,
-    getCourseLessonsCount,
-    getPostsInCategory,
-} from "@/lib/markdown";
-import { getLessonProgress } from "@/lib/progress";
-import Image from "next/image";
+import { getCourseAccessLabel } from "@/lib/courseAccess";
+import { getCategories, getPostsInCategory } from "@/lib/markdown";
+import { getCoursePageData } from "@/app/[category]/_utils/getPageData";
 import { notFound, redirect } from "next/navigation";
+import styles from "./page.module.css";
 
 export const revalidate = 3600; // ISR: revalida a cada 1 hora
-
-function getShortLink(url) {
-  try {
-    const parsedUrl = new URL(url);
-    const domain = parsedUrl.hostname.replace(/^www\./, "");
-    const path = parsedUrl.pathname === "/" ? "" : parsedUrl.pathname;
-    const shortPath = path.length > 18 ? `${path.slice(0, 18)}...` : path;
-    return `${domain}${shortPath}`;
-  } catch {
-    return url;
-  }
-}
 
 export async function generateStaticParams() {
   const categories = getCategories();
@@ -49,386 +23,83 @@ export async function generateStaticParams() {
 
 export default async function CategoryPage({ params }) {
   const { category } = await params;
-  const posts = getPostsInCategory(category);
-  const course = content.find((item) => item.slug === category);
-
-  if (!posts.length) {
-    notFound();
-  }
-
   const session = await auth();
-  const userId = session?.user?.id;
-  const enrolledCourseIds = Array.isArray(session?.user?.enrolledCourseIds)
-    ? session.user.enrolledCourseIds
-    : await getEnrolledCourseIds(userId);
 
-  if (!isCourseVisibleToUser(category, enrolledCourseIds)) {
+  const data = await getCoursePageData(category, session);
+
+  if (!data.postsExist) {
     notFound();
   }
 
-  const firstPost = posts[0];
-  const totalLessons = getCourseLessonsCount(category);
-  const courseWorkloadHours = Number.isInteger(course?.workloadHours)
-    ? course.workloadHours
-    : 0;
-  const totalEnrolledStudents = await getCourseEnrollmentCount(category);
-  const courseTitle =
-    course?.title || category.charAt(0).toUpperCase() + category.slice(1);
-  const courseDescription =
-    course?.description ||
-    firstPost.description ||
-    `Aprenda ${category} com aulas progressivas do básico ao avançado.`;
-  const courseBadge =
-    typeof course?.badge === "string" && course.badge.trim().length > 0
-      ? course.badge.trim()
-      : null;
-  const courseTags = Array.isArray(course?.tags) ? course.tags : [];
-  const coursePrerequisites = Array.isArray(course?.prerequisites)
-    ? course.prerequisites
-    : [];
-  const courseAccessType = getCourseAccessType(course);
-  const courseAccessLabel = getCourseAccessLabel(course);
-  const showAccessBadge = courseAccessType === "free-course";
-  const requiresEnrollment = courseRequiresEnrollment(course);
-  const requiresPayment = isPaidCourse(course);
-
-  if ((courseAccessType === "tutorial" || courseAccessType === "resume") && firstPost?.slug) {
-    redirect(`/${category}/${firstPost.slug}`);
+  if (!data.isCourseVisible) {
+    notFound();
   }
 
-  const courseImage = course?.image;
-  const coursePresentationVideoId =
-    typeof course?.youtubeId === "string" && course.youtubeId.trim()
-      ? course.youtubeId.trim()
-      : null;
-  const courseEbook = course?.ebook || {};
-  const hasCourseEbook = Object.keys(courseEbook).length > 0;
-  const courseEbookLink = courseEbook.url;
-  const courseUsefulLinks = Array.isArray(course?.usefulLinks)
-    ? course.usefulLinks
-      .map((link) => {
-        if (typeof link === "string") return { label: link, url: link };
-        if (link?.url) return { label: link.label || link.url, url: link.url };
-        return null;
-      })
-      .filter(Boolean)
-    : [];
-  const hasCourseResources = courseUsefulLinks.length > 0;
-  const isUserEnrolled = enrolledCourseIds.includes(category);
-  const enrollmentDate =
-    requiresEnrollment && isUserEnrolled
-      ? await getCourseEnrollmentDate(userId, category)
-      : null;
-  const enrollmentDateLabel = enrollmentDate
-    ? new Intl.DateTimeFormat("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    }).format(enrollmentDate)
-    : null;
-
-  const progressData = userId ? await getLessonProgress(userId, category) : null;
-  const completedLessons = progressData?.completedLessons ?? [];
-  
-  // Recalcular a porcentagem com o totalLessons correto (excluindo projeto.md)
-  const correctTotalLessons = totalLessons;
-  const correctCompletionPercentage = correctTotalLessons > 0 
-    ? Math.round((completedLessons.length / correctTotalLessons) * 100)
-    : 0;
-  
-  const serializedProgress = progressData
-    ? {
-      completedLessons: progressData.completedLessons ?? [],
-      totalLessons: correctTotalLessons,
-      completionPercentage: correctCompletionPercentage,
-      completedAt: progressData.completedAt?._seconds
-        ? new Date(progressData.completedAt._seconds * 1000).toISOString()
-        : null,
-    }
-    : null;
-
-  // Feedback eligibility check
-  let projectApproved = false;
-  let feedbackResponded = false;
-  if (userId && isUserEnrolled) {
-    projectApproved = await isProjectApproved(userId, category);
-    feedbackResponded = progressData?.feedbackResponded === true;
+  if (data.shouldRedirect) {
+    redirect(data.redirectUrl);
   }
+
+  const { userId, isUserEnrolled } = data;
 
   return (
-    <section className="course-enrollment-page">
-      <header className="course-enrollment-header">
-        {courseImage && (
-          <div className="course-enrollment-logo">
-            <Image
-              src={courseImage}
-              alt={`Logo do curso ${courseTitle}`}
-              width={72}
-              height={72}
-            />
-          </div>
-        )}
-        <div className="course-enrollment-badges">
-          {courseBadge && (
-            <span className="course-enrollment-badge">{courseBadge}</span>
-          )}
-          {showAccessBadge && (
-            <span className="course-enrollment-badge">{courseAccessLabel}</span>
-          )}
-        </div>
-        <h1>{courseTitle}</h1>
-        <p>{courseDescription}</p>
-      </header>
+    <section className={styles.page}>
+      <Header
+        courseImage={data.courseImage}
+        courseBadge={data.courseBadge}
+        showAccessBadge={data.showAccessBadge}
+        courseAccessLabel={data.courseAccessLabel}
+        courseTitle={data.courseTitle}
+        courseDescription={data.courseDescription}
+      />
 
-      <div className="course-enrollment-summary">
-        <div className="course-summary-item">
-          <strong>
-            {totalLessons} {totalLessons === 1 ? "Aula" : "Aulas"}
-          </strong>
-          <span>Conteúdo do curso</span>
-        </div>
-        <div className="course-summary-item">
-          <strong>
-            {"+"}{totalEnrolledStudents < 100 ? 100 : totalEnrolledStudents}{" Alunos"}
-          </strong>
-          <span>Comunidade ativa</span>
-        </div>
-        <div className="course-summary-item">
-          <strong>
-            {courseWorkloadHours}{" "}
-            {courseWorkloadHours === 1 ? "Hora" : "Horas"}
-          </strong>
-          <span>Carga horária estimada</span>
-        </div>
-      </div>
+      <Summary
+        totalLessons={data.totalLessons}
+        totalEnrolledStudents={data.totalEnrolledStudents}
+        courseWorkloadHours={data.courseWorkloadHours}
+      />
 
       {userId && isUserEnrolled && (
-        <CourseProgress
+        <Progress
           courseSlug={category}
-          totalLessons={totalLessons}
-          initialProgress={serializedProgress}
-          enrollmentDateLabel={enrollmentDateLabel}
+          totalLessons={data.totalLessons}
+          initialProgress={data.serializedProgress}
+          enrollmentDateLabel={data.enrollmentDateLabel}
+        />
+      )}
+
+      {userId && isUserEnrolled && (
+        <FeedbackCard
+          courseSlug={category}
+          completionPercentage={data.completionPercentage}
+          projectApproved={data.projectApproved}
+          feedbackResponded={data.feedbackResponded}
         />
       )}
 
       {!isUserEnrolled && (
-        <div className="course-enrollment-cta-banner">
-          <p className="course-enrollment-cta-text">
-            Quer acessar todas as aulas? Inscreva-se para começar a aprender!
-          </p>
-          <CourseEnrollmentButton
-            category={category}
-            firstPostSlug={firstPost.slug}
-            accessType={courseAccessType}
-            requiresEnrollment={requiresEnrollment}
-            requiresPayment={requiresPayment}
-            checkoutUrl={course?.checkoutUrl}
-          />
-        </div>
+        <CTABanner {...data.enrollmentProps} />
       )}
 
-      <div className="course-meta-block">
-        <h2>Aulas do curso</h2>
-        <CourseLessonsList
-          posts={posts}
-          category={category}
-          completedLessons={completedLessons}
-          isEnrolled={isUserEnrolled}
-        />
-      </div>
+      <LessonsSection
+        posts={data.posts}
+        category={category}
+        completedLessons={data.completedLessons}
+        isEnrolled={isUserEnrolled}
+      />
 
-      {userId && isUserEnrolled && (
-        <CourseFeedbackCard
-          courseSlug={category}
-          completionPercentage={correctCompletionPercentage}
-          projectApproved={projectApproved}
-          feedbackResponded={feedbackResponded}
-        />
-      )}
 
-      {userId && isUserEnrolled ? (
-        <CourseInfoToggle summary="Saiba mais">
-          {coursePresentationVideoId && (
-            <div className="course-meta-block">
-              <h2>Vídeo de apresentação</h2>
-              <YouTubeEmbed videoId={coursePresentationVideoId} />
-            </div>
-          )}
 
-          {hasCourseEbook && (
-            <div className="course-meta-block">
-              <h2>Materiais do curso</h2>
-              <a
-                href={courseEbookLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="course-ebook-card"
-              >
-                {courseEbook.image ? (
-                  <div
-                    className="course-ebook-card-image"
-                    style={{ backgroundImage: `url(${courseEbook.image})` }}
-                    role="img"
-                    aria-label={`Imagem do site ${courseEbook.siteName}`}
-                  />
-                ) : (
-                  <div className="course-ebook-card-image-fallback">
-                    {courseEbook.siteName.slice(0, 1).toUpperCase()}
-                  </div>
-                )}
-                <div className="course-ebook-card-content">
-                  <p className="course-ebook-card-site">{courseEbook.siteName}</p>
-                  <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
-                  <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
-                  <span className="course-ebook-card-cta">Abrir material completo ↗</span>
-                </div>
-              </a>
-            </div>
-          )}
-
-          {hasCourseResources && (
-            <div className="course-meta-block">
-              <h2>Recursos adicionais</h2>
-              <ul className="course-resource-list">
-                {courseUsefulLinks.map((link) => (
-                  <li key={link.url}>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="course-resource-link"
-                    >
-                      {getShortLink(link.url)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {courseTags.length > 0 && (
-            <div className="course-meta-block">
-              <h2>Tags</h2>
-              <div className="course-tags-list">
-                {courseTags.map((tag) => (
-                  <span key={tag} className="course-tag-chip">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {coursePrerequisites.length > 0 && (
-            <div className="course-meta-block">
-              <h2>Pré-requisitos</h2>
-              <ul className="course-prerequisites-list">
-                {coursePrerequisites.map((prerequisite) => (
-                  <li key={prerequisite}>{prerequisite}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </CourseInfoToggle>
-      ) : (
-        <>
-          {coursePresentationVideoId && (
-            <div className="course-meta-block">
-              <h2>Saiba mais sobre o curso</h2>
-              <YouTubeEmbed videoId={coursePresentationVideoId} />
-            </div>
-          )}
-
-          {hasCourseEbook && (
-            <div className="course-meta-block">
-              <h2>Materiais do curso</h2>
-              <a
-                href={courseEbookLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="course-ebook-card"
-              >
-                {courseEbook.image ? (
-                  <div
-                    className="course-ebook-card-image"
-                    style={{ backgroundImage: `url(${courseEbook.image})` }}
-                    role="img"
-                    aria-label={`Imagem do site ${courseEbook.siteName}`}
-                  />
-                ) : (
-                  <div className="course-ebook-card-image-fallback">
-                    {courseEbook.siteName.slice(0, 1).toUpperCase()}
-                  </div>
-                )}
-                <div className="course-ebook-card-content">
-                  <p className="course-ebook-card-site">{courseEbook.siteName}</p>
-                  <h3 className="course-ebook-card-title">{courseEbook.title}</h3>
-                  <p className="course-ebook-card-domain">{courseEbook.displayUrl}</p>
-                  <span className="course-ebook-card-cta">Abrir material completo ↗</span>
-                </div>
-              </a>
-            </div>
-          )}
-
-          {hasCourseResources && (
-            <div className="course-meta-block">
-              <h2>Recursos adicionais</h2>
-              <ul className="course-resource-list">
-                {courseUsefulLinks.map((link) => (
-                  <li key={link.url}>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="course-resource-link"
-                    >
-                      {getShortLink(link.url)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {courseTags.length > 0 && (
-            <div className="course-meta-block">
-              <h2>Tags</h2>
-              <div className="course-tags-list">
-                {courseTags.map((tag) => (
-                  <span key={tag} className="course-tag-chip">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="course-meta-block">
-            {coursePrerequisites.length > 0 && (
-              <>
-                <h2>Pré-requisitos</h2>
-                <ul className="course-prerequisites-list">
-                  {coursePrerequisites.map((prerequisite) => (
-                    <li key={prerequisite}>{prerequisite}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </div>
-        </>
-      )}
+      <AdditionalInfo
+        isUserEnrolled={isUserEnrolled}
+        coursePresentationVideoId={data.coursePresentationVideoId}
+        courseEbook={data.courseEbook}
+        courseUsefulLinks={data.courseUsefulLinks}
+        courseTags={data.courseTags}
+        coursePrerequisites={data.coursePrerequisites}
+      />
 
       {!isUserEnrolled && (
-        <div className="course-enrollment-actions">
-          <CourseEnrollmentButton
-            category={category}
-            firstPostSlug={firstPost.slug}
-            accessType={courseAccessType}
-            requiresEnrollment={requiresEnrollment}
-            requiresPayment={requiresPayment}
-            checkoutUrl={course?.checkoutUrl}
-          />
-        </div>
+        <EnrollmentActions {...data.enrollmentProps} />
       )}
     </section>
   );

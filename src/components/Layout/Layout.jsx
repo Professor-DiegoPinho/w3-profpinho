@@ -1,18 +1,14 @@
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import AuthButton from '../AuthButton/AuthButton';
-import CookieConsent from '../CookieConsent/CookieConsent';
-import DiscordFloatingButton from '../DiscordFloatingButton/DiscordFloatingButton';
-import DynamicSidebar from '../DynamicSidebar/DynamicSidebar';
-import Footer from '../Footer/Footer';
-import HeaderNav from '../HeaderNav/HeaderNav';
-import MobileSidebar from '../MobileSidebar/MobileSidebar';
-import SearchBox from '../SearchBox/SearchBox';
-import LessonContentSkeleton from '../Skeletons/LessonContentSkeleton';
-import ProfilePageSkeleton from '../Skeletons/ProfilePageSkeleton';
+import CookieConsent from "@/components/CookieConsent/CookieConsent";
+import DesktopSidebar from "@/components/Layout/Sidebar/Desktop/DesktopSidebar";
+import MobileSidebar from "@/components/Layout/Sidebar/Mobile/MobileSidebar";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import DiscordFloatingButton from "../DiscordFloatingButton/DiscordFloatingButton";
+import Footer from "./Footer/Footer";
+import Header from "./Header/Header";
+import SidebarOverlay from "./SidebarOverlay/SidebarOverlay";
 
 const SIDEBAR_COLLAPSE_BREAKPOINT = 1100;
 
@@ -30,9 +26,9 @@ export default function Layout({ children, sidebarData = [] }) {
     };
 
     checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
+    window.addEventListener("resize", checkIfMobile);
 
-    return () => window.removeEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
   // Fechar sidebar ao mudar de rota em mobile
@@ -53,11 +49,19 @@ export default function Layout({ children, sidebarData = [] }) {
     }
   }, [pathname, pendingPath]);
 
-  const resolvedCurrentCategory = pathname.split('/').filter(Boolean)[0];
-  const resolvedCurrentSlug = pathname.split('/').filter(Boolean)[1];
-  const hasSidebarContent = Boolean(resolvedCurrentCategory);
-  const routesWithoutSidebar = ['validar-certificado', 'meu-perfil', 'search', 'admin'];
-  const shouldShowSidebar = Boolean(resolvedCurrentCategory && resolvedCurrentSlug && !routesWithoutSidebar.includes(resolvedCurrentCategory));
+  const resolvedCurrentCategory = pathname.split("/").filter(Boolean)[0];
+  const resolvedCurrentSlug = pathname.split("/").filter(Boolean)[1];
+  const routesWithoutSidebar = [
+    "validar-certificado",
+    "meu-perfil",
+    "search",
+    "admin",
+  ];
+  const shouldShowSidebar = Boolean(
+    resolvedCurrentCategory &&
+    resolvedCurrentSlug &&
+    !routesWithoutSidebar.includes(resolvedCurrentCategory),
+  );
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -72,51 +76,24 @@ export default function Layout({ children, sidebarData = [] }) {
     setIsRouteLoading(true);
   };
 
-  const isProfileRouteLoading = pendingPath === '/meu-perfil';
-
   return (
     <div className="app-layout">
-      <header className="app-header">
-        <div className="header-content">
-          <button
-            className="hamburger-button"
-            onClick={toggleSidebar}
-            aria-label="Abrir menu"
-          >
-            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-            <span className={`hamburger-line ${isSidebarOpen ? 'open' : ''}`}></span>
-          </button>
+      <Header
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        sidebarData={sidebarData}
+        resolvedCurrentCategory={resolvedCurrentCategory}
+        resolvedCurrentSlug={resolvedCurrentSlug}
+        handleNavigateStart={handleNavigateStart}
+      />
 
-          <div className="header-brand">
-            <Link href="/" className="header-logo">
-              <img
-                src="/diegopinho-learninghub-logo.svg"
-                alt="Learning Hub Logo"
-                className="header-logo-image"
-              />
-            </Link>
-          </div>
-
-          <HeaderNav
-            sidebarData={sidebarData}
-            currentCategory={resolvedCurrentCategory}
-            currentSlug={resolvedCurrentSlug}
-            onNavigateStart={handleNavigateStart}
-          />
-
-          <SearchBox className="header-search" />
-
-          <div className="header-auth">
-            <AuthButton onNavigateStart={handleNavigateStart} />
-          </div>
-        </div>
-      </header>
-
-      <div className={`layout-body ${shouldShowSidebar ? 'has-sidebar' : 'no-sidebar'}`.trim()}>
-        {isSidebarOpen && (
-          <div className="sidebar-overlay" onClick={closeSidebar}></div>
-        )}
+      <div
+        className={`layout-body ${shouldShowSidebar ? "has-sidebar" : "no-sidebar"}`.trim()}
+      >
+        <SidebarOverlay
+          isSidebarOpen={isSidebarOpen}
+          closeSidebar={closeSidebar}
+        />
 
         {isMobile ? (
           <MobileSidebar
@@ -129,7 +106,7 @@ export default function Layout({ children, sidebarData = [] }) {
           />
         ) : (
           shouldShowSidebar && (
-            <DynamicSidebar
+            <DesktopSidebar
               sidebarData={sidebarData}
               currentCategory={resolvedCurrentCategory}
               currentSlug={resolvedCurrentSlug}
@@ -141,15 +118,7 @@ export default function Layout({ children, sidebarData = [] }) {
           )
         )}
 
-        <main className="main-content">
-          <div className={`content-wrapper ${isRouteLoading ? 'content-wrapper-loading' : ''}`}>
-            {isRouteLoading ? (
-              isProfileRouteLoading ? <ProfilePageSkeleton /> : <LessonContentSkeleton />
-            ) : (
-              children
-            )}
-          </div>
-        </main>
+        <main className="main-content">{children}</main>
       </div>
 
       <Footer />

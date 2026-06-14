@@ -1,0 +1,88 @@
+/* ============================================================================
+   Toggle — Expandable details/summary for liquid tag {% toggle %}
+   ============================================================================ */
+
+.toggle {
+  margin: var(--space-5) 0 var(--space-8) 0;
+  background: var(--color-bg-elevated);
+  overflow: hidden;
+  max-height: 56px;
+  border: 1px solid var(--color-border);
+  transition: max-height 1s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  border-radius: var(--radius-md);
+}
+
+.toggle[open] {
+  max-height: 1200px;
+  border-color: var(--color-border-strong);
+  background-color: var(--color-bg-elevated);
+}
+
+.toggleSummary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-base);
+  user-select: none;
+}
+
+.toggleSummary:hover {
+  background: var(--color-bg-elevated);
+}
+
+.toggleSummary::-webkit-details-marker {
+  display: none;
+}
+
+.toggleIcon {
+  border-radius: 50%;
+  color: var(--color-brand-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.24s ease;
+  flex-shrink: 0;
+}
+
+.toggle[open] .toggleIcon {
+  transform: rotate(90deg);
+}
+
+
+.toggle> :not(summary) {
+  padding: var(--space-3) var(--space-3) var(--space-4);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toggle> :not(summary):last-child {
+  margin-bottom: 0;
+}
+
+.toggle:not([open])> :not(summary) {
+  display: block;
+  pointer-events: none;
+}
+
+.toggle[open]> :not(summary) {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .toggle {
+    margin: var(--space-5) 0 var(--space-6) 0;
+  }
+}

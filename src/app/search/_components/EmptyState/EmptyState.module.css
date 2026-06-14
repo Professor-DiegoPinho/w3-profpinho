@@ -1,0 +1,22 @@
+/* Empty State Styles - CSS Module */
+
+.emptyState {
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+}
+
+.emptyStateIcon {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--space-4);
+}
+
+.emptyState h3 {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.emptyState p {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+}

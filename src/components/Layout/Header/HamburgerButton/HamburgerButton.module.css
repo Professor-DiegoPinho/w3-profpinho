@@ -1,0 +1,43 @@
+/* Hamburger Button Styles - CSS Module */
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);
+  display: none;
+  flex-direction: column;
+  gap: var(--space-1);
+  z-index: var(--z-modal);
+}
+
+@media (max-width: 1100px) {
+  .button {
+    display: flex;
+  }
+}
+
+.line {
+  width: var(--space-6);
+  height: calc(var(--space-1) / 2);
+  background: var(--color-text-primary);
+  transition: all var(--transition-slow);
+  display: block;
+}
+
+.button:hover .line {
+  background: var(--color-success);
+}
+
+/* Open state - X animation */
+.button.open .line:first-child {
+  transform: rotate(45deg) translate(var(--space-2), var(--space-2));
+}
+
+.button.open .line:nth-child(2) {
+  opacity: 0;
+}
+
+.button.open .line:last-child {
+  transform: rotate(-45deg) translate(var(--space-2), calc(var(--space-2) * -1));
+}

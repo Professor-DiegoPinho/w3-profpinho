@@ -1,0 +1,213 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+}
+
+.modal {
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-md);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn var(--transition-slow);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-bg-subtle);
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-base);
+}
+
+.modalClose:hover {
+  color: var(--color-text-primary);
+}
+
+.modalContent {
+  padding: var(--space-6);
+}
+
+.modalSection {
+  margin-bottom: var(--space-6);
+}
+
+.modalSection:last-child {
+  margin-bottom: 0;
+}
+
+.modalSection h3 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--space-3) 0;
+  color: var(--color-text-primary);
+}
+
+.modalDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-3) 0;
+  line-height: var(--line-height-base);
+}
+
+/* NPS Categories */
+.npsCategories {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.npsCategory {
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.npsCategory strong {
+  font-size: var(--font-size-base);
+  display: block;
+}
+
+.npsCategoryScore {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.npsCategory p {
+  font-size: var(--font-size-xs);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+.npsPromoter {
+  background-color: rgba(4, 170, 109, 0.12);
+  color: var(--color-success);
+}
+
+.npsPassive {
+  background-color: rgba(255, 190, 21, 0.12);
+  color: #856404;
+}
+
+:global([data-theme="dark"]) .npsPassive {
+  color: var(--color-warning);
+}
+
+.npsDetractor {
+  background-color: rgba(243, 76, 97, 0.12);
+  color: var(--color-brand-primary);
+}
+
+/* Questions */
+.questionInfo {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.questionInfo:last-child {
+  border-bottom: none;
+}
+
+.questionInfo h4 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--space-2) 0;
+  color: var(--color-text-primary);
+}
+
+.questionOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.option.worst {
+  background-color: rgba(243, 76, 97, 0.08);
+  color: var(--color-text-primary);
+}
+
+.worstIndicator {
+  font-size: var(--font-size-sm);
+}
+
+.worstNote {
+  font-size: var(--font-size-xs);
+  color: #856404;
+  background-color: rgba(255, 190, 21, 0.08);
+  padding: var(--space-2);
+  border-radius: var(--radius-xs);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+:global([data-theme="dark"]) .worstNote {
+  color: var(--color-warning);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal {
+    max-width: 90%;
+  }
+
+  .npsCategories {
+    grid-template-columns: 1fr;
+  }
+}

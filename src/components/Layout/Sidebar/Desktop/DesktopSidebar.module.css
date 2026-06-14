@@ -1,0 +1,64 @@
+/* Dynamic Sidebar Styles */
+.dynamicSidebar {
+  width: var(--sidebar-width);
+  background-color: var(--color-bg-elevated);
+  border-right: 1px solid var(--color-border);
+  position: fixed;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: var(--z-sidebar);
+  transition: transform var(--transition-base);
+}
+
+/* Sidebar mobile states */
+.dynamicSidebarMobile {
+  transform: translateX(-100%);
+}
+
+.dynamicSidebarMobile.sidebarOpen {
+  transform: translateX(0);
+}
+
+@media (max-width: 1100px) {
+  .dynamicSidebar {
+    display: none;
+  }
+
+  .dynamicSidebar.sidebarOpen {
+    transform: translateX(0);
+  }
+}
+
+.dynamicSidebarNav {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding-bottom: var(--space-6);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-primary) var(--color-bg-subtle);
+}
+
+.dynamicSidebarNav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dynamicSidebarNav::-webkit-scrollbar-track {
+  background: var(--color-bg-subtle);
+  border-radius: 999px;
+}
+
+.dynamicSidebarNav::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-brand-primary), var(--color-brand-primary));
+  border-radius: 999px;
+}
+
+.dynamicSidebarNav::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-primary);
+}

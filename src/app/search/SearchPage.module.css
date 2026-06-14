@@ -1,0 +1,41 @@
+/* Search Page Styles - CSS Module */
+/* This module only contains styles for the page layout and grid */
+
+.page {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.header h1 {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-weight-bold);
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-2);
+  }
+
+  .header h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .resultsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+}

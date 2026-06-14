@@ -146,6 +146,18 @@ export function getCourseLessonsCount(category) {
   return posts.filter(post => post.slug !== 'projeto').length;
 }
 
+// Conta rapidamente o número de arquivos .md em uma categoria (sem fazer parse do conteúdo)
+export function getPostsCountInCategory(category) {
+  const categoryPath = path.join(contentDirectory, category);
+
+  if (!fs.existsSync(categoryPath)) {
+    return 0;
+  }
+
+  return fs.readdirSync(categoryPath)
+    .filter(file => file.endsWith('.md')).length;
+}
+
 // Get a specific post by category and slug
 // Handles both slugs with and without numeric prefixes (e.g., "01-intro" or "intro")
 export function getPost(category, slug) {

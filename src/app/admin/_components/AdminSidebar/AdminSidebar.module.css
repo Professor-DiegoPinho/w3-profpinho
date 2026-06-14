@@ -1,0 +1,55 @@
+.adminSidebar {
+  width: var(--sidebar-width);
+  background-color: var(--primitive-black);
+  color: var(--color-text-on-brand);
+  padding: var(--space-6) 0;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: var(--z-sidebar);
+}
+
+.adminNavTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-6);
+  color: var(--primitive-white-pure);
+  text-align: center;
+}
+
+.adminNavList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.adminNavLink {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-on-brand);
+  transition: all var(--transition-base);
+  border-left: 4px solid transparent;
+  text-decoration: none;
+}
+
+.adminNavLink:hover {
+  background-color: var(--color-bg-base);
+}
+
+.active {
+  background-color: var(--color-bg-base);
+  border-left-color: var(--color-brand-primary-hover);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 1200px) {
+  .adminSidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+}
