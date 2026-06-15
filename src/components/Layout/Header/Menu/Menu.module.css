@@ -1,5 +1,5 @@
 .menuButton {
-  background: var(--primitive-black);
+  background: var(--color-bg-elevated);
   color: var(--color-text-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
@@ -16,7 +16,7 @@
 }
 
 .menuButton:hover {
-  background: var(--primitive-white-pure);
+  background: var(--color-bg-elevated);
   color: var(--color-text-primary);
   border-color: var(--color-border-strong);
 }
@@ -75,8 +75,8 @@
 .avatarFallback {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  color: var(--primitive-white-pure);
-  background: var(--primitive-black);
+  color: var(--color-text-primary);
+  background: var(--color-bg-elevated);
   width: 100%;
   height: 100%;
   display: inline-flex;

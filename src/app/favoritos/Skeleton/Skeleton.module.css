@@ -48,6 +48,26 @@
   height: var(--space-4);
 }
 
+/* ---- Section & Container ---- */
+
+.sectionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.skeletonSectionTitle {
+  width: calc(var(--space-1) * 62);
+  height: calc(var(--space-1) * 7);
+  margin-bottom: var(--space-1);
+}
+
 /* ---- Grid ---- */
 
 .grid {
@@ -68,18 +88,13 @@
 }
 
 .cardHeader {
-  margin-bottom: var(--space-3);
-}
-
-.skeletonBadge {
-  width: calc(var(--space-1) * 28);
-  height: calc(var(--space-1) * 6);
-  border-radius: var(--radius-full);
+  height: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 .cardBody {
   flex: 1;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 
 .skeletonCardTitle {
@@ -120,6 +135,14 @@
 @media (max-width: 640px) {
   .page {
     padding: var(--space-6) var(--space-4);
+  }
+
+  .sectionsContainer {
+    gap: var(--space-8);
+  }
+
+  .skeletonSectionTitle {
+    width: calc(var(--space-1) * 50);
   }
 
   .grid {
