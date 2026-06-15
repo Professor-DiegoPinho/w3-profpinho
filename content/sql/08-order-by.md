@@ -1,4 +1,5 @@
 ---
+id: "526ed9381af3"
 title: "SQL ORDER BY"
 description: "Como ordenar os resultados de uma consulta de forma crescente ou decrescente"
 order: 8

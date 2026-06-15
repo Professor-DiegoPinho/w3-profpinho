@@ -1,4 +1,5 @@
 ---
+id: "46ca698fa0e4"
 title: "Boas práticas com variáveis"
 description: "Como receber dados do usuário e nomear variáveis de forma clara"
 order: 07

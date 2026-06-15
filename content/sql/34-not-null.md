@@ -1,4 +1,5 @@
 ---
+id: "56f4ce7b1965"
 title: "SQL NOT NULL"
 description: "Como garantir que uma coluna sempre tenha valor com a constraint NOT NULL"
 order: 34

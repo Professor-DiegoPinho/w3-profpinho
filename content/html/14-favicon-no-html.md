@@ -1,4 +1,5 @@
 ---
+id: "f2aec6265879"
 title: "Favicon no HTML"
 description: "Como definir o pequeno ícone que aparece na aba do navegador"
 order: 14

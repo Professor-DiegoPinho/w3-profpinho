@@ -1,4 +1,5 @@
 ---
+id: "d40e069dfe60"
 title: "Resumo Prático de JavaScript"
 description: "Guia essencial de JavaScript em português para iniciantes. Conceitos fundamentais com exemplos práticos de desenvolvimento web."
 order: 1

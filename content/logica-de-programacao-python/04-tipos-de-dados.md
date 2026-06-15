@@ -1,4 +1,5 @@
 ---
+id: "a2b852ba4184"
 title: "Tipos de Dados"
 description: "Entenda tipagem no Python, diferenças entre str, int, float e bool, e como converter valores para evitar erros em cálculos."
 order: 4

@@ -1,4 +1,5 @@
 ---
+id: "2795b29f6fb9"
 title: "Escopo"
 description: "Como o escopo determina onde uma variável pode ser acessada em JavaScript"
 order: 15

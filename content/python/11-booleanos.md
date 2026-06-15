@@ -1,4 +1,5 @@
 ---
+id: "7bc9971d430a"
 title: "Booleanos"
 description: "O tipo Booleano (True/False) em Python"
 order: 11

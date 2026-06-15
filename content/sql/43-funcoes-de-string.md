@@ -1,4 +1,5 @@
 ---
+id: "0c1a3a46a344"
 title: "SQL Funções de String"
 description: "Como manipular texto com as principais funções de string do SQL"
 order: 43

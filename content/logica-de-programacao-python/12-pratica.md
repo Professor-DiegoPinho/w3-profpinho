@@ -1,4 +1,5 @@
 ---
+id: "2164d9333dc3"
 title: "Prática com Python"
 description: "Coloque em prática os conceitos de lógica de programação aprendidos nas aulas anteriores com exercícios e um projeto final."
 order: 12

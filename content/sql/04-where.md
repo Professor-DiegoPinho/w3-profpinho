@@ -1,4 +1,5 @@
 ---
+id: "16e9af4fb8b8"
 title: "SQL WHERE"
 description: "Como filtrar registros nas consultas com a cláusula WHERE"
 order: 4

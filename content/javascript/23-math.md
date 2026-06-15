@@ -1,4 +1,5 @@
 ---
+id: "b2410935f003"
 title: "Math"
 description: "Como usar o objeto Math do JavaScript para operações matemáticas comuns"
 order: 23

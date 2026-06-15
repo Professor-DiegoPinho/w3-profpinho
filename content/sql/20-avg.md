@@ -1,4 +1,5 @@
 ---
+id: "f1118451ef56"
 title: "SQL AVG"
 description: "Como calcular a média de valores numéricos com a função AVG"
 order: 20

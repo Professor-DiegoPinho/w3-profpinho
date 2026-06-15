@@ -1,4 +1,5 @@
 ---
+id: "577ad62b433d"
 title: "Sintaxe SQL"
 description: "As regras básicas que toda query SQL precisa seguir"
 order: 2

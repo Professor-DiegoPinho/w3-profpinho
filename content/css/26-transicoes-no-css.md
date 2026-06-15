@@ -1,4 +1,5 @@
 ---
+id: "afaf8920084f"
 title: "Transições no CSS"
 description: "Como criar animações suaves entre estados de elementos com CSS transitions"
 order: 26

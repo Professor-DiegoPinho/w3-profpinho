@@ -1,4 +1,5 @@
 ---
+id: "98d26ed8a12d"
 title: "Prática com SQL"
 description: "Coloque em prática os conhecimentos adquiridos sobre SQL com exercícios práticos e desafiadores."
 order: 11

@@ -1,4 +1,5 @@
 ---
+id: "3ef842c1e9c2"
 title: "SQL UPDATE"
 description: "Como atualizar dados existentes em uma tabela com o comando UPDATE"
 order: 11

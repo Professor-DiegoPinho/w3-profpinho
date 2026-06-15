@@ -1,4 +1,5 @@
 ---
+id: "6e967e11bd40"
 title: "SQL GROUP BY"
 description: "Como agrupar registros e calcular estatísticas por categoria com GROUP BY"
 order: 22

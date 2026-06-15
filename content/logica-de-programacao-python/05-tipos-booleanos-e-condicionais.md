@@ -1,4 +1,5 @@
 ---
+id: "20916512f986"
 title: "Tipos Booleanos e Condicionais"
 description: "Descubra como comparações geram True e False e use if/else para tomar decisões com base em condições no Python."
 order: 5

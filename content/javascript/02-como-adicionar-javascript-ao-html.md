@@ -1,4 +1,5 @@
 ---
+id: "45ae1e4e2083"
 title: "Como adicionar JavaScript ao HTML"
 description: "As formas de incluir JavaScript em uma página HTML: inline, interno e externo"
 order: 2

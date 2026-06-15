@@ -1,4 +1,5 @@
 ---
+id: "12eb2c0b0b44"
 title: "SQL HAVING"
 description: "Como filtrar grupos após a agregação com a cláusula HAVING"
 order: 23

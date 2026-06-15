@@ -1,4 +1,5 @@
 ---
+id: "bc8173efee14"
 title: "Laço de Repetição for..in range"
 description: "Domine o for com range para repetir ações por quantidade, contar intervalos e gerar padrões como tabuada."
 order: 10

@@ -1,4 +1,5 @@
 ---
+id: "66effe9b5def"
 title: "Estilos Inline no HTML"
 description: "Como usar o atributo style para aplicar estilos diretamente em elementos HTML"
 order: 8

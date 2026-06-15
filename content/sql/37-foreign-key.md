@@ -1,4 +1,5 @@
 ---
+id: "120f2d516e35"
 title: "SQL FOREIGN KEY"
 description: "Como criar relacionamentos entre tabelas com a constraint FOREIGN KEY"
 order: 37

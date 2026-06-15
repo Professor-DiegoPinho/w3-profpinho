@@ -1,4 +1,5 @@
 ---
+id: "55216cb735e2"
 title: "SQL CASE WHEN"
 description: "Como adicionar lógica condicional nas queries com CASE WHEN"
 order: 45

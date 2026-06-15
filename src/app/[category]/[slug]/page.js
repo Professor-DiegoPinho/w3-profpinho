@@ -1,4 +1,5 @@
 import { auth } from '@/auth';
+import { isLessonBookmarked } from '@/lib/bookmarks';
 import PostNavigation from '@/app/[category]/[slug]/_components/PostNavigation/PostNavigation';
 import Header from '@/app/[category]/[slug]/_components/Header/Header';
 import Content from '@/app/[category]/[slug]/_components/Content/Content';
@@ -53,6 +54,8 @@ export default async function PostPage({ params }) {
   }
 
   const navigation = getPostNavigation(category, slug);
+  // Inclui o slug atual na navegação para o BookmarkButton
+  navigation.current = { slug };
   const categoryTitle = getCategoryTitle(category);
   const contentAccessType = getCourseAccessType(category);
   const isCourseContent =
@@ -66,6 +69,12 @@ export default async function PostPage({ params }) {
     : null;
 
   const isDone = isLessonCompleted(progressData, slug);
+
+  // Verifica se a aula está favoritada (apenas para usuários logados)
+  const lessonId = post.id || null;
+  const bookmarked = userId && lessonId
+    ? await isLessonBookmarked(userId, lessonId)
+    : false;
 
   // Dados para o componente de submissão do projeto
   let projectSubmissions = null;
@@ -84,6 +93,8 @@ export default async function PostPage({ params }) {
         navigation={navigation}
         category={category}
         isCourseContent={isCourseContent}
+        lessonId={lessonId}
+        isBookmarked={bookmarked}
       />
 
       <Content

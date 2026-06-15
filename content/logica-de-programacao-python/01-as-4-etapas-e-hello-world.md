@@ -1,4 +1,5 @@
 ---
+id: "3242e9a84f88"
 title: "As 4 etapas e Hello World"
 description: "Conheça as quatro etapas de um algoritmo (entrada, armazenamento, processamento e saída) e crie seu primeiro Hello World em Python."
 order: 1

@@ -1,4 +1,5 @@
 ---
+id: "ca4135734693"
 title: "Tipos de Dados"
 description: "Os principais tipos de dados primitivos"
 order: 05

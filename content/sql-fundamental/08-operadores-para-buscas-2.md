@@ -1,4 +1,5 @@
 ---
+id: "832aa1a83735"
 title: "Operadores para buscas - Parte 2"
 description: "Aprenda a utilizar operadores de busca em consultas SQL para filtrar e refinar os resultados retornados por uma consulta."
 order: 8

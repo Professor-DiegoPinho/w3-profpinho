@@ -1,4 +1,5 @@
 ---
+id: "5519db56a888"
 title: "Condições Aninhadas"
 description: "Aprenda a lidar com múltiplos caminhos de decisão usando if aninhado e elif em classificações e regras de negócio."
 order: 6

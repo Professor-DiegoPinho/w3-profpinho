@@ -1,4 +1,5 @@
 ---
+id: "d7bb8c6b8e33"
 title: "Sintaxe do CSS"
 description: "Como escrever regras CSS: seletores, propriedades e valores"
 order: 2

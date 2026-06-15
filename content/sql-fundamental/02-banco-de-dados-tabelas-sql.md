@@ -1,4 +1,5 @@
 ---
+id: "fe5876fc0caf"
 title: "Banco de dados, Tabelas e SQL"
 description: "Crie a sua primeira tabela em um banco de dados relacional utilizando o SQL, a linguagem de consulta mais utilizada para bancos de dados relacionais."
 order: 2

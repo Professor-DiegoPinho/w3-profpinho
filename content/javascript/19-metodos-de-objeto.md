@@ -1,4 +1,5 @@
 ---
+id: "a6a1cf6d5458"
 title: "Métodos de Objeto"
 description: "Como usar Object.keys, Object.values, Object.entries e spread para trabalhar com objetos"
 order: 19

@@ -1,4 +1,5 @@
 ---
+id: "39e347462975"
 title: "SQL LIKE"
 description: "Como buscar padrões em texto com o operador LIKE"
 order: 14

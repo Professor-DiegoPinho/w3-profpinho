@@ -1,4 +1,5 @@
 ---
+id: "6f0ce6cce617"
 title: "Entidades, Símbolos e Emojis no HTML"
 description: "Como exibir caracteres especiais, símbolos e emojis em HTML"
 order: 32

@@ -1,4 +1,5 @@
 ---
+id: "27dac648589e"
 title: "Strings"
 description: "Como trabalhar com texto em JavaScript: criação, acesso a caracteres e template strings"
 order: 20

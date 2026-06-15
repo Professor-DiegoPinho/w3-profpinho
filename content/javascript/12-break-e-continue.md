@@ -1,4 +1,5 @@
 ---
+id: "95832bca9cd2"
 title: "Break e Continue"
 description: "Como interromper ou pular iterações em loops com break e continue"
 order: 12

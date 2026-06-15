@@ -1,4 +1,5 @@
 ---
+id: "923847c8d354"
 title: "SQL ALTER TABLE"
 description: "Como modificar a estrutura de uma tabela existente com o ALTER TABLE"
 order: 39

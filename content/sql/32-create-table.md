@@ -1,4 +1,5 @@
 ---
+id: "b5627c3f08db"
 title: "SQL CREATE TABLE"
 description: "Como criar tabelas e definir tipos de dados no SQL"
 order: 32

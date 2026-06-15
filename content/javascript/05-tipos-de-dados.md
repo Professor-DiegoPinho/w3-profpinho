@@ -1,4 +1,5 @@
 ---
+id: "4ec293557c72"
 title: "Tipos de Dados"
 description: "Os tipos de dados primitivos do JavaScript: string, number, boolean, null, undefined"
 order: 5

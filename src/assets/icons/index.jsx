@@ -142,6 +142,21 @@ export function Bookmark({ size, className }) {
   );
 }
 
+export function BookmarkChecked({ size, className }) {
+  return (
+    <Icon size={size} className={className}>
+      <path
+        d="M5 5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21L12 17.5L5 21V5Z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Icon>
+  );
+}
+
 export function ChevronRight({ size, className }) {
   return (
     <Icon size={size} className={className}>
@@ -561,6 +576,14 @@ export function Login({ size, className }) {
   );
 }
 
+export function Logout({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path fill="currentColor" d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h240q17 0 28.5 11.5T480-160q0 17-11.5 28.5T440-120H200Zm487-320H400q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L669-309q-12 12-28.5 11.5T612-310q-11-12-10.5-28.5T613-366l74-74Z" />
+    </Icon>
+  );
+}
+
 export function CopyIcon({ size, className }) {
   return (
     <Icon size={size} className={className} viewBox="0 -960 960 960">
@@ -581,6 +604,22 @@ export function CheckmarkIcon({ size, className }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </Icon>
+  );
+}
+
+export function Trash({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path fill="currentColor" d="M280-120q-33 0-56.5-23.5T200-200v-520q-17 0-28.5-11.5T160-760q0-17 11.5-28.5T200-800h160q0-17 11.5-28.5T400-840h160q17 0 28.5 11.5T600-800h160q17 0 28.5 11.5T800-760q0 17-11.5 28.5T760-720v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM428.5-291.5Q440-303 440-320v-280q0-17-11.5-28.5T400-640q-17 0-28.5 11.5T360-600v280q0 17 11.5 28.5T400-280q17 0 28.5-11.5Zm160 0Q600-303 600-320v-280q0-17-11.5-28.5T560-640q-17 0-28.5 11.5T520-600v280q0 17 11.5 28.5T560-280q17 0 28.5-11.5ZM280-720v520-520Z" />
+    </Icon>
+  );
+}
+
+export function Search({ size, className }) {
+  return (
+    <Icon size={size} className={className} viewBox="0 -960 960 960">
+      <path fill="currentColor" d="M380-320q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l224 224q11 11 11 28t-11 28q-11 11-28 11t-28-11L532-372q-30 24-69 38t-83 14Zm0-80q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
     </Icon>
   );
 }

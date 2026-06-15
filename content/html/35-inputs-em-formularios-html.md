@@ -1,4 +1,5 @@
 ---
+id: "e7eae2533137"
 title: "Inputs em Formulários HTML"
 description: "Tipos de input e atributos úteis para trabalhar melhor com formulários"
 order: 35

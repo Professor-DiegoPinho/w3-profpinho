@@ -1,4 +1,5 @@
 ---
+id: "a9ef6adc0a7f"
 title: "SQL INNER JOIN"
 description: "Como retornar apenas os registros com correspondência nas duas tabelas"
 order: 25

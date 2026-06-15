@@ -1,4 +1,5 @@
 ---
+id: "7d036cec36a9"
 title: "Variáveis"
 description: "Como declarar e usar variáveis em JavaScript com var, let e const"
 order: 4

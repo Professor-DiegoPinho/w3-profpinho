@@ -1,4 +1,5 @@
 ---
+id: "07f636759f6f"
 title: "SQL Aliases"
 description: "Como criar apelidos para colunas e tabelas com o AS"
 order: 16

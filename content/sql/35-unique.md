@@ -1,4 +1,5 @@
 ---
+id: "0da8a619bc97"
 title: "SQL UNIQUE"
 description: "Como garantir que os valores de uma coluna não se repitam com a constraint UNIQUE"
 order: 35

@@ -1,4 +1,5 @@
 ---
+id: "5cc335529ae1"
 title: "Fetch API"
 description: "Como fazer requisições HTTP com a Fetch API para buscar e enviar dados"
 order: 32

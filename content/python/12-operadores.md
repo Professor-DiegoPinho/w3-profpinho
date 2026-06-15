@@ -1,4 +1,5 @@
 ---
+id: "8c304865513f"
 title: "Operadores"
 description: "Os tipos de operadores em Python e como usá-los"
 order: 12

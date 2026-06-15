@@ -1,4 +1,5 @@
 ---
+id: "b292a96a3d32"
 title: "SQL SELECT"
 description: "Como consultar dados de uma tabela com o comando SELECT"
 order: 3

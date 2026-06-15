@@ -1,4 +1,5 @@
 ---
+id: "fd4c0d166003"
 title: "Media Queries"
 description: "Como criar layouts responsivos com media queries, adaptando o estilo para diferentes tamanhos de tela"
 order: 22

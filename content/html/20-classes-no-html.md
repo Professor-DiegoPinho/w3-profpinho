@@ -1,4 +1,5 @@
 ---
+id: "2cde2d17ffcd"
 title: "Classes no HTML"
 description: "Como usar o atributo class para aplicar estilos e identificar grupos de elementos"
 order: 20

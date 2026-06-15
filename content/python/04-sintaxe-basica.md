@@ -1,4 +1,5 @@
 ---
+id: "ba31abeb5966"
 title: "Sintaxe Básica"
 description: "Os principais pontos sobre a sintaxe do Python"
 order: 04

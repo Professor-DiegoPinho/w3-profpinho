@@ -1,4 +1,5 @@
 ---
+id: "15a6df47d8a7"
 title: "Estrutura Básica de um Documento HTML"
 description: "Como funciona a base de um arquivo HTML com doctype, html, head e body"
 order: 3

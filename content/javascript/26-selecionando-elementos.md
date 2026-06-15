@@ -1,4 +1,5 @@
 ---
+id: "23fb4d27dd5d"
 title: "Selecionando Elementos"
 description: "Como selecionar elementos HTML com JavaScript usando getElementById, querySelector e outros métodos"
 order: 26

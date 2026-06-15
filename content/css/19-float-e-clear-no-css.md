@@ -1,4 +1,5 @@
 ---
+id: "670c08680be2"
 title: "Float e Clear no CSS"
 description: "Como usar float para posicionar elementos e clear para encerrar o fluxo flutuante"
 order: 19

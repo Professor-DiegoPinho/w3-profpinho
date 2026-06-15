@@ -1,4 +1,5 @@
 ---
+id: "d5d880223179"
 title: "Resumo Prático de Java"
 description: "Guia essencial de Java em português para iniciantes. Conceitos fundamentais com exemplos práticos de programação orientada a objetos."
 order: 1

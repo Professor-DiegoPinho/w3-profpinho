@@ -1,4 +1,5 @@
 ---
+id: "c645b25e0ec4"
 title: "Introdução ao DOM"
 description: "O que é o DOM e como o JavaScript usa essa estrutura para interagir com a página"
 order: 25

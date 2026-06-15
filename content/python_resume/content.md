@@ -1,4 +1,5 @@
 ---
+id: "de8d2f870edc"
 title: "Resumo Prático de Python"
 description: "Guia essencial de Python em português para iniciantes. Conceitos fundamentais com exemplos práticos do dia a dia."
 order: 1

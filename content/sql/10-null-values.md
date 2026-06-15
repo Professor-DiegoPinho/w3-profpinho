@@ -1,4 +1,5 @@
 ---
+id: "3181ec322b36"
 title: "SQL Valores NULL"
 description: "O que é NULL no SQL e como lidar com campos sem valor"
 order: 10

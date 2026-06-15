@@ -1,4 +1,5 @@
 ---
+id: "a3333409f187"
 title: "Resumo Prático de C"
 description: "Guia essencial de C em português para iniciantes. Conceitos fundamentais com exemplos práticos de programação procedural."
 order: 1

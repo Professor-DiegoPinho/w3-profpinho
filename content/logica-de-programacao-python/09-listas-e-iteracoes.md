@@ -1,4 +1,5 @@
 ---
+id: "b3115c912664"
 title: "Listas e Iterações"
 description: "Aprenda a criar listas, acessar elementos por índice, usar append/pop e iterar coleções com for..in no Python."
 order: 9

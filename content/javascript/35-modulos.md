@@ -1,4 +1,5 @@
 ---
+id: "9ae8e10528d3"
 title: "Módulos"
 description: "Como organizar o código em módulos usando import e export no JavaScript"
 order: 35

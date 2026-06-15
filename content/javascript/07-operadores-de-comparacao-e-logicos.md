@@ -1,4 +1,5 @@
 ---
+id: "149d66414453"
 title: "Operadores de Comparação e Lógicos"
 description: "Como comparar valores e combinar condições em JavaScript"
 order: 7
