@@ -3,20 +3,14 @@ export const tutorials = [
     slug: "python",
     title: "Python",
     description: "Aprenda python do básico até conceitos avançados.",
-    image: "/images/logo_python.png",
     badge: "Tutorial",
     accessType: "tutorial",
     visibility: "public",
     tags: ["python", "programação", "algoritmos"],
-    prerequisites: [],
     order: 1,
-    youtubeId: "",
-    ebook: {},
-    usefulLinks: [],
     seo: {
       metaTitle: "Curso de Python do Zero ao Avançado",
-      metaDescription: "Curso completo de Python com exercícios práticos.",
-      ogImage: "/images/logo_python.png"
+      metaDescription: "Curso completo de Python com exercícios práticos."
     }
   },
   {
@@ -30,45 +24,34 @@ export const tutorials = [
     tags: ["sql", "bancos de dados", "consulta"],
     prerequisites: [],
     order: 2,
-    youtubeId: "",
-    ebook: {},
-    usefulLinks: [],
     seo: {
       metaTitle: "Curso de SQL para Iniciantes",
       metaDescription: "Aprenda SQL do zero com exemplos práticos.",
-      ogImage: "/images/logo_sql.png"
     }
   },
   {
     slug: "html",
     title: "HTML",
     description: "Aprenda HTML para criar a estrutura de páginas web.",
-    image: "/images/logo_html.png",
     badge: "Tutorial",
     accessType: "tutorial",
     visibility: "public",
     tags: ["html", "web", "front-end"],
-    prerequisites: [],
     order: 3,
-    youtubeId: "",
-    ebook: {},
-    usefulLinks: [],
     seo: {
       metaTitle: "Curso de HTML para Iniciantes",
       metaDescription: "Aprenda HTML do zero com exemplos práticos.",
-      ogImage: "/images/logo_html.png"
     }
   },
   {
     slug: "css",
     title: "CSS",
     description: "Aprenda CSS para estilizar páginas web.",
-    image: "/images/logo_css.png",
     badge: "Tutorial",
     accessType: "tutorial",
     visibility: "public",
     tags: ["css", "web", "front-end"],
-    order: 3,
+    order: 4,
     seo: {
       metaTitle: "Curso de CSS para Iniciantes",
       metaDescription: "Aprenda CSS do zero com exemplos práticos.",
@@ -79,16 +62,29 @@ export const tutorials = [
     slug: "javascript",
     title: "JavaScript",
     description: "Aprenda JavaScript para criar interatividade em páginas web.",
-    image: "/images/logo_javascript.png",
     badge: "Tutorial",
     accessType: "tutorial",
     visibility: "public",
     tags: ["javascript", "web", "front-end"],
-    order: 3,
+    order: 5,
     seo: {
       metaTitle: "Curso de JavaScript para Iniciantes",
       metaDescription: "Aprenda JavaScript do zero com exemplos práticos.",
       ogImage: "/images/logo_javascript.png"
+    }
+  },
+  {
+    slug: "java",
+    title: "Java",
+    description: "Aprenda Java para criar aplicações de grande escala.",
+    badge: "Tutorial",
+    accessType: "tutorial",
+    visibility: "public",
+    tags: ["java", "android", "algoritmos"],
+    order: 6,
+    seo: {
+      metaTitle: "Curso de Java para Iniciantes",
+      metaDescription: "Aprenda Java do básico ao avançado com exemplos práticos.",
     }
   }
 ];
