@@ -1,4 +1,5 @@
 ---
+id: "6705dc8c9f43"
 title: "Operadores de atribuição"
 description: "Os operadores de atribuição em Java"
 order: 10

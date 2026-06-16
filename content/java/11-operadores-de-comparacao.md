@@ -1,4 +1,5 @@
 ---
+id: "344b4a8f0f9f"
 title: "Operadores de comparação"
 description: "Os operadores de comparação em Java"
 order: 11

@@ -1,4 +1,5 @@
 ---
+id: "d8292d1c2691"
 title: "Switch"
 description: "Como usar a estrutura switch em Java"
 order: 18

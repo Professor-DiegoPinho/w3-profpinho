@@ -1,4 +1,5 @@
 ---
+id: "9759ea6257b4"
 title: "Métodos de String"
 description: "Os principais métodos para manipular Strings em Java"
 order: 14

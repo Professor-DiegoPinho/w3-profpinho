@@ -1,4 +1,5 @@
 ---
+id: "5c9b3441d51c"
 title: "Operadores aritméticos"
 description: "Os operadores aritméticos em Java"
 order: 9

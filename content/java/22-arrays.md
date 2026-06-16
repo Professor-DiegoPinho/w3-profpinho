@@ -1,4 +1,5 @@
 ---
+id: "da90decca34f"
 title: "Arrays"
 description: "Como criar e usar arrays em Java"
 order: 22

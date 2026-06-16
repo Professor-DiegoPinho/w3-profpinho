@@ -1,4 +1,5 @@
 ---
+id: "e5f1a84044d5"
 title: "Operadores lógicos"
 description: "Os operadores lógicos em Java"
 order: 12

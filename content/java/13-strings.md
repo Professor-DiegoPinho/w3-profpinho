@@ -1,4 +1,5 @@
 ---
+id: "93551bbefbad"
 title: "Strings"
 description: "Como trabalhar com texto em Java"
 order: 13

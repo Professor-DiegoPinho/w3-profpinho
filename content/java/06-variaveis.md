@@ -1,4 +1,5 @@
 ---
+id: "aad5bb47a969"
 title: "Variáveis"
 description: "Como declarar e usar variáveis em Java"
 order: 6

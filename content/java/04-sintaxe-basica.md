@@ -1,4 +1,5 @@
 ---
+id: "202a8b17ba95"
 title: "Sintaxe básica"
 description: "Os principais pontos sobre a sintaxe do Java"
 order: 4
