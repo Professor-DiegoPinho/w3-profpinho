@@ -1,4 +1,5 @@
 ---
+id: "70c957506c02"
 title: "Encapsulamento"
 description: "O que é encapsulamento e como aplicá-lo em Java com getters e setters"
 order: 34

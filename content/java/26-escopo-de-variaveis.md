@@ -1,4 +1,5 @@
 ---
+id: "8e31c001765c"
 title: "Escopo de variáveis"
 description: "Como o escopo determina onde uma variável pode ser acessada em Java"
 order: 26

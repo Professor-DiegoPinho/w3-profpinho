@@ -1,4 +1,5 @@
 ---
+id: "8a98dce11ef2"
 title: "Classes abstratas"
 description: "Como criar e usar classes abstratas em Java"
 order: 37

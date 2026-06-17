@@ -1,4 +1,5 @@
 ---
+id: "577828450ad2"
 title: "Métodos de classe"
 description: "Como funcionam métodos de instância e métodos estáticos em Java"
 order: 31

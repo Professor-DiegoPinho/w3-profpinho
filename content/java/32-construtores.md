@@ -1,4 +1,5 @@
 ---
+id: "08bbe86e8834"
 title: "Construtores"
 description: "Como usar construtores para inicializar objetos em Java"
 order: 32

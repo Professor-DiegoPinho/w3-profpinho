@@ -1,4 +1,5 @@
 ---
+id: "71b8b0cbaeea"
 title: "Herança"
 description: "Como usar herança para reaproveitar código entre classes em Java"
 order: 35

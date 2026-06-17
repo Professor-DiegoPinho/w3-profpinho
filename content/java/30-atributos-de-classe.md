@@ -1,4 +1,5 @@
 ---
+id: "b9652f87388a"
 title: "Atributos de classe"
 description: "Como funcionam os atributos de instância e os atributos estáticos em Java"
 order: 30

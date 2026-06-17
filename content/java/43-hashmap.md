@@ -1,4 +1,5 @@
 ---
+id: "662e89c7855e"
 title: "HashMap"
 description: "Como usar HashMap para guardar pares chave-valor em Java"
 order: 43

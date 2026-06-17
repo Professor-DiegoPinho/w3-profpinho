@@ -1,4 +1,5 @@
 ---
+id: "00f81954da00"
 title: "ArrayList"
 description: "Como usar ArrayList para criar listas dinâmicas em Java"
 order: 42

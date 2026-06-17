@@ -1,4 +1,5 @@
 ---
+id: "57967d2a2745"
 title: "Interfaces"
 description: "Como criar e usar interfaces em Java"
 order: 38

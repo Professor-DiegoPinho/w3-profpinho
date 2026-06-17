@@ -1,4 +1,5 @@
 ---
+id: "438442a55414"
 title: "Entrada do usuário"
 description: "Como ler dados digitados pelo usuário em Java com a classe Scanner"
 order: 40

@@ -1,4 +1,5 @@
 ---
+id: "a04cc5dfabc3"
 title: "Modificadores de acesso"
 description: "Como controlar a visibilidade de classes, atributos e métodos em Java"
 order: 33

@@ -1,4 +1,5 @@
 ---
+id: "bc5da4a3d7e4"
 title: "Expressões Lambda"
 description: "Introdução às expressões lambda em Java"
 order: 45
