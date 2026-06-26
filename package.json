@@ -8,7 +8,11 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "remove:lesson": "bash ./scripts/remove_lesson.sh"
+    "remove:lesson": "bash ./scripts/remove_lesson.sh",
+    "add:ids": "node ./scripts/generate-lesson-ids.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@react-email/components": "^1.0.12",
@@ -32,6 +36,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "eslint": "^9",
-    "eslint-config-next": "15.5.3"
+    "eslint-config-next": "15.5.3",
+    "vitest": "^3.2.3"
   }
 }
