@@ -46,3 +46,8 @@ learning-hub-firebase-chave.json
 
 # generated search index (created during build)
 /public/search-index.json
+
+# Playwright
+playwright-report/
+test-results/
+playwright-video/
