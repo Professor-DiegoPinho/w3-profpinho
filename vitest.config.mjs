@@ -12,14 +12,26 @@ export default defineConfig({
     jsx: 'automatic',
   },
   test: {
-    include: ['tests/**/*.test.js', 'tests/**/*.test.jsx'],
-    environment: 'node',
-    environmentMatchGlobs: [
-      // Testes de componentes React usam jsdom
-      ['tests/components/**/*.test.jsx', 'jsdom'],
-    ],
-    setupFiles: ['./tests/setup.js'],
-    // Excluir testes E2E (gerenciados pelo Playwright)
     exclude: ['tests/e2e/**', 'node_modules/**'],
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'node-tests',
+          include: ['tests/unit/**/*.test.js', 'tests/integration/**/*.test.js'],
+          environment: 'node',
+          setupFiles: ['./tests/setup.js'],
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: 'component-tests',
+          include: ['tests/components/**/*.test.jsx'],
+          environment: 'jsdom',
+          setupFiles: ['./tests/setup.js'],
+        },
+      },
+    ],
   },
 });
