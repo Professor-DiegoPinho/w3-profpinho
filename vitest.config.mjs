@@ -13,6 +13,9 @@ export default defineConfig({
   },
   test: {
     exclude: ['tests/e2e/**', 'node_modules/**'],
+    fileParallelism: false,
+    maxWorkers: 1,
+    minWorkers: 1,
     projects: [
       {
         extends: true,

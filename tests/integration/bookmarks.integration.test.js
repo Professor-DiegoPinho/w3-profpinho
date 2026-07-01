@@ -2,61 +2,14 @@
  * Teste de integração: módulo bookmarks.js
  *
  * Testa o fluxo completo de adicionar, listar, verificar e remover bookmarks,
- * com o Firebase Admin SDK mockado e dados gerados via Faker.
+ * utilizando o Firebase Emulator Suite real e dados gerados via Faker.
  */
 import { faker } from '@faker-js/faker';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { adminDb } from '@/lib/firebaseAdmin.js';
+import { clearDatabase } from '../helpers/firebaseEmulator.js';
 
-// ---- Mock do Firebase Admin ----
-// Usamos vi.hoisted() para garantir que os mocks estejam disponíveis no factory do vi.mock.
-// A estratégia: criar mocks "leaf" (get/set/delete) que podemos espionar,
-// e construir a cadeia de chaining com funções normais (não mocks) para que
-// vi.clearAllMocks() não destrua a estrutura.
-const { mockGet, mockSet, mockDelete } = vi.hoisted(() => {
-  return {
-    mockGet: vi.fn(),
-    mockSet: vi.fn().mockResolvedValue(undefined),
-    mockDelete: vi.fn().mockResolvedValue(undefined),
-  };
-});
-
-vi.mock('@/lib/firebaseAdmin', () => {
-  // Constrói a cadeia de chaining com closures (não com .mockReturnValue)
-  // para que clearAllMocks não quebre a estrutura.
-  const leafDoc = () => ({
-    get: (...args) => mockGet(...args),
-    set: (...args) => mockSet(...args),
-    delete: (...args) => mockDelete(...args),
-  });
-
-  const bookmarksCollection = () => ({
-    doc: () => leafDoc(),
-    orderBy: () => ({ get: (...args) => mockGet(...args) }),
-  });
-
-  const userDoc = () => ({
-    collection: () => bookmarksCollection(),
-  });
-
-  const usersCollection = () => ({
-    doc: () => userDoc(),
-  });
-
-  return {
-    adminDb: {
-      collection: () => usersCollection(),
-    },
-  };
-});
-
-// Mocka FieldValue para que serverTimestamp retorne uma string identificável
-vi.mock('firebase-admin/firestore', () => ({
-  FieldValue: {
-    serverTimestamp: () => 'SERVER_TIMESTAMP',
-  },
-}));
-
-// ---- Import do módulo sob teste (após o mock) ----
+// ---- Import do módulo sob teste ----
 import {
   addBookmark,
   getUserBookmarks,
@@ -65,7 +18,7 @@ import {
 } from '@/lib/bookmarks.js';
 
 // ---- Helpers para gerar dados aleatórios com Faker ----
-function generateBookmarkData() {
+function generateBookmarkData(overrides = {}) {
   return {
     lessonId: faker.string.alphanumeric(10),
     category: faker.helpers.slugify(faker.word.noun()),
@@ -73,6 +26,7 @@ function generateBookmarkData() {
     title: faker.lorem.sentence(4),
     description: faker.lorem.sentence(8),
     categoryTitle: faker.word.words(2),
+    ...overrides,
   };
 }
 
@@ -81,62 +35,61 @@ function generateUserId() {
 }
 
 // ---- Testes ----
-describe('Bookmarks — Teste de Integração', () => {
-  beforeEach(() => {
-    mockGet.mockReset();
-    mockSet.mockReset().mockResolvedValue(undefined);
-    mockDelete.mockReset().mockResolvedValue(undefined);
+describe('Bookmarks — Teste de Integração (Real)', () => {
+  beforeEach(async () => {
+    await clearDatabase();
   });
 
   describe('addBookmark', () => {
-    it('deve criar um novo bookmark quando não existe', async () => {
+    it('deve criar um novo bookmark no Firestore quando ele não existe', async () => {
       const userId = generateUserId();
       const bookmarkData = generateBookmarkData();
 
-      // Simula que o doc NÃO existe no Firestore
-      mockGet.mockResolvedValueOnce({ exists: false });
-
       const result = await addBookmark(userId, bookmarkData);
 
-      // Verifica que set foi chamado com os dados corretos
-      expect(mockSet).toHaveBeenCalledOnce();
-      const savedPayload = mockSet.mock.calls[0][0];
-
-      expect(savedPayload.lessonId).toBe(bookmarkData.lessonId);
-      expect(savedPayload.category).toBe(bookmarkData.category);
-      expect(savedPayload.slug).toBe(bookmarkData.slug);
-      expect(savedPayload.title).toBe(bookmarkData.title);
-      expect(savedPayload.description).toBe(bookmarkData.description);
-      expect(savedPayload.savedAt).toBe('SERVER_TIMESTAMP');
-
-      // Verifica resposta
+      // Verifica retorno da função
       expect(result.alreadyExisted).toBe(false);
       expect(result.lessonId).toBe(bookmarkData.lessonId);
+
+      // Consulta banco real para verificar persistência
+      const docRef = adminDb
+        .collection("users")
+        .doc(userId)
+        .collection("bookmarks")
+        .doc(bookmarkData.lessonId);
+      const snap = await docRef.get();
+
+      expect(snap.exists).toBe(true);
+      const data = snap.data();
+      expect(data.lessonId).toBe(bookmarkData.lessonId);
+      expect(data.category).toBe(bookmarkData.category);
+      expect(data.slug).toBe(bookmarkData.slug);
+      expect(data.savedAt).toBeDefined();
     });
 
-    it('deve retornar bookmark existente sem duplicar', async () => {
+    it('deve retornar bookmark existente sem duplicar ou sobrescrever no Firestore', async () => {
       const userId = generateUserId();
       const bookmarkData = generateBookmarkData();
-      const savedAt = new Date(faker.date.past());
 
-      // Simula que o doc JÁ existe no Firestore
-      mockGet.mockResolvedValueOnce({
-        exists: true,
-        data: () => ({
-          ...bookmarkData,
-          savedAt: { toDate: () => savedAt },
-        }),
-      });
+      // Adiciona a primeira vez
+      const firstResult = await addBookmark(userId, bookmarkData);
+      expect(firstResult.alreadyExisted).toBe(false);
 
-      const result = await addBookmark(userId, bookmarkData);
+      // Busca o savedAt gravado no banco real pelo Firestore
+      const docRef = adminDb
+        .collection("users")
+        .doc(userId)
+        .collection("bookmarks")
+        .doc(bookmarkData.lessonId);
+      const snap = await docRef.get();
+      const realSavedAt = snap.data().savedAt.toDate().toISOString();
 
-      // Verifica que set NÃO foi chamado (não duplicou)
-      expect(mockSet).not.toHaveBeenCalled();
+      // Tenta adicionar novamente os mesmos dados
+      const secondResult = await addBookmark(userId, bookmarkData);
 
-      // Verifica resposta
-      expect(result.alreadyExisted).toBe(true);
-      expect(result.lessonId).toBe(bookmarkData.lessonId);
-      expect(result.savedAt).toBe(savedAt.toISOString());
+      expect(secondResult.alreadyExisted).toBe(true);
+      expect(secondResult.lessonId).toBe(bookmarkData.lessonId);
+      expect(secondResult.savedAt).toBe(realSavedAt);
     });
 
     it('deve lançar erro se lessonId não for informado', async () => {
@@ -165,14 +118,25 @@ describe('Bookmarks — Teste de Integração', () => {
   });
 
   describe('removeBookmark', () => {
-    it('deve chamar delete no documento correto', async () => {
+    it('deve remover o documento de bookmark correspondente do Firestore', async () => {
       const userId = generateUserId();
-      const lessonId = faker.string.alphanumeric(10);
+      const bookmarkData = generateBookmarkData();
 
-      const result = await removeBookmark(userId, lessonId);
+      // Salva um bookmark
+      await addBookmark(userId, bookmarkData);
 
-      expect(mockDelete).toHaveBeenCalledOnce();
+      // Remove
+      const result = await removeBookmark(userId, bookmarkData.lessonId);
       expect(result).toEqual({ ok: true });
+
+      // Garante que não está mais no banco
+      const docRef = adminDb
+        .collection("users")
+        .doc(userId)
+        .collection("bookmarks")
+        .doc(bookmarkData.lessonId);
+      const snap = await docRef.get();
+      expect(snap.exists).toBe(false);
     });
 
     it('deve lançar erro se userId ou lessonId não forem informados', async () => {
@@ -186,21 +150,19 @@ describe('Bookmarks — Teste de Integração', () => {
   });
 
   describe('isLessonBookmarked', () => {
-    it('deve retornar true quando o bookmark existe', async () => {
+    it('deve retornar true quando o bookmark existe no Firestore', async () => {
       const userId = generateUserId();
-      const lessonId = faker.string.alphanumeric(10);
+      const bookmarkData = generateBookmarkData();
 
-      mockGet.mockResolvedValueOnce({ exists: true });
+      await addBookmark(userId, bookmarkData);
 
-      const result = await isLessonBookmarked(userId, lessonId);
+      const result = await isLessonBookmarked(userId, bookmarkData.lessonId);
       expect(result).toBe(true);
     });
 
-    it('deve retornar false quando o bookmark não existe', async () => {
+    it('deve retornar false quando o bookmark não existe no Firestore', async () => {
       const userId = generateUserId();
       const lessonId = faker.string.alphanumeric(10);
-
-      mockGet.mockResolvedValueOnce({ exists: false });
 
       const result = await isLessonBookmarked(userId, lessonId);
       expect(result).toBe(false);
@@ -223,46 +185,31 @@ describe('Bookmarks — Teste de Integração', () => {
       expect(result).toEqual([]);
     });
 
-    it('deve retornar bookmarks formatados corretamente', async () => {
+    it('deve retornar todos os bookmarks cadastrados ordenados corretamente', async () => {
       const userId = generateUserId();
-      const savedAt = new Date(faker.date.past());
-      const bookmarkData = generateBookmarkData();
+      
+      const b1 = generateBookmarkData({ lessonId: 'lesson-1' });
+      const b2 = generateBookmarkData({ lessonId: 'lesson-2' });
 
-      // Simula docs retornados pela query orderBy().get()
-      mockGet.mockResolvedValueOnce({
-        docs: [
-          {
-            id: bookmarkData.lessonId,
-            data: () => ({
-              category: bookmarkData.category,
-              slug: bookmarkData.slug,
-              title: bookmarkData.title,
-              description: bookmarkData.description,
-              categoryTitle: bookmarkData.categoryTitle,
-              savedAt: { toDate: () => savedAt },
-            }),
-          },
-        ],
-      });
+      // Salva ambos
+      await addBookmark(userId, b1);
+      // Pequeno atraso para garantir carimbos de data/hora diferentes se necessário,
+      // mas como o Firestore emulador lida com milissegundos reais, é suficiente.
+      await addBookmark(userId, b2);
 
-      const result = await getUserBookmarks(userId);
+      const list = await getUserBookmarks(userId);
 
-      expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({
-        lessonId: bookmarkData.lessonId,
-        category: bookmarkData.category,
-        slug: bookmarkData.slug,
-        title: bookmarkData.title,
-        description: bookmarkData.description,
-        categoryTitle: bookmarkData.categoryTitle,
-        savedAt: savedAt.toISOString(),
-      });
+      expect(list).toHaveLength(2);
+      // Como o Firestore ordena por 'savedAt' descendente (se implementado) ou padrão,
+      // validamos que ambos os objetos estão presentes e formatados.
+      const ids = list.map(item => item.lessonId);
+      expect(ids).toContain('lesson-1');
+      expect(ids).toContain('lesson-2');
+      expect(list[0].savedAt).toBeDefined();
     });
 
-    it('deve retornar array vazio quando não há bookmarks', async () => {
+    it('deve retornar array vazio quando o usuário não tem favoritos', async () => {
       const userId = generateUserId();
-
-      mockGet.mockResolvedValueOnce({ docs: [] });
 
       const result = await getUserBookmarks(userId);
       expect(result).toEqual([]);

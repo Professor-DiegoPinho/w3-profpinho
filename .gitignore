@@ -51,3 +51,7 @@ learning-hub-firebase-chave.json
 playwright-report/
 test-results/
 playwright-video/
+
+# Firebase emulators
+firestore-debug.log
+.firebase/
