@@ -54,4 +54,5 @@ playwright-video/
 
 # Firebase emulators
 firestore-debug.log
+firebase-debug.log
 .firebase/
