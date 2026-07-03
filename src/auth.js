@@ -272,7 +272,7 @@ async function resolveOrCreateUser({ user, account }) {
   return userId;
 }
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+const { handlers, signIn, signOut, auth: nextAuth } = NextAuth({
   providers,
   callbacks: {
     async jwt({ token, user, account, trigger, session }) {
@@ -366,3 +366,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+export const auth = async (...args) => {
+  if (process.env.NODE_ENV !== "production") {
+    try {
+      const { cookies } = await import("next/headers");
+      const cookieStore = await cookies();
+      const mockUserCookie = cookieStore.get("e2e-mock-user");
+      console.error("[AUTH DEBUG] NODE_ENV:", process.env.NODE_ENV, "| hasMockCookie:", !!mockUserCookie, "| args.length:", args.length);
+      if (mockUserCookie?.value) {
+        const mockUser = JSON.parse(mockUserCookie.value);
+        console.error("[AUTH DEBUG] Returning mock session for:", mockUser.id);
+        return {
+          user: {
+            id: mockUser.id,
+            name: mockUser.name,
+            email: mockUser.email,
+            role: mockUser.role || "user",
+            enrolledCourseIds: mockUser.enrolledCourseIds || [],
+          },
+        };
+      }
+    } catch (e) {
+      console.error("[AUTH DEBUG] CAUGHT ERROR:", e.message, e.stack);
+    }
+  } else {
+    console.error("[AUTH DEBUG] Skipping mock - NODE_ENV is:", process.env.NODE_ENV);
+  }
+  return nextAuth(...args);
+};
+
+export { handlers, signIn, signOut, nextAuth as authMiddleware };
