@@ -54,7 +54,7 @@ test.describe('Tela Meu Perfil', () => {
     await page.goto('/meu-perfil');
     await page.waitForLoadState('networkidle');
 
-    await expect(page.locator('h1')).toHaveText('Meu perfil');
+    await expect(page.locator('h1').first()).toHaveText('Meu perfil');
     await expect(page.getByText(name)).toBeVisible();
     await expect(page.getByText(email)).toBeVisible();
     await expect(page.getByText('0 cursos inscritos')).toBeVisible();
