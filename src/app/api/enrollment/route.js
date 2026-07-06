@@ -5,6 +5,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
   try {
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: "Body inválido" }, { status: 400 });
+    }
+
     const session = await auth();
     const userId = session?.user?.id;
 
@@ -12,7 +19,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { courseId } = await request.json();
+    const { courseId } = body;
 
     if (!courseId || typeof courseId !== "string") {
       return NextResponse.json({ error: "courseId inválido" }, { status: 400 });
