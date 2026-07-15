@@ -3,17 +3,14 @@ import { formatDate, formatDateOnly } from '@/lib/dateFormatter.js';
 
 describe('formatDate', () => {
   it('deve formatar uma data ISO com dia, mês, ano, hora e minuto', () => {
-    // 15 de março de 2024, 14:30 UTC
     const timestamp = '2024-03-15T14:30:00Z';
     const result = formatDate(timestamp);
 
-    // Verifica que contém os componentes esperados (formato pt-BR)
     expect(result).toMatch(/15\/03\/2024/);
     expect(result).toMatch(/\d{2}:\d{2}/);
   });
 
   it('deve formatar um timestamp numérico (Unix em ms)', () => {
-    // 1 de janeiro de 2023, 12:00 UTC
     const timestamp = new Date('2023-01-01T12:00:00Z').getTime();
     const result = formatDate(timestamp);
 
@@ -51,12 +48,10 @@ describe('formatDateOnly', () => {
     const result = formatDateOnly(timestamp);
 
     expect(result).toMatch(/20\/07\/2024/);
-    // Não deve conter hora
     expect(result).not.toMatch(/\d{2}:\d{2}/);
   });
 
   it('deve formatar um timestamp numérico', () => {
-    // Usa horário ao meio-dia UTC para evitar mudança de dia por fuso horário
     const timestamp = new Date('2023-12-25T12:00:00Z').getTime();
     const result = formatDateOnly(timestamp);
 

@@ -98,7 +98,7 @@ describe('processAllLiquidTags (toggles)', () => {
     const input = '{% toggle "Título com <script>alert(1)</script>" %}corpo{% endtoggle %}';
     const result = processAllLiquidTags(input);
 
-    // O título deve ser escapado
+
     expect(result).not.toContain('<script>');
     expect(result).toContain('&lt;script&gt;');
   });
@@ -144,7 +144,7 @@ describe('processAllLiquidTags (links)', () => {
     const result = processAllLiquidTags(input);
 
     expect(result).toContain('texto sem links');
-    // Não deve ter a estrutura de cards
+
     expect(result).not.toContain('content-links-block');
   });
 
@@ -178,12 +178,12 @@ describe('processAllLiquidTags (combinado)', () => {
 
     const result = processAllLiquidTags(input);
 
-    // Embed
+
     expect(result).toContain('youtube-embed-container');
-    // Toggle
+
     expect(result).toContain('<details');
     expect(result).toContain('Ver resposta');
-    // Links
+
     expect(result).toContain('content-links-block');
     expect(result).toContain('Referências');
   });
