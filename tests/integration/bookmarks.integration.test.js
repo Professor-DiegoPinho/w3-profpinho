@@ -1,15 +1,7 @@
-/**
- * Teste de integração: módulo bookmarks.js
- *
- * Testa o fluxo completo de adicionar, listar, verificar e remover bookmarks,
- * utilizando o Firebase Emulator Suite real e dados gerados via Faker.
- */
 import { faker } from '@faker-js/faker';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { adminDb } from '@/lib/firebaseAdmin.js';
 import { clearDatabase } from '../helpers/firebaseEmulator.js';
-
-// ---- Import do módulo sob teste ----
 import {
   addBookmark,
   getUserBookmarks,
@@ -17,7 +9,7 @@ import {
   removeBookmark,
 } from '@/lib/bookmarks.js';
 
-// ---- Helpers para gerar dados aleatórios com Faker ----
+
 function generateBookmarkData(overrides = {}) {
   return {
     lessonId: faker.string.alphanumeric(10),
@@ -34,7 +26,7 @@ function generateUserId() {
   return `usr_${faker.string.uuid()}`;
 }
 
-// ---- Testes ----
+
 describe('Bookmarks — Teste de Integração (Real)', () => {
   beforeEach(async () => {
     await clearDatabase();
@@ -47,11 +39,11 @@ describe('Bookmarks — Teste de Integração (Real)', () => {
 
       const result = await addBookmark(userId, bookmarkData);
 
-      // Verifica retorno da função
+
       expect(result.alreadyExisted).toBe(false);
       expect(result.lessonId).toBe(bookmarkData.lessonId);
 
-      // Consulta banco real para verificar persistência
+
       const docRef = adminDb
         .collection("users")
         .doc(userId)
@@ -71,11 +63,11 @@ describe('Bookmarks — Teste de Integração (Real)', () => {
       const userId = generateUserId();
       const bookmarkData = generateBookmarkData();
 
-      // Adiciona a primeira vez
+
       const firstResult = await addBookmark(userId, bookmarkData);
       expect(firstResult.alreadyExisted).toBe(false);
 
-      // Busca o savedAt gravado no banco real pelo Firestore
+
       const docRef = adminDb
         .collection("users")
         .doc(userId)
@@ -84,7 +76,7 @@ describe('Bookmarks — Teste de Integração (Real)', () => {
       const snap = await docRef.get();
       const realSavedAt = snap.data().savedAt.toDate().toISOString();
 
-      // Tenta adicionar novamente os mesmos dados
+
       const secondResult = await addBookmark(userId, bookmarkData);
 
       expect(secondResult.alreadyExisted).toBe(true);
@@ -122,14 +114,14 @@ describe('Bookmarks — Teste de Integração (Real)', () => {
       const userId = generateUserId();
       const bookmarkData = generateBookmarkData();
 
-      // Salva um bookmark
+
       await addBookmark(userId, bookmarkData);
 
-      // Remove
+
       const result = await removeBookmark(userId, bookmarkData.lessonId);
       expect(result).toEqual({ ok: true });
 
-      // Garante que não está mais no banco
+
       const docRef = adminDb
         .collection("users")
         .doc(userId)
@@ -191,17 +183,14 @@ describe('Bookmarks — Teste de Integração (Real)', () => {
       const b1 = generateBookmarkData({ lessonId: 'lesson-1' });
       const b2 = generateBookmarkData({ lessonId: 'lesson-2' });
 
-      // Salva ambos
+
       await addBookmark(userId, b1);
-      // Pequeno atraso para garantir carimbos de data/hora diferentes se necessário,
-      // mas como o Firestore emulador lida com milissegundos reais, é suficiente.
+
       await addBookmark(userId, b2);
 
       const list = await getUserBookmarks(userId);
 
       expect(list).toHaveLength(2);
-      // Como o Firestore ordena por 'savedAt' descendente (se implementado) ou padrão,
-      // validamos que ambos os objetos estão presentes e formatados.
       const ids = list.map(item => item.lessonId);
       expect(ids).toContain('lesson-1');
       expect(ids).toContain('lesson-2');

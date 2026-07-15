@@ -1,16 +1,7 @@
-/**
- * Teste de integração: módulo progress.js
- *
- * Valida leitura de progresso, toggle de conclusão de aulas (com recálculo
- * de porcentagem e datas) e verificação pontual de aula concluída,
- * com Firebase Emulator Suite real e dados gerados via Factories.
- */
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { adminDb } from '@/lib/firebaseAdmin';
 import { clearDatabase } from '../helpers/firebaseEmulator';
 import { UserFactory, ProgressFactory } from '../helpers/factories';
-
-// ---- Mocks de dependências estáticas do sistema de arquivos ----
 const { mockGetCourseLessonsCount } = vi.hoisted(() => ({
   mockGetCourseLessonsCount: vi.fn().mockReturnValue(10),
 }));
@@ -19,7 +10,7 @@ vi.mock('@/lib/markdown', () => ({
   getCourseLessonsCount: (...args) => mockGetCourseLessonsCount(...args),
 }));
 
-// ---- Import do módulo sob teste (após o mock) ----
+
 import {
   getLessonProgress,
   toggleLessonComplete,
@@ -32,9 +23,7 @@ describe('Progress — Teste de Integração (Real)', () => {
     mockGetCourseLessonsCount.mockReset().mockReturnValue(10);
   });
 
-  // =========================================================================
-  // getLessonProgress
-  // =========================================================================
+
   describe('getLessonProgress', () => {
     it('deve retornar objeto zerado quando o documento de progresso ainda não existe no Firestore', async () => {
       const progress = await getLessonProgress(UserFactory.buildId(), 'html-css');
@@ -56,7 +45,7 @@ describe('Progress — Teste de Integração (Real)', () => {
         completionPercentage: 20,
       });
 
-      // Grava no Firestore Emulator
+
       await adminDb
         .collection("users")
         .doc(userId)
@@ -79,9 +68,7 @@ describe('Progress — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // toggleLessonComplete
-  // =========================================================================
+
   describe('toggleLessonComplete', () => {
     it('deve adicionar a aula ao array de concluídas e recalcular a porcentagem (1/5 = 20%)', async () => {
       const userId = UserFactory.buildId();
@@ -90,13 +77,13 @@ describe('Progress — Teste de Integração (Real)', () => {
 
       const result = await toggleLessonComplete(userId, courseSlug, '01-intro', 5);
 
-      expect(result.completedLessons).toEqual(['intro']); // prefixo numérico removido
+      expect(result.completedLessons).toEqual(['intro']);
       expect(result.totalLessons).toBe(5);
       expect(result.completionPercentage).toBe(20);
       expect(result.isCompleted).toBe(true);
       expect(result.isCourseCompleted).toBe(false);
 
-      // Consulta o banco para atestar persistência
+
       const docSnap = await adminDb
         .collection("users")
         .doc(userId)
@@ -134,7 +121,7 @@ describe('Progress — Teste de Integração (Real)', () => {
       expect(result.isCompleted).toBe(false);
       expect(result.isCourseCompleted).toBe(false);
 
-      // Garante remoção no Firestore Emulator
+
       const docSnap = await adminDb
         .collection("users")
         .doc(userId)
@@ -212,9 +199,7 @@ describe('Progress — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // isLessonCompleted
-  // =========================================================================
+
   describe('isLessonCompleted', () => {
     it('deve retornar true para aula concluída no array', () => {
       const progress = ProgressFactory.buildStored({

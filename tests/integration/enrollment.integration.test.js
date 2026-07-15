@@ -1,17 +1,8 @@
-/**
- * Teste de integração: módulo enrollment.js
- *
- * Valida verificação de matrícula, listagem de cursos inscritos,
- * data de matrícula e contagem de alunos, com Firebase Emulator Suite real
- * e dados gerados via Factories.
- */
 import { beforeEach, describe, expect, it } from 'vitest';
 import { adminDb } from '@/lib/firebaseAdmin';
 import { clearDatabase } from '../helpers/firebaseEmulator';
 import { UserFactory } from '../helpers/factories';
 import { Timestamp } from 'firebase-admin/firestore';
-
-// ---- Import do módulo sob teste ----
 import {
   hasCourseEnrollment,
   getEnrolledCourseIds,
@@ -25,16 +16,14 @@ describe('Enrollment — Teste de Integração (Real)', () => {
     await clearDatabase();
   });
 
-  // =========================================================================
-  // hasCourseEnrollment
-  // =========================================================================
+
   describe('hasCourseEnrollment', () => {
     it('deve retornar true se a matrícula existir no Firestore', async () => {
       const userId = UserFactory.buildId();
       const courseId = 'html-basico';
       const enrollmentId = `${userId}_${courseId}`;
 
-      // Grava no banco real
+
       await adminDb.collection("enrollments").doc(enrollmentId).set({
         userId,
         courseId,
@@ -58,14 +47,12 @@ describe('Enrollment — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // getEnrolledCourseIds
-  // =========================================================================
+
   describe('getEnrolledCourseIds', () => {
     it('deve retornar lista de IDs de cursos matriculados do usuário', async () => {
       const userId = UserFactory.buildId();
 
-      // Grava 2 matrículas para este usuário e 1 para outro usuário
+
       await adminDb.collection("enrollments").doc(`${userId}_course1`).set({
         userId,
         courseId: 'course1',
@@ -95,9 +82,7 @@ describe('Enrollment — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // getCourseEnrollmentDate
-  // =========================================================================
+
   describe('getCourseEnrollmentDate', () => {
     it('deve converter data do tipo Timestamp do Firestore corretamente', async () => {
       const userId = UserFactory.buildId();
@@ -151,14 +136,12 @@ describe('Enrollment — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // getCourseEnrollmentCount
-  // =========================================================================
+
   describe('getCourseEnrollmentCount', () => {
     it('deve retornar a contagem correta de matrículas do curso', async () => {
       const courseId = 'course_js';
 
-      // Grava 3 matrículas para o mesmo curso
+
       await adminDb.collection("enrollments").doc(`u1_${courseId}`).set({
         userId: 'u1',
         courseId,
@@ -182,9 +165,7 @@ describe('Enrollment — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // mapSidebarWithAccess
-  // =========================================================================
+
   describe('mapSidebarWithAccess', () => {
     it('deve mapear os dados da barra lateral atualizando o acesso às aulas', () => {
       const sidebarData = [

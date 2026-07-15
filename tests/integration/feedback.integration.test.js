@@ -1,17 +1,8 @@
-/**
- * Teste de integração: módulo feedback.js
- *
- * Valida aprovação de projeto, elegibilidade de feedback, submissão com
- * persistência e recálculo de estatísticas, e validação de dados de entrada,
- * com Firebase Emulator Suite real e dados gerados via Factories.
- */
 import { beforeEach, describe, expect, it } from 'vitest';
 import { adminDb } from '@/lib/firebaseAdmin';
 import { clearDatabase } from '../helpers/firebaseEmulator';
 import { UserFactory, FeedbackFactory, ProgressFactory } from '../helpers/factories';
 import { FEEDBACK_QUESTIONS } from '@/lib/feedbackConfig';
-
-// ---- Import do módulo sob teste ----
 import {
   isProjectApproved,
   isEligibleForFeedback,
@@ -26,15 +17,13 @@ describe('Feedback — Teste de Integração (Real)', () => {
     await clearDatabase();
   });
 
-  // =========================================================================
-  // isProjectApproved
-  // =========================================================================
+
   describe('isProjectApproved', () => {
     it('deve retornar true quando o Firestore possui uma tentativa "approved"', async () => {
       const userId = UserFactory.buildId();
       const courseSlug = 'html-css';
 
-      // Grava no Firestore Emulator
+
       await adminDb
         .collection("users")
         .doc(userId)
@@ -76,15 +65,13 @@ describe('Feedback — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // isEligibleForFeedback
-  // =========================================================================
+
   describe('isEligibleForFeedback', () => {
     it('deve retornar true para aluno 100% completo, projeto aprovado e sem feedback respondido', async () => {
       const userId = UserFactory.buildId();
       const courseSlug = 'html-css';
 
-      // 1. Grava aprovação do projeto no Firestore
+
       await adminDb
         .collection("users")
         .doc(userId)
@@ -139,9 +126,7 @@ describe('Feedback — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // getUserFeedback
-  // =========================================================================
+
   describe('getUserFeedback', () => {
     it('deve retornar o feedback quando ele existe no Firestore', async () => {
       const userId = UserFactory.buildId();
@@ -164,9 +149,6 @@ describe('Feedback — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // submitFeedback
-  // =========================================================================
   describe('submitFeedback', () => {
     it('deve salvar o feedback, atualizar progresso e recalcular estatísticas de NPS com sucesso', async () => {
       const userId = UserFactory.buildId();
@@ -178,7 +160,7 @@ describe('Feedback — Teste de Integração (Real)', () => {
         comment: 'Curso excelente!',
       };
 
-      // 1. Simula outros dois feedbacks já salvos no banco para calcular a média acumulada
+
       await adminDb.collection("courseFeedback").doc(`user1_${courseSlug}`).set({
         userId: 'user1',
         courseSlug,
@@ -192,7 +174,7 @@ describe('Feedback — Teste de Integração (Real)', () => {
         answers,
       });
 
-      // 2. Cria o documento de progresso inicial do aluno sob teste
+
       const progressRef = adminDb
         .collection("users")
         .doc(userId)
@@ -208,17 +190,17 @@ describe('Feedback — Teste de Integração (Real)', () => {
       expect(response.success).toBe(true);
       expect(response.feedbackId).toBe(`${userId}_${courseSlug}`);
 
-      // Verifica se o feedback foi salvo
+
       const feedbackSnap = await adminDb.collection("courseFeedback").doc(response.feedbackId).get();
       expect(feedbackSnap.exists).toBe(true);
       expect(feedbackSnap.data().comment).toBe('Curso excelente!');
 
-      // Verifica se o progresso do usuário foi atualizado com feedbackResponded: true
+
       const progressSnap = await progressRef.get();
       expect(progressSnap.data().feedbackResponded).toBe(true);
       expect(progressSnap.data().feedbackRespondedAt).toBeDefined();
 
-      // Verifica se as estatísticas foram recalculadas (Média de 9, 10 e o novo 9 = 9.3)
+
       const statsSnap = await adminDb.collection("courseFeedbackStats").doc(courseSlug).get();
       expect(statsSnap.exists).toBe(true);
       expect(statsSnap.data().totalResponses).toBe(3);
@@ -236,9 +218,7 @@ describe('Feedback — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // getFeedbackStats
-  // =========================================================================
+
   describe('getFeedbackStats', () => {
     it('deve retornar dados salvos se existirem estatísticas agregadas', async () => {
       const courseSlug = 'course1';
@@ -264,9 +244,7 @@ describe('Feedback — Teste de Integração (Real)', () => {
     });
   });
 
-  // =========================================================================
-  // validateFeedbackData
-  // =========================================================================
+
   describe('validateFeedbackData', () => {
     it('deve retornar isValid: true para dados perfeitamente corretos', () => {
       const answers = {};

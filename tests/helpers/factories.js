@@ -1,19 +1,6 @@
-/**
- * Factories para testes de integração.
- *
- * Cada factory gera dados aleatórios (via Faker) para um cenário específico,
- * garantindo independência entre os testes. Opcionalmente aceita overrides
- * parciais para fixar campos relevantes em cada asserção.
- *
- * Uso:
- *   const cert = CertificateFactory.build({ studentName: 'João' });
- *   const user = UserFactory.buildId();
- */
 import { faker } from '@faker-js/faker';
 import { FEEDBACK_QUESTIONS } from '@/lib/feedbackConfig';
 import { Timestamp } from 'firebase-admin/firestore';
-
-// ---- Helpers internos ----
 
 function buildUserId() {
   return `usr_${faker.string.uuid()}`;
@@ -27,7 +14,7 @@ function buildLessonSlug() {
   return faker.helpers.slugify(faker.word.words(3));
 }
 
-// ---- Factories ----
+
 
 export const UserFactory = {
   /** Gera um userId aleatório no formato `usr_<uuid>` */
@@ -120,6 +107,28 @@ export const FeedbackFactory = {
     totalResponses: faker.number.int({ min: 1, max: 200 }),
     avgNps: parseFloat(faker.number.float({ min: 0, max: 10, fractionDigits: 1 }).toFixed(1)),
     distributionNps: {},
+    ...overrides,
+  }),
+};
+
+export const SubmissionFactory = {
+  /** Gera dados de entrada para submitProjectUrl */
+  buildSubmitPayload: (overrides = {}) => ({
+    userId: buildUserId(),
+    courseSlug: buildCourseSlug(),
+    submissionUrl: faker.internet.url(),
+    platform: faker.helpers.arrayElement(['GitHub', 'CodeSandbox', 'CodePen', 'Google Drive', 'Outro']),
+    feedback: faker.lorem.sentence(),
+    ...overrides,
+  }),
+
+  /** Gera dados de uma tentativa de submissão como armazenada no Firestore */
+  buildAttempt: (overrides = {}) => ({
+    id: `${Date.now()}_${faker.string.alphanumeric(9)}`,
+    url: faker.internet.url(),
+    platform: faker.helpers.arrayElement(['GitHub', 'CodeSandbox', 'CodePen', 'Outro']),
+    submittedAt: faker.date.past().toISOString(),
+    status: faker.helpers.arrayElement(['pending', 'reviewed', 'approved', 'rejected']),
     ...overrides,
   }),
 };
