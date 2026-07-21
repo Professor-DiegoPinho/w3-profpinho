@@ -8,7 +8,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "remove:lesson": "bash ./scripts/remove_lesson.sh"
+    "remove:lesson": "bash ./scripts/remove_lesson.sh",
+    "add:ids": "node ./scripts/generate-lesson-ids.js"
   },
   "dependencies": {
     "@react-email/components": "^1.0.12",
