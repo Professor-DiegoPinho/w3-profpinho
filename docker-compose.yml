@@ -16,6 +16,15 @@ services:
       timeout: 10s
       retries: 3
 
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    profiles:
+      - test
+    environment:
+      - NODE_ENV=test
+
 # Rede personalizada (opcional)
 networks:
   students-network:

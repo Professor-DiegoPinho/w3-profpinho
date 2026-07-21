@@ -1,0 +1,16 @@
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Copia apenas os arquivos de dependência primeiro (cache de camada)
+COPY package.json package-lock.json* ./
+
+# Instala todas as dependências (incluindo devDependencies para testes)
+RUN npm ci
+
+# Copia o código fonte e arquivos de teste
+COPY vitest.config.mjs jsconfig.json ./
+COPY src/ ./src/
+
+# Executa os testes
+CMD ["npm", "test"]

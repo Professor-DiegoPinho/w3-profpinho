@@ -19,17 +19,17 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const session = await auth();
-
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
-  }
-
+  // Lê o body antes de chamar o auth() para evitar que o stream seja consumido
   let body;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Body inválido." }, { status: 400 });
+  }
+
+  const session = await auth();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   }
 
   const { lessonId, category, slug, title, description, categoryTitle } = body;

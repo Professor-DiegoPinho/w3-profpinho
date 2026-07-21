@@ -35,7 +35,7 @@ export async function getCoursePageData(category, session) {
     course?.title || category.charAt(0).toUpperCase() + category.slice(1);
   const courseDescription =
     course?.description ||
-    firstPost.description ||
+    firstPost?.description ||
     `Aprenda ${category} com aulas progressivas do básico ao avançado.`;
 
   // Badges e tags

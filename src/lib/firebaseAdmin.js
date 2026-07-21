@@ -17,13 +17,23 @@ function getServiceAccount() {
 
   return {
     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    project_id: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   };
+}
+
+const serviceAccount = getServiceAccount();
+const appOptions = {};
+
+if (serviceAccount.private_key && serviceAccount.client_email) {
+  appOptions.credential = cert(serviceAccount);
+} else {
+  appOptions.projectId = serviceAccount.projectId || serviceAccount.project_id;
 }
 
 const app =
   getApps().length > 0
     ? getApps()[0]
-    : initializeApp({ credential: cert(getServiceAccount()) });
+    : initializeApp(appOptions);
 
 export const adminDb = getFirestore(app);
 export const adminStorage = getStorage(app);

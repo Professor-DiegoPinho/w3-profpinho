@@ -23,12 +23,19 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+  // Lê o body antes de chamar o auth() para evitar que o stream seja consumido
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Body inválido." }, { status: 400 });
+  }
+
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   }
 
-  const body = await request.json();
   const { courseSlug, lessonSlug, totalLessons } = body;
 
   if (!courseSlug || !lessonSlug) {

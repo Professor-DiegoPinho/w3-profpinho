@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { authMiddleware } from "@/auth";
 import { NextResponse } from "next/server";
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
@@ -7,7 +7,7 @@ const COOKIE_NAME = "utm_data";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 dias em segundos
 const SITE_ORIGIN = "https://hub.diegopinho.com.br";
 
-export default auth(function proxy(request) {
+export const proxy = authMiddleware(function proxyHandler(request) {
   // Proteger rotas /admin e /api/admin
   if (request.nextUrl.pathname.startsWith("/admin") || request.nextUrl.pathname.startsWith("/api/admin")) {
     if (request.auth?.user?.role !== "admin") {

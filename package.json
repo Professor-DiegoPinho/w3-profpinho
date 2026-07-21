@@ -9,7 +9,15 @@
     "start": "next start",
     "lint": "eslint",
     "remove:lesson": "bash ./scripts/remove_lesson.sh",
-    "add:ids": "node ./scripts/generate-lesson-ids.js"
+    "add:ids": "node ./scripts/generate-lesson-ids.js",
+    "test": "firebase emulators:exec --project=demo-test-project \"vitest run\"",
+    "test:watch": "firebase emulators:exec --project=demo-test-project \"vitest\"",
+    "test:coverage": "firebase emulators:exec --project=demo-test-project \"vitest run --coverage\"",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "firebase emulators:exec --project=demo-test-project \"vitest run tests/integration\"",
+    "test:components": "vitest run tests/components",
+    "test:e2e": "firebase emulators:exec --project=demo-test-project \"npx playwright test\"",
+    "test:e2e:ui": "firebase emulators:exec --project=demo-test-project \"npx playwright test --ui\""
   },
   "dependencies": {
     "@react-email/components": "^1.0.12",
@@ -32,7 +40,15 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@faker-js/faker": "^10.5.0",
+    "@playwright/test": "^1.61.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "eslint": "^9",
-    "eslint-config-next": "15.5.3"
+    "eslint-config-next": "15.5.3",
+    "firebase-tools": "^13.29.0",
+    "jsdom": "^29.1.1",
+    "vitest": "^3.2.3"
   }
 }

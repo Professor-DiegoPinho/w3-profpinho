@@ -66,12 +66,18 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Body inválido." }, { status: 400 });
+  }
+
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   }
 
-  const body = await request.json();
   const { courseSlug, submissionUrl, platform, feedback } = body;
 
   console.log("📝 Recebi submissão:", {
@@ -205,12 +211,18 @@ export async function POST(request) {
 }
 
 export async function DELETE(request) {
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Body inválido." }, { status: 400 });
+  }
+
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   }
 
-  const body = await request.json();
   const { courseSlug, submissionId } = body;
 
   if (!courseSlug || !submissionId) {
