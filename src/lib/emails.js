@@ -3,7 +3,14 @@ import ProjectSubmissionEmail from '@/components/emails/ProjectSubmissionEmail';
 import { render } from '@react-email/components';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resendClient;
+
+function getResendClient() {
+  if (!resendClient) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resendClient;
+}
 
 // Email configuration
 const EMAIL_CONFIG = {
@@ -43,6 +50,7 @@ export async function sendProjectSubmissionEmail({
       }
     );
 
+    const resend = getResendClient();
     const response = await resend.emails.send({
       from: `${EMAIL_CONFIG.FROM_NAME} <${EMAIL_CONFIG.FROM_EMAIL}>`,
       to: recipientEmail,
@@ -105,6 +113,7 @@ export async function sendEvaluationCompletedEmail({
       }
     );
 
+    const resend = getResendClient();
     const response = await resend.emails.send({
       from: `${EMAIL_CONFIG.FROM_NAME} <${EMAIL_CONFIG.FROM_EMAIL}>`,
       to: recipientEmail,

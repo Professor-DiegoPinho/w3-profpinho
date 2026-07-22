@@ -1,0 +1,12 @@
+#!/bin/sh
+echo "🔍 Executando verificações locais pré-push..."
+
+# Executa o Linter
+echo "⚡ Executando linter..."
+npm run lint || { echo "❌ Falha no Linter! Corrija os problemas antes de subir a branch."; exit 1; }
+
+# Executa os testes de unidade
+echo "⚡ Executando testes de unidade..."
+npm run test:unit || { echo "❌ Falha nos testes de unidade! Corrija os problemas antes de subir a branch."; exit 1; }
+
+echo "✅ Verificações locais aprovadas com sucesso! Continuando com o push..."
